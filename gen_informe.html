@@ -129,7 +129,7 @@
         </section>
 
         <div class="actions">
-          <button class="download-btn">
+          <button class="download-btn" id="downloadBtn">
             <img
               src="assets/images/vector-38.svg"
               alt="download"
@@ -140,5 +140,13 @@
         </div>
       </main>
     </div>
+
+    <script>
+      document
+        .getElementById("downloadBtn")
+        .addEventListener("click", function () {
+          alert("Informe descargado correctamente");
+        });
+    </script>
   </body>
 </html>
