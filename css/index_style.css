@@ -1,3 +1,15 @@
+/*name: index_style.css */
+/* Root variables (shared subset) */
+:root {
+  --font-inter: Inter, sans-serif;
+  --font-rethink: 'Rethink Sans', sans-serif;
+  --color-purple: #693efe;
+  --color-grey-dark: #45444c;
+  --color-grey-light: #8b8a92;
+  --color-white: #fff;
+  --transition: 0.25s ease;
+}
+
 /* Reset and base styles */
 * {
     box-sizing: border-box;
@@ -6,44 +18,71 @@
 }
 
 body {
-    font-family: Inter, sans-serif;
+    font-family: var(--font-inter);
     font-size: 14px;
     line-height: 1.5;
-    color: #45444c;
-    background-color: #fff;
+    color: var(--color-grey-dark);
+    background-color: var(--color-white);
 }
 
-/* Header */
+/* Shared Header / Nav (consistent) */
 .header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 60px;
-    z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 60px;
+  background-color: var(--color-white);
+  border-bottom: 2px solid var(--color-purple);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  gap: 20px;
 }
 
 .logo {
-    font-family: Rethink Sans, sans-serif;
-    font-size: 64px;
-    font-weight: bold;
-    color: #693efe;
+  font-family: var(--font-rethink);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--color-purple);
+  cursor: pointer;
 }
 
 .nav {
-    display: flex;
-    gap: 40px;
+  display: flex;
+  gap: 32px;
+  flex-grow: 1;
+  margin-left: 40px;
+  align-items: center;
 }
 
 .nav-link {
-    font-size: 20px;
-    font-weight: 500;
-    color: #8b8a92;
-    text-decoration: none;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-grey-light);
+  text-decoration: none;
+  transition: color var(--transition);
+  cursor: pointer;
+}
+
+.nav-link.active {
+  color: var(--color-grey-dark);
+  font-weight: 700;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: filter var(--transition);
+}
+
+.profile-button:hover {
+  filter: brightness(0.8);
+}
+
+.profile-button img {
+  width: 24px;
+  height: 24px;
 }
 
 .auth-buttons {
@@ -62,20 +101,20 @@ body {
 }
 
 .btn-secondary {
-    background-color: #693efe;
-    color: #fff;
+    background-color: var(--color-purple);
+    color: var(--color-white);
 }
 
 .btn-primary {
-    background-color: #693efe;
-    color: #fff;
+    background-color: var(--color-purple);
+    color: var(--color-white);
 }
 
 .btn-primary-large {
     padding: 15px 40px;
     font-size: 32px;
-    background-color: #693efe;
-    color: #fff;
+    background-color: var(--color-purple);
+    color: var(--color-white);
     margin-top: 50px;
 }
 
@@ -100,14 +139,14 @@ body {
 .hero-title {
     font-size: 64px;
     font-weight: bold;
-    color: #45444c;
+    color: var(--color-grey-dark);
     margin-bottom: 20px;
 }
 
 .hero-subtitle {
     font-size: 24px;
     font-weight: bold;
-    color: #45444c;
+    color: var(--color-grey-dark);
     margin-bottom: 50px;
 }
 
@@ -118,13 +157,13 @@ body {
 .stat-number {
     font-size: 64px;
     font-weight: bold;
-    color: #45444c;
+    color: var(--color-grey-dark);
 }
 
 .stat-text {
     font-size: 48px;
     font-weight: bold;
-    color: #45444c;
+    color: var(--color-grey-dark);
 }
 
 .hero-image {
@@ -150,9 +189,10 @@ body {
 .section-title {
     font-size: 48px;
     font-weight: bold;
-    color: #45444c;
+    color: var(--color-grey-dark);
     margin-bottom: 50px;
 }
+
 
 .services-grid {
     display: grid;
