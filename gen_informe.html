@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exported Figma Design</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/gen_informe_style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="logo">vocatio</div>
+        <nav class="nav">
+          <a href="explore1.html" class="nav-link">Explorar carreras</a>
+          <a href="#" class="nav-link">Eventos</a>
+          <a href="#" class="nav-link">Test vocacional</a>
+          <a href="resultados.html" class="nav-link active">Resultados</a>
+          <a href="#" class="nav-link">Ruta de aprendizaje</a>
+          <a href="#" class="nav-link">Progreso</a>
+        </nav>
+        <button class="profile-button" aria-label="Perfil de usuario">
+          <img src="assets/images/union-12.svg" alt="Perfil" />
+        </button>
+      </header>
+
+      <main class="main">
+        <section class="report-section">
+          <h2 class="section-title">Generar Informe Vocacional</h2>
+          <div class="test-info">
+            <span>Test ID #12345 | Fecha: 27/09/2025 19:58:34</span>
+          </div>
+        </section>
+
+        <section class="results-section">
+          <h3 class="subsection-title">Resultados del test vocacional</h3>
+          <div class="options-group">
+            <div class="option">
+              <input
+                type="radio"
+                id="grafico"
+                name="results"
+                class="radio-input"
+              />
+              <label for="grafico" class="option-label"
+                >Gráfico de interéses predominantes</label
+              >
+            </div>
+            <div class="option">
+              <input
+                type="radio"
+                id="top10"
+                name="results"
+                class="radio-input"
+              />
+              <label for="top10" class="option-label"
+                >Top 10 carreras recomendadas</label
+              >
+            </div>
+            <div class="option">
+              <input
+                type="radio"
+                id="fortalezas"
+                name="results"
+                class="radio-input"
+              />
+              <label for="fortalezas" class="option-label"
+                >Fortalezas y áreas de mejora</label
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="format-section">
+          <h3 class="subsection-title">Opciones de formato</h3>
+          <p class="description">
+            Selecciona la información que te gustaría incluir en tu reporte
+            personalizado
+          </p>
+          <div class="options-group">
+            <div class="option">
+              <input
+                type="radio"
+                id="completo"
+                name="format"
+                class="radio-input"
+              />
+              <label for="completo" class="option-label"
+                >Informe completo (15-20 páginas)</label
+              >
+            </div>
+            <div class="option">
+              <input
+                type="radio"
+                id="resumen"
+                name="format"
+                class="radio-input"
+              />
+              <label for="resumen" class="option-label"
+                >Resumen ejecutivo (3-5 páginas)</label
+              >
+            </div>
+            <div class="option">
+              <input
+                type="radio"
+                id="graficos"
+                name="format"
+                class="radio-input"
+              />
+              <label for="graficos" class="option-label"
+                >Solo gráficos y tablas (3-5 páginas)</label
+              >
+            </div>
+            <div class="option">
+              <input
+                type="radio"
+                id="pasos"
+                name="format"
+                class="radio-input"
+              />
+              <label for="pasos" class="option-label"
+                >Próximos pasos recomendados</label
+              >
+            </div>
+          </div>
+        </section>
+
+        <div class="actions">
+          <button class="download-btn" id="downloadBtn">
+            <img
+              src="assets/images/vector-38.svg"
+              alt="download"
+              class="btn-icon"
+            />
+            Descargar reporte PDF
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document
+        .getElementById("downloadBtn")
+        .addEventListener("click", function () {
+          alert("Informe descargado correctamente");
+        });
+    </script>
+  </body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Vocatio - Mis Resultados</title>
     <link
       href="https://fonts.googleapis.com/css?family=Inter&display=swap"
@@ -30,88 +30,100 @@
       <section class="page-title">
         <h1>Mis resultados</h1>
         <p>Historial de tests vocacionales y resultados</p>
-        <button class="help-button" aria-label="Ayuda">
-          <img src="assets/images/icon-15.svg" alt="Ayuda" />
+      </section>
+
+      <section class="latest-result">
+        <div class="result-header">
+          <span class="badge">Más reciente</span>
+          <div class="actions">
+            <a href="gen_informe.html" class="btn btn-primary">
+              Descargar mi reporte
+              <img src="assets/images/icon-44.svg" alt="Descargar" />
+            </a>
+            <button class="btn btn-primary">
+              Compartir
+              <img src="assets/images/icon-46.svg" alt="Compartir" />
+            </button>
+          </div>
+          <span class="file-size">2.5MB</span>
+        </div>
+        <h2>Test Vocacional - 10 de enero, 2025</h2>
+        <p>Tu perfil vocacional más actualizado</p>
+
+        <div class="result-content">
+          <div class="vocational-profile">
+            <h3>Perfil Vocacional</h3>
+            <div class="profile-box">Analítico-Sistemático</div>
+          </div>
+
+          <div class="affinity-areas">
+            <h3>Áreas de Mayor Afinidad</h3>
+            <div class="bar">
+              <span>Ingeniería</span>
+              <div class="progress-bar" style="width: 80%"></div>
+              <span>80%</span>
+            </div>
+            <div class="bar">
+              <span>Tecnología</span>
+              <div class="progress-bar" style="width: 60%"></div>
+              <span>60%</span>
+            </div>
+            <div class="bar">
+              <span>Negocios</span>
+              <div class="progress-bar" style="width: 20%"></div>
+              <span>20%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="recommended-careers">
+          <h3>Carreras Recomendadas</h3>
+          <div class="careers-list">
+            <button class="career-btn">Ingeniería de Sistemas</button>
+            <button class="career-btn">Ciencias de la Computación</button>
+            <button class="career-btn">Ingeniería de Datos</button>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary btn-details">Ver detalles</button>
+      </section>
+
+      <section class="past-results">
+        <h2>Historial de Tests</h2>
+        <div class="past-result-card">
+          <h3>Test Vocacional - 1 de enero, 2025</h3>
+          <p><strong>Perfil:</strong> Analítico-Creativo</p>
+          <div class="past-details">
+            <div>
+              <p><strong>Áreas principales:</strong></p>
+              <ul>
+                <li>🔵 Tecnología (85%)</li>
+                <li>🔵 Arte y Diseño (78%)</li>
+                <li>🔵 Ingeniería (72%)</li>
+              </ul>
+            </div>
+            <div>
+              <p><strong>Carreras sugeridas:</strong></p>
+              <div class="suggested-careers">
+                <span class="suggested-career">Diseño UX/UI</span>
+                <span class="suggested-career">Ingeniería de Sistemas</span>
+                <span class="suggested-career">Arquitectura</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="update-prompt-section">
+        <h2>¿Quieres actualizar tus resultados?</h2>
+        <p>
+          Tus intereses pueden cambiar con el tiempo. Realiza el test nuevamente
+          para obtener recomendaciones actualizadas.
+        </p>
+        <button class="btn btn-primary btn-update-test">
+          Realizar nuevo test
         </button>
       </section>
-
-      <section class="test-history">
-        <h2>Historial de Tests</h2>
-        <div class="test-card recent">
-          <div class="badge">Más reciente</div>
-          <h3>Test Vocacional - 10 de enero, 2025</h3>
-          <p>Tu perfil vocacional más actualizado</p>
-          <div class="actions">
-            <button class="btn primary">Descargar mi reporte</button>
-            <button class="btn secondary">Ver detalles</button>
-            <button class="btn secondary">Realizar nuevo test</button>
-            <button class="btn secondary">Compartir</button>
-          </div>
-        </div>
-        <div class="test-card">
-          <h3>Test Vocacional - 1 de enero, 2025</h3>
-          <p>Tu perfil vocacional más actualizado</p>
-          <div class="file-size">2.5MB</div>
-        </div>
-      </section>
-
-      <section class="profile-section">
-        <h2>Tu Perfil Vocacional</h2>
-        <div class="profile-card">
-          <h3>Perfil: Analítico-Creativo</h3>
-          <div class="update-prompt">
-            <h4>¿Quieres actualizar tus resultados?</h4>
-            <p>
-              Tus intereses pueden cambiar con el tiempo. Realiza el test
-              nuevamente para obtener recomendaciones actualizadas.
-            </p>
-          </div>
-          <div class="areas">
-            <h4>Áreas principales:</h4>
-            <ul>
-              <li>🔵 Tecnología (85%)</li>
-              <li>🔵 Arte y Diseño (78%)</li>
-              <li>🔵 Ingeniería (72%)</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="affinity-areas">
-        <h3>Áreas de Mayor Afinidad</h3>
-        <div class="bars">
-          <div class="bar">
-            <span>Ingeniería</span>
-            <div class="progress" style="width: 80%"></div>
-            <span>80%</span>
-          </div>
-          <div class="bar">
-            <span>Tecnología</span>
-            <div class="progress" style="width: 60%"></div>
-            <span>60%</span>
-          </div>
-          <div class="bar">
-            <span>Negocios</span>
-            <div class="progress" style="width: 20%"></div>
-            <span>20%</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="recommended-careers">
-        <h3>Carreras Recomendadas</h3>
-        <div class="careers-list">
-          <div class="career-item">Ingeniería de Sistemas</div>
-          <div class="career-item">Ciencias de la Computación</div>
-          <div class="career-item">Ingeniería de Datos</div>
-          <div class="career-item">Diseño UX/UI</div>
-          <div class="career-item">Arquitectura</div>
-        </div>
-      </section>
     </main>
-
-    <footer class="footer">
-      <p>© 2025 VOCATIO by DecideClaro. Todos los derechos reservados.</p>
-    </footer>
   </body>
 </html>
