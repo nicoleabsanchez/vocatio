@@ -1,0 +1,282 @@
+/* Font Face */
+@font-face {
+  font-family: 'Rethink Sans';
+  src: url('fonts/rethink-sans.woff2') format('woff2'),
+       url('fonts/rethink-sans.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* CSS Variables */
+:root {
+  --font-rethink: 'Rethink Sans', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --color-purple: #693efe;
+  --color-black: #000;
+  --color-grey-dark: #45444c;
+  --color-grey-light: #8b8a92;
+  --color-grey-mid: #67676f;
+  --color-grey-pale: #e2e2e5;
+  --color-white: #fff;
+  --border-radius: 32px;
+  --transition: 0.25s ease;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: var(--color-white);
+  color: var(--color-grey-dark);
+  line-height: 1.5;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 60px;
+  background-color: var(--color-white);
+  border-bottom: 2px solid var(--color-purple);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-family: var(--font-rethink);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--color-purple);
+  cursor: pointer;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+  flex-grow: 1;
+  margin-left: 40px;
+}
+
+.nav-link {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-grey-light);
+  text-decoration: none;
+  transition: color var(--transition);
+  cursor: pointer;
+}
+
+.nav-link.active {
+  color: var(--color-black);
+  font-weight: 700;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: filter var(--transition);
+}
+
+.profile-button:hover {
+  filter: brightness(0.8);
+}
+
+.profile-button img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Main */
+.main {
+  padding: 40px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Intro */
+.intro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 60px;
+  color: var(--color-grey-dark);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 60px;
+  color: var(--color-grey-pale);
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 24px;
+  color: var(--color-grey-mid);
+  line-height: 35px;
+  margin-bottom: 10px;
+}
+
+.step {
+  font-size: 24px;
+  color: var(--color-grey-mid);
+  line-height: 35px;
+}
+
+/* Steps */
+.steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-number {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  color: var(--color-grey-dark);
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.step-number.active {
+  background-color: var(--color-purple);
+  color: var(--color-white);
+}
+
+.step-item p {
+  font-size: 20px;
+  color: var(--color-grey-dark);
+}
+
+.step-item img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Question */
+.question {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.question h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-grey-dark);
+}
+
+/* Careers Grid */
+.careers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.career-card {
+  background-color: var(--color-white);
+  border: 3px solid var(--color-grey-dark);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  text-align: center;
+  transition: box-shadow var(--transition);
+  cursor: pointer;
+}
+
+.career-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.career-card img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.career-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-black);
+  margin-bottom: 10px;
+}
+
+.career-card p {
+  font-size: 24px;
+  color: var(--color-grey-mid);
+  line-height: 35px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .header {
+    padding: 15px 30px;
+  }
+  .nav {
+    gap: 20px;
+    margin-left: 20px;
+  }
+  .main {
+    padding: 20px 30px;
+  }
+  .steps {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  .nav {
+    flex-basis: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+  .logo {
+    flex-basis: 100%;
+    text-align: center;
+  }
+  .careers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.career-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.career-card:hover {
+  transform: translateY(-5px);
+}
