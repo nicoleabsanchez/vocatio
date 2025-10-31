@@ -1,3 +1,0 @@
-# vocatio
-Lizbeth Olivera
-
