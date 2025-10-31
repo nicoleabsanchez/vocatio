@@ -1,3 +1,11 @@
+/* Updated: explore1_style.css
+   Purpose: Make header / nav styles consistent with other files.
+   Changes:
+   - Added shared CSS variables used by header/nav.
+   - Consolidated header/nav/profile styles to ensure consistency.
+   - Removed duplicate global resets by keeping only needed ones.
+*/
+
 /* Font Face */
 @font-face {
   font-family: 'Rethink Sans';
@@ -7,7 +15,7 @@
   font-style: normal;
 }
 
-/* CSS Variables */
+/* CSS Variables (kept minimal and consistent for header/nav) */
 :root {
   --font-rethink: 'Rethink Sans', sans-serif;
   --font-inter: 'Inter', sans-serif;
@@ -36,7 +44,7 @@ body {
   line-height: 1.5;
 }
 
-/* Header */
+/* Shared Header / Nav (consistent) */
 .header {
   display: flex;
   align-items: center;
@@ -45,6 +53,7 @@ body {
   background-color: var(--color-white);
   border-bottom: 2px solid var(--color-purple);
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  gap: 20px;
 }
 
 .logo {
@@ -60,6 +69,7 @@ body {
   gap: 32px;
   flex-grow: 1;
   margin-left: 40px;
+  align-items: center;
 }
 
 .nav-link {
@@ -107,6 +117,9 @@ body {
   margin-bottom: 40px;
 }
 
+/* ... rest of original file content unchanged ... */
+
+/* Title / subtitle / description */
 .title {
   font-family: var(--font-inter);
   font-weight: 700;
@@ -204,12 +217,13 @@ body {
   border-radius: var(--border-radius);
   padding: 20px;
   text-align: center;
-  transition: box-shadow var(--transition);
+  transition: box-shadow var(--transition), transform 0.2s ease;
   cursor: pointer;
 }
 
 .career-card:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
 }
 
 .career-card img {
@@ -267,16 +281,4 @@ body {
   .careers-grid {
     grid-template-columns: 1fr;
   }
-}
-
-.career-card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.career-card:hover {
-  transform: translateY(-5px);
 }

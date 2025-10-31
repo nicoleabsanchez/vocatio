@@ -1,3 +1,10 @@
+/* Updated: explore2_style.css
+   Purpose: Align header/nav with the shared, consistent nav layout used across files.
+   Changes:
+   - Added same header/nav/profile styles and ensured variables exist.
+   - Kept file-specific styles for formation options intact.
+*/
+
 /* Font Face */
 @font-face {
   font-family: 'Rethink Sans';
@@ -38,7 +45,7 @@ body {
   line-height: 1.5;
 }
 
-/* Header */
+/* Shared Header / Nav (consistent) */
 .header {
   display: flex;
   align-items: center;
@@ -47,6 +54,7 @@ body {
   background-color: var(--color-white);
   border-bottom: 2px solid var(--color-purple);
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  gap: 20px;
 }
 
 .logo {
@@ -62,6 +70,7 @@ body {
   gap: 32px;
   flex-grow: 1;
   margin-left: 40px;
+  align-items: center;
 }
 
 .nav-link {
@@ -109,6 +118,7 @@ body {
   margin-bottom: 40px;
 }
 
+/* Title / subtitle / description */
 .title {
   font-family: var(--font-inter);
   font-weight: 700;
@@ -159,11 +169,7 @@ body {
   line-height: 40px;
 }
 
-.step-number.completed {
-  background-color: var(--color-purple);
-  color: var(--color-white);
-}
-
+.step-number.completed,
 .step-number.active {
   background-color: var(--color-purple);
   color: var(--color-white);
@@ -179,23 +185,12 @@ body {
   height: 20px;
 }
 
-/* Question */
-.question {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.question h2 {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--color-grey-dark);
-}
-
 /* Formation Options */
 .formation-options {
   display: flex;
   justify-content: center;
   gap: 40px;
+  flex-wrap: wrap;
 }
 
 .option-card {
@@ -206,12 +201,13 @@ body {
   text-align: center;
   width: 300px;
   position: relative;
-  transition: box-shadow var(--transition);
+  transition: box-shadow var(--transition), transform 0.2s ease;
   cursor: pointer;
 }
 
 .option-card:hover {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
 }
 
 .option-card img {

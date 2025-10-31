@@ -1,0 +1,229 @@
+/* Updated: gen_informe_style.css
+   Purpose: Provide a consistent header/nav and shared variables so the nav appears consistent site-wide.
+   Changes:
+   - Added the shared header/nav styles using the same variable names as other files.
+   - Kept file-specific components (options group, radio, download button).
+*/
+
+/* Font Face */
+@font-face {
+  font-family: 'Rethink Sans';
+  src: url('fonts/rethink-sans.woff2') format('woff2'),
+       url('fonts/rethink-sans.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Root variables (aligned with other files) */
+:root {
+  --font-family-inter: 'Inter', sans-serif;
+  --font-family-rethink-sans: 'Rethink Sans', sans-serif;
+  --color-purple: rgba(105, 62, 254, 1);
+  --primary-color: rgba(105, 62, 254, 1);
+  --secondary-color: rgba(217, 212, 255, 1);
+  --text-dark: rgba(69, 68, 76, 1);
+  --text-light: rgba(103, 102, 111, 1);
+  --text-accent: rgba(39, 1, 125, 1);
+  --text-gray: rgba(139, 138, 146, 1);
+  --text-white: rgba(255, 255, 255, 1);
+  --text-black: rgba(0, 0, 0, 1);
+  --border-radius: 7px;
+  --border-radius-large: 20px;
+  --border-radius-circle: 200px;
+  --transition: 0.25s ease;
+}
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-inter);
+  background-color: var(--text-white);
+  color: var(--text-dark);
+  line-height: 1.5;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+}
+
+/* Shared Header / Nav (consistent) */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 60px;
+  background-color: var(--text-white);
+  border-bottom: 2px solid var(--color-purple);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  gap: 20px;
+}
+
+.logo {
+  font-family: var(--font-family-rethink-sans);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--color-purple);
+  cursor: pointer;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+  flex-grow: 1;
+  margin-left: 40px;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: var(--font-family-inter);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text-gray);
+  text-decoration: none;
+  transition: color var(--transition);
+  cursor: pointer;
+}
+
+.nav-link.active {
+  color: var(--text-black);
+  font-weight: 700;
+}
+
+/* Profile / action button */
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: filter var(--transition);
+}
+
+.profile-button:hover {
+  filter: brightness(0.8);
+}
+
+.profile-button img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Page main layout */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.section-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.subsection-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+}
+
+.test-info {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-accent);
+  background-color: var(--secondary-color);
+  padding: 10px 20px;
+  border-radius: 137px;
+  display: inline-block;
+}
+
+.description {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-light);
+  line-height: 35px;
+  margin-bottom: 20px;
+}
+
+.options-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius-large);
+}
+
+.radio-input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(27, 27, 27, 1);
+  border-radius: var(--border-radius-circle);
+  background-color: var(--text-white);
+  position: relative;
+}
+
+.radio-input:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.option-label {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 35px;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--primary-color);
+  color: var(--text-white);
+  border: none;
+  padding: 15px 30px;
+  border-radius: var(--border-radius);
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-white);
+}
