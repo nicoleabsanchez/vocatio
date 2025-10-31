@@ -268,3 +268,15 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.career-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.career-card:hover {
+  transform: translateY(-5px);
+}
