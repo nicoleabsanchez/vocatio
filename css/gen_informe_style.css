@@ -1,39 +1,60 @@
-/* Updated: gen_informe_style.css
-   Purpose: Provide a consistent header/nav and shared variables so the nav appears consistent site-wide.
-   Changes:
-   - Added the shared header/nav styles using the same variable names as other files.
-   - Kept file-specific components (options group, radio, download button).
-*/
+/* ============================================
+   VOCATIO - GENERATE REPORT PAGE
+   ============================================ */
 
-/* Font Face */
-@font-face {
-  font-family: 'Rethink Sans';
-  src: url('fonts/rethink-sans.woff2') format('woff2'),
-       url('fonts/rethink-sans.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Root variables (aligned with other files) */
+/* ============================================
+   CSS VARIABLES
+   ============================================ */
 :root {
-  --font-family-inter: 'Inter', sans-serif;
-  --font-family-rethink-sans: 'Rethink Sans', sans-serif;
-  --color-purple: rgba(105, 62, 254, 1);
-  --primary-color: rgba(105, 62, 254, 1);
-  --secondary-color: rgba(217, 212, 255, 1);
-  --text-dark: rgba(69, 68, 76, 1);
-  --text-light: rgba(103, 102, 111, 1);
-  --text-accent: rgba(39, 1, 125, 1);
-  --text-gray: rgba(139, 138, 146, 1);
-  --text-white: rgba(255, 255, 255, 1);
-  --text-black: rgba(0, 0, 0, 1);
-  --border-radius: 7px;
-  --border-radius-large: 20px;
-  --border-radius-circle: 200px;
-  --transition: 0.25s ease;
+  /* Fonts */
+  --font-rethink: 'Rethink Sans', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  /* Colors - Primary */
+  --color-primary: #6b3eff;
+  --color-primary-dark: #4b1ed8;
+  --color-primary-darker: #27017d;
+  --color-primary-light: #d9d4ff;
+  --color-primary-lighter: #e8e3ff;
+  
+  /* Colors - Text */
+  --color-text-dark: #2d2d2d;
+  --color-text-medium: #45444c;
+  --color-text-light: #67676f;
+  --color-text-lighter: #8b8a92;
+  
+  /* Colors - Backgrounds */
+  --color-bg-white: #ffffff;
+  --color-bg-light: #f5f5f7;
+  --color-bg-purple: #f4f2ff;
+  --color-black: #000000;
+  
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 100px;
+  
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  
+  /* Transitions */
+  --transition: 0.3s ease;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* CSS Reset */
+/* ============================================
+   RESET & BASE
+   ============================================ */
 * {
   margin: 0;
   padding: 0;
@@ -41,189 +62,511 @@
 }
 
 body {
-  font-family: var(--font-family-inter);
-  background-color: var(--text-white);
-  color: var(--text-dark);
-  line-height: 1.5;
+  font-family: var(--font-inter);
+  background-color: var(--color-bg-white);
+  color: var(--color-text-medium);
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
-.container {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 24px;
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 16px;
-  }
-}
-
-/* Shared Header / Nav (consistent) */
+/* ============================================
+   HEADER
+   ============================================ */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 60px;
-  background-color: var(--text-white);
-  border-bottom: 2px solid var(--color-purple);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  gap: 20px;
+  padding: 16px 48px;
+  background-color: var(--color-bg-white);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo {
-  font-family: var(--font-family-rethink-sans);
+  font-family: var(--font-rethink);
   font-weight: 700;
   font-size: 28px;
-  color: var(--color-purple);
+  color: var(--color-primary);
   cursor: pointer;
 }
 
 .nav {
   display: flex;
   gap: 32px;
-  flex-grow: 1;
-  margin-left: 40px;
   align-items: center;
 }
 
 .nav-link {
-  font-family: var(--font-family-inter);
+  font-size: 15px;
   font-weight: 500;
-  font-size: 20px;
-  color: var(--text-gray);
+  color: var(--color-text-lighter);
   text-decoration: none;
   transition: color var(--transition);
-  cursor: pointer;
+  white-space: nowrap;
 }
 
+.nav-link:hover,
 .nav-link.active {
-  color: var(--text-black);
-  font-weight: 700;
+  color: var(--color-text-dark);
+  font-weight: 600;
 }
 
-/* Profile / action button */
 .profile-button {
-  background: none;
-  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  padding: 5px;
-  transition: filter var(--transition);
+  transition: background-color var(--transition);
 }
 
 .profile-button:hover {
-  filter: brightness(0.8);
+  background-color: var(--color-primary-lighter);
 }
 
 .profile-button img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
-/* Page main layout */
-.main {
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 48px 80px;
+}
+
+/* ============================================
+   PAGE HEADER
+   ============================================ */
+.page-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.page-header h1 {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 24px;
+}
+
+.btn-download-top {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-download-top:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-download-top img {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================================
+   INSTRUCTIONS
+   ============================================ */
+.instructions {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.instructions p {
+  font-size: 16px;
+  color: var(--color-text-medium);
+  margin-bottom: 16px;
+}
+
+.test-info-badge {
+  display: inline-block;
+  background-color: var(--color-primary-lighter);
+  color: var(--color-primary-darker);
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ============================================
+   FORM CONTAINER
+   ============================================ */
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.form-column {
   display: flex;
   flex-direction: column;
-  gap: 30px;
 }
 
-.section-title {
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 10px;
-}
-
-.subsection-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 15px;
-}
-
-.test-info {
+.column-title {
   font-size: 20px;
-  font-weight: 500;
-  color: var(--text-accent);
-  background-color: var(--secondary-color);
-  padding: 10px 20px;
-  border-radius: 137px;
-  display: inline-block;
-}
-
-.description {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--text-light);
-  line-height: 35px;
+  font-weight: 700;
+  color: var(--color-text-dark);
   margin-bottom: 20px;
 }
 
+/* ============================================
+   OPTIONS GROUP
+   ============================================ */
 .options-group {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
-.option {
+.option-item {
+  background-color: var(--color-primary-lighter);
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 15px;
-  background-color: var(--secondary-color);
-  border-radius: var(--border-radius-large);
+  gap: 12px;
+  cursor: pointer;
+  transition: all var(--transition);
 }
 
-.radio-input {
-  appearance: none;
+.option-item:hover {
+  background-color: var(--color-primary-light);
+  transform: translateX(4px);
+}
+
+.option-item input[type="checkbox"],
+.option-item input[type="radio"] {
   width: 20px;
   height: 20px;
-  border: 2px solid rgba(27, 27, 27, 1);
-  border-radius: var(--border-radius-circle);
-  background-color: var(--text-white);
-  position: relative;
-}
-
-.radio-input:checked {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.option-label {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--text-dark);
-  line-height: 35px;
   cursor: pointer;
+  flex-shrink: 0;
+  accent-color: var(--color-primary);
 }
 
-.actions {
+.option-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+  line-height: 1.4;
+}
+
+/* Custom Radio Buttons */
+.option-item input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid var(--color-text-dark);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  background-color: var(--color-bg-white);
+}
+
+.option-item input[type="radio"]:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.option-item input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-bg-white);
+}
+
+/* Custom Checkboxes */
+.option-item input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid var(--color-text-dark);
+  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  background-color: var(--color-bg-white);
+}
+
+.option-item input[type="checkbox"]:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.option-item input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-bg-white);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .header {
+    padding: 16px 32px;
+  }
+
+  .nav {
+    gap: 24px;
+  }
+
+  .main-content {
+    padding: 40px 32px 64px;
+  }
+
+  .form-container {
+    gap: 32px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .header {
+    padding: 12px 20px;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .nav {
+    flex-basis: 100%;
+    justify-content: flex-start;
+    gap: 16px;
+    margin-top: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+
+  .main-content {
+    padding: 32px 20px 48px;
+  }
+
+  .page-header h1 {
+    font-size: 32px;
+  }
+
+  .btn-download-top {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  .btn-download-top img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .instructions p {
+    font-size: 14px;
+  }
+
+  .test-info-badge {
+    font-size: 12px;
+    padding: 6px 16px;
+  }
+
+  .form-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .column-title {
+    font-size: 18px;
+  }
+
+  .option-item {
+    padding: 14px 16px;
+  }
+
+  .option-text {
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 22px;
+  }
+
+  .page-header h1 {
+    font-size: 28px;
+  }
+
+  .btn-download-top {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .test-info-badge {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
+  .column-title {
+    font-size: 16px;
+  }
+
+  .option-item {
+    padding: 12px 14px;
+  }
+
+  .option-text {
+    font-size: 13px;
+  }
+
+  .option-item input[type="checkbox"],
+  .option-item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* ============================================
+   SUCCESS MESSAGE MODAL
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-overlay:target {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background-color: var(--color-bg-white);
+  border-radius: var(--radius-xl);
+  padding: 48px 40px;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-icon {
+  margin-bottom: 24px;
   display: flex;
   justify-content: center;
-  margin-top: 30px;
 }
 
-.download-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background-color: var(--primary-color);
-  color: var(--text-white);
-  border: none;
-  padding: 15px 30px;
-  border-radius: var(--border-radius);
-  font-size: 20px;
-  font-weight: 500;
-  cursor: pointer;
+.modal-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 12px;
 }
 
-.btn-icon {
-  width: 20px;
-  height: 20px;
-  fill: var(--text-white);
+.modal-message {
+  font-size: 16px;
+  color: var(--color-text-light);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.modal-btn {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+  padding: 14px 40px;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all var(--transition);
+}
+
+.modal-btn:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Mobile Modal Styles */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 36px 28px;
+    max-width: 90%;
+  }
+
+  .modal-icon svg {
+    width: 56px;
+    height: 56px;
+  }
+
+  .modal-title {
+    font-size: 24px;
+  }
+
+  .modal-message {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .modal-btn {
+    padding: 12px 32px;
+    font-size: 15px;
+  }
 }
