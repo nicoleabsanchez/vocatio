@@ -5,86 +5,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vocatio - Descubre Tu Vocación Perfecta</title>
     <link
-      href="https://fonts.googleapis.com/css?family=Inter&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Rethink+Sans&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link href="./css/index_style.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
   </head>
   <body>
+    <!-- Header -->
     <header class="header">
       <div class="logo">vocatio</div>
       <nav class="nav">
-        <a href="explore1.html" class="nav-link">Explorar carreras</a>
-        <a href="#" class="nav-link">EVENTOS</a>
-        <a href="#" class="nav-link">Test vocacional</a>
-        <a href="resultados.html" class="nav-link">Resultados</a>
-        <a href="#" class="nav-link">Ruta de aprendizaje</a>
-        <a href="#" class="nav-link">Progreso</a>
+        <a href="explore1.html" class="nav-link">Inicio</a>
+        <a href="#" class="nav-link">Recursos</a>
+        <a href="#" class="nav-link">Resultados</a>
+        <a href="#" class="nav-link">¿Quiénes somos?</a>
       </nav>
-      <button class="profile-button" aria-label="Perfil de usuario">
-        <img src="assets/images/union-12.svg" alt="Perfil" />
-      </button>
+      <div class="auth-buttons">
+        <button class="btn btn-primary">Iniciar sesión</button>
+        <button class="btn btn-secondary">Registrarse</button>
+      </div>
     </header>
 
     <main>
-      <section class="hero">
-        <div class="hero-content">
-          <h1 class="hero-title">Descubre Tu Vocación Perfecta</h1>
-          <p class="hero-subtitle">by DecideClaro</p>
-          <div class="hero-stats">
-            <div class="stat-number">100 581</div>
-            <div class="stat-text">
-              de nuestros usuarios están haciendo match con su vocación
-            </div>
-          </div>
-          <button class="btn btn-primary-large">Comenzar ahora</button>
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-logo">
+          <img src="assets/images/vocatio-logo.png" alt="Vocatio Logo" />
         </div>
-        <div class="hero-image"></div>
+        <div class="hero-brand">
+          <h1 class="brand-name">vocatio</h1>
+          <p class="brand-subtitle">by DecideClaro</p>
+        </div>
+        <h2 class="hero-main-title">
+          Descubre Tu <span class="highlight">Vocación Perfecta</span>
+        </h2>
+        <div class="hero-image-container">
+          <img
+            src="assets/images/hero-students.png"
+            alt="Estudiantes felices"
+            class="hero-students"
+          />
+          <div class="hero-stats-box">
+            <div class="stats-number">100 581</div>
+            <div class="stats-text">
+              de nuestros usuarios<br />están haciendo match<br />con su
+              vocación
+            </div>
+            <button class="btn btn-cta">Comenzar ahora</button>
+          </div>
+        </div>
       </section>
 
-      <section class="services">
-        <h2 class="section-title">¿Cómo te ayudamos?</h2>
-        <div class="services-grid">
-          <div class="service-item">
+      <!-- How We Help Section -->
+      <section class="help-section">
+        <h2 class="section-title-center">¿Cómo te ayudamos?</h2>
+        <div class="help-grid">
+          <div class="help-card">
+            <div class="help-icon">
+              <img
+                src="assets/images/icon-career-files.png"
+                alt="Fichas de carreras"
+              />
+            </div>
             <h3>Fichas de Carreras Completas</h3>
             <p>
               Explora cientos de carreras con información detallada sobre
               duración, modalidad, universidades y perspectivas laborales.
             </p>
           </div>
-          <div class="service-item">
+          <div class="help-card">
+            <div class="help-icon">
+              <img src="assets/images/icon-test.png" alt="Test vocacional" />
+            </div>
             <h3>Test vocacional inteligente</h3>
-            <p>
-              Descubre tus fortalezas e intereses con nuestro test vocacional
-              basado en metodologías validadas científicamente.
-            </p>
-          </div>
-          <div class="service-item">
-            <h3>Análisis de mercado</h3>
             <p>
               Conoce las tendencias del mercado laboral, rangos salariales y
               empleabilidad de cada carrera profesional.
             </p>
           </div>
-          <div class="service-item">
+          <div class="help-card">
+            <div class="help-icon">
+              <img
+                src="assets/images/icon-market.png"
+                alt="Análisis de mercado"
+              />
+            </div>
+            <h3>Análisis de mercado</h3>
+            <p>
+              Descubre tus fortalezas e intereses con nuestro test vocacional
+              basado en metodologías validadas científicamente.
+            </p>
+          </div>
+          <div class="help-card">
+            <div class="help-icon">
+              <img src="assets/images/icon-events.png" alt="Eventos" />
+            </div>
             <h3>Eventos Vocacionales</h3>
             <p>
               Participa en charlas, ferias y tours virtuales de universidades.
               Inscríbete y recibe recordatorios automáticos.
             </p>
           </div>
-          <div class="service-item">
+          <div class="help-card">
+            <div class="help-icon">
+              <img
+                src="assets/images/icon-materials.png"
+                alt="Materiales educativos"
+              />
+            </div>
             <h3>Materiales educativos</h3>
             <p>
               Accede a videos, lecturas y recursos curados para cada carrera.
               Guarda tus favoritos y descarga PDFs.
             </p>
           </div>
-          <div class="service-item">
+          <div class="help-card">
+            <div class="help-icon">
+              <img
+                src="assets/images/icon-profile.png"
+                alt="Perfil personalizado"
+              />
+            </div>
             <h3>Perfil personalizado</h3>
             <p>
               Crea tu perfil vocacional, marca carreras favoritas y genera
@@ -94,74 +139,92 @@
         </div>
       </section>
 
-      <section class="results">
-        <h2 class="section-title">Nuestros resultados</h2>
-        <div class="results-stats">
-          <div class="stat">
-            <div class="stat-number">100,000+</div>
-            <div class="stat-label">Estudiantes orientados</div>
+      <!-- Results Section -->
+      <section class="results-section">
+        <h2 class="section-title-center">Nuestros resultados</h2>
+        <div class="results-grid">
+          <div class="result-item">
+            <div class="result-number">100,000+</div>
+            <div class="result-label">Estudiantes orientados</div>
           </div>
-          <div class="stat">
-            <div class="stat-number">95%</div>
-            <div class="stat-label">Tasa de satisfacción</div>
+          <div class="result-item">
+            <div class="result-number">95%</div>
+            <div class="result-label">Tasa de satisfacción</div>
           </div>
-          <div class="stat">
-            <div class="stat-number">100+</div>
-            <div class="stat-label">Carreras disponibles</div>
+          <div class="result-item">
+            <div class="result-number">100+</div>
+            <div class="result-label">Carreras disponibles</div>
           </div>
-          <div class="stat">
-            <div class="stat-number">50+</div>
-            <div class="stat-label">Instituciones asociadas</div>
+          <div class="result-item">
+            <div class="result-number">50+</div>
+            <div class="result-label">Instituciones asociadas</div>
           </div>
         </div>
       </section>
 
-      <section class="about">
+      <!-- About Section -->
+      <section class="about-section">
         <div class="about-content">
-          <h2 class="section-title">¿Quiénes somos?</h2>
-          <p>
+          <h2 class="about-title">¿Quienes somos?</h2>
+          <p class="about-text">
             Somos DecideClaro, una startup académico enfocada en el desarrollo
             de soluciones tecnológicas educativas para la orientación vocacional
             y profesional de estudiantes de secundaria y primeros ciclos
             universitarios.
           </p>
         </div>
-        <div class="about-image"></div>
+        <div class="about-image">
+          <img src="assets/images/team-photo.png" alt="Equipo DecideClaro" />
+        </div>
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
-        <div class="footer-section">
+        <div class="footer-brand">
+          <div class="footer-logo">vocatio</div>
+        </div>
+        <div class="footer-column">
           <h4>Servicios</h4>
           <ul>
-            <li>Explorar carreras</li>
-            <li>Test vocacional</li>
-            <li>Eventos</li>
-            <li>Perfil personalizado</li>
+            <li><a href="#">Explorar carreras</a></li>
+            <li><a href="#">Test vocacional</a></li>
+            <li><a href="#">Eventos</a></li>
+            <li><a href="#">Perfil personalizado</a></li>
           </ul>
         </div>
-        <div class="footer-section">
-          <h4>Ayuda</h4>
-          <ul>
-            <li>Preguntas frecuentes</li>
-            <li>Asistente virtual</li>
-          </ul>
-        </div>
-        <div class="footer-section">
+        <div class="footer-column">
           <h4>Sobre nosotros</h4>
           <ul>
-            <li>Contacto</li>
-            <li>Privacidad</li>
-            <li>Términos y condiciones</li>
+            <li><a href="#">Contacto</a></li>
+            <li><a href="#">Privacidad</a></li>
+            <li><a href="#">Términos y condiciones</a></li>
           </ul>
         </div>
-        <div class="footer-section">
+        <div class="footer-column">
+          <h4>Ayuda</h4>
+          <ul>
+            <li><a href="#">Preguntas frecuentes</a></li>
+            <li><a href="#">Asistente virtual</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
           <h4>Apps móviles</h4>
+          <div class="app-buttons">
+            <a href="#" class="app-button">
+              <img
+                src="assets/images/google-play-badge.svg"
+                alt="Google Play"
+              />
+            </a>
+            <a href="#" class="app-button">
+              <img src="assets/images/app-store-badge.svg" alt="App Store" />
+            </a>
+          </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-logo">vocatio</div>
         <p>© 2025 VOCATIO by DecideClaro. Todos los derechos reservados.</p>
       </div>
     </footer>
