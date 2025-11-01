@@ -8,298 +8,36 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      :root {
-        --primary: #693efe;
-        --text-dark: #2d2d2d;
-        --text-gray: #6b6b6b;
-        --bg-light: #f5f5f7;
-        --tag-bg: #e8e3ff;
-        --tag-text: #5b3fd6;
-      }
-
-      body {
-        font-family: "Inter", sans-serif;
-        background: white;
-        color: var(--text-dark);
-      }
-
-      .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px 60px;
-        border-bottom: 1px solid #e5e5e5;
-      }
-
-      .logo {
-        font-size: 32px;
-        font-weight: 700;
-        color: var(--primary);
-        letter-spacing: -1px;
-      }
-
-      .nav ul {
-        display: flex;
-        list-style: none;
-        gap: 40px;
-      }
-
-      .nav-link {
-        text-decoration: none;
-        color: var(--text-gray);
-        font-size: 16px;
-        font-weight: 500;
-        transition: color 0.3s;
-      }
-
-      .nav-link.active {
-        color: var(--text-dark);
-      }
-
-      .user-icon {
-        width: 40px;
-        height: 40px;
-        background: var(--bg-light);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .main-content {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 60px 60px;
-      }
-
-      .hero {
-        text-align: center;
-        margin-bottom: 60px;
-      }
-
-      .hero h2 {
-        font-size: 48px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        color: var(--text-dark);
-      }
-
-      .hero-subtitle {
-        font-size: 20px;
-        color: var(--text-gray);
-        max-width: 800px;
-        margin: 0 auto;
-        line-height: 1.6;
-      }
-
-      .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-      }
-
-      .section-title {
-        font-size: 28px;
-        font-weight: 600;
-        color: var(--text-dark);
-      }
-
-      .btn-favorites {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: opacity 0.3s;
-      }
-
-      .btn-favorites:hover {
-        opacity: 0.9;
-      }
-
-      .careers {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-        margin-bottom: 60px;
-      }
-
-      .career-card {
-        background: var(--bg-light);
-        border-radius: 16px;
-        padding: 30px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .career-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-      }
-
-      .career-header h3 {
-        font-size: 22px;
-        font-weight: 600;
-        line-height: 1.3;
-        flex: 1;
-      }
-
-      .favorite-icon {
-        width: 28px;
-        height: 28px;
-        cursor: pointer;
-        flex-shrink: 0;
-      }
-
-      .career-details {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .duration,
-      .modality {
-        font-size: 15px;
-        color: var(--text-dark);
-      }
-
-      .compatibility {
-        color: var(--primary);
-        font-size: 18px;
-        font-weight: 600;
-        margin: 8px 0;
-      }
-
-      .card-skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 12px 0;
-      }
-
-      .skill-tag {
-        background: var(--tag-bg);
-        color: var(--tag-text);
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 500;
-      }
-
-      .card-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 8px;
-      }
-
-      .btn-details {
-        flex: 1;
-        background: white;
-        color: var(--text-dark);
-        border: 1px solid #d0d0d0;
-        padding: 12px 20px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-
-      .btn-details:hover {
-        background: var(--bg-light);
-      }
-
-      .btn-route {
-        flex: 1;
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: opacity 0.3s;
-      }
-
-      .btn-route:hover {
-        opacity: 0.9;
-      }
-
-      @media (max-width: 1200px) {
-        .careers {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      @media (max-width: 768px) {
-        .header {
-          padding: 20px 30px;
-        }
-
-        .nav ul {
-          gap: 20px;
-          font-size: 14px;
-        }
-
-        .main-content {
-          padding: 40px 30px;
-        }
-
-        .hero h2 {
-          font-size: 36px;
-        }
-
-        .careers {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link href="css/ruta_inicio_style.css" rel="stylesheet" />
   </head>
   <body>
+    <!-- Header -->
     <header class="header">
-      <h1 class="logo">vocatio</h1>
+      <div class="logo">vocatio</div>
       <nav class="nav">
-        <ul>
-          <li><a href="#" class="nav-link">Explorar carreras</a></li>
-          <li><a href="#" class="nav-link">Eventos</a></li>
-          <li><a href="#" class="nav-link">Test vocacional</a></li>
-          <li><a href="#" class="nav-link">Resultados</a></li>
-          <li><a href="#" class="nav-link active">Ruta de aprendizaje</a></li>
-          <li><a href="#" class="nav-link">Progreso</a></li>
-        </ul>
-      </nav>
-      <div class="user-icon">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
+        <a href="explore1.html" class="nav-link">Explorar carreras</a>
+        <a href="eventos.html" class="nav-link">Eventos</a>
+        <a href="#" class="nav-link">Test vocacional</a>
+        <a href="resultados.html" class="nav-link">Resultados</a>
+        <a href="ruta_inicio.html" class="nav-link active"
+          >Ruta de aprendizaje</a
         >
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      </div>
+        <a href="#" class="nav-link">Progreso</a>
+      </nav>
+      <button class="profile-button" aria-label="Perfil de usuario">
+        <img src="assets/images/icon-user.svg" alt="Perfil" />
+      </button>
     </header>
 
+    <!-- Main Content -->
     <main class="main-content">
+      <!-- Hero Section -->
       <section class="hero">
-        <h2>Ruta de aprendizaje personalizada</h2>
+        <h1>Ruta de aprendizaje personalizada</h1>
         <p class="hero-subtitle">
           Basado en tus respuestas, te sugerimos estos materiales para que sigas
           el camino correcto según tus intereses en las carreras más compatibles
@@ -307,108 +45,94 @@
         </p>
       </section>
 
+      <!-- Section Header with Favorites Button -->
       <div class="section-header">
-        <h3 class="section-title">Carreras recomendadas para ti</h3>
-        <button class="btn-favorites">Ver mis favoritos</button>
+        <h2>Carreras recomendadas para ti</h2>
+        <button
+          class="btn-favorites"
+          onclick="window.location.href='mis_favoritos.html'"
+        >
+          <img src="assets/images/icon-heart.svg" alt="Favoritos" />
+          Ver mis materiales favoritos
+        </button>
       </div>
 
-      <section class="careers">
+      <!-- Careers Grid -->
+      <section class="careers-grid">
+        <!-- Card 1: Administración de empresas -->
         <article class="career-card">
-          <div class="career-header">
+          <div class="card-header">
             <h3>Administración de empresas</h3>
-            <svg
-              class="favorite-icon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
+            <img
+              src="assets/images/icon-star.svg"
+              alt="Favorito"
+              class="icon-star"
+            />
+          </div>
+          <p class="duration">Duración: 5 años</p>
+          <p class="compatibility">75 % compatibilidad</p>
+          <p class="modality">Modalidad: Presencial</p>
+          <div class="skills">
+            <span class="skill-tag">Liderazgo</span>
+            <span class="skill-tag">Orientación a resultados</span>
+            <span class="skill-tag">Visión estratégica</span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-secondary">Ver Detalles</button>
+            <button
+              class="btn-primary"
+              onclick="window.location.href='ruta_admi.html'"
             >
-              <polygon
-                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-              ></polygon>
-            </svg>
-          </div>
-          <div class="career-details">
-            <p class="duration">Duración: 5 años</p>
-            <p class="compatibility">75 % compatibilidad</p>
-            <p class="modality">Modalidad: Presencial</p>
-          </div>
-          <div class="card-skills">
-            <div class="skill-tag">Liderazgo</div>
-            <div class="skill-tag">Orientación a resultados</div>
-            <div class="skill-tag">Visión estratégica</div>
-          </div>
-          <div class="card-buttons">
-            <button class="btn-details">Ver Detalles</button>
-            <button class="btn-route">Ver Ruta Personalizada</button>
+              Ver Ruta Personalizada
+            </button>
           </div>
         </article>
 
+        <!-- Card 2: Marketing -->
         <article class="career-card">
-          <div class="career-header">
+          <div class="card-header">
             <h3>Marketing</h3>
-            <svg
-              class="favorite-icon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <polygon
-                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-              ></polygon>
-            </svg>
+            <img
+              src="assets/images/icon-star.svg"
+              alt="Favorito"
+              class="icon-star"
+            />
           </div>
-          <div class="career-details">
-            <p class="duration">Duración: 5 años</p>
-            <p class="compatibility">75 % compatibilidad</p>
-            <p class="modality">Modalidad: Presencial</p>
+          <p class="duration">Duración: 5 años</p>
+          <p class="compatibility">75 % compatibilidad</p>
+          <p class="modality">Modalidad: Presencial</p>
+          <div class="skills">
+            <span class="skill-tag">Orientación a resultados</span>
+            <span class="skill-tag">Liderazgo</span>
+            <span class="skill-tag">Visión estratégica</span>
           </div>
-          <div class="card-skills">
-            <div class="skill-tag">Orientación a resultados</div>
-            <div class="skill-tag">Liderazgo</div>
-            <div class="skill-tag">Visión estratégica</div>
-          </div>
-          <div class="card-buttons">
-            <button class="btn-details">Ver Detalles</button>
-            <button class="btn-route">Ver Ruta Personalizada</button>
+          <div class="card-actions">
+            <button class="btn-secondary">Ver Detalles</button>
+            <button class="btn-primary">Ver Ruta Personalizada</button>
           </div>
         </article>
 
+        <!-- Card 3: Economía -->
         <article class="career-card">
-          <div class="career-header">
+          <div class="card-header">
             <h3>Economía</h3>
-            <svg
-              class="favorite-icon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <polygon
-                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-              ></polygon>
-            </svg>
+            <img
+              src="assets/images/icon-star.svg"
+              alt="Favorito"
+              class="icon-star"
+            />
           </div>
-          <div class="career-details">
-            <p class="duration">Duración: 5 años</p>
-            <p class="compatibility">75 % compatibilidad</p>
-            <p class="modality">Modalidad: Presencial</p>
+          <p class="duration">Duración: 5 años</p>
+          <p class="compatibility">75 % compatibilidad</p>
+          <p class="modality">Modalidad: Presencial</p>
+          <div class="skills">
+            <span class="skill-tag">Análisis cuantitativo</span>
+            <span class="skill-tag">Pensamiento estratégico</span>
+            <span class="skill-tag">Gestión financiera</span>
           </div>
-          <div class="card-skills">
-            <div class="skill-tag">Análisis cuantitativo</div>
-            <div class="skill-tag">Pensamiento estratégico</div>
-            <div class="skill-tag">Gestión financiera</div>
-          </div>
-          <div class="card-buttons">
-            <button class="btn-details">Ver Detalles</button>
-            <button class="btn-route">Ver Ruta Personalizada</button>
+          <div class="card-actions">
+            <button class="btn-secondary">Ver Detalles</button>
+            <button class="btn-primary">Ver Ruta Personalizada</button>
           </div>
         </article>
       </section>
