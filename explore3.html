@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocatio - Carreras en Tecnología</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/explore3_style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">vocatio</div>
+      <nav class="nav">
+        <a href="explore1.html" class="nav-link active">Explorar carreras</a>
+        <a href="eventos.html" class="nav-link">Eventos</a>
+        <a href="#" class="nav-link">Test vocacional</a>
+        <a href="resultados.html" class="nav-link">Resultados</a>
+        <a href="ruta_inicio.html" class="nav-link">Ruta de aprendizaje</a>
+        <a href="#" class="nav-link">Progreso</a>
+      </nav>
+      <button class="profile-button" aria-label="Perfil de usuario">
+        <img src="assets/images/icon-user.svg" alt="Perfil" />
+      </button>
+    </header>
+
+
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Intro Section -->
+      <section class="intro">
+        <h1 class="title">Fichas de Carreras</h1>
+        <p class="description">Descubre tu carrera ideal en 3 simples pasos</p>
+      </section>
+
+      <!-- Steps Section -->
+      <section class="steps">
+        <div class="step-item">
+          <span class="step-number completed">1</span>
+          <p>Área de Interés</p>
+        </div>
+        <img
+          src="assets/images/arrow-right.svg"
+          alt="Siguiente paso"
+          class="arrow"
+        />
+        <div class="step-item">
+          <span class="step-number completed">2</span>
+          <p>Tipo de Formación</p>
+        </div>
+        <img
+          src="assets/images/arrow-right.svg"
+          alt="Siguiente paso"
+          class="arrow"
+        />
+        <div class="step-item">
+          <span class="step-number active">3</span>
+          <p>Carreras</p>
+        </div>
+      </section>
+
+      <!-- Botones de Navegación -->
+        <div class="action-buttons-container">
+          <button
+            class="action-button favorites-button"
+            onclick="window.location.href='mis-favoritas.html'"
+          >
+            <img
+              src="assets/images/icon-heart.svg"
+              alt="Favoritos"
+              class="button-icon"
+            />
+            Ver mis carreras favoritas
+          </button>
+
+          <button
+            class="action-button all-careers-button"
+            onclick="window.location.href='todas-carreras.html'"
+          >
+            <img
+              src="assets/images/icon-list.svg"
+              alt="Todas las carreras"
+              class="button-icon"
+            />
+            Ver todas las carreras
+          </button>
+        </div>
+      </section>
+
+      <!-- Career Section Header -->
+      <section class="career-header">
+        <h2 class="career-title">Carreras en Tecnología</h2>
+        <p class="career-subtitle">
+          Formación Universitaria • 1 carreras disponibles
+        </p>
+      </section>
+
+      <!-- Career Cards Grid -->
+      <section class="careers-grid">
+        <!-- Career Card 1 -->
+        <article class="career-card">
+          <button class="favorite-btn" aria-label="Agregar a favoritos">
+            <img src="assets/images/icon-star.svg" />
+          </button>
+
+          <div class="card-icon">
+            <img
+              src="assets/images/career-tech.png"
+              alt="Icono de Ingeniería de
+            Sistemas"
+            />
+          </div>
+
+          <h3 class="card-title">Ingeniería de Sistemas</h3>
+          <p class="card-description">
+            Diseña y desarrolla sistemas de software y tecnología
+          </p>
+
+          <div class="card-info">
+            <div class="info-item">
+              <img src="assets/images/icon-clock.svg" alt="Duración" width="20"
+                height="20"/>
+              <span>5 años</span>
+            </div>
+
+            <div class="info-item">
+              <img src="assets/images/icon-ubi.png" alt="Modalidad" width="20"
+                height="20"/>
+              <span>Presencial/Virtual</span>
+            </div>
+
+            <div class="info-item rating">
+              <img src="assets/images/icon-market.png" alt="Calificación" 
+              width="20"
+                height="20">
+              <span>Excelente</span>
+            </div>
+          </div>
+
+          <button class="details-btn" onclick="window.location.href='ing_sis.html'"
+          >Ver Detalles</button>
+        </article>
+
+        <!-- Puedes duplicar más tarjetas aquí si necesitas -->
+      </section>
+    </main>
+  </body>
+</html>

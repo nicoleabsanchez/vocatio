@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocatio - Ingeniería de Sistemas</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/ing_sis_style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">vocatio</div>
+      <nav class="nav">
+        <a href="explore1.html" class="nav-link active">Explorar carreras</a>
+        <a href="eventos.html" class="nav-link">Eventos</a>
+        <a href="#" class="nav-link">Test vocacional</a>
+        <a href="resultados.html" class="nav-link">Resultados</a>
+        <a href="ruta_inicio.html" class="nav-link">Ruta de aprendizaje</a>
+        <a href="#" class="nav-link">Progreso</a>
+      </nav>
+      <button class="profile-button" aria-label="Perfil de usuario">
+        <img src="assets/images/icon-user.svg" alt="Perfil" />
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Back Button -->
+      <button class="back-button" onclick="history.back()">
+        <img
+          src="assets/images/left-arrow.svg"
+          alt="Flecha izquierda"
+          onclick="windowndow.history.back();
+        "
+        />
+        Volver
+      </button>
+
+      <!-- Career Header -->
+      <section class="career-header">
+        <div class="header-content">
+          <h1 class="career-title">Ingeniería de Sistemas</h1>
+          <button class="favorite-btn" aria-label="Agregar a favoritos">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 21L10.55 19.7C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 19.7L12 21Z"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+              />
+            </svg>
+          </button>
+        </div>
+        <p class="career-description">
+          Diseña y desarrolla sistemas de software y tecnología para resolver
+          problemas complejos
+        </p>
+
+        <!-- Tags -->
+        <div class="tags">
+          <span class="tag tag-purple">Tecnología</span>
+          <span class="tag tag-purple">Programación</span>
+          <span class="tag tag-purple">Innovación</span>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-cards">
+          <div class="info-card">
+            <span class="info-label">Duración:</span>
+            <span class="info-value">5 años</span>
+          </div>
+          <div class="info-card">
+            <span class="info-label">Modalidad:</span>
+            <span class="info-value">Presencial</span>
+          </div>
+          <div class="info-card">
+            <span class="info-label">Rango salarial:</span>
+            <span class="info-value">$2500 - $8000</span>
+          </div>
+          <div class="info-card">
+            <span class="info-label">Empleabilidad:</span>
+            <span class="info-value">95%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content Grid -->
+      <div class="content-grid">
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Materias Principales -->
+          <section class="section-card">
+            <h2 class="section-title">Materias principales</h2>
+            <div class="two-columns">
+              <ul class="subject-list">
+                <li>Programación I, II, III</li>
+                <li>Bases de Datos</li>
+                <li>Redes de Computadores</li>
+                <li>Seguridad Informática</li>
+              </ul>
+              <ul class="subject-list">
+                <li>Estructuras de Datos</li>
+                <li>Ingeniería de Software</li>
+                <li>Inteligencia Artificial</li>
+                <li>Gestión de Proyectos</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Áreas de Trabajo -->
+          <section class="section-card">
+            <h2 class="section-title">Áreas de trabajo</h2>
+            <div class="tags-grid">
+              <span class="tag tag-light-purple">Desarrollo de Software</span>
+              <span class="tag tag-light-purple">Arquitectura de Sistemas</span>
+              <span class="tag tag-light-purple">Consultoría Tecnológica</span>
+              <span class="tag tag-light-purple">Gestión de Proyectos TI</span>
+              <span class="tag tag-light-purple"
+                >Investigación y Desarrollo</span
+              >
+              <span class="tag tag-light-purple"
+                >Emprendimiento Tecnológico</span
+              >
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+          <!-- Universidades -->
+          <section class="section-card">
+            <h2 class="section-title">Universidades</h2>
+            <div class="university-list">
+              <div class="university-item">
+                <span class="university-name">UPC</span>
+                <button class="info-button">
+                  <img
+                    src="assets/images/icon-info.svg"
+                    alt="Más información"
+                  />
+                  Más información
+                </button>
+              </div>
+              <div class="university-item">
+                <span class="university-name">UTEC</span>
+                <button class="info-button">
+                  <img
+                    src="assets/images/icon-info.svg"
+                    alt="Más información"
+                  />
+                  Más información
+                </button>
+              </div>
+              <div class="university-item">
+                <span class="university-name">UNI</span>
+                <button class="info-button">
+                  <img
+                    src="assets/images/icon-info.svg"
+                    alt="Más información"
+                  />
+                  Más información
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Principales Empleadores -->
+          <section class="section-card">
+            <h2 class="section-title">Principales empleadores</h2>
+            <div class="tags-grid">
+              <span class="tag tag-yellow">Google</span>
+              <span class="tag tag-yellow">Microsoft</span>
+              <span class="tag tag-yellow">Amazon</span>
+              <span class="tag tag-yellow">Mercado Libre</span>
+            </div>
+          </section>
+
+          <!-- Habilidades Clave -->
+          <section class="section-card">
+            <h2 class="section-title">Habilidades clave</h2>
+            <div class="tags-grid">
+              <span class="tag tag-lime">Programación</span>
+              <span class="tag tag-lime">Análisis de Sistemas</span>
+              <span class="tag tag-lime">Base de Datos</span>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Materials Section -->
+      <section class="materials-section">
+        <h2 class="materials-title">Ver materiales sugeridos</h2>
+        <div class="materials-grid">
+          <a href="#" class="material-card">
+            <img width="48" height="48" src="assets/images/icon-document.png" />
+            <span>Documentos</span>
+          </a>
+
+          <a href="#" class="material-card">
+            <img src="assets/images/icon-link.png" width="48" height="48" />
+            <span>Enlaces</span>
+          </a>
+
+          <a href="#" class="material-card">
+            <img src="assets/images/icon-video.png" width="48" height="48" />
+            <span>Videos</span>
+          </a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -397,6 +397,7 @@ body {
 @media (max-width: 768px) {
   .header {
     padding: 16px 24px;
+    flex-wrap: wrap;
   }
 
   .logo {
@@ -404,7 +405,41 @@ body {
   }
 
   .nav {
-    display: none; /* Ocultar en móvil - agregar menú hamburguesa si es necesario */
+    flex-basis: 100%;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-top: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .nav::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+    border-radius: 2px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .nav-link.active::after {
+    bottom: -8px;
+  }
+
+  .profile-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .profile-button img {
+    width: 18px;
+    height: 18px;
   }
 
   .main-content {
@@ -443,6 +478,7 @@ body {
     height: 180px;
   }
 }
+
 
 /* Small Mobile */
 @media (max-width: 480px) {
@@ -676,95 +712,3 @@ body {
   outline-offset: 2px;
 }
 
-
-/* ============================================
-   FAVORITE FUNCTIONALITY (SOLO CSS)
-   ============================================ */
-
-/* Ocultar el checkbox */
-.favorite-checkbox {
-  display: none;
-}
-
-/* Estilo del label (botón de favorito) */
-.favorite-btn {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: 40px;
-  height: 40px;
-  background: var(--color-bg-white);
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: var(--shadow-sm);
-  color: var(--color-text-gray);
-  z-index: 10;
-}
-
-.favorite-btn:hover {
-  background: rgba(107, 62, 255, 0.1);
-  transform: scale(1.1);
-  box-shadow: var(--shadow-md);
-}
-
-.favorite-btn:active {
-  transform: scale(1.05);
-}
-
-.favorite-btn svg {
-  width: 20px;
-  height: 20px;
-  transition: var(--transition);
-}
-
-/* Estado normal - estrella sin rellenar */
-.favorite-btn svg path {
-  fill: none;
-  stroke: var(--color-text-gray);
-  stroke-width: 2;
-}
-
-/* Estado cuando está marcado como favorito */
-.favorite-checkbox:checked + .favorite-btn {
-  background: var(--color-primary);
-  color: var(--color-bg-white);
-}
-
-.favorite-checkbox:checked + .favorite-btn svg path {
-  fill: var(--color-star);
-  stroke: var(--color-star);
-}
-
-/* Animación al hacer clic */
-.favorite-checkbox:checked + .favorite-btn {
-  animation: favoritePopIn 0.3s ease;
-}
-
-@keyframes favoritePopIn {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Hover cuando ya está en favoritos */
-.favorite-checkbox:checked + .favorite-btn:hover {
-  background: var(--color-primary-dark);
-  transform: scale(1.1);
-}
-
-/* Focus state para accesibilidad */
-.favorite-checkbox:focus + .favorite-btn {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
