@@ -10,17 +10,14 @@
     <link rel="stylesheet" href="../../css/responsive.css">
 </head>
 <body>
-    <!-- Header semántico con navegación para usuarios autenticados -->
     <header>
         <nav class="navbar navbar-dashboard">
             <div class="container">
-                <!-- Añadiendo checkbox para menú hamburguesa -->
                 <input type="checkbox" id="menu-toggle" class="hamburger-menu">
                 <div class="navbar-content">
                     <a href="../dashboard/dashboard.html" class="logo">
                         <span class="logo-text">vocatio</span>
                     </a>
-                    <!-- Añadiendo label para menú hamburguesa -->
                     <label for="menu-toggle" class="hamburger-icon">
                         <span></span>
                         <span></span>
@@ -31,11 +28,9 @@
                         <li><a href="../events/events.html">Eventos</a></li>
                         <li><a href="../vocational-test/test.html">Test vocacional</a></li>
                         <li><a href="../results/results.html">Resultados</a></li>
-                        <!-- Reemplazar Materiales por Ruta de aprendizaje -->
                         <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
                         <li><a href="../dashboard/progress.html">Progreso</a></li>
                     </ul>
-                    <!-- Añadiendo checkbox hack para dropdown con clic -->
                     <div class="profile-dropdown">
                         <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
                         <label for="profile-dropdown-toggle" class="profile-dropdown-label">
@@ -52,7 +47,6 @@
         </nav>
     </header>
 
-    <!-- Main semántico con secciones bien estructuradas -->
     <main>
         <section class="explore-header">
             <div class="container">
@@ -63,7 +57,6 @@
 
         <section class="explore-content">
             <div class="container">
-                <!-- Progress Indicators -->
                 <div class="progress-indicators">
                     <div class="progress-step active" id="progress-step-1">
                         <span class="step-number">1</span>
@@ -84,7 +77,6 @@
                 <div class="favorites-placeholder">Mis favoritas</div>
 
                 <div class="carousel-container">
-                    <!-- Step 1: Área de Interés -->
                     <div class="carousel-step active" id="step-1">
                         <div class="step-content">
                             <h2>¿Qué área de interés te apasione?</h2>
@@ -125,7 +117,6 @@
                         </div>
                     </div>
 
-                    <!-- Step 2: Tipo de Formación -->
                     <div class="carousel-step" id="step-2">
                         <div class="step-content">
                             <h2>¿Qué tipo de formación prefieres?</h2>
@@ -152,14 +143,12 @@
                         </div>
                     </div>
 
-                    <!-- Step 3: Carreras Disponibles -->
                     <div class="carousel-step" id="step-3">
                         <div class="step-content">
                             <h2 class="careers-title">Carreras en <span id="selected-area">Tecnología</span></h2>
                             <p class="step-subtitle"><span id="formation-type">Formación Universitaria</span> • <span id="careers-count">1 carreras disponibles</span></p>
                             
                             <div class="careers-list" id="careers-list">
-                                <!-- Populated by JavaScript -->
                             </div>
 
                             <div class="navigation-buttons">
@@ -172,7 +161,6 @@
         </section>
     </main>
 
-    <!-- Footer semántico consistente -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -214,7 +202,6 @@
         </div>
     </footer>
 
-    <!-- Estilos específicos de la página -->
     <style>
         .explore-header {
             padding: var(--spacing-3xl) 0;
@@ -226,7 +213,6 @@
             padding: var(--spacing-3xl) 0;
         }
 
-        /* Progress indicators for 3-step flow */
         .progress-indicators {
             display: flex;
             align-items: center;
@@ -512,7 +498,6 @@
         }
     </style>
 
-    <!-- JavaScript to handle 3-step career selection flow -->
     <script>
         let currentStep = 1;
         let selectedArea = '';
@@ -608,7 +593,6 @@
             }
         };
 
-        // Carrera cards click handlers
         document.querySelectorAll('#step-1 .carousel-card').forEach(card => {
             card.addEventListener('click', function() {
                 selectedArea = this.dataset.area;
@@ -688,12 +672,10 @@
             const existingIndex = favorites.findIndex(fav => fav.name === careerName);
             
             if (existingIndex > -1) {
-                // Remove from favorites
                 favorites.splice(existingIndex, 1);
                 button.textContent = '♡';
                 button.style.color = 'var(--gray)';
             } else {
-                // Add to favorites
                 favorites.push(careerData);
                 button.textContent = '♥';
                 button.style.color = 'var(--error)';
