@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocatio - Explorar Carreras</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link href="../css/main.css" rel="stylesheet" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo">vocatio</div>
+    <nav class="nav">
+      <a href="../explorar-carreras/explorar-carrerras.html" class="nav-link">Explorar carreras</a>
+      <a href="#" class="nav-link">Eventos</a>
+      <a href="../test-vocacional/test-vocacional.html" class="nav-link">Test vocacional</a>
+      <a href="#" class="nav-link">Resultados</a>
+      <a href="#" class="nav-link">Ruta de aprendizaje</a>
+      <a href="#" class="nav-link">Progreso</a>
+    </nav>
+    <div class="auth-buttons">
+      <div class="profile-dropdown-btn-container" id="profile-dropdown-btn-container">
+        <a href="#" class="user-icon" id="user-profile-icon">
+          <img src="../dashboard/profile.png" alt="Perfil">
+        </a>
+        <div class="profile-dropdown-menu" id="profile-dropdown-menu">
+          <ul>
+            <li><a href="../gestion-perfil/gestion-perfil.html">Mi Perfil</a></li>
+            <li><a href="#">Notificaciones</a></li>
+            <li><a href="../index.html" class="logout-link">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="explore-main-content">
+    
+    <h1 class="explore-title">Muestra opciones de carrera</h1>
+
+    <section class="filter-bar">
+      <div class="filter-group-1">
+        <div class="filter-dropdown">
+          <span>Negocios</span>
+          <i>▼</i>
+        </div>
+        <div class="filter-search-bar">
+          <i>🔍</i>
+          <input type="search" placeholder="Buscar carreras....">
+        </div>
+      </div>
+      <div class="filter-group-2">
+        <div class="filter-dropdown">
+          <span>Ver mis favoritos</span>
+          <i>▼</i>
+        </div>
+        <div class="filter-dropdown">
+          <span>Duración</span>
+          <i>▼</i>
+        </div>
+        <div class="filter-dropdown">
+          <span>Tipo de formación</span>
+          <i>▼</i>
+        </div>
+        <button class="btn btn-secondary filter-compare-btn">Comparar seleccionadas</button>
+      </div>
+    </section>
+
+    <section class="career-results-list">
+      
+      <div class="career-card">
+        <div class="career-card-main">
+          <div class="career-card-header">
+            <h3>Ingeniería de Sistemas</h3>
+            <span class="favorite-icon">☆</span>
+          </div>
+          <div class="career-card-details">
+            <span>Duración: 5 años</span>
+            <span>Modalidad: Presencial</span>
+            <span>Área: <a href="#">Negocios</a></span>
+          </div>
+          <p class="tags-title">Carreras sugeridas:</p>
+          <div class="career-card-tags">
+            <span class="career-tag">Liderazgo</span>
+            <span class="career-tag">Orientación a resultados</span>
+            <span class="career-tag">Visión estratégica</span>
+          </div>
+        </div>
+        <div class="career-card-actions">
+          <button class="btn btn-primary">Ver Detalles</button>
+          <button class="btn btn-secondary">Eliminar</button>
+        </div>
+      </div>
+
+      <div class="career-card">
+        <div class="career-card-main">
+          <div class="career-card-header">
+            <h3>Economía</h3>
+            <span class="favorite-icon">☆</span>
+          </div>
+          <div class="career-card-details">
+            <span>Duración: 5 años</span>
+            <span>Modalidad: Presencial</span>
+            <span>Área: <a href="#">Negocios</a></span>
+          </div>
+          <p class="tags-title">Carreras sugeridas:</p>
+          <div class="career-card-tags">
+            <span class="career-tag">Análisis cuantitativo</span>
+            <span class="career-tag">Pensamiento estratégico</span>
+            <span class="career-tag">Gestión financiera</span>
+          </div>
+        </div>
+        <div class="career-card-actions">
+          <button class="btn btn-primary">Ver Detalles</button>
+          <button class="btn btn-secondary">Eliminar</button>
+        </div>
+      </div>
+      
+      </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">vocatio</div>
+      </div>
+      <div class="footer-column">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="../explorar-carreras/explorar-carrerras.html">Explorar carreras</a></li>
+          <li><a href="../test-vocacional/test-vocacional.html">Test vocacional</a></li>
+          <li><a href="#">Eventos</a></li>
+          <li><a href="#">Perfil personalizado</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Sobre nosotros</h4>
+        <ul>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#">Términos y condiciones</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Ayuda</h4>
+        <ul>
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Asistente virtual</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Apps móviles</h4>
+        <div class="app-buttons">
+          <a href="#" class="app-button">
+            <img src="../assets/images/google-play-badge.svg" alt="Google Play" />
+          </a>
+          <a href="#" class="app-button">
+            <img src="../assets/images/app-store-badge.svg" alt="App Store" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 VOCATIO by DecideClaro. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdownContainer = document.getElementById('profile-dropdown-btn-container');
+      const userProfileIcon = document.getElementById('user-profile-icon');
+      const dropdownMenu = document.getElementById('profile-dropdown-menu');
+      
+      if (dropdownContainer && userProfileIcon && dropdownMenu) {
+        const logoutLink = dropdownMenu.querySelector('.logout-link');
+
+        userProfileIcon.addEventListener('click', function(event) {
+          event.preventDefault(); 
+          dropdownMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(event) {
+          if (!dropdownContainer.contains(event.target)) {
+            dropdownMenu.classList.remove('active'); 
+          }
+        });
+
+        logoutLink.addEventListener('click', function(event) {
+          event.preventDefault();
+          window.location.href = 'index.html';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
