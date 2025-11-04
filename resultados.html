@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocatio - Mis Resultados</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link href="css/resultados_style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">vocatio</div>
+      <nav class="nav">
+        <a href="explore1.html" class="nav-link">Explorar carreras</a>
+        <a href="eventos.html" class="nav-link">Eventos</a>
+        <a href="#" class="nav-link">Test vocacional</a>
+        <a href="resultados.html" class="nav-link active">Resultados</a>
+        <a href="ruta_inicio.html" class="nav-link">Ruta de aprendizaje</a>
+        <a href="#" class="nav-link">Progreso</a>
+      </nav>
+      <button class="profile-button" aria-label="Perfil de usuario">
+        <img src="assets/images/icon-user.svg" />
+      </button>
+    </header>
+
+    <main class="main-content">
+      <!-- Page Title -->
+      <section class="page-header">
+        <h1>Mis resultados</h1>
+        <p class="page-subtitle">
+          Historial de tests vocacionales y resultados
+        </p>
+      </section>
+
+      <!-- Latest Result Card -->
+      <section class="latest-result-card">
+        <div class="card-header">
+          <span class="badge-recent">Más reciente</span>
+          <div class="card-actions">
+            <button
+              class="btn btn-download"
+              onclick="window.location.href='gen_informe.html'"
+            >
+              <img src="assets/images/icon-download.svg" />
+              Descargar mi reporte
+            </button>
+            <button class="btn btn-share">
+              <img src="assets/images/icon-share.svg" />
+              Compartir
+            </button>
+          </div>
+          <span class="file-size">2.5MB</span>
+        </div>
+
+        <div class="card-body">
+          <h2 class="test-title">Test Vocacional - 10 de enero, 2025</h2>
+          <p class="test-subtitle">Tu perfil vocacional más actualizado</p>
+
+          <div class="result-grid">
+            <!-- Vocational Profile -->
+            <div class="profile-section">
+              <h3 class="section-title">Perfil Vocacional</h3>
+              <div class="profile-badge">Analítico-Sistemático</div>
+            </div>
+
+            <!-- Affinity Areas -->
+            <div class="affinity-section">
+              <h3 class="section-title">Áreas de Mayor Afinidad</h3>
+              <div class="affinity-bars">
+                <div class="affinity-item">
+                  <span class="affinity-label">Ingeniería</span>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 80%"></div>
+                  </div>
+                  <span class="affinity-percent">80%</span>
+                </div>
+                <div class="affinity-item">
+                  <span class="affinity-label">Tecnología</span>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 60%"></div>
+                  </div>
+                  <span class="affinity-percent">60%</span>
+                </div>
+                <div class="affinity-item">
+                  <span class="affinity-label">Negocios</span>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 20%"></div>
+                  </div>
+                  <span class="affinity-percent">20%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recommended Careers -->
+          <div class="careers-section">
+            <h3 class="section-title">Carreras Recomendadas</h3>
+            <div class="career-pills">
+              <span class="career-pill">Ingeniería de Sistemas</span>
+              <span class="career-pill">Ciencias de la Computación</span>
+              <span class="career-pill">Ingeniería de Datos</span>
+            </div>
+          </div>
+
+          <button class="btn btn-details">Ver detalles</button>
+        </div>
+      </section>
+
+      <!-- Test History -->
+      <section class="test-history">
+        <h2 class="history-title">Historial de Tests</h2>
+
+        <div class="history-card">
+          <h3 class="history-test-title">Test Vocacional - 1 de enero, 2025</h3>
+          <p class="history-profile">Perfil: Analítico-Creativo</p>
+
+          <div class="history-details">
+            <div class="history-column">
+              <h4>Áreas principales:</h4>
+              <ul class="history-list">
+                <li><span class="dot blue"></span> Tecnología (85%)</li>
+                <li><span class="dot blue"></span> Arte y Diseño (78%)</li>
+                <li><span class="dot blue"></span> Ingeniería (72%)</li>
+              </ul>
+            </div>
+            <div class="history-column">
+              <h4>Carreras sugeridas:</h4>
+              <div class="history-pills">
+                <span class="history-pill">Diseño UX/UI</span>
+                <span class="history-pill">Ingeniería de Sistemas</span>
+                <span class="history-pill">Arquitectura</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Update Prompt -->
+      <section class="update-prompt">
+        <h2>¿Quieres actualizar tus resultados?</h2>
+        <p>
+          Tus intereses pueden cambiar con el tiempo. Realiza el test nuevamente
+          para obtener recomendaciones actualizadas.
+        </p>
+        <button class="btn btn-update">Realizar nuevo test</button>
+      </section>
+    </main>
+
+    <!-- Help Button -->
+    <button class="help-button" aria-label="Ayuda">
+      <img src="assets/images/icon-help.svg" />
+    </button>
+  </body>
+</html>

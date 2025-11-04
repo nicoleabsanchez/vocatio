@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocatio -  Mis materiales favoritos</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/mis_favoritos_style.css" />
+    <link href="css/ruta_carrera_style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">vocatio</div>
+      <nav class="nav">
+        <a href="explore1.html" class="nav-link">Explorar carreras</a>
+        <a href="eventos.html" class="nav-link">Eventos</a>
+        <a href="#" class="nav-link">Test vocacional</a>
+        <a href="resultados.html" class="nav-link">Resultados</a>
+        <a href="ruta_inicio.html" class="nav-link active"
+          >Ruta de aprendizaje</a
+        >
+        <a href="#" class="nav-link">Progreso</a>
+      </nav>
+      <button class="profile-button" aria-label="Perfil de usuario">
+        <img src="assets/images/icon-user.svg"/>
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Page Header -->
+      <section class="page-header">
+        <h1>Tus materiales favoritos</h1>
+        <p class="subtitle">
+          Estos son los recursos que te gustaron :)
+        </p>
+      </section>
+
+      <!-- Section Header -->
+      <div class="section-header">
+        <h2>Tus favoritos</h2>
+        <button
+          class="btn-favorites"
+          onclick="window.location.href='mis_favoritos.html'"
+        >
+          Mis materiales favoritos
+        </button>
+      </div>
+
+      <!-- Resources Grid -->
+      <section class="resources-grid">
+        <!-- Card 1: ¿Qué es la administración? -->
+        <article class="resource-card">
+          <div class="card-image">
+            <img
+              src="assets/images/admin-concepto-basico.png"
+            />
+            <input type="checkbox" id="fav-1" class="favorite-checkbox" />
+            <label
+              for="fav-1"
+              class="favorite-btn"
+              aria-label="Agregar a favoritos"
+            >
+              <img
+                src="assets/images/icon-star.svg"
+              />
+            </label>
+          </div>
+          <div class="card-content">
+            <h3>¿Qué es la administración?</h3>
+            <p class="card-description">
+              En este videos se explicarán los conceptos básicos de la
+              administración.
+            </p>
+            <button class="btn-explore">
+              <img src="assets/images/icon-external-link.svg"/>
+              Explorar recurso
+            </button>
+          </div>
+        </article>
+
+        <!-- Card 2: Gestión de proyectos -->
+        <article class="resource-card">
+          <div class="card-image">
+            <img
+              src="assets/images/gestion-proyectos-equipo.png"
+            />
+            <input type="checkbox" id="fav-2" class="favorite-checkbox" />
+            <label
+              for="fav-2"
+              class="favorite-btn"
+              aria-label="Agregar a favoritos"
+            >
+              <img
+                src="assets/images/icon-star.svg"
+              />
+            </label>
+          </div>
+          <div class="card-content">
+            <h3>Gestión de proyectos</h3>
+            <p class="card-description">
+              En este programa de certificación, aprenderás las habilidades más
+              demandadas y recibirás formación en IA de la mano de expertos de
+              Google.
+            </p>
+            <button class="btn-explore">
+              <img src="assets/images/icon-external-link.svg"/>
+              Explorar recurso
+            </button>
+          </div>
+        </article>
+
+        <!-- Card 3: Tecnologías clave -->
+        <article class="resource-card">
+          <div class="card-image">
+            <img
+              src="assets/images/tecnologias-empresariales.png"
+            />
+            <input type="checkbox" id="fav-3" class="favorite-checkbox" />
+            <label
+              for="fav-3"
+              class="favorite-btn"
+              aria-label="Agregar a favoritos"
+            >
+              <img
+                src="assets/images/icon-star.svg"
+              />
+            </label>
+          </div>
+          <div class="card-content">
+            <h3>Tecnologías clave</h3>
+            <p class="card-description">
+              Adelantese con las tecnologías empresariales clave.
+            </p>
+            <button class="btn-explore">
+              <img src="assets/images/icon-external-link.svg"/>
+              Explorar recurso
+            </button>
+          </div>
+        </article>
+
+        <!-- Card 4: Liderazgo empresarial -->
+        <article class="resource-card">
+          <div class="card-image">
+            <img
+              src="assets/images/liderazgo-empresarial.png"
+            />
+            <input type="checkbox" id="fav-4" class="favorite-checkbox" />
+            <label
+              for="fav-4"
+              class="favorite-btn"
+              aria-label="Agregar a favoritos"
+            >
+              <img
+                src="assets/images/icon-star.svg"
+              />
+            </label>
+          </div>
+          <div class="card-content">
+            <h3>Liderazgo empresarial</h3>
+            <p class="card-description">
+              Desarrolla habilidades de liderazgo efectivo para gestionar
+              equipos y proyectos empresariales.
+            </p>
+            <button class="btn-explore">
+              <img src="assets/images/icon-external-link.svg"/>
+              Explorar recurso
+            </button>
+          </div>
+        </article>
+
+  </body>
+</html>

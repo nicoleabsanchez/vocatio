@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocatio - Explorar Carreras</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/explore1_style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">vocatio</div>
+      <nav class="nav">
+        <a href="explore1.html" class="nav-link active">Explorar carreras</a>
+        <a href="eventos.html" class="nav-link">Eventos</a>
+        <a href="#" class="nav-link">Test vocacional</a>
+        <a href="resultados.html" class="nav-link">Resultados</a>
+        <a href="ruta_inicio.html" class="nav-link">Ruta de aprendizaje</a>
+        <a href="#" class="nav-link">Progreso</a>
+      </nav>
+      <button class="profile-button" aria-label="Perfil de usuario">
+        <img src="assets/images/icon-user.svg" alt="Perfil" />
+      </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Intro Section -->
+      <section class="intro">
+        <h1 class="title">Explora carreras según tus intereses</h1>
+        <p class="description">
+          Descubre las carreras que mejor se adaptan a tus intereses y
+          habilidades.
+        </p>
+        <p class="step">
+          Sigue los pasos a continuación para encontrar tu camino profesional.
+        </p>
+
+        <!-- Botones de Navegación -->
+        <div class="action-buttons-container">
+          <button
+            class="action-button favorites-button"
+            onclick="window.location.href='mis-favoritas.html'"
+          >
+            <img
+              src="assets/images/icon-heart.svg"
+              alt="Favoritos"
+              class="button-icon"
+            />
+            Ver mis carreras favoritas
+          </button>
+
+          <button
+            class="action-button all-careers-button"
+            onclick="window.location.href='fichas.html'"
+          >
+            <img src="assets/images/icon-list.svg" /> Ver todas las carreras
+          </button>
+        </div>
+      </section>
+
+      <!-- Steps Section -->
+      <section class="steps">
+        <div class="step-item">
+          <span class="step-number active">1</span>
+          <p>Selecciona área</p>
+        </div>
+        <img src="assets/images/arrow-right.svg" alt="Siguiente paso" />
+        <div class="step-item">
+          <span class="step-number">2</span>
+          <p>Elige carrera</p>
+        </div>
+        <img src="assets/images/arrow-right.svg" alt="Siguiente paso" />
+        <div class="step-item">
+          <span class="step-number">3</span>
+          <p>Explora detalles</p>
+        </div>
+      </section>
+
+      <!-- Question Section -->
+      <section class="question">
+        <h2>¿Qué área te interesa explorar?</h2>
+      </section>
+
+      <!-- Careers Grid -->
+      <section class="careers-grid">
+        <!-- Card 1 -->
+        <article class="career-card" onclick="window.location.href='#ciencias'">
+          <img
+            src="assets/images/career-science.png"
+            alt="Ciencias Naturales"
+          />
+          <h3>Ciencias Naturales</h3>
+          <p>Biología, Química, Física y más</p>
+        </article>
+
+        <!-- Card 2 -->
+        <article
+          class="career-card"
+          onclick="window.location.href='#ingenieria'"
+        >
+          <img src="assets/images/career-engineering.png" alt="Ingeniería" />
+          <h3>Ingeniería</h3>
+          <p>Civil, Mecánica, Eléctrica y más</p>
+        </article>
+
+        <!-- Card 3 -->
+        <article
+          class="career-card"
+          onclick="window.location.href='explore2.html'"
+        >
+          <img src="assets/images/career-tech.png" alt="Tecnología" />
+          <h3>Tecnología</h3>
+          <p>Informática, Sistemas, Software</p>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="career-card" onclick="window.location.href='#salud'">
+          <img
+            src="assets/images/career-health.png"
+            alt="Ciencias de la Salud"
+          />
+          <h3>Ciencias de la Salud</h3>
+          <p>Medicina, Enfermería, Nutrición</p>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="career-card" onclick="window.location.href='#negocios'">
+          <img src="assets/images/career-business.png" alt="Negocios" />
+          <h3>Negocios</h3>
+          <p>Administración, Economía, Marketing</p>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="career-card" onclick="window.location.href='#artes'">
+          <img src="assets/images/career-arts.png" alt="Artes y Humanidades" />
+          <h3>Artes y Humanidades</h3>
+          <p>Diseño, Literatura, Historia</p>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="career-card" onclick="window.location.href='#sociales'">
+          <img src="assets/images/career-social.png" alt="Ciencias Sociales" />
+          <h3>Ciencias Sociales</h3>
+          <p>Psicología, Sociología, Derecho</p>
+        </article>
+
+        <!-- Card 8 -->
+        <article
+          class="career-card"
+          onclick="window.location.href='#educacion'"
+        >
+          <img src="assets/images/career-education.png" alt="Educación" />
+          <h3>Educación</h3>
+          <p>Pedagogía, Docencia, Formación</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
