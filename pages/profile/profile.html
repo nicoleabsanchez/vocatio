@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gestiona tu información personal y configuración de cuenta">
+    <title>Mi Perfil - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dashboard">
+            <div class="container">
+                <!-- Moving hamburger checkbox outside navbar-content for proper positioning -->
+                <input type="checkbox" id="menu-toggle" class="hamburger-menu">
+                
+                <div class="navbar-content">
+                    <!-- Logo apunta a dashboard.html -->
+                    <a href="../dashboard/dashboard.html" class="logo">
+                        <span class="logo-text">vocatio</span>
+                    </a>
+                    
+                    <label for="menu-toggle" class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    
+                    <ul class="nav-menu">
+                        <li><a href="../careers/explore.html">Explorar carreras</a></li>
+                        <li><a href="../events/events.html">Eventos</a></li>
+                        <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+                        <li><a href="../vocational-test/results.html">Resultados</a></li>
+                        <!-- Reemplazar Materiales por Ruta de aprendizaje -->
+                        <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
+                        <li><a href="../dashboard/progress.html">Progreso</a></li>
+                    </ul>
+                    
+                    <div class="profile-dropdown">
+                        <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
+                        <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+                            <div class="profile-icon">J</div>
+                        </label>
+                        <div class="dropdown-menu">
+                            <a href="profile.html" class="active">Mi Perfil</a>
+                            <a href="../notifications/notifications.html">Notificaciones</a>
+                            <a href="../../index.html" class="logout">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-main-page">
+        <div class="container">
+            <section class="profile-page-header">
+                <h1>Mi Perfil</h1>
+                <p>Gestiona tu información personal y cuenta</p>
+            </section>
+
+            <div class="profile-page-layout">
+                <section class="profile-info-card">
+                    <div class="profile-info-header">
+                        <!-- Reduciendo tamaño de imagen de perfil -->
+                        <img src="../../assets/images/jose-profile.jpg" alt="José" class="profile-large-pic">
+                        <div class="profile-info-text">
+                            <h2>José García</h2>
+                            <p class="profile-email">jose.garcia@vocatio.com</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-divider"></div>
+
+                    <div class="profile-section-box">
+                        <h3>Información Personal</h3>
+                        <div class="profile-field">
+                            <label>Nombre Completo</label>
+                            <input type="text" value="José García" readonly>
+                        </div>
+                        <div class="profile-field">
+                            <label>Correo Electrónico</label>
+                            <input type="email" value="jose.garcia@vocatio.com" readonly>
+                        </div>
+                        <div class="profile-field">
+                            <label>Teléfono</label>
+                            <input type="tel" value="+51 987654321" readonly>
+                        </div>
+                        <div class="profile-field">
+                            <label>Fecha de Nacimiento</label>
+                            <input type="date" value="2005-03-15" readonly>
+                        </div>
+                    </div>
+
+                    <a href="#editar" class="btn btn-primary btn-block profile-edit-btn">Modificar Datos</a>
+                </section>
+
+                <section class="profile-security-card">
+                    <h3>Seguridad</h3>
+                    
+                    <div class="security-item">
+                        <div class="security-info">
+                            <h4>Cambiar Contraseña</h4>
+                            <p>Actualiza tu contraseña regularmente para mantener tu cuenta segura</p>
+                        </div>
+                        <button class="btn btn-secondary">Cambiar</button>
+                    </div>
+
+                    <div class="profile-divider"></div>
+
+                    <div class="security-item">
+                        <div class="security-info">
+                            <h4>Autenticación de Dos Factores</h4>
+                            <p>Añade una capa extra de seguridad a tu cuenta</p>
+                        </div>
+                        <button class="btn btn-secondary">Habilitar</button>
+                    </div>
+
+                    <div class="profile-divider"></div>
+
+                    <div class="security-item">
+                        <div class="security-info">
+                            <h4>Sesiones Activas</h4>
+                            <p>Gestiona los dispositivos conectados a tu cuenta</p>
+                        </div>
+                        <button class="btn btn-secondary">Ver</button>
+                    </div>
+                </section>
+            </div>
+
+            <section class="profile-danger-zone">
+                <h3>Zona de Peligro</h3>
+                <button class="btn btn-danger">Eliminar Cuenta</button>
+            </section>
+        </div>
+    </main>
+
+    <a href="../help/help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
+</body>
+</html>

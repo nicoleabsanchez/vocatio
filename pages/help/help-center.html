@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Ayuda - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/help.css">
+</head>
+<body>
+    <!-- Updated navbar to match all authenticated pages with hamburger menu and checkbox dropdown hack -->
+    <header>
+        <nav class="navbar navbar-dashboard">
+            <div class="container">
+                <input type="checkbox" id="menu-toggle" class="hamburger-menu">
+                <div class="navbar-content">
+                    <a href="../dashboard/dashboard.html" class="logo">
+                        <span class="logo-text">vocatio</span>
+                    </a>
+                    <label for="menu-toggle" class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <ul class="nav-menu">
+                        <li><a href="../careers/explore.html">Explorar carreras</a></li>
+                        <li><a href="../events/events.html">Eventos</a></li>
+                        <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+                        <li><a href="../results/results.html">Resultados</a></li>
+                        <!-- Reemplazar Materiales por Ruta de aprendizaje -->
+                        <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
+                        <li><a href="../dashboard/progress.html">Progreso</a></li>
+                    </ul>
+                    <div class="profile-dropdown">
+                        <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
+                        <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+                            <div class="profile-icon">J</div>
+                        </label>
+                        <div class="dropdown-menu">
+                            <a href="../profile/profile.html">Mi Perfil</a>
+                            <a href="../notifications/notifications.html">Notificaciones</a>
+                            <a href="../../index.html" class="logout">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="help-main">
+        <div class="container">
+            <div class="help-header">
+                <a href="../dashboard/dashboard.html" class="btn-back">← Volver</a>
+                <h1>Centro de Ayuda</h1>
+                <p>Completa el formulario y te responderemos lo antes posible</p>
+            </div>
+
+            <form class="help-form" id="helpForm">
+                <div class="form-group">
+                    <label for="fullname">Nombre completo:</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Ingresa tu nombre completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="incident-type">Tipo de incidencia:</label>
+                    <select id="incident-type" name="incident-type" required>
+                        <option value="">Selecciona un ejemplo</option>
+                        <option value="technical">Problema técnico</option>
+                        <option value="account">Problema con cuenta</option>
+                        <option value="test">Pregunta sobre test</option>
+                        <option value="career">Información de carrera</option>
+                        <option value="other">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Prioridad:</label>
+                    <select id="priority" name="priority" required>
+                        <option value="">Seleccionar</option>
+                        <option value="low">Baja</option>
+                        <option value="medium">Media</option>
+                        <option value="high">Alta</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Asunto:</label>
+                    <input type="text" id="subject" name="subject" placeholder="Resumen breve de tu consulta" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descripción detallada:</label>
+                    <textarea id="description" name="description" placeholder="Describe tu problema o consulta con el mayor detalle posible..." rows="6" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Adjuntar archivos (opcional)</label>
+                    <div class="file-upload">
+                        <p>Haz clic para seleccionar archivos</p>
+                        <p class="file-types">PNG, JPG, PDF Hasta 5MB</p>
+                        <input type="file" id="files" name="files" multiple accept=".png,.jpg,.jpeg,.pdf">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Enviar Solicitud</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Help button -->
+    <a href="help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
+
+    <script>
+        document.getElementById('helpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.location.href = 'help-success.html';
+        });
+
+        document.querySelector('.file-upload').addEventListener('click', function() {
+            document.getElementById('files').click();
+        });
+    </script>
+
+    <style>
+        .help-main {
+            padding: var(--spacing-3xl) 0;
+            min-height: 80vh;
+        }
+
+        .help-header {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .btn-back {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: var(--spacing-lg);
+            font-weight: 500;
+        }
+
+        .btn-back:hover {
+            color: var(--primary-dark);
+        }
+
+        .help-header h1 {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .help-header p {
+            color: var(--gray);
+        }
+
+        .help-form {
+            max-width: 700px;
+            background-color: var(--white);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .file-upload {
+            border: 2px dashed var(--gray-light);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-2xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background-color: rgba(124, 58, 237, 0.05);
+        }
+
+        .file-upload p {
+            margin: 0;
+            color: var(--dark);
+        }
+
+        .file-types {
+            font-size: 0.875rem;
+            color: var(--gray) !important;
+            margin-top: var(--spacing-sm) !important;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .help-form {
+                padding: var(--spacing-lg);
+            }
+        }
+    </style>
+</body>
+</html>

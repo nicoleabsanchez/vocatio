@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Progreso - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+
+</head>
+<body>
+    <!-- Updated navbar with proper hamburger menu structure -->
+    <nav class="navbar navbar-dashboard">
+        <div class="container">
+            <input type="checkbox" id="menu-toggle" class="hamburger-menu">
+            
+            <div class="navbar-content">
+                <a href="dashboard.html" class="logo">
+                    <span class="logo-text">vocatio</span>
+                </a>
+                
+                <label for="menu-toggle" class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                
+                <ul class="nav-menu">
+                    <li><a href="../careers/explore.html">Explorar carreras</a></li>
+                    <li><a href="../events/events.html">Eventos</a></li>
+                    <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+                    <li><a href="../vocational-test/results.html">Resultados</a></li>
+                    <li><a href="learning-path.html">Ruta de aprendizaje</a></li>
+                    <li><a href="progress.html" class="active">Progreso</a></li>
+                </ul>
+                
+                <div class="profile-dropdown">
+                    <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
+                    <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+                        <img src="../../assets/images/jose-profile.jpg" alt="José" class="profile-image">
+                    </label>
+                    <div class="dropdown-menu">
+                        <a href="../profile/profile.html">Mi Perfil</a>
+                        <a href="../notifications/notifications.html">Notificaciones</a>
+                        <a href="../../index.html" class="logout">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Completely redesigned progress page with modern layout -->
+    <main style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: calc(100vh - 70px); padding: 40px 0;">
+        <div class="container" style="max-width: 1400px;">
+            <!-- Header Section -->
+            <div style="text-align: center; margin-bottom: 48px;">
+                <h1 style="font-size: 2.5rem; color: #1a1a1a; margin-bottom: 12px; font-weight: 700;">Mi Progreso</h1>
+                <p style="font-size: 1.125rem; color: #666; margin: 0;">Visualiza tu avance y logros alcanzados en Vocatio</p>
+            </div>
+
+            <!-- Statistics Cards Grid -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 48px;">
+                <div style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); padding: 32px; border-radius: 16px; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3); color: white; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 120px; opacity: 0.1;">📊</div>
+                    <div style="position: relative; z-index: 1;">
+                        <p style="font-size: 0.875rem; margin: 0 0 8px 0; opacity: 0.9; font-weight: 500;">Tests Completados</p>
+                        <h3 style="font-size: 3rem; margin: 0; font-weight: 700;">3</h3>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%); padding: 32px; border-radius: 16px; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3); color: white; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 120px; opacity: 0.1;">⭐</div>
+                    <div style="position: relative; z-index: 1;">
+                        <p style="font-size: 0.875rem; margin: 0 0 8px 0; opacity: 0.9; font-weight: 500;">Carreras Exploradas</p>
+                        <h3 style="font-size: 3rem; margin: 0; font-weight: 700;">12</h3>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); padding: 32px; border-radius: 16px; box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3); color: white; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 120px; opacity: 0.1;">📖</div>
+                    <div style="position: relative; z-index: 1;">
+                        <p style="font-size: 0.875rem; margin: 0 0 8px 0; opacity: 0.9; font-weight: 500;">Materiales Revisados</p>
+                        <h3 style="font-size: 3rem; margin: 0; font-weight: 700;">28</h3>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); padding: 32px; border-radius: 16px; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3); color: white; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 120px; opacity: 0.1;">🎯</div>
+                    <div style="position: relative; z-index: 1;">
+                        <p style="font-size: 0.875rem; margin: 0 0 8px 0; opacity: 0.9; font-weight: 500;">Progreso Total</p>
+                        <h3 style="font-size: 3rem; margin: 0; font-weight: 700;">75%</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px;">
+                <!-- Interests Chart -->
+                <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                    <h3 style="margin: 0 0 32px 0; font-size: 1.25rem; color: #1a1a1a; font-weight: 700;">Intereses Predominantes</h3>
+                    <div style="display: flex; align-items: flex-end; justify-content: space-between; height: 280px; gap: 16px;">
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 85%; background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%); border-radius: 8px 8px 0 0; position: relative; display: flex; align-items: flex-start; justify-content: center; padding-top: 12px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.875rem;">85%</span>
+                            </div>
+                            <span style="font-size: 0.8125rem; color: #666; font-weight: 600;">Tecnología</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 70%; background: linear-gradient(180deg, #10b981 0%, #34d399 100%); border-radius: 8px 8px 0 0; position: relative; display: flex; align-items: flex-start; justify-content: center; padding-top: 12px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.875rem;">70%</span>
+                            </div>
+                            <span style="font-size: 0.8125rem; color: #666; font-weight: 600;">Ciencias</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 60%; background: linear-gradient(180deg, #f59e0b 0%, #fbbf24 100%); border-radius: 8px 8px 0 0; position: relative; display: flex; align-items: flex-start; justify-content: center; padding-top: 12px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.875rem;">60%</span>
+                            </div>
+                            <span style="font-size: 0.8125rem; color: #666; font-weight: 600;">Arte</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 45%; background: linear-gradient(180deg, #ef4444 0%, #f87171 100%); border-radius: 8px 8px 0 0; position: relative; display: flex; align-items: flex-start; justify-content: center; padding-top: 12px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.875rem;">45%</span>
+                            </div>
+                            <span style="font-size: 0.8125rem; color: #666; font-weight: 600;">Negocios</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 30%; background: linear-gradient(180deg, #6366f1 0%, #818cf8 100%); border-radius: 8px 8px 0 0; position: relative; display: flex; align-items: flex-start; justify-content: center; padding-top: 12px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.875rem;">30%</span>
+                            </div>
+                            <span style="font-size: 0.8125rem; color: #666; font-weight: 600;">Social</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Activity Chart -->
+                <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+                    <h3 style="margin: 0 0 32px 0; font-size: 1.25rem; color: #1a1a1a; font-weight: 700;">Actividad Semanal</h3>
+                    <div style="display: flex; align-items: flex-end; justify-content: space-between; height: 280px; gap: 12px;">
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 40%; background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%); border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 8px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.75rem;">4</span>
+                            </div>
+                            <span style="font-size: 0.75rem; color: #666; font-weight: 600;">Lun</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 60%; background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%); border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 8px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.75rem;">6</span>
+                            </div>
+                            <span style="font-size: 0.75rem; color: #666; font-weight: 600;">Mar</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 80%; background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%); border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 8px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.75rem;">8</span>
+                            </div>
+                            <span style="font-size: 0.75rem; color: #666; font-weight: 600;">Mié</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 50%; background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%); border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 8px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.75rem;">5</span>
+                            </div>
+                            <span style="font-size: 0.75rem; color: #666; font-weight: 600;">Jue</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 70%; background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%); border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 8px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.75rem;">7</span>
+                            </div>
+                            <span style="font-size: 0.75rem; color: #666; font-weight: 600;">Vie</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 90%; background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%); border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 8px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.75rem;">9</span>
+                            </div>
+                            <span style="font-size: 0.75rem; color: #666; font-weight: 600;">Sáb</span>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                            <div style="width: 100%; height: 30%; background: linear-gradient(180deg, #7c3aed 0%, #a78bfa 100%); border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 8px;">
+                                <span style="color: white; font-weight: 700; font-size: 0.75rem;">3</span>
+                            </div>
+                            <span style="font-size: 0.75rem; color: #666; font-weight: 600;">Dom</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity History -->
+            <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 32px;">
+                <h2 style="margin: 0 0 32px 0; font-size: 1.5rem; color: #1a1a1a; font-weight: 700;">Historial de Actividades</h2>
+                
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Activity Item 1 -->
+                    <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #7c3aed;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">📊</div>
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0 0 4px 0; font-size: 1rem; color: #1a1a1a; font-weight: 600;">Test Vocacional - Completado</h4>
+                            <p style="margin: 0; font-size: 0.875rem; color: #666;">Finalizado hace 2 días • Ingeniería de Sistemas</p>
+                        </div>
+                        <div style="min-width: 120px;">
+                            <div style="height: 8px; background: #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 4px;">
+                                <div style="height: 100%; background: linear-gradient(90deg, #10b981 0%, #34d399 100%); width: 100%;"></div>
+                            </div>
+                            <span style="font-size: 0.75rem; color: #10b981; font-weight: 700;">100%</span>
+                        </div>
+                    </div>
+
+                    <!-- Activity Item 2 -->
+                    <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #f59e0b;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">📚</div>
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0 0 4px 0; font-size: 1rem; color: #1a1a1a; font-weight: 600;">Material: Introducción a la IA</h4>
+                            <p style="margin: 0; font-size: 0.875rem; color: #666;">En progreso • 12 min restantes</p>
+                        </div>
+                        <div style="min-width: 120px;">
+                            <div style="height: 8px; background: #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 4px;">
+                                <div style="height: 100%; background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%); width: 65%;"></div>
+                            </div>
+                            <span style="font-size: 0.75rem; color: #f59e0b; font-weight: 700;">65%</span>
+                        </div>
+                    </div>
+
+                    <!-- Activity Item 3 -->
+                    <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #10b981;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #10b981 0%, #34d399 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">⭐</div>
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0 0 4px 0; font-size: 1rem; color: #1a1a1a; font-weight: 600;">Carrera Guardada como Favorita</h4>
+                            <p style="margin: 0; font-size: 0.875rem; color: #666;">Hace 3 días • Administración de Empresas</p>
+                        </div>
+                    </div>
+
+                    <!-- Activity Item 4 -->
+                    <div style="display: flex; align-items: center; gap: 20px; padding: 20px; background: #f8f9fa; border-radius: 12px; border-left: 4px solid #ef4444;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0;">💬</div>
+                        <div style="flex: 1;">
+                            <h4 style="margin: 0 0 4px 0; font-size: 1rem; color: #1a1a1a; font-weight: 600;">Calificación de Material</h4>
+                            <p style="margin: 0; font-size: 0.875rem; color: #666;">Hace 5 días • 5 estrellas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <div style="text-align: center;">
+                <a href="dashboard.html" style="display: inline-block; padding: 16px 48px; background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: white; text-decoration: none; border-radius: 12px; font-size: 1.125rem; font-weight: 600; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(124, 58, 237, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(124, 58, 237, 0.3)'">Volver al Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Help button -->
+    <a href="../help/help-center.html" class="help-button" style="position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">?</a>
+    
+    <!-- Adding responsive styles for mobile -->
+    <style>
+        @media (max-width: 1024px) {
+            main > div > div:nth-child(2) {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            main > div > div:nth-child(3) {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            main > div > div:nth-child(2) {
+                grid-template-columns: 1fr !important;
+            }
+            
+            main h1 {
+                font-size: 2rem !important;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Tickets de Soporte - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/help.css">
+</head>
+<body>
+    <nav class="navbar navbar-dashboard">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="../../index.html" class="logo">
+                    <span class="logo-text">vocatio</span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="../dashboard/dashboard.html">Explorar carreras</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                    <li><a href="#test">Test vocacional</a></li>
+                    <li><a href="../dashboard/my-results.html">Resultados</a></li>
+                    <li><a href="#ruta">Ruta de aprendizaje</a></li>
+                    <li><a href="#progreso">Progreso</a></li>
+                </ul>
+                <div class="profile-dropdown">
+                    <button class="profile-icon">👤</button>
+                    <div class="dropdown-menu">
+                        <a href="../profile/profile.html">Mi Perfil</a>
+                        <a href="../notifications/notifications.html">Mis notificaciones</a>
+                        <a href="../../index.html" class="logout">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="help-main">
+        <div class="container">
+            <div class="tickets-header">
+                <h1>Mis Tickets de Soporte</h1>
+                <p>Historial de todas tus solicitudes de ayuda</p>
+                <a href="help-center.html" class="btn btn-primary">+ Nueva Solicitud</a>
+            </div>
+
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="open">Abiertos</button>
+                <button class="filter-btn" data-filter="process">En Proceso</button>
+                <button class="filter-btn" data-filter="resolved">Resueltos</button>
+            </div>
+
+            <div class="tickets-list">
+                <div class="ticket-item">
+                    <div class="ticket-title">
+                        <h3>No puedo descargar mis resultados del test</h3>
+                        <span class="ticket-id">#VOC-2025-0342</span>
+                    </div>
+                    <p class="ticket-description">Al hacer clic en "Descargar PDF" en la sección de resultados, aparece un mensaje de error...</p>
+                    <div class="ticket-meta">
+                        <span class="priority priority-medium">Prioridad Media</span>
+                        <span class="created-date">Creado hace 5 minutos</span>
+                    </div>
+                    <span class="status status-open">Abierto</span>
+                </div>
+
+                <div class="ticket-item">
+                    <div class="ticket-title">
+                        <h3>Consulta sobre interpretación de resultados</h3>
+                        <span class="ticket-id">#VOC-2025-0298</span>
+                    </div>
+                    <p class="ticket-description">Quisiera entender mejor qué significan las áreas de interés predominantes en mi perfil...</p>
+                    <div class="ticket-meta">
+                        <span class="priority priority-low">Prioridad Baja</span>
+                        <span class="created-date">Creado hace 2 días • Última actualización hace 6 horas</span>
+                    </div>
+                    <span class="status status-process">En Proceso</span>
+                </div>
+
+                <div class="ticket-item">
+                    <div class="ticket-title">
+                        <h3>Información sobre carrera de Biotecnología</h3>
+                        <span class="ticket-id">#VOC-2025-0245</span>
+                    </div>
+                    <p class="ticket-description">Me gustaría saber qué universidades en Lima ofrecen la carrera de Biotecnología...</p>
+                    <div class="ticket-meta">
+                        <span class="priority priority-low">Prioridad Baja</span>
+                        <span class="created-date">Creado hace 5 días • Resuelto hace 3 días</span>
+                    </div>
+                    <span class="status status-resolved">Resuelto</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="help-button">?</div>
+
+    <script>
+        document.querySelector('.profile-icon').addEventListener('click', function() {
+            document.querySelector('.dropdown-menu').classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.profile-dropdown');
+            if (!dropdown.contains(event.target)) {
+                document.querySelector('.dropdown-menu').classList.remove('active');
+            }
+        });
+
+        document.querySelector('.help-button').addEventListener('click', function() {
+            window.location.href = 'help-center.html';
+        });
+    </script>
+</body>
+</html>

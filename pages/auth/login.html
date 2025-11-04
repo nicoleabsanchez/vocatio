@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inicia sesión en VOCATIO para acceder a tu perfil vocacional">
+    <title>Iniciar Sesión - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <!-- Adding dashboard.css for login page styles -->
+    <link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body>
+    <!-- Navegación consistente usando header semántico -->
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-content">
+                    <a href="../../index.html" class="logo">
+                        <span class="logo-text">vocatio</span>
+                    </a>
+                    <ul class="nav-menu">
+                        <li><a href="../../index.html">Inicio</a></li>
+                        <li><a href="../../index.html#recursos">Recursos</a></li>
+                        <li><a href="../results/results.html">Resultados</a></li>
+                        <li><a href="../../index.html#quienes">¿Quiénes somos?</a></li>
+                    </ul>
+                    <div class="nav-buttons">
+                        <a href="login.html" class="btn btn-secondary">Iniciar sesión</a>
+                        <a href="register.html" class="btn btn-primary">Registrarse</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Updated to use two-column layout with image on left -->
+    <main class="login-container">
+        <div class="container">
+            <div class="login-content">
+                <!-- Left side: Image -->
+                <div class="login-mascot">
+                    <img src="../../assets/images/vocatio-inicio-sesion.png"  alt="VOCATIO - Descubre tu vocación">
+                </div>
+
+                <!-- Right side: Login form -->
+                <div class="login-form-section">
+                    <h1>Bienvenido de vuelta</h1>
+                    <p class="auth-subtitle">Ingresa tus credenciales para continuar</p>
+                    
+                    <form class="login-form" id="loginForm">
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" id="email" name="email" required placeholder="tu@email.com" aria-required="true">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="password" name="password" required placeholder="••••••••" aria-required="true">
+                            </div>
+                        </div>
+
+                        <div class="form-group-inline">
+                            <div class="checkbox">
+                                <input type="checkbox" id="remember" name="remember">
+                                <label for="remember">Recuérdame</label>
+                            </div>
+                            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                        </div>
+
+                        <a href="../dashboard/dashboard.html" class="btn btn-primary btn-block">Iniciar sesión</a>
+                    </form>
+
+                    <div class="login-footer">
+                        ¿Aún no tienes cuenta? <a href="register.html">Regístrate aquí</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer consistente -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="../careers/explore.html">Explorar carreras</a></li>
+                        <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+                        <li><a href="../events/events.html">Eventos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Sobre nosotros</h4>
+                    <ul>
+                        <li><a href="../support/support.html">Contacto</a></li>
+                        <li><a href="#">Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Ayuda</h4>
+                    <ul>
+                        <li><a href="../help/help-center.html">Centro de ayuda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Apps móviles</h4>
+                    <ul>
+                        <li><a href="#">Google Play</a></li>
+                        <li><a href="#">App Store</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VOCATIO by DecideClaro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Eliminadas todas las referencias a JavaScript -->
+</body>
+</html>
