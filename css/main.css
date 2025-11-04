@@ -755,3 +755,1392 @@ button {
     font-size: 15px;
   }
 }
+
+
+/* ============================================
+   NUEVOS ESTILOS PARA LA PÁGINA DE LOGIN
+   (Añadidos al final de main.css)
+   ============================================ */
+
+/* Contenedor de toda la sección de login */
+.login-main-content {
+  padding: var(--space-xl) 60px; /* Espaciado general */
+  background-color: var(--color-bg-white);
+  /* Si quieres el fondo morado claro, descomenta la siguiente línea: */
+  /* background-color: var(--color-bg-purple-lighter); */
+}
+
+/* Título Centrado (como en la foto 'esto.png') */
+.login-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--color-text-dark);
+  text-align: center; /* ¡Importante! */
+  margin-bottom: var(--space-xl);
+}
+
+/* Contenedor de las 2 columnas */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+  max-width: 1000px; /* Límite de ancho */
+  margin: 0 auto; /* Centrar el contenedor */
+}
+
+/* 1. Lado de la Ilustración (Mascota) */
+.login-illustration {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-illustration img {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+/* 2. Lado del Formulario (Caja) */
+.login-form-wrapper {
+  flex: 1;
+  max-width: 450px;
+  /* Estilo de la caja (como en 'esto.png') */
+  background-color: #f8f7fa; /* Un gris/morado muy claro */
+  padding: var(--space-lg);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-box label {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-medium);
+  margin-bottom: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+
+.login-box input[type="email"],
+.login-box input[type="password"] {
+  padding: 14px 16px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius-small);
+  font-size: 16px;
+  font-family: var(--font-inter);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.login-box input[type="email"]:focus,
+.login-box input[type="password"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Contenedor del campo de contraseña + icono de ojo */
+.password-field {
+  position: relative;
+  display: flex;
+}
+
+.password-field input {
+  width: 100%;
+}
+
+.icono-ojo {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 20px;
+  height: auto;
+  opacity: 0.5;
+}
+
+/* Opciones (Recordarme, Olvidó contraseña) */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--color-text-light);
+  margin-top: var(--space-md);
+}
+
+.options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.link-olvido {
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+.link-olvido:hover {
+  text-decoration: underline;
+}
+
+/* Botón de Iniciar Sesión (usando clases de main.css) */
+/* Hacemos que ocupe todo el ancho */
+.login-box .btn-primary {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  margin-top: var(--space-lg);
+}
+
+/* Texto de "No tienes cuenta?" */
+.register-text {
+  text-align: center;
+  font-size: 15px;
+  color: var(--color-text-light);
+  margin-top: var(--space-md);
+}
+
+.link-registrarse {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+.link-registrarse:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   RESPONSIVE (Para que se vea bien en móvil)
+   ============================================ */
+@media (max-width: 1024px) {
+  .login-main-content {
+    padding: var(--space-lg) 30px;
+  }
+  .login-container {
+    flex-direction: column-reverse; /* Pone el formulario arriba en móvil */
+    gap: var(--space-lg);
+  }
+  .login-illustration {
+    max-width: 300px;
+  }
+}
+
+
+
+
+/* ============================================
+   ESTILOS ESPECÍFICOS - PÁGINA DE REGISTRO
+   (Añadidos al final de main.css)
+   ============================================ */
+
+/* Contenedor de toda la sección de registro */
+.registro-main-content {
+  padding: var(--space-xl) 60px; /* Espaciado general */
+  background-color: var(--color-bg-white);
+  /* Si quieres el fondo morado claro, descomenta la siguiente línea: */
+  /* background-color: var(--color-bg-purple-lighter); */
+}
+
+/* Título Centrado */
+.registro-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--color-text-dark);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+/* Contenedor de las 2 columnas */
+.registro-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+  max-width: 1000px; /* Límite de ancho */
+  margin: 0 auto; /* Centrar el contenedor */
+}
+
+/* 1. Lado de la Ilustración (Mascota) */
+.registro-illustration {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registro-illustration img {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+/* 2. Lado del Formulario (Caja) */
+.registro-form-wrapper {
+  flex: 1;
+  max-width: 450px;
+  /* Estilo de la caja (como en 'esto.png') */
+  background-color: #f8f7fa; /* Un gris/morado muy claro */
+  padding: var(--space-lg);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.registro-box {
+  display: flex;
+  flex-direction: column;
+}
+
+/* * NOTA: Reutilizamos la clase '.form-group' que ya definimos 
+ * en el CSS del login. ¡No necesitamos repetirla!
+ *
+ * .form-group { ... }
+ */
+
+.registro-box label {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-medium);
+  margin-bottom: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+
+.registro-box input[type="text"], /* Para 'Nombres y Apellidos' */
+.registro-box input[type="email"],
+.registro-box input[type="password"] {
+  padding: 14px 16px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius-small);
+  font-size: 16px;
+  font-family: var(--font-inter);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.registro-box input[type="text"]:focus,
+.registro-box input[type="email"]:focus,
+.registro-box input[type="password"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Botón de Ingresar (usando clases de main.css) */
+.registro-box .btn-primary {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  margin-top: var(--space-lg);
+}
+
+/* Texto de "¿Ya tienes cuenta?" */
+.login-text {
+  text-align: center;
+  font-size: 15px;
+  color: var(--color-text-light);
+  margin-top: var(--space-md);
+}
+
+.link-iniciar-sesion {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+.link-iniciar-sesion:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+   RESPONSIVE (Para que se vea bien en móvil)
+   ============================================ */
+@media (max-width: 1024px) {
+  .registro-main-content {
+    padding: var(--space-lg) 30px;
+  }
+  .registro-container {
+    flex-direction: column-reverse; /* Pone el formulario arriba en móvil */
+    gap: var(--space-lg);
+  }
+  .registro-illustration {
+    max-width: 300px;
+  }
+}
+
+.btn:disabled {
+  background-color: #ccc; /* Un color gris */
+  border-color: #ccc;
+  color: #666;
+  cursor: not-allowed; /* Muestra un ícono de "prohibido" */
+  opacity: 0.7;
+}
+
+.btn:disabled:hover {
+  background-color: #ccc;
+  color: #666;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================================
+   ESTILOS ESPECÍFICOS - DASHBOARD (HOME)
+   (Añadidos al final de main.css)
+   ============================================ */
+
+/*
+ * Icono de Perfil en el Header
+ */
+.user-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-bg-light);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.user-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+/*
+ * Contenedor Principal del Dashboard (2 columnas)
+ */
+.dashboard-container {
+  display: flex;
+  gap: var(--space-xl);
+  padding: var(--space-xl) 60px;
+  max-width: 1200px;
+  margin: 0 auto; /* Centra el contenido */
+  align-items: flex-start; /* Alinea al inicio */
+}
+
+/* Columna Izquierda (Principal) */
+.dashboard-main {
+  flex: 2; /* Ocupa 2/3 del espacio */
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-greeting {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--color-text-dark);
+}
+
+.dashboard-subtitle {
+  font-family: var(--font-inter);
+  font-size: 18px;
+  color: var(--color-text-light);
+  margin-top: var(--space-xs);
+}
+
+.user-image-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: var(--space-lg);
+  box-shadow: var(--shadow-md);
+}
+.user-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-card {
+  background-color: var(--color-primary-light);
+  border-radius: var(--radius-large);
+  padding: var(--space-lg);
+  margin-top: var(--space-lg);
+  text-align: center;
+}
+.profile-card p {
+  font-family: var(--font-inter);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+.profile-card h2 {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--color-primary-dark);
+  margin-top: var(--space-xs);
+}
+
+/* Columna Derecha (Sidebar) */
+.dashboard-sidebar {
+  flex: 1; /* Ocupa 1/3 del espacio */
+  position: sticky; /* Se queda fija al hacer scroll */
+  top: 100px; /* (Altura del header + un espacio) */
+}
+
+.sidebar-widget {
+  background-color: var(--color-bg-light);
+  border-radius: var(--radius-large);
+  padding: var(--space-md);
+}
+.widget-title {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--color-text-dark);
+}
+
+/* Estilos del Calendario */
+.calendar-widget {
+  margin-top: var(--space-md);
+}
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-light);
+  margin-bottom: var(--space-sm);
+}
+.calendar-header strong {
+  color: var(--color-text-dark);
+}
+.calendar-widget table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+.calendar-widget th {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-lighter);
+  padding-bottom: var(--space-sm);
+}
+.calendar-widget td {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-medium);
+  padding: var(--space-xs);
+}
+/* Días del mes anterior/siguiente (grises) */
+.calendar-widget td.other-month {
+  color: var(--color-text-lighter);
+  opacity: 0.5;
+}
+/* Día activo (morado) */
+.calendar-widget td.active {
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+  border-radius: 50%;
+}
+
+/* Tarjeta de Evento */
+.event-card {
+  background-color: var(--color-bg-white);
+  border: 1px solid #eee;
+  border-radius: var(--radius-medium);
+  padding: var(--space-sm);
+  margin-top: var(--space-md);
+}
+.event-card strong {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-text-dark);
+}
+.event-card p {
+  font-size: 14px;
+  color: var(--color-text-light);
+  margin-top: 4px;
+}
+
+/* Botón del Sidebar */
+.sidebar-widget .btn-primary {
+  width: 100%; /* Ocupa todo el ancho */
+  margin-top: var(--space-md);
+}
+
+.profile-dropdown-btn-container {
+  position: relative; /* Es crucial para posicionar el menú */
+  display: flex; /* Para centrar el icono si es necesario */
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--space-md); /* Espacio del menú de navegación */
+}
+
+/* El menú desplegable */
+.profile-dropdown-menu {
+  position: absolute;
+  top: 100%; /* Empieza justo debajo del ícono */
+  right: 0;
+  background-color: var(--color-bg-white);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-lg); /* Sombra más pronunciada */
+  min-width: 180px; /* Ancho mínimo para los elementos */
+  padding: var(--space-xs) 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+
+  /* Ocultar por defecto y añadir transición */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px); /* Empieza un poco más abajo */
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out, visibility 0.2s;
+}
+
+/* Estado activo: cuando el menú está visible */
+.profile-dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Vuelve a su posición normal */
+}
+
+.profile-dropdown-menu ul {
+  list-style: none; /* Eliminar los puntos de la lista */
+  padding: 0;
+  margin: 0;
+}
+
+.profile-dropdown-menu ul li a {
+  display: block; /* Para que ocupe todo el ancho y se pueda hacer clic en toda la fila */
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-text-dark);
+  text-decoration: none;
+  font-family: var(--font-inter);
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color 0.1s ease;
+}
+
+.profile-dropdown-menu ul li a:hover {
+  background-color: var(--color-bg-light);
+}
+
+/* Estilo específico para "Cerrar sesión" */
+.profile-dropdown-menu ul li a.logout-link {
+  color: var(--color-error); /* Color rojo */
+  border-top: 1px solid var(--color-bg-light); /* Separador */
+  margin-top: var(--space-xs);
+  padding-top: var(--space-sm);
+}
+
+.profile-dropdown-menu ul li a.logout-link:hover {
+  background-color: var(--color-error-light); /* Un rojo más claro al pasar el ratón */
+}
+
+/* ============================================
+   RESPONSIVE (Para el Dashboard)
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .dashboard-container {
+    flex-direction: column; /* Apila las columnas */
+    padding: var(--space-lg) 30px;
+  }
+  .dashboard-sidebar {
+    position: static; /* Quita el 'sticky' */
+    width: 100%;
+  }
+}
+
+
+.profile-dropdown-menu ul li a:hover {
+  background-color: var(--color-bg-light);
+}
+
+/* Estilo específico para "Cerrar sesión" (color rojo) */
+.profile-dropdown-menu ul li a.logout-link {
+  color: #E63946; /* Un color rojo para 'peligro' */
+  border-top: 1px solid var(--color-bg-light);
+  margin-top: var(--space-xs);
+  padding-top: var(--space-sm);
+}
+
+
+/* ============================================
+   ESTILOS ESPECÍFICOS - OLVIDÓ CONTRASEÑA
+   (Añadidos al final de main.css)
+   ============================================ */
+
+/* * Usamos esto para centrar verticalmente el contenido
+ * cuando NO hay header/footer
+ */
+.minimal-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+  background-color: var(--color-bg-white);
+  /* background-color: var(--color-bg-purple-lighter); */ /* Alternativa de fondo */
+}
+
+/* Contenedor de toda la sección */
+.forgot-main-content {
+  padding: var(--space-xl) 60px;
+  width: 100%;
+}
+
+/* Título Centrado */
+.forgot-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--color-text-dark);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+/* Contenedor de las 2 columnas */
+.forgot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+  max-width: 1000px; /* Límite de ancho */
+  margin: 0 auto; /* Centrar el contenedor */
+}
+
+/* 1. Lado de la Ilustración (Mascota) */
+.forgot-illustration {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.forgot-illustration img {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+/* 2. Lado del Formulario (Caja) */
+.forgot-form-wrapper {
+  flex: 1;
+  max-width: 450px;
+  background-color: #f8f7fa; /* Gris/morado claro de la imagen */
+  padding: var(--space-lg);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.forgot-box {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Texto de ayuda (arriba del input) */
+.form-helper-text {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--color-text-medium);
+  margin-bottom: var(--space-md);
+  line-height: 1.5;
+}
+
+.forgot-box input::placeholder {
+  color: var(--color-text-lighter);
+}
+
+/* Botón de Enviar */
+.forgot-box .btn-primary {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  margin-top: var(--space-sm);
+}
+
+.forgot-box .form-group input[type="email"] {
+  padding: 14px 16px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius-small);
+  font-size: 16px;
+  font-family: var(--font-inter);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  width: 100%; /* Asegura que ocupe todo el ancho */
+}
+
+/* Estilo para cuando el usuario hace clic en el campo */
+.forgot-box .form-group input[type="email"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* ============================================
+   RESPONSIVE (Para Olvidó Contraseña)
+   ============================================ */
+@media (max-width: 1024px) {
+
+  .forgot-container {
+    flex-direction: column-reverse; /* Formulario arriba */
+    gap: var(--space-lg);
+  }
+  .forgot-illustration {
+    max-width: 300px;
+  }
+}
+
+
+/* ============================================
+   ESTILOS ESPECÍFICOS - TEST VOCACIONAL
+   (Añadidos al final de main.css)
+   ============================================ */
+
+/* Contenedor principal de la página del test */
+.test-main-content {
+  max-width: 800px; /* Limita el ancho para mejor lectura */
+  margin: 0 auto; /* Centra el contenido */
+  padding: var(--space-xl) 60px;
+}
+
+.test-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--color-text-dark);
+  text-align: center;
+}
+
+.test-subtitle {
+  font-family: var(--font-inter);
+  font-size: 16px;
+  color: var(--color-text-light);
+  text-align: center;
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+/* --- Barra de Progreso --- */
+.progress-container {
+  margin-bottom: var(--space-lg);
+}
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-light);
+  margin-bottom: var(--space-xs);
+  text-transform: uppercase;
+}
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-bg-light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-bar-fg {
+  height: 100%;
+  background-color: var(--color-primary);
+  border-radius: 4px;
+  transition: width 0.3s ease; /* ¡La animación de llenado! */
+}
+
+/* --- Tarjeta de Pregunta --- */
+.question-card {
+  background-color: var(--color-bg-white);
+  border: 1px solid #eee;
+  border-radius: var(--radius-large);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-md);
+}
+#question-title {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--color-text-dark);
+}
+.question-subtitle {
+  font-family: var(--font-inter);
+  font-size: 15px;
+  color: var(--color-text-light);
+  margin-top: 4px;
+  margin-bottom: var(--space-lg);
+}
+
+/* --- Estilos de Opciones (Radio Buttons) --- */
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.option-label {
+  display: flex;
+  align-items: center;
+  padding: var(--space-md);
+  border: 1px solid #ddd;
+  border-radius: var(--radius-medium);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.option-label:hover {
+  border-color: var(--color-primary-light);
+  background-color: var(--color-bg-purple-lighter);
+}
+/* Oculta el radio button real */
+.option-label input[type="radio"] {
+  display: none;
+}
+/* Círculo personalizado */
+.radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease;
+}
+/* Círculo interno (el punto) */
+.radio-custom::after {
+  content: '';
+  width: 10p;
+  height: 10px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  opacity: 0; /* Oculto por defecto */
+  transform: scale(0.5);
+  transition: all 0.2s ease;
+}
+/* Estilos cuando está SELECCIONADO */
+.option-label input[type="radio"]:checked + .radio-custom {
+  border-color: var(--color-primary);
+}
+.option-label input[type="radio"]:checked + .radio-custom::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- Navegación del Test --- */
+.test-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-md);
+}
+
+/* (El estilo .btn:disabled que ya tienes en main.css
+   hará que 'Pregunta Anterior' se vea gris y deshabilitado)
+*/
+
+/* ============================================
+   ESTILOS ESPECÍFICOS - EXPLORAR CARRERAS
+   (Añadidos al final de main.css)
+   ============================================ */
+
+/* Contenedor principal */
+.explore-main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl) 60px;
+}
+
+.explore-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--color-text-dark);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+/* --- Barra de Filtros --- */
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+.filter-group-1,
+.filter-group-2 {
+  display: flex;
+  flex-wrap: wrap; /* Para que se ajusten en móviles */
+  gap: var(--space-sm);
+}
+
+/* Falso 'select' (dropdown) */
+.filter-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: var(--radius-small);
+  cursor: pointer;
+  min-width: 150px;
+}
+.filter-dropdown i {
+  font-style: normal;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+/* Barra de Búsqueda */
+.filter-search-bar {
+  flex-grow: 1; /* Ocupa el espacio restante */
+  display: flex;
+  align-items: center;
+  background-color: var(--color-bg-light);
+  border-radius: var(--radius-small);
+  padding: 0 16px;
+}
+.filter-search-bar i {
+  font-style: normal;
+  margin-right: 8px;
+  color: var(--color-text-lighter);
+}
+.filter-search-bar input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  font-family: var(--font-inter);
+  font-size: 15px;
+}
+.filter-search-bar input:focus {
+  outline: none;
+}
+
+/* Botón de Comparar (usa .btn-secondary pero con color morado) */
+.filter-compare-btn {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-color: var(--color-primary-light);
+}
+.filter-compare-btn:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-bg-white);
+}
+
+/* --- Lista de Resultados --- */
+.career-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Tarjeta de Carrera */
+.career-card {
+  display: flex;
+  flex-wrap: wrap; /* Para responsive */
+  background-color: var(--color-bg-light);
+  border-radius: var(--radius-large);
+  padding: var(--space-md);
+  gap: var(--space-md);
+}
+
+.career-card-main {
+  flex: 3; /* Ocupa 3/4 del espacio */
+}
+.career-card-actions {
+  flex: 1; /* Ocupa 1/4 */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 150px;
+}
+.career-card-actions .btn {
+  width: 100%; /* Botones ocupan todo el ancho */
+}
+/* Botón Eliminar (es .btn-secondary pero morado) */
+.career-card-actions .btn-secondary {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border: 2px solid var(--color-primary-light);
+}
+.career-card-actions .btn-secondary:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  color: var(--color-bg-white);
+}
+
+.career-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+.career-card-header h3 {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--color-text-dark);
+}
+.favorite-icon {
+  font-size: 24px;
+  color: var(--color-text-lighter);
+  cursor: pointer;
+}
+
+.career-card-details {
+  display: flex;
+  gap: var(--space-md);
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: var(--color-text-light);
+  margin-bottom: var(--space-sm);
+}
+.career-card-details a {
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+.career-card-details a:hover {
+  text-decoration: underline;
+}
+
+.tags-title {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-medium);
+  margin-bottom: var(--space-xs);
+}
+
+.career-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+.career-tag {
+  background-color: var(--color-bg-purple-lighter);
+  color: var(--color-primary-dark);
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: var(--radius-small);
+}
+
+/* ============================================
+   RESPONSIVE (Para Explorar Carreras)
+   ============================================ */
+@media (max-width: 768px) {
+  .explore-main-content {
+    padding: var(--space-lg) 20px;
+  }
+  .filter-group-1,
+  .filter-group-2 {
+    flex-direction: column;
+  }
+  .career-card {
+    flex-direction: column;
+  }
+  .career-card-actions {
+    flex-direction: row; /* Botones uno al lado del otro en móvil */
+  }
+}
+
+/* ============================================
+   ESTILOS ESPECÍFICOS - RESULTADOS DEL TEST
+   (Añadidos al final de main.css)
+   ============================================ */
+
+/* Contenedor principal */
+.results-main-content {
+  max-width: 960px; /* Ancho más contenido */
+  margin: 0 auto;
+  padding: var(--space-xl) 60px;
+}
+
+.results-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--color-text-dark);
+  text-align: center;
+}
+
+.results-subtitle {
+  font-family: var(--font-inter);
+  font-size: 16px;
+  color: var(--color-text-light);
+  text-align: center;
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+/* Tarjeta de Perfil Vocacional (la grande) */
+.results-profile-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-bg-white);
+  border: 1px solid #eee;
+  border-radius: var(--radius-large);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-2xl);
+}
+
+.profile-card-info {
+  flex: 1;
+}
+.profile-card-info h3 {
+  font-family: var(--font-inter);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-medium);
+  margin-bottom: var(--space-md);
+}
+
+.profile-card-tag {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: var(--color-bg-white);
+  font-family: var(--font-inter);
+  font-size: 24px;
+  font-weight: 600;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-medium);
+}
+
+.profile-card-image {
+  flex-basis: 250px; /* Ancho fijo para la imagen */
+}
+.profile-card-image img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-medium);
+}
+
+/* Sección de Áreas de Afinidad */
+.section-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--color-text-dark);
+  margin-bottom: var(--space-lg);
+}
+
+.affinity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  gap: var(--space-md);
+}
+
+.affinity-card {
+  background-color: var(--color-bg-white);
+  border: 1px solid #eee;
+  border-radius: var(--radius-large);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.affinity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+.affinity-header h4 {
+  font-family: var(--font-inter);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+}
+.affinity-percentage {
+  font-family: var(--font-inter);
+  font-size: 20px;
+  font-weight: 700;
+  /* El color se aplica en línea (inline) en el HTML */
+}
+
+.affinity-description {
+  font-family: var(--font-inter);
+  font-size: 14px;
+  color: var(--color-text-light);
+  line-height: 1.5;
+  margin-bottom: var(--space-md);
+  min-height: 60px; /* Para alinear tarjetas de diferente altura */
+}
+
+.affinity-progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-bg-light);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.affinity-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  /* El ancho (width) y color se aplican en línea (inline) */
+}
+
+/* ============================================
+   RESPONSIVE (Para Resultados)
+   ============================================ */
+@media (max-width: 1024px) {
+  .results-main-content {
+    padding: var(--space-lg) 30px;
+  }
+  .results-profile-card {
+    flex-direction: column-reverse; /* Imagen arriba */
+    gap: var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .affinity-grid {
+    grid-template-columns: 1fr; /* 1 columna en móvil */
+  }
+  .affinity-description {
+    min-height: auto; /* Resetea la altura mínima */
+  }
+}
+
+/* ============================================
+   ESTILOS ESPECÍFICOS - GESTIONAR PERFIL
+   (Añadidos al final de main.css)
+   ============================================ */
+
+/* Contenedor principal */
+.profile-main-content {
+  max-width: 760px; /* Ancho más contenido */
+  margin: 0 auto;
+  padding: var(--space-xl) 60px;
+}
+
+.profile-title {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--color-text-dark);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+/* Contenedor de la foto de perfil */
+.profile-avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+}
+.profile-avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* Círculo perfecto */
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+}
+
+/* La caja gris del formulario */
+.profile-form-container {
+  background-color: var(--color-bg-light); /* #f8f7fa o #f5f5f7 */
+  border-radius: var(--radius-large);
+  padding: var(--space-xl);
+}
+
+/* * Estilo de 2 columnas (Label | Input)
+ * Usamos CSS Grid para alinear todo
+*/
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Columna 1 (label) | Columna 2 (input) */
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+/* Estilo para la fila del textarea */
+.form-row.full-width {
+  grid-template-columns: 1fr; /* Una sola columna */
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.profile-form-container label {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-text-medium);
+  text-align: right; /* Alinea etiquetas a la derecha */
+}
+
+.form-row.full-width label {
+  text-align: left; /* La etiqueta del textarea a la izquierda */
+}
+
+/* * Reutilizamos los estilos de input que ya definimos
+ * en '.form-group input[type="text"]'
+*/
+.profile-form-container input[type="text"],
+.profile-form-container textarea {
+  padding: 14px 16px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius-small);
+  font-size: 16px;
+  font-family: var(--font-inter);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  width: 100%;
+}
+
+.profile-form-container input[type="text"]:focus,
+.profile-form-container textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.profile-form-container textarea {
+  resize: vertical; /* Permite al usuario cambiar la altura */
+  min-height: 100px;
+}
+
+/* Botón de Confirmar */
+.profile-submit-btn {
+  display: block; /* Para poder centrarlo */
+  margin: var(--space-lg) auto 0; /* Centrado y con espacio arriba */
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}
+
+/* ============================================
+   RESPONSIVE (Para Gestionar Perfil)
+   ============================================ */
+@media (max-width: 768px) {
+  .profile-main-content {
+    padding: var(--space-lg) 20px;
+  }
+  
+  /* Convierte el grid de 2 columnas a 1 */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+  
+  .profile-form-container label {
+    text-align: left; /* Todas las etiquetas a la izquierda en móvil */
+  }
+}

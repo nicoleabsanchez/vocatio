@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vocatio - Test Vocacional</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link href="../css/main.css" rel="stylesheet" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo">vocatio</div>
+    <nav class="nav">
+      <a href="../explorar-carreras/explorar-carrerras.html" class="nav-link">Explorar carreras</a>
+      <a href="#" class="nav-link">Eventos</a>
+      <a href="../test-vocacional/test-vocacional.html" class="nav-link">Test vocacional</a>
+      <a href="#" class="nav-link">Resultados</a>
+      <a href="#" class="nav-link">Ruta de aprendizaje</a>
+      <a href="#" class="nav-link">Progreso</a>
+    </nav>
+    <div class="auth-buttons">
+      <div class="profile-dropdown-btn-container" id="profile-dropdown-btn-container">
+        <a href="#" class="user-icon" id="user-profile-icon">
+          <img src="../dashboard/profile.png" alt="Perfil">
+        </a>
+        <div class="profile-dropdown-menu" id="profile-dropdown-menu">
+          <ul>
+            <li><a href="../gestion-perfil/gestion-perfil.html">Mi Perfil</a></li>
+            <li><a href="#">Notificaciones</a></li>
+            <li><a href="../index.html" class="logout-link">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="test-main-content" id="test-content">
+    
+    <h1 class="test-title">Test Vocacional</h1>
+    <p class="test-subtitle">
+      Descubre tus intereses, habilidades y preferencias profesionales con nuestro test
+      vocacional personalizado. Los resultados te ayudarán a encontrar las carreras más
+      adecuadas para ti.
+    </p>
+
+    <div class="progress-container">
+      <div class="progress-labels">
+        <span>PROGRESO DEL TEST</span>
+        <span id="progress-text">Pregunta 1 de 5</span> 
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fg" id="progress-bar" style="width: 20%;"></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <form id="test-form">
+        <h2 id="question-title">¿Qué actividades disfrutas más en tu tiempo libre?</h2>
+        <p class="question-subtitle">Selecciona la opción que mejor describa tus preferencias personales.</p>
+        
+        <div class="options-container" id="options-container">
+          </div>
+      </form>
+    </div>
+
+    <div class="test-navigation">
+      <button class="btn btn-secondary" id="btn-prev" disabled>Pregunta Anterior</button>
+      <button class="btn btn-primary" id="btn-next" disabled>Siguiente Pregunta</button>
+    </div>
+
+  </main>
+
+  <main class="results-main-content" id="results-content" style="display: none;">
+    
+    <h1 class="results-title">Resultado de tu Test Vocacional</h1>
+    <p class="results-subtitle">
+      Basado en tus respuestas, hemos identificado tus áreas de mayor afinidad y las carreras más
+      compatibles contigo.
+    </p>
+
+    <section class="results-profile-card">
+      <div class="profile-card-info">
+        <h3>Tu Perfil Vocacional</h3>
+        <div class="profile-card-tag">
+          Innovador-Tecnológico
+        </div>
+      </div>
+      <div class="profile-card-image">
+        <img src="../dashboard/profile.png" alt="Estudiante">
+      </div>
+    </section>
+
+    <section class="affinity-areas">
+      <h2 class="section-title">Áreas de Mayor Afinidad</h2>
+      
+      <div class="affinity-grid">
+        
+        <div class="affinity-card">
+          <div class="affinity-header">
+            <h4>Ingeniería</h4>
+            <span class="affinity-percentage" style="color: #6b3eff;">46%</span>
+          </div>
+          <p class="affinity-description">
+            Fuerte afinidad por la innovación y solución
+            de problemas técnicos
+          </p>
+          <div class="affinity-progress-bar">
+            <div class="affinity-progress-fill" style="width: 46%; background-color: #6b3eff;"></div>
+          </div>
+        </div>
+
+        <div class="affinity-card">
+          <div class="affinity-header">
+            <h4>Ciencias Sociales</h4>
+            <span class="affinity-percentage" style="color: #6b3eff;">38%</span>
+          </div>
+          <p class="affinity-description">
+            Capacidad para trabajar con personas y
+            entender necesidades sociales
+          </p>
+          <div class="affinity-progress-bar">
+            <div class="affinity-progress-fill" style="width: 38%; background-color: #6b3eff;"></div>
+          </div>
+        </div>
+
+        <div class="affinity-card">
+          <div class="affinity-header">
+            <h4>Negocios</h4>
+            <span class="affinity-percentage" style="color: #6b3eff;">15%</span>
+          </div>
+          <p class="affinity-description">
+            Habilidades para la gestión y desarrollo
+            empresarial
+          </p>
+          <div class="affinity-progress-bar">
+            <div class="affinity-progress-fill" style="width: 15%; background-color: #6b3eff;"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">vocatio</div>
+      </div>
+      <div class="footer-column">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#">Explorar carreras</a></li>
+          <li><a href="test-vocacional.html">Test vocacional</a></li>
+          <li><a href="#">Eventos</a></li>
+          <li><a href="#">Perfil personalizado</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Sobre nosotros</h4>
+        <ul>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#">Términos y condiciones</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Ayuda</h4>
+        <ul>
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Asistente virtual</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Apps móviles</h4>
+        <div class="app-buttons">
+          <a href="#" class="app-button">
+            <img
+              src="../assets/images/google-play-badge.svg"
+              alt="Google Play"
+            />
+          </a>
+          <a href="#" class="app-button">
+            <img src="../assets/images/app-store-badge.svg" alt="App Store" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 VOCATIO by DecideClaro. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      const dropdownContainer = document.getElementById('profile-dropdown-btn-container');
+      const userProfileIcon = document.getElementById('user-profile-icon');
+      const dropdownMenu = document.getElementById('profile-dropdown-menu');
+      
+      if (dropdownContainer && userProfileIcon && dropdownMenu) {
+        const logoutLink = dropdownMenu.querySelector('.logout-link');
+
+        userProfileIcon.addEventListener('click', function(event) {
+          event.preventDefault(); 
+          dropdownMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(event) {
+          if (!dropdownContainer.contains(event.target)) {
+            dropdownMenu.classList.remove('active'); 
+          }
+        });
+
+        logoutLink.addEventListener('click', function(event) {
+          event.preventDefault();
+          window.location.href = '../index.html'; 
+        });
+      }
+      
+      const testForm = document.getElementById('test-form');
+      if (testForm) {
+        
+        const testContent = document.getElementById('test-content');
+        const resultsContent = document.getElementById('results-content');
+        
+        const questions = [
+          {
+            pregunta: "¿Qué actividades disfrutas más en tu tiempo libre?",
+            opciones: [
+              "Resolver problemas lógicos y trabajar con tecnología",
+              "Ayudar a otras personas y trabajar en equipo",
+              "Crear y diseñar cosas nuevas",
+              "Analizar datos y tomar decisiones estratégicas"
+            ]
+          },
+          {
+            pregunta: "¿Qué tipo de ambiente de trabajo prefieres?",
+            opciones: [
+              "Un laboratorio o un entorno técnico",
+              "Una oficina colaborativa o en contacto con gente",
+              "Un estudio creativo o un taller",
+              "Un entorno corporativo orientado a resultados"
+            ]
+          },
+          {
+            pregunta: "¿En qué materias solías destacar más?",
+            opciones: [
+              "Matemáticas y Física",
+              "Ciencias Sociales y Humanidades",
+              "Arte y Música",
+              "Economía y Administración"
+            ]
+          },
+          {
+            pregunta: "¿Qué te motiva más en un proyecto?",
+            opciones: [
+              "Encontrar la solución más eficiente",
+              "Lograr un impacto social positivo",
+              "Expresar mi visión única",
+              "Alcanzar un objetivo financiero o de mercado"
+            ]
+          },
+          {
+            pregunta: "¿Cómo prefieres aprender algo nuevo?",
+            opciones: [
+              "Investigando y experimentando por mi cuenta",
+              "Debatiendo ideas con un grupo o un mentor",
+              "Mediante la práctica visual y la creación",
+              "Estudiando casos de éxito y estrategias"
+            ]
+          }
+        ];
+
+        let currentQuestionIndex = 0;
+        const totalQuestions = questions.length;
+        const userAnswers = new Array(totalQuestions).fill(null);
+
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const questionTitle = document.getElementById('question-title');
+        const optionsContainer = document.getElementById('options-container');
+        const btnNext = document.getElementById('btn-next');
+        const btnPrev = document.getElementById('btn-prev');
+
+        function renderQuestion(index) {
+          const question = questions[index];
+          questionTitle.innerText = question.pregunta;
+          optionsContainer.innerHTML = '';
+          
+          question.opciones.forEach((opcion, i) => {
+            const optionId = `q${index}_op${i}`;
+            const optionHTML = `
+              <label class="option-label" for="${optionId}">
+                <input type="radio" id="${optionId}" name="respuesta" value="${i}">
+                <span class="radio-custom"></span>
+                ${opcion}
+              </label>
+            `;
+            optionsContainer.insertAdjacentHTML('beforeend', optionHTML);
+          });
+
+          if (userAnswers[index] !== null) {
+            const savedAnswerInput = document.getElementById(`q${index}_op${userAnswers[index]}`);
+            if (savedAnswerInput) {
+              savedAnswerInput.checked = true;
+            }
+          }
+          
+          const progressPercent = ((index + 1) / totalQuestions) * 100;
+          progressBar.style.width = `${progressPercent}%`;
+          progressText.innerText = `Pregunta ${index + 1} de ${totalQuestions}`;
+          
+          btnPrev.disabled = (index === 0);
+          btnNext.disabled = (userAnswers[index] === null);
+          
+          if (index === totalQuestions - 1) {
+            btnNext.innerText = 'Finalizar Test';
+          } else {
+            btnNext.innerText = 'Siguiente Pregunta';
+          }
+        }
+
+    
+        btnNext.addEventListener('click', function() {
+          if (currentQuestionIndex < totalQuestions - 1) {
+            currentQuestionIndex++;
+            renderQuestion(currentQuestionIndex);
+          } else {
+        
+            testContent.style.display = 'none';
+            
+            resultsContent.style.display = 'block'; 
+          }
+        });
+
+        btnPrev.addEventListener('click', function() {
+          if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            renderQuestion(currentQuestionIndex);
+          }
+        });
+
+        optionsContainer.addEventListener('change', function(event) {
+          if (event.target.type === 'radio') {
+            userAnswers[currentQuestionIndex] = parseInt(event.target.value);
+            btnNext.disabled = false;
+          }
+        });
+        
+        renderQuestion(currentQuestionIndex); 
+      
+      }
+
+    });
+  </script>
+
+</body>
+</html>
