@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descubre tus intereses, habilidades y preferencias profesionales con nuestro test vocacional personalizado">
+    <title>Test Vocacional - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+
+</head>
+<body>
+    <!-- Simplified navbar without dashboard header -->
+    <nav class="navbar navbar-dashboard">
+        <div class="container">
+            <input type="checkbox" id="menu-toggle" class="hamburger-menu">
+            <div class="navbar-content">
+                <a href="../dashboard/dashboard.html" class="logo">
+                    <span class="logo-text">vocatio</span>
+                </a>
+                <label for="menu-toggle" class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                <ul class="nav-menu">
+                    <li><a href="../careers/explore.html">Explorar carreras</a></li>
+                    <li><a href="../events/events.html">Eventos</a></li>
+                    <li><a href="test.html" class="active">Test vocacional</a></li>
+                    <li><a href="../results/results.html">Resultados</a></li>
+                    <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
+                    <li><a href="../dashboard/progress.html">Progreso</a></li>
+                </ul>
+                <div class="profile-dropdown">
+                    <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
+                    <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+                        <img src="../../assets/images/jose-profile.jpg" alt="José" class="profile-image">
+                    </label>
+                    <div class="dropdown-menu">
+                        <a href="../profile/profile.html">Mi Perfil</a>
+                        <a href="../notifications/notifications.html">Notificaciones</a>
+                        <a href="../../index.html" class="logout">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content starts directly after navbar, no hero section -->
+    <main style="min-height: calc(100vh - 80px); background-color: #f8f9fa; padding: 60px 0;">
+        <div class="container" style="max-width: 1200px;">
+            <!-- Centered hero section with title and description -->
+            <div style="text-align: center; margin-bottom: 60px;">
+                <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #7c3aed, #a78bfa); border-radius: 50%; margin-bottom: 24px; font-size: 36px;">
+                    📖
+                </div>
+                <h1 style="font-size: 2.5rem; color: #1a1a1a; margin-bottom: 16px; font-weight: 700;">Test Vocacional</h1>
+                <p style="font-size: 1.125rem; color: #666; max-width: 700px; margin: 0 auto; line-height: 1.6;">
+                    Descubre tus intereses, habilidades y preferencias profesionales con nuestro test vocacional personalizado. Los resultados te ayudarán a encontrar las carreras más adecuadas para ti.
+                </p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+                <!-- Progress bar with question counter -->
+                <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <span style="font-weight: 600; color: #666; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px;">Progreso del Test</span>
+                        <span style="font-weight: 500; color: #1a1a1a;">Pregunta <span id="currentQuestion">1</span> de 5</span>
+                    </div>
+                    <div style="width: 100%; height: 12px; background-color: #e5e7eb; border-radius: 12px; overflow: hidden;">
+                        <div style="height: 100%; background: linear-gradient(90deg, #7c3aed, #a78bfa); border-radius: 12px; transition: width 0.4s ease; width: 20%;" id="progressBar"></div>
+                    </div>
+                </div>
+
+                <!-- Question card -->
+                <div style="background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 24px; border: 1px solid #e5e7eb;">
+                    <h2 id="questionTitle" style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 12px; font-weight: 600;"></h2>
+                    <p style="color: #666; margin-bottom: 32px; font-size: 0.95rem;">Selecciona la opción que mejor describa tus preferencias personales.</p>
+                    
+                    <div id="questionOptions" style="display: flex; flex-direction: column; gap: 16px;">
+                        <!-- Options will be dynamically inserted here -->
+                    </div>
+                </div>
+
+                <!-- Navigation buttons -->
+                <div style="display: flex; gap: 16px; justify-content: space-between;">
+                    <button class="btn btn-secondary" id="prevBtn" disabled style="flex: 1; padding: 16px 32px; font-size: 1rem; font-weight: 500; border-radius: 12px;">Pregunta Anterior</button>
+                    <button class="btn btn-primary" id="nextBtn" style="flex: 1; padding: 16px 32px; font-size: 1rem; font-weight: 500; border-radius: 12px;">Siguiente Pregunta</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Help button -->
+    <a href="../help/help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
+
+    <style>
+        /* Streamlined styles for cleaner test interface */
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .option-label:hover {
+            border-color: #7c3aed;
+            background-color: rgba(124, 58, 237, 0.05);
+            transform: translateX(4px);
+        }
+
+        .option-label input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 16px;
+            cursor: pointer;
+            accent-color: #7c3aed;
+        }
+
+        .option-label.selected {
+            border-color: #7c3aed;
+            background-color: rgba(124, 58, 237, 0.1);
+        }
+
+        .option-text {
+            flex: 1;
+            color: #1a1a1a;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: #9ca3af;
+        }
+
+        .help-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #7c3aed;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .help-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(124, 58, 237, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 40px 0 !important;
+            }
+
+            main > div > div:first-child h1 {
+                font-size: 2rem !important;
+            }
+
+            main > div > div:first-child p {
+                font-size: 1rem !important;
+            }
+
+            main > div > div:nth-child(2) > div:nth-child(2) {
+                padding: 24px !important;
+            }
+
+            main > div > div:nth-child(2) > div:last-child {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                question: "¿Qué actividades disfrutas más en tu tiempo libre?",
+                options: [
+                    { text: "Resolver problemas lógicos y trabajar con tecnología", category: "tech", value: 3 },
+                    { text: "Ayudar a otras personas y trabajar en equipo", category: "social", value: 3 },
+                    { text: "Crear y diseñar cosas nuevas", category: "creative", value: 3 },
+                    { text: "Analizar datos y tomar decisiones estratégicas", category: "analytical", value: 3 }
+                ]
+            },
+            {
+                id: 2,
+                question: "¿En qué tipo de ambiente prefieres trabajar?",
+                options: [
+                    { text: "Oficina moderda con tecnología avanzada", category: "tech", value: 2 },
+                    { text: "Al aire libre o en contacto con la naturaleza", category: "social", value: 2 },
+                    { text: "Laboratorio o centro de investigación", category: "analytical", value: 2 },
+                    { text: "Estudio creativo o taller artístico", category: "creative", value: 2 }
+                ]
+            },
+            {
+                id: 3,
+                question: "¿Qué te motiva más en un trabajo?",
+                options: [
+                    { text: "Innovar y crear soluciones nuevas", category: "tech", value: 3 },
+                    { text: "Ayudar a mejorar la vida de las personas", category: "social", value: 3 },
+                    { text: "Expresar mi creatividad y visión artística", category: "creative", value: 3 },
+                    { text: "Liderar equipos y tomar decisiones importantes", category: "analytical", value: 3 }
+                ]
+            },
+            {
+                id: 4,
+                question: "¿Cuál de estas materias te resulta más interesante?",
+                options: [
+                    { text: "Matemáticas y Física", category: "analytical", value: 3 },
+                    { text: "Biología y Química", category: "tech", value: 2 },
+                    { text: "Literatura y Historia", category: "creative", value: 2 },
+                    { text: "Economía y Administración", category: "analytical", value: 2 }
+                ]
+            },
+            {
+                id: 5,
+                question: "¿Cómo prefieres resolver problemas?",
+                options: [
+                    { text: "Analizando datos y usando lógica", category: "analytical", value: 3 },
+                    { text: "Trabajando en equipo y consultando expertos", category: "social", value: 3 },
+                    { text: "Usando mi intuición y creatividad", category: "creative", value: 3 },
+                    { text: "Siguiendo procedimientos establecidos", category: "tech", value: 2 }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let answers = {};
+        let scores = {
+            tech: 0,
+            social: 0,
+            creative: 0,
+            analytical: 0
+        };
+
+        function renderQuestion() {
+            const question = questions[currentQuestionIndex];
+            const questionTitle = document.getElementById('questionTitle');
+            const questionOptions = document.getElementById('questionOptions');
+            const currentQuestionSpan = document.getElementById('currentQuestion');
+            const progressBar = document.getElementById('progressBar');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            // Update question title and counter
+            questionTitle.textContent = question.question;
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+
+            // Update progress bar
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Render options
+            questionOptions.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const label = document.createElement('label');
+                label.className = 'option-label';
+                if (answers[question.id] === index) {
+                    label.classList.add('selected');
+                }
+
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `question${question.id}`;
+                radio.value = index;
+                radio.checked = answers[question.id] === index;
+                radio.addEventListener('change', () => selectOption(index));
+
+                const span = document.createElement('span');
+                span.className = 'option-text';
+                span.textContent = option.text;
+
+                label.appendChild(radio);
+                label.appendChild(span);
+                questionOptions.appendChild(label);
+            });
+
+            // Update button states
+            prevBtn.disabled = currentQuestionIndex === 0;
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.textContent = 'Finalizar test';
+            } else {
+                nextBtn.textContent = 'Siguiente Pregunta';
+            }
+        }
+
+        function selectOption(optionIndex) {
+            const question = questions[currentQuestionIndex];
+            answers[question.id] = optionIndex;
+
+            // Update visual selection
+            const labels = document.querySelectorAll('.option-label');
+            labels.forEach((label, index) => {
+                if (index === optionIndex) {
+                    label.classList.add('selected');
+                } else {
+                    label.classList.remove('selected');
+                }
+            });
+        }
+
+        function calculateScores() {
+            scores = { tech: 0, social: 0, creative: 0, analytical: 0 };
+            
+            questions.forEach(question => {
+                const answerIndex = answers[question.id];
+                if (answerIndex !== undefined) {
+                    const selectedOption = question.options[answerIndex];
+                    scores[selectedOption.category] += selectedOption.value;
+                }
+            });
+
+            // Store scores in localStorage
+            localStorage.setItem('vocationalTestScores', JSON.stringify(scores));
+            localStorage.setItem('vocationalTestCompleted', 'true');
+            localStorage.setItem('vocationalTestDate', new Date().toISOString());
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            const question = questions[currentQuestionIndex];
+            
+            // Validate that an option is selected
+            if (answers[question.id] === undefined) {
+                alert('Por favor selecciona una opción antes de continuar.');
+                return;
+            }
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                // Test completed
+                calculateScores();
+                window.location.href = 'results.html';
+            }
+        });
+
+        // Initialize first question
+        renderQuestion();
+    </script>
+</body>
+</html>
