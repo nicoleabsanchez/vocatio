@@ -1,2 +1,0 @@
-Guía Completa de Estructuras de Datos
-Documento detallado sobre estructuras de datos y algoritmos fundamentales.
