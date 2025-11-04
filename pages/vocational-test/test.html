@@ -9,7 +9,6 @@
 
 </head>
 <body>
-    <!-- Simplified navbar without dashboard header -->
     <nav class="navbar navbar-dashboard">
         <div class="container">
             <input type="checkbox" id="menu-toggle" class="hamburger-menu">
@@ -45,10 +44,8 @@
         </div>
     </nav>
 
-    <!-- Main content starts directly after navbar, no hero section -->
     <main style="min-height: calc(100vh - 80px); background-color: #f8f9fa; padding: 60px 0;">
         <div class="container" style="max-width: 1200px;">
-            <!-- Centered hero section with title and description -->
             <div style="text-align: center; margin-bottom: 60px;">
                 <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; background: linear-gradient(135deg, #7c3aed, #a78bfa); border-radius: 50%; margin-bottom: 24px; font-size: 36px;">
                     📖
@@ -60,7 +57,6 @@
             </div>
 
             <div style="max-width: 900px; margin: 0 auto;">
-                <!-- Progress bar with question counter -->
                 <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 24px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                         <span style="font-weight: 600; color: #666; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px;">Progreso del Test</span>
@@ -71,17 +67,14 @@
                     </div>
                 </div>
 
-                <!-- Question card -->
                 <div style="background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 24px; border: 1px solid #e5e7eb;">
                     <h2 id="questionTitle" style="font-size: 1.5rem; color: #1a1a1a; margin-bottom: 12px; font-weight: 600;"></h2>
                     <p style="color: #666; margin-bottom: 32px; font-size: 0.95rem;">Selecciona la opción que mejor describa tus preferencias personales.</p>
                     
                     <div id="questionOptions" style="display: flex; flex-direction: column; gap: 16px;">
-                        <!-- Options will be dynamically inserted here -->
                     </div>
                 </div>
 
-                <!-- Navigation buttons -->
                 <div style="display: flex; gap: 16px; justify-content: space-between;">
                     <button class="btn btn-secondary" id="prevBtn" disabled style="flex: 1; padding: 16px 32px; font-size: 1rem; font-weight: 500; border-radius: 12px;">Pregunta Anterior</button>
                     <button class="btn btn-primary" id="nextBtn" style="flex: 1; padding: 16px 32px; font-size: 1rem; font-weight: 500; border-radius: 12px;">Siguiente Pregunta</button>
@@ -90,11 +83,9 @@
         </div>
     </main>
 
-    <!-- Help button -->
     <a href="../help/help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
 
     <style>
-        /* Streamlined styles for cleaner test interface */
         .option-label {
             display: flex;
             align-items: center;
@@ -258,15 +249,12 @@
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
 
-            // Update question title and counter
             questionTitle.textContent = question.question;
             currentQuestionSpan.textContent = currentQuestionIndex + 1;
 
-            // Update progress bar
             const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
             progressBar.style.width = progress + '%';
 
-            // Render options
             questionOptions.innerHTML = '';
             question.options.forEach((option, index) => {
                 const label = document.createElement('label');
@@ -291,7 +279,6 @@
                 questionOptions.appendChild(label);
             });
 
-            // Update button states
             prevBtn.disabled = currentQuestionIndex === 0;
             
             if (currentQuestionIndex === questions.length - 1) {
@@ -305,7 +292,6 @@
             const question = questions[currentQuestionIndex];
             answers[question.id] = optionIndex;
 
-            // Update visual selection
             const labels = document.querySelectorAll('.option-label');
             labels.forEach((label, index) => {
                 if (index === optionIndex) {
@@ -327,7 +313,6 @@
                 }
             });
 
-            // Store scores in localStorage
             localStorage.setItem('vocationalTestScores', JSON.stringify(scores));
             localStorage.setItem('vocationalTestCompleted', 'true');
             localStorage.setItem('vocationalTestDate', new Date().toISOString());
@@ -343,7 +328,6 @@
         document.getElementById('nextBtn').addEventListener('click', () => {
             const question = questions[currentQuestionIndex];
             
-            // Validate that an option is selected
             if (answers[question.id] === undefined) {
                 alert('Por favor selecciona una opción antes de continuar.');
                 return;
@@ -353,13 +337,11 @@
                 currentQuestionIndex++;
                 renderQuestion();
             } else {
-                // Test completed
                 calculateScores();
                 window.location.href = 'results.html';
             }
         });
 
-        // Initialize first question
         renderQuestion();
     </script>
 </body>
