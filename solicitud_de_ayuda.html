@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Solicitud de ayuda — Centro de Ayuda</title>
+  <style>
+    /* --- Reset & base --- */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,Arial,sans-serif;background:rgba(255,255,255,1);color:rgba(69,68,76,1);-webkit-font-smoothing:antialiased}
+
+    /* Colors from original design */
+    :root{
+      --accent: rgba(105,62,254,1); /* morado */
+      --accent-200: rgba(217,212,255,1); /* lila claro */
+      --text-muted: rgba(103,102,111,1);
+      --bg: #ffffff;
+    }
+
+    /* Container */
+    .page{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:28px 16px;
+      gap:18px;
+    }
+
+    .navigation{
+      width:100%;
+      max-width:1100px;
+      display:flex;
+      gap:22px;
+      align-items:center;
+      padding:14px 20px;
+      border-bottom:1px solid var(--accent-200);
+      background:var(--bg);
+    }
+
+    .brand{color:var(--accent);font-weight:700;font-size:20px}
+    .nav-item{color:var(--text-muted);cursor:pointer}
+    .nav-item:hover{color:var(--accent)}
+
+    h1.title{font-size:44px;margin-top:18px;text-align:center;color:rgba(69,68,76,1)}
+    p.lead{color:var(--text-muted);text-align:center;margin-bottom:4px}
+    p.help-desc{color:var(--text-muted);text-align:center;font-style:italic;margin-bottom:18px}
+
+    /* Form card */
+    .card{
+      width:100%;
+      max-width:940px;
+      background:var(--bg);
+      border:3px solid var(--accent-200);
+      border-radius:10px;
+      padding:32px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.03);
+    }
+
+    .form-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+    .form-col{flex:1;min-width:220px}
+
+    label{display:block;color:rgba(69,68,76,1);font-weight:700;margin-bottom:8px}
+    input[type=text],input[type=email],select,textarea{width:100%;padding:12px;border:2px solid var(--accent-200);border-radius:8px;background:#fff;color:rgba(69,68,76,1);font-size:15px}
+    textarea{min-height:260px;resize:vertical;line-height:1.6}
+
+    .file-block{border:2px dashed var(--accent-200);padding:16px;border-radius:8px;text-align:center;color:var(--text-muted);cursor:pointer}
+    .file-block .hint{display:block;color:var(--accent);font-weight:600;margin-bottom:6px}
+
+    .submit-row{display:flex;justify-content:flex-end;margin-top:14px;gap:12px}
+    .btn{display:inline-block;padding:12px 22px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-ghost{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+
+    /* Confirmation */
+    .confirmation{display:none;width:100%;max-width:720px;margin:0 auto;text-align:center;padding:24px;border-radius:8px;background:var(--bg);border:2px solid var(--accent-200)}
+    .ticket{font-family:monospace;background:linear-gradient(90deg, rgba(105,62,254,0.08), rgba(217,212,255,0.08));padding:10px 14px;border-radius:6px;display:inline-block;margin:8px 0;font-weight:700}
+
+    /* Small screens */
+    @media (max-width:720px){
+      h1.title{font-size:32px}
+      .card{padding:20px}
+      .submit-row{justify-content:center}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="navigation">
+      <div class="brand">vocatio</div>
+      <div style="flex:1"></div>
+      <div class="nav-item">Explorar carreras</div>
+      <div class="nav-item">Eventos</div>
+      <div class="nav-item">Test vocacional</div>
+      <div class="nav-item">Resultados</div>
+    </nav>
+
+    <h1 class="title">Centro de Ayuda</h1>
+    <p class="lead">Completa el formulario con los detalles de tu consulta y nuestro equipo te responderá lo antes posible</p>
+    <p class="help-desc">Para brindarte una mejor ayuda, por favor proporciona la mayor cantidad de detalles posible sobre tu consulta</p>
+
+    <main class="card" role="main">
+      <form id="helpForm">
+        <div class="form-row">
+          <div class="form-col">
+            <label for="fullName">Nombre completo:</label>
+            <input id="fullName" type="text" placeholder="Ingresa tu nombre completo" required />
+          </div>
+          <div class="form-col">
+            <label for="email">Correo electrónico:</label>
+            <input id="email" type="email" placeholder="tucorreo@ejemplo.com" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <label for="incidentType">Tipo de incidencia:</label>
+            <select id="incidentType" required>
+              <option value="">Selecciona un tipo de consulta</option>
+              <optgroup label="Problema técnico">
+                <option value="tech_platform">Error en la plataforma</option>
+                <option value="tech_loading">Problema de carga/velocidad</option>
+                <option value="tech_test">Error en test vocacional</option>
+                <option value="tech_content">Falla en visualización de contenido</option>
+              </optgroup>
+              <optgroup label="Cuenta de usuario">
+                <option value="account_login">No puedo iniciar sesión</option>
+                <option value="account_password">Olvidé mi contraseña</option>
+                <option value="account_profile">Problemas con mi perfil</option>
+                <option value="account_register">Registro incompleto</option>
+              </optgroup>
+              <optgroup label="Contenido educativo">
+                <option value="edu_career">No encuentro información sobre carrera</option>
+                <option value="edu_results">Resultados del test no disponibles</option>
+                <option value="edu_material">Material de curso no accesible</option>
+                <option value="edu_interpret">Dudas sobre interpretación de resultados</option>
+              </optgroup>
+              <optgroup label="Orientación vocacional">
+                <option value="voc_results">Consulta sobre resultados del test</option>
+                <option value="voc_advisory">Necesito asesoría personalizada</option>
+                <option value="voc_careers">Dudas sobre carreras universitarias</option>
+              </optgroup>
+              <optgroup label="Eventos y actividades">
+                <option value="events_info">Información sobre eventos</option>
+                <option value="events_register">Problemas con registro a evento</option>
+              </optgroup>
+              <optgroup label="Resultados y progreso">
+                <option value="results_view">No puedo ver mis resultados</option>
+                <option value="results_history">Error en historial de tickets</option>
+                <option value="results_progress">Progreso no se actualiza</option>
+              </optgroup>
+              <optgroup label="Sugerencias de mejora">
+                <option value="suggest_feature">Propuesta de nueva funcionalidad</option>
+                <option value="suggest_feedback">Feedback sobre la plataforma</option>
+              </optgroup>
+              <option value="other">Otro tipo de consulta</option>
+            </select>
+          </div>
+
+          <div class="form-col">
+            <label for="priority">Prioridad:</label>
+            <select id="priority" required>
+              <option value="">Selecciona la urgencia</option>
+              <option value="high">🔴 Alta - Respuesta en 24h</option>
+              <option value="medium">🟡 Media - Respuesta en 48h</option>
+              <option value="low">🟢 Baja - Respuesta en 3-5 días</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div style="flex:1">
+            <label for="subject">Asunto:</label>
+            <input id="subject" type="text" placeholder="Escribe un título breve que resuma tu consulta (ej: Error al cargar test vocacional)" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div style="flex:1">
+            <label for="description">Descripción detallada:</label>
+            <textarea id="description" placeholder="Para ayudarnos a resolver tu consulta más rápido, por favor incluye:\n\n1. ¿Qué estabas haciendo cuando surgió el problema?\n2. ¿Qué pasos seguiste?\n3. ¿Qué resultado esperabas?\n4. ¿Qué resultado obtuviste en su lugar?\n5. ¿Has intentado alguna solución?\n6. ¿En qué navegador/dispositivo ocurrió?" required></textarea>
+            <details style="margin-top:8px;color:var(--accent)">
+              <summary>📝 Ver ejemplo de una buena descripción</summary>
+              <div style="margin-top:8px;color:var(--text-muted);background:rgba(217,212,255,0.06);padding:12px;border-radius:6px">
+                "Cuando intento acceder a 'Mis Resultados', la página se queda cargando indefinidamente. Probé en dos navegadores diferentes (Chrome y Firefox) con el mismo resultado. Mi ticket anterior fue #VOC-2025-0342. Necesito ver mis resultados para decidir mi carrera universitaria."
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div style="flex:1">
+            <label>Adjuntar archivos (opcional)</label>
+            <label class="file-block" for="attachments">
+              <span class="hint">Haz clic para seleccionar archivos</span>
+              <span style="display:block;color:var(--text-muted);font-size:13px">PNG, JPG, PDF — Hasta 5MB</span>
+              <input id="attachments" type="file" multiple accept=".png,.jpg,.pdf" style="display:none" />
+            </label>
+          </div>
+        </div>
+
+        <div class="submit-row">
+          <button type="button" class="btn btn-ghost" id="backBtn">Volver</button>
+          <button type="submit" class="btn btn-primary" id="sendBtn">Enviar Solicitud</button>
+        </div>
+
+      </form>
+
+      <div id="confirmation" class="confirmation" aria-live="polite">
+        <h2>Solicitud enviada</h2>
+        <p>Gracias. Tu solicitud ha sido recibida. Nuestro equipo te responderá en breve.</p>
+        <div class="ticket" id="ticketNumber">-</div>
+        <div style="margin-top:14px">
+          <button id="continueBtn" class="btn btn-primary">Continuar</button>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('helpForm');
+      const confirmation = document.getElementById('confirmation');
+      const ticketSpan = document.getElementById('ticketNumber');
+      const continueBtn = document.getElementById('continueBtn');
+      const sendBtn = document.getElementById('sendBtn');
+      const backBtn = document.getElementById('backBtn');
+
+      function generateTicket(){
+        const d = new Date();
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth()+1).padStart(2,'0');
+        const dd = String(d.getDate()).padStart(2,'0');
+        const hh = String(d.getHours()).padStart(2,'0');
+        const min = String(d.getMinutes()).padStart(2,'0');
+        const rnd = Math.floor(1000 + Math.random()*9000);
+        return `VOC-${yyyy}${mm}${dd}-${hh}${min}-${rnd}`;
+      }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        // basic validation
+        const name = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        if(!name || !email){
+          alert('Por favor completa al menos tu nombre y correo electrónico.');
+          return;
+        }
+        // show confirmation
+        const ticket = generateTicket();
+        ticketSpan.textContent = ticket;
+        form.style.display = 'none';
+        confirmation.style.display = 'block';
+        // focus on continue button for accessibility
+        continueBtn.focus();
+        // (Optionally send data to server here)
+      });
+
+      continueBtn.addEventListener('click', function(){
+        form.reset();
+        confirmation.style.display = 'none';
+        form.style.display = 'block';
+        document.getElementById('fullName').focus();
+      });
+
+      backBtn.addEventListener('click', function(){
+        // simple behavior: scroll to top
+        window.scrollTo({top:0,behavior:'smooth'});
+      });
+
+      // allow clicking the file-block to open file input
+      document.querySelectorAll('.file-block').forEach(function(lbl){
+        lbl.addEventListener('click', function(){
+          const input = lbl.querySelector('input[type=file]');
+          if(input) input.click();
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
