@@ -1,84 +1,164 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calificación de Video</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<!DOCTYPE html><!DOCTYPE html>
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f8f9fa;
-            color: #454E4C;
-            line-height: 1.6;
-        }
+<html lang="es"><html lang="es">
 
-        .container {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+<head><head>
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+    <meta charset="UTF-8">    <meta charset="UTF-8">
 
-        /* Header */
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema de Calificación de Videos</title>    <title>Calificación de Video</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/styles.css">    <style>
+
+    <link rel="stylesheet" href="../../css/rating.css">        * {
+
+</head>            margin: 0;
+
+<body>            padding: 0;
+
+    <div class="container">            box-sizing: border-box;
+
+        <div class="content-grid">        }
+
+            <main>
+
+                <div class="video-container">        body {
+
+                    <video controls class="video-player">            font-family: 'Inter', sans-serif;
+
+                        <source src="sample-video.mp4" type="video/mp4">            background: #f8f9fa;
+
+                        Tu navegador no soporta el elemento de video.            color: #454E4C;
+
+                    </video>            line-height: 1.6;
+
+                            }
+
+                    <div class="video-info">
+
+                        <h1 class="video-title">Título del Video</h1>        .container {
+
+                        <p class="video-description">Descripción detallada del video aquí...</p>            max-width: 1440px;
+
+                                    margin: 0 auto;
+
+                        <div class="rating-container">            padding: 2rem;
+
+                            <h3>Califica este video:</h3>        }
+
+                            <div class="star-rating" id="starRating">
+
+                                <span class="star">★</span>        .content-grid {
+
+                                <span class="star">★</span>            display: grid;
+
+                                <span class="star">★</span>            grid-template-columns: 2fr 1fr;
+
+                                <span class="star">★</span>            gap: 2rem;
+
+                                <span class="star">★</span>            margin-top: 2rem;
+
+                            </div>        }
+
+                            <p class="rating-text">Calificación actual: <span id="currentRating">0</span> de 5</p>
+
+                        </div>        /* Header */
+
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #693efe;
-        }
+                        <div class="comments-section">            display: flex;
 
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-        }
+                            <h3>Comentarios</h3>            justify-content: space-between;
 
-        .nav-item {
-            color: #8b8a92;
-            text-decoration: none;
-            font-weight: 500;
-        }
+                            <div class="comment-form">            align-items: center;
 
-        .nav-item:hover {
-            color: #693efe;
-        }
+                                <textarea             padding: 1rem 0;
+
+                                    id="commentInput"         }
+
+                                    class="comment-input" 
+
+                                    placeholder="Comparte tu opinión sobre este video...">        .logo {
+
+                                </textarea>            font-size: 1.5rem;
+
+                                <button class="btn">Publicar Comentario</button>            font-weight: bold;
+
+                            </div>            color: #693efe;
+
+                                    }
+
+                            <div id="commentsList">
+
+                                <!-- Ejemplo de comentario -->        .nav-menu {
+
+                                <div class="comment">            display: flex;
+
+                                    <strong>Usuario Ejemplo</strong>            gap: 2rem;
+
+                                    <p>Este es un comentario de ejemplo sobre el video.</p>        }
+
+                                    <div class="vote-buttons">
+
+                                        <button class="vote-btn">👍</button>        .nav-item {
+
+                                        <span class="vote-count">0</span>            color: #8b8a92;
+
+                                        <button class="vote-btn">👎</button>            text-decoration: none;
+
+                                    </div>            font-weight: 500;
+
+                                </div>        }
+
+                            </div>
+
+                        </div>        .nav-item:hover {
+
+                    </div>            color: #693efe;
+
+                </div>        }
+
+            </main>
 
         /* Video Section */
-        .video-container {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
 
-        .video-player {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: #000;
-        }
+            <aside class="rating-panel">        .video-container {
 
-        .video-info {
-            padding: 1.5rem;
-        }
+                <h2 class="rating-title">Tu Opinión</h2>            background: #fff;
 
+                <div class="rating-box">            border-radius: 12px;
+
+                    <h3>Tu calificación</h3>            overflow: hidden;
+
+                    <div class="rating-stars">            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+                        <span class="star">★</span>        }
+
+                        <span class="star">★</span>
+
+                        <span class="star">★</span>        .video-player {
+
+                        <span class="star">★</span>            width: 100%;
+
+                        <span class="star">★</span>            aspect-ratio: 16/9;
+
+                    </div>            background: #000;
+
+                </div>        }
+
+            </aside>
+
+        </div>        .video-info {
+
+    </div>            padding: 1.5rem;
+
+</body>        }
+
+</html>
         .video-title {
             font-size: 1.5rem;
             font-weight: bold;
