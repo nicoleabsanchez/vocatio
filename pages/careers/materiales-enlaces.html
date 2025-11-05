@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiales - Enlaces - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <style>
+        /* Reutilizando estilos de documentos para enlaces */
+        body {
+            font-family: var(--font-primary);
+        }
+
+        .materials-page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-2xl);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .materials-page-header h1 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-top: var(--spacing-sm);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: var(--spacing-2xl);
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .back-button::before {
+            content: "←";
+            font-size: 1.25rem;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: var(--spacing-md) 0;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-button.active {
+            color: var(--dark);
+            border-bottom-color: var(--primary);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-2xl);
+            padding: 0 var(--spacing-lg);
+            border-bottom: 2px solid var(--gray-light);
+            padding-bottom: var(--spacing-md);
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            padding: var(--spacing-md) 0;
+            font-size: 1rem;
+            color: var(--dark);
+            width: 100%;
+            font-family: var(--font-primary);
+        }
+
+        .search-box input::placeholder {
+            color: var(--gray);
+        }
+
+        .search-box input:focus {
+            outline: none;
+        }
+
+        .search-icon {
+            color: var(--gray);
+            margin-right: var(--spacing-md);
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .material-card {
+            background-color: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .material-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .material-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            padding: var(--spacing-lg);
+        }
+
+        .material-image.type-2 {
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+        }
+
+        .material-image.type-3 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--white);
+            transition: transform 0.3s ease;
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .favorite-btn.active {
+            color: var(--accent);
+        }
+
+        .material-content {
+            padding: var(--spacing-lg);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .material-content h3 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--dark);
+            font-size: 1.125rem;
+        }
+
+        .material-content p {
+            margin-bottom: var(--spacing-lg);
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .material-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .view-details-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .view-details-btn::after {
+            content: "ℹ";
+        }
+
+        .view-details-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-3xl);
+            color: var(--gray);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .empty-state h3 {
+            color: var(--dark);
+            margin-bottom: var(--spacing-md);
+        }
+
+        @media (max-width: 768px) {
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .materials-page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dashboard">
+            <div class="container">
+                <input type="checkbox" id="menu-toggle" class="hamburger-menu">
+                <div class="navbar-content">
+                    <a href="../dashboard/dashboard.html" class="logo">
+                        <span class="logo-text">vocatio</span>
+                    </a>
+                    <label for="menu-toggle" class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <ul class="nav-menu">
+                        <li><a href="explore.html">Explorar carreras</a></li>
+                        <li><a href="../events/events.html">Eventos</a></li>
+                        <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+                        <li><a href="../vocational-test/results.html">Resultados</a></li>
+                        <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
+                        <li><a href="../dashboard/progress.html">Progreso</a></li>
+                    </ul>
+                    <div class="profile-dropdown">
+                        <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
+                        <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+                            <div class="profile-icon">J</div>
+                        </label>
+                        <div class="dropdown-menu">
+                            <a href="../profile/profile.html">Mi Perfil</a>
+                            <a href="../notifications/notifications.html">Notificaciones</a>
+                            <a href="../../index.html" class="logout">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="details.html" class="back-button">Volver a Carrera</a>
+
+            <div class="materials-page-header">
+                <div>
+                    <h1 id="section-title">Materiales sugeridos</h1>
+                    <p class="page-subtitle">Recursos para ampliar tu comprensión</p>
+                </div>
+            </div>
+
+            <!-- Tabs switched to buttons that show/hide content -->
+            <div class="tabs-container">
+                <button class="tab-button active" onclick="showSuggested()">Materiales sugeridos</button>
+                <button class="tab-button" onclick="showSaved()">Materiales guardados</button>
+            </div>
+
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Buscar materiales..." id="search-input" onkeyup="filterMaterials()">
+            </div>
+
+            <div id="main-content">
+                <div class="materials-grid" id="materials-grid">
+                    <!-- Real React materials card with image and URL -->
+                    <div class="material-card">
+                        <div class="material-image" style="background-image: url('../../public/key-technologies.jpg');">
+                            <button class="favorite-btn" onclick="toggleFavorite(event, 'link-1')">☆</button>
+                        </div>
+                        <div class="material-content">
+                            <h3>Desarrollo Web Moderno con React - Kinsta</h3>
+                            <p>Tutorial interactivo para aprender React desde cero</p>
+                            <div class="material-footer">
+                                <button class="view-details-btn" onclick="window.location.href='https://kinsta.com/es/blog/que-es-react/'">Explorar recurso</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Real Git+GitHub materials card with image and URL -->
+                    <div class="material-card">
+                        <div class="material-image" style="background-image: url('../../public/project-management.jpg');">
+                            <button class="favorite-btn" onclick="toggleFavorite(event, 'link-2')">☆</button>
+                        </div>
+                        <div class="material-content">
+                            <h3>Git y GitHub para Principiantes - freeCodeCamp</h3>
+                            <p>Guía práctica de control de versiones con Git</p>
+                            <div class="material-footer">
+                                <button class="view-details-btn" onclick="window.location.href='https://www.freecodecamp.org/news/git-and-github-for-beginners/'">Explorar recurso</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="saved-content" style="display: none;">
+                    <div class="empty-state">
+                        <div class="empty-icon">🔗</div>
+                        <h3>No tienes materiales guardados</h3>
+                        <p>Agrega materiales a favoritos para verlos aquí</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 VOCATIO by DecideClaro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let savedMaterials = [];
+
+        function toggleFavorite(event, materialId) {
+            event.preventDefault();
+            const btn = event.target;
+            btn.classList.toggle('active');
+            
+            if (btn.classList.contains('active')) {
+                btn.textContent = '★';
+                if (!savedMaterials.includes(materialId)) {
+                    savedMaterials.push(materialId);
+                }
+            } else {
+                btn.textContent = '☆';
+                savedMaterials = savedMaterials.filter(id => id !== materialId);
+            }
+        }
+
+        function showSuggested() {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('saved-content').style.display = 'none';
+            document.getElementById('section-title').textContent = 'Materiales sugeridos';
+        }
+
+        function showSaved() {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('saved-content').style.display = 'block';
+            document.getElementById('section-title').textContent = 'Materiales guardados';
+            
+            if (savedMaterials.length === 0) {
+                document.getElementById('saved-content').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔗</div>
+                        <h3>No tienes materiales guardados</h3>
+                        <p>Agrega materiales a favoritos para verlos aquí</p>
+                    </div>
+                `;
+            }
+        }
+
+        function filterMaterials() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('.material-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchInput) || description.includes(searchInput)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

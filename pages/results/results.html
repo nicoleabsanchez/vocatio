@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis resultados - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/results.css">
+</head>
+<body>
+    <!-- Manteniendo el navbar actual con checkbox hack -->
+    <nav class="navbar navbar-dashboard">
+        <div class="container">
+            <input type="checkbox" id="menu-toggle" class="hamburger-menu">
+            <div class="navbar-content">
+                <a href="../dashboard/dashboard.html" class="logo">
+                    <span class="logo-text">vocatio</span>
+                </a>
+                <label for="menu-toggle" class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                <ul class="nav-menu">
+                    <li><a href="../careers/explore.html">Explorar carreras</a></li>
+                    <li><a href="../events/events.html">Eventos</a></li>
+                    <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+                    <li><a href="results.html" class="active">Resultados</a></li>
+                    <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
+                    <li><a href="../dashboard/progress.html">Progreso</a></li>
+                </ul>
+                <div class="profile-dropdown">
+                    <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
+                    <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+                        <img src="../../assets/images/jose-profile.jpg" alt="José" class="profile-image">
+                    </label>
+                    <div class="dropdown-menu">
+                        <a href="../profile/profile.html">Mi Perfil</a>
+                        <a href="../notifications/notifications.html">Notificaciones</a>
+                        <a href="../../index.html" class="logout">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Nuevo contenido basado en la imagen de referencia -->
+    <main class="results-main-content">
+        <div class="container">
+            <header class="results-page-header">
+                <h1>Mis resultados</h1>
+                <p>Historial de tests vocacionales y resultados</p>
+            </header>
+
+            <!-- Cambiando tabs por botón "Más reciente" como en la imagen de referencia -->
+            <!-- Test más reciente -->
+            <section class="recent-test-card">
+                <div class="recent-badge">
+                    <span>Más reciente</span>
+                </div>
+                <div class="test-header">
+                    <div>
+                        <h2>Test Vocacional - 10 de enero, 2025</h2>
+                        <p class="test-subtitle">Tu perfil vocacional más actualizado</p>
+                    </div>
+                    <div class="test-actions-header">
+                        <a href="#" class="btn-download">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Descargar mi reporte
+                        </a>
+                        <a href="#" class="btn-share">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="18" cy="5" r="3"></circle>
+                                <circle cx="6" cy="12" r="3"></circle>
+                                <circle cx="18" cy="19" r="3"></circle>
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                            </svg>
+                            Compartir
+                        </a>
+                        <span class="file-size">2.5MB</span>
+                    </div>
+                </div>
+
+                <div class="test-content">
+                    <div class="profile-section">
+                        <h3>Perfil Vocacional</h3>
+                        <div class="profile-badge">
+                            <span class="profile-type">Analítico-Sistemático</span>
+                        </div>
+                    </div>
+
+                    <div class="affinity-section">
+                        <h3>Áreas de Mayor Afinidad</h3>
+                        <div class="affinity-bars">
+                            <div class="affinity-item">
+                                <div class="affinity-label">
+                                    <span>Ingeniería</span>
+                                    <span class="percentage">80%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="affinity-item">
+                                <div class="affinity-label">
+                                    <span>Tecnología</span>
+                                    <span class="percentage">60%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            <div class="affinity-item">
+                                <div class="affinity-label">
+                                    <span>Negocios</span>
+                                    <span class="percentage">20%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: 20%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommended-section">
+                    <h3>Carreras Recomendadas</h3>
+                    <div class="career-badges">
+                        <span class="career-badge">Ingeniería de Sistemas</span>
+                        <span class="career-badge">Ciencias de la Computación</span>
+                        <span class="career-badge">Ingeniería de Datos</span>
+                    </div>
+                </div>
+
+                <div class="test-footer">
+                    <a href="../vocational-test/results.html" class="btn-details">Ver detalles</a>
+                </div>
+            </section>
+
+            <!-- Historial de Tests -->
+            <section class="test-history">
+                <h2>Historial de Tests</h2>
+                
+                <article class="history-card">
+                    <h3>Test Vocacional - 1 de enero, 2025</h3>
+                    <p class="history-profile">Perfil: Analítico-Creativo</p>
+                    
+                    <div class="history-content">
+                        <div class="history-areas">
+                            <h4>Áreas principales:</h4>
+                            <ul class="areas-list">
+                                <li><span class="dot"></span> Tecnología (85%)</li>
+                                <li><span class="dot"></span> Arte y Diseño (78%)</li>
+                                <li><span class="dot"></span> Ingeniería (72%)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="history-careers">
+                            <h4>Carreras sugeridas:</h4>
+                            <div class="career-tags">
+                                <span class="career-tag">Diseño UX/UI</span>
+                                <span class="career-tag">Ingeniería de Sistemas</span>
+                                <span class="career-tag">Arquitectura</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Sección de actualización -->
+            <section class="update-section">
+                <div class="update-content">
+                    <h2>¿Quieres actualizar tus resultados?</h2>
+                    <p>Tus intereses pueden cambiar con el tiempo. Realiza el test nuevamente para obtener recomendaciones actualizadas.</p>
+                    <a href="../vocational-test/test.html" class="btn-new-test">Realizar nuevo test</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Botón de ayuda flotante -->
+    <a href="../help/help-center.html" class="help-button" aria-label="Ayuda">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+    </a>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 VOCATIO by DecideClaro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

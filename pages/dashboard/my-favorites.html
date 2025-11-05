@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Carreras Favoritas - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-dashboard">
+        <div class="container">
+            <input type="checkbox" id="menu-toggle" class="hamburger-menu">
+            <div class="navbar-content">
+                <a href="../dashboard/dashboard.html" class="logo">
+                    <span class="logo-text">vocatio</span>
+                </a>
+                <label for="menu-toggle" class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+                <ul class="nav-menu">
+                    <li><a href="../careers/explore.html">Explorar carreras</a></li>
+                    <li><a href="../events/events.html">Eventos</a></li>
+                    <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+                    <li><a href="../results/results.html">Resultados</a></li>
+                    <li><a href="learning-path.html">Ruta de aprendizaje</a></li>
+                    <li><a href="progress.html">Progreso</a></li>
+                </ul>
+                <div class="profile-dropdown">
+                    <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
+                    <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+                        <img src="../../assets/images/jose-profile.jpg" alt="José" class="profile-image">
+                    </label>
+                    <div class="dropdown-menu">
+                        <a href="../profile/profile.html">Mi Perfil</a>
+                        <a href="../notifications/notifications.html">Mis Notificaciones</a>
+                        <a href="../../index.html" class="logout">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding: var(--spacing-3xl) 0; background-color: var(--gray-lighter); min-height: calc(100vh - 80px);">
+        <div class="container">
+            <!-- Header -->
+            <header style="text-align: center; margin-bottom: var(--spacing-3xl);">
+                <h1 style="margin-bottom: var(--spacing-md); color: var(--dark);">Mis Carreras Favoritas</h1>
+                <p style="color: var(--gray); font-size: 1.125rem;">Carreras que has guardado para explorar más tarde</p>
+            </header>
+
+            <!-- Added compare button that appears when 2+ careers are selected -->
+            <div id="compare-section" style="display: none; text-align: center; margin-bottom: var(--spacing-2xl);">
+                <p style="color: var(--gray); margin-bottom: var(--spacing-md);">
+                    <span id="selected-count">0</span> carreras seleccionadas
+                </p>
+                <button onclick="compareSelected()" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: var(--spacing-sm);">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 4H9V10H3V4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M11 4H17V10H11V4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M3 12H9V18H3V12Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M11 12H17V18H11V12Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    Comparar Carreras
+                </button>
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" style="display: none; text-align: center; padding: var(--spacing-3xl); background-color: var(--white); border-radius: var(--radius-lg); max-width: 600px; margin: 0 auto;">
+                <div style="font-size: 4rem; margin-bottom: var(--spacing-lg);">💜</div>
+                <h2 style="margin-bottom: var(--spacing-md); color: var(--dark);">No tienes carreras favoritas aún</h2>
+                <p style="color: var(--gray); margin-bottom: var(--spacing-2xl);">Explora carreras y marca tus favoritas para verlas aquí</p>
+                <a href="../careers/explore.html" class="btn btn-primary">Explorar Carreras</a>
+            </div>
+
+            <!-- Favorites Grid -->
+            <div id="favorites-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: var(--spacing-2xl); margin-bottom: var(--spacing-2xl);">
+                <!-- Populated by JavaScript -->
+            </div>
+
+            <!-- Actions -->
+            <div id="favorites-actions" style="display: none; text-align: center; margin-top: var(--spacing-3xl);">
+                <button onclick="clearAllFavorites()" class="btn btn-secondary" style="background-color: var(--error); color: var(--white);">
+                    Limpiar Todos los Favoritos
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Added comparison modal -->
+    <div id="comparison-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 10000; overflow-y: auto;">
+        <div style="max-width: 1200px; margin: var(--spacing-3xl) auto; background-color: var(--white); border-radius: var(--radius-lg); padding: var(--spacing-3xl); position: relative;">
+            <button onclick="closeComparison()" style="position: absolute; top: var(--spacing-lg); right: var(--spacing-lg); background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--gray); line-height: 1;">×</button>
+            
+            <h2 style="text-align: center; margin-bottom: var(--spacing-2xl); color: var(--dark);">Comparación de Carreras</h2>
+            
+            <div id="comparison-content" style="overflow-x: auto;">
+                <!-- Populated by JavaScript -->
+            </div>
+            
+            <div style="text-align: center; margin-top: var(--spacing-2xl); padding-top: var(--spacing-2xl); border-top: 1px solid var(--gray-light);">
+                <p style="color: var(--gray); font-size: 0.875rem; margin-bottom: var(--spacing-sm);">
+                    Fuente: Base de datos VOCATIO
+                </p>
+                <p style="color: var(--gray); font-size: 0.875rem;">
+                    Última actualización: <span id="update-date"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="../careers/explore.html">Explorar carreras</a></li>
+                        <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+                        <li><a href="../events/events.html">Eventos</a></li>
+                        <li><a href="../profile/profile.html">Perfil personalizado</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Sobre nosotros</h4>
+                    <ul>
+                        <li><a href="../support/support.html">Contacto</a></li>
+                        <li><a href="#">Privacidad</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Ayuda</h4>
+                    <ul>
+                        <li><a href="../help/help-center.html">Centro de ayuda</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Apps móviles</h4>
+                    <ul>
+                        <li><a href="#">Google Play</a></li>
+                        <li><a href="#">App Store</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 VOCATIO by DecideClaro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Help Button -->
+    <a href="../help/help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
+
+    <style>
+        .favorite-card {
+            background-color: var(--white);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--gray-light);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .favorite-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .favorite-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .favorite-card h3 {
+            margin: 0;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .remove-favorite-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--error);
+            transition: transform 0.3s ease;
+        }
+
+        .remove-favorite-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .favorite-meta {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .favorite-badge {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .favorite-date {
+            color: var(--gray);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        /* Added styles for comparison feature */
+        .compare-checkbox {
+            position: absolute;
+            top: var(--spacing-lg);
+            left: var(--spacing-lg);
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-lg);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: var(--spacing-lg);
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .comparison-table th {
+            background-color: var(--gray-lighter);
+            font-weight: 700;
+            color: var(--dark);
+            position: sticky;
+            top: 0;
+        }
+
+        .comparison-table td {
+            color: var(--gray);
+        }
+
+        .comparison-table tr:hover {
+            background-color: var(--gray-lighter);
+        }
+
+        .comparison-career-header {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.125rem;
+        }
+
+        @media (max-width: 768px) {
+            #favorites-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 0.875rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: var(--spacing-md);
+            }
+        }
+    </style>
+
+    <script>
+        let selectedCareers = [];
+
+        function loadFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favoritesCareers') || '[]');
+            const favoritesGrid = document.getElementById('favorites-grid');
+            const emptyState = document.getElementById('empty-state');
+            const favoritesActions = document.getElementById('favorites-actions');
+
+            if (favorites.length === 0) {
+                emptyState.style.display = 'block';
+                favoritesGrid.style.display = 'none';
+                favoritesActions.style.display = 'none';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            favoritesGrid.style.display = 'grid';
+            favoritesActions.style.display = 'block';
+
+            const careersData = {
+                'Ingeniería de Sistemas': {
+                    description: 'Diseña y desarrolla sistemas de software y tecnología',
+                    duration: '5 años',
+                    modality: 'Presencial/Virtual',
+                    link: '../careers/details.html?career=sistemas',
+                    jobOutlook: 'Excelente - Alta demanda en el mercado laboral',
+                    requirements: 'Bachillerato en ciencias, matemáticas avanzadas',
+                    salary: 'S/. 3,500 - S/. 8,000 mensuales'
+                },
+                'Técnico en Programación': {
+                    description: 'Aprende a programar aplicaciones y software básico',
+                    duration: '2 años',
+                    modality: 'Presencial',
+                    link: '../careers/details.html?career=programacion',
+                    jobOutlook: 'Muy bueno - Demanda creciente',
+                    requirements: 'Bachillerato completo',
+                    salary: 'S/. 1,500 - S/. 3,500 mensuales'
+                },
+                'Medicina': {
+                    description: 'Formación completa para profesionales de la salud',
+                    duration: '6 años',
+                    modality: 'Presencial',
+                    link: '../careers/details.html?career=medicina',
+                    jobOutlook: 'Excelente - Siempre necesaria',
+                    requirements: 'Bachillerato en ciencias, examen de admisión',
+                    salary: 'S/. 4,000 - S/. 12,000 mensuales'
+                },
+                'Administración de Empresas': {
+                    description: 'Lidera organizaciones hacia el éxito',
+                    duration: '4 años',
+                    modality: 'Presencial/Online',
+                    link: '../careers/details.html?career=admin',
+                    jobOutlook: 'Bueno - Amplio campo laboral',
+                    requirements: 'Bachillerato completo',
+                    salary: 'S/. 2,500 - S/. 7,000 mensuales'
+                },
+                'Ingeniería Civil': {
+                    description: 'Diseña y construye infraestructuras',
+                    duration: '5 años',
+                    modality: 'Presencial',
+                    link: '../careers/details.html?career=civil',
+                    jobOutlook: 'Muy bueno - Proyectos de infraestructura',
+                    requirements: 'Bachillerato en ciencias, física y matemáticas',
+                    salary: 'S/. 3,000 - S/. 8,000 mensuales'
+                },
+                'Diseño Gráfico': {
+                    description: 'Crea experiencias visuales impactantes',
+                    duration: '4 años',
+                    modality: 'Presencial',
+                    link: '../careers/details.html?career=diseño',
+                    jobOutlook: 'Bueno - Demanda en marketing digital',
+                    requirements: 'Bachillerato, portafolio de trabajos',
+                    salary: 'S/. 2,000 - S/. 5,000 mensuales'
+                },
+                'Biología': {
+                    description: 'Investiga la vida y organismos vivientes',
+                    duration: '4 años',
+                    modality: 'Presencial',
+                    link: '../careers/details.html?career=biologia',
+                    jobOutlook: 'Bueno - Investigación y educación',
+                    requirements: 'Bachillerato en ciencias',
+                    salary: 'S/. 2,500 - S/. 6,000 mensuales'
+                }
+            };
+
+            favoritesGrid.innerHTML = favorites.map((fav, index) => {
+                const careerInfo = careersData[fav.name] || {
+                    description: 'Carrera profesional',
+                    duration: 'N/A',
+                    modality: 'N/A',
+                    link: '../careers/explore.html',
+                    jobOutlook: 'Información no disponible',
+                    requirements: 'Información no disponible',
+                    salary: 'Información no disponible'
+                };
+
+                const date = new Date(fav.timestamp);
+                const formattedDate = date.toLocaleDateString('es-ES', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+
+                return `
+                    <article class="favorite-card">
+                        <input type="checkbox" class="compare-checkbox" onchange="toggleSelection(${index}, this.checked)" data-career-index="${index}">
+                        <div class="favorite-header">
+                            <h3>${fav.name}</h3>
+                            <button class="remove-favorite-btn" onclick="removeFavorite(${index})" title="Eliminar de favoritos">
+                                ♥
+                            </button>
+                        </div>
+                        <p style="color: var(--gray); margin-bottom: var(--spacing-md);">${careerInfo.description}</p>
+                        <div class="favorite-meta">
+                            <span class="favorite-badge">${fav.area}</span>
+                            <span class="favorite-badge">${fav.formation === 'universitaria' ? 'Universitaria' : 'Técnica'}</span>
+                        </div>
+                        <p class="favorite-date">Guardado el ${formattedDate}</p>
+                        <div style="display: flex; gap: var(--spacing-md);">
+                            <span style="color: var(--gray); font-size: 0.875rem;">⏱ ${careerInfo.duration}</span>
+                            <span style="color: var(--gray); font-size: 0.875rem;">📍 ${careerInfo.modality}</span>
+                        </div>
+                        <a href="${careerInfo.link}" class="btn btn-primary" style="margin-top: var(--spacing-lg); width: 100%;">
+                            Ver Detalles
+                        </a>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        function toggleSelection(index, isChecked) {
+            const favorites = JSON.parse(localStorage.getItem('favoritesCareers') || '[]');
+            const career = favorites[index];
+            
+            if (isChecked) {
+                if (!selectedCareers.find(c => c.name === career.name)) {
+                    selectedCareers.push(career);
+                }
+            } else {
+                selectedCareers = selectedCareers.filter(c => c.name !== career.name);
+            }
+            
+            updateCompareSection();
+        }
+
+        function updateCompareSection() {
+            const compareSection = document.getElementById('compare-section');
+            const selectedCount = document.getElementById('selected-count');
+            
+            selectedCount.textContent = selectedCareers.length;
+            
+            if (selectedCareers.length >= 2) {
+                compareSection.style.display = 'block';
+            } else {
+                compareSection.style.display = 'none';
+            }
+        }
+
+        function compareSelected() {
+            if (selectedCareers.length < 2) {
+                alert('Por favor selecciona al menos 2 carreras para comparar');
+                return;
+            }
+
+            const careersData = {
+                'Ingeniería de Sistemas': {
+                    description: 'Diseña y desarrolla sistemas de software y tecnología',
+                    duration: '5 años',
+                    modality: 'Presencial/Virtual',
+                    jobOutlook: 'Excelente - Alta demanda en el mercado laboral',
+                    requirements: 'Bachillerato en ciencias, matemáticas avanzadas',
+                    salary: 'S/. 3,500 - S/. 8,000 mensuales'
+                },
+                'Técnico en Programación': {
+                    description: 'Aprende a programar aplicaciones y software básico',
+                    duration: '2 años',
+                    modality: 'Presencial',
+                    jobOutlook: 'Muy bueno - Demanda creciente',
+                    requirements: 'Bachillerato completo',
+                    salary: 'S/. 1,500 - S/. 3,500 mensuales'
+                },
+                'Medicina': {
+                    description: 'Formación completa para profesionales de la salud',
+                    duration: '6 años',
+                    modality: 'Presencial',
+                    jobOutlook: 'Excelente - Siempre necesaria',
+                    requirements: 'Bachillerato en ciencias, examen de admisión',
+                    salary: 'S/. 4,000 - S/. 12,000 mensuales'
+                },
+                'Administración de Empresas': {
+                    description: 'Lidera organizaciones hacia el éxito',
+                    duration: '4 años',
+                    modality: 'Presencial/Online',
+                    jobOutlook: 'Bueno - Amplio campo laboral',
+                    requirements: 'Bachillerato completo',
+                    salary: 'S/. 2,500 - S/. 7,000 mensuales'
+                },
+                'Ingeniería Civil': {
+                    description: 'Diseña y construye infraestructuras',
+                    duration: '5 años',
+                    modality: 'Presencial',
+                    jobOutlook: 'Muy bueno - Proyectos de infraestructura',
+                    requirements: 'Bachillerato en ciencias, física y matemáticas',
+                    salary: 'S/. 3,000 - S/. 8,000 mensuales'
+                },
+                'Diseño Gráfico': {
+                    description: 'Crea experiencias visuales impactantes',
+                    duration: '4 años',
+                    modality: 'Presencial',
+                    jobOutlook: 'Bueno - Demanda en marketing digital',
+                    requirements: 'Bachillerato, portafolio de trabajos',
+                    salary: 'S/. 2,000 - S/. 5,000 mensuales'
+                },
+                'Biología': {
+                    description: 'Investiga la vida y organismos vivientes',
+                    duration: '4 años',
+                    modality: 'Presencial',
+                    jobOutlook: 'Bueno - Investigación y educación',
+                    requirements: 'Bachillerato en ciencias',
+                    salary: 'S/. 2,500 - S/. 6,000 mensuales'
+                }
+            };
+
+            const comparisonContent = document.getElementById('comparison-content');
+            
+            let tableHTML = '<table class="comparison-table"><thead><tr><th>Criterio</th>';
+            selectedCareers.forEach(career => {
+                tableHTML += `<th class="comparison-career-header">${career.name}</th>`;
+            });
+            tableHTML += '</tr></thead><tbody>';
+
+            // Add comparison rows
+            const criteria = [
+                { label: 'Descripción', key: 'description' },
+                { label: 'Duración', key: 'duration' },
+                { label: 'Modalidad', key: 'modality' },
+                { label: 'Salida Laboral', key: 'jobOutlook' },
+                { label: 'Requisitos', key: 'requirements' },
+                { label: 'Rango Salarial', key: 'salary' }
+            ];
+
+            criteria.forEach(criterion => {
+                tableHTML += `<tr><td><strong>${criterion.label}</strong></td>`;
+                selectedCareers.forEach(career => {
+                    const careerInfo = careersData[career.name] || {};
+                    tableHTML += `<td>${careerInfo[criterion.key] || 'Información no disponible'}</td>`;
+                });
+                tableHTML += '</tr>';
+            });
+
+            tableHTML += '</tbody></table>';
+            comparisonContent.innerHTML = tableHTML;
+
+            // Set update date
+            const updateDate = new Date().toLocaleDateString('es-ES', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            document.getElementById('update-date').textContent = updateDate;
+
+            // Show modal
+            document.getElementById('comparison-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeComparison() {
+            document.getElementById('comparison-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function removeFavorite(index) {
+            const favorites = JSON.parse(localStorage.getItem('favoritesCareers') || '[]');
+            favorites.splice(index, 1);
+            localStorage.setItem('favoritesCareers', JSON.stringify(favorites));
+            loadFavorites();
+        }
+
+        function clearAllFavorites() {
+            if (confirm('¿Estás seguro de que quieres eliminar todas tus carreras favoritas?')) {
+                localStorage.removeItem('favoritesCareers');
+                loadFavorites();
+            }
+        }
+
+        // Load favorites on page load
+        loadFavorites();
+    </script>
+</body>
+</html>

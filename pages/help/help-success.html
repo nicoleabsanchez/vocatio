@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud Enviada - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/help.css">
+</head>
+<body>
+    <nav class="navbar navbar-dashboard">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="../../index.html" class="logo">
+                    <span class="logo-text">vocatio</span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="../dashboard/dashboard.html">Explorar carreras</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                    <li><a href="#test">Test vocacional</a></li>
+                    <li><a href="../dashboard/my-results.html">Resultados</a></li>
+                    <li><a href="#ruta">Ruta de aprendizaje</a></li>
+                    <li><a href="#progreso">Progreso</a></li>
+                </ul>
+                <div class="profile-dropdown">
+                    <button class="profile-icon">👤</button>
+                    <div class="dropdown-menu">
+                        <a href="../profile/profile.html">Mi Perfil</a>
+                        <a href="../notifications/notifications.html">Mis notificaciones</a>
+                        <a href="../../index.html" class="logout">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="help-main">
+        <div class="container">
+            <div class="success-container">
+                <h1>Solicitud Enviada Exitosamente</h1>
+                <p>Hemos recibido tu solicitud de ayuda. Nuestro equipo la revisará y te contactaremos pronto.</p>
+
+                <div class="ticket-info">
+                    <h2>Ticket #VOC-2025-0342</h2>
+                    <div class="ticket-details">
+                        <div class="detail-row">
+                            <span class="label">Estado:</span>
+                            <span class="value">Abierto</span>
+                            <span class="label">Prioridad:</span>
+                            <span class="value">Media</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Tipo:</span>
+                            <span class="value">Problema técnico</span>
+                            <span class="label">Fecha:</span>
+                            <span class="value">30/09/2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="what-next">
+                    <h3>¿Qué sigue?</h3>
+                    <ul>
+                        <li>Te enviaremos un correo de confirmación con el número de ticket</li>
+                        <li>Nuestro equipo revisará tu solicitud en las próximas 24 horas</li>
+                        <li>Recibirás actualizaciones por correo electrónico</li>
+                        <li>Puedes consultar el estado en tu historial de tickets</li>
+                    </ul>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="help-tickets.html" class="btn btn-primary">Ver mis Tickets</a>
+                    <a href="../dashboard/dashboard.html" class="btn btn-secondary">Nueva Solicitud</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="help-button">?</div>
+
+    <script>
+        document.querySelector('.profile-icon').addEventListener('click', function() {
+            document.querySelector('.dropdown-menu').classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.profile-dropdown');
+            if (!dropdown.contains(event.target)) {
+                document.querySelector('.dropdown-menu').classList.remove('active');
+            }
+        });
+
+        document.querySelector('.help-button').addEventListener('click', function() {
+            window.location.href = 'help-center.html';
+        });
+    </script>
+</body>
+</html>
