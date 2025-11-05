@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Rethink+Sans&display=swap" rel="stylesheet" />
+    <link href="./css/main.css" rel="stylesheet" />
+    <title>Resultados - Vocatio</title>
+</head>
+<body>
+<div class="v90_465">
+    <header>
+        <span class="v90_473">Resultados de Mi Progreso</span>
+        <span class="v90_474">Un vistazo detallado a tu trayectoria en Vocatio</span>
+    </header><div class="results-container">
+        <!-- Resumen General -->
+        <section class="summary-section">
+            <h2>Resumen General</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Tests Completados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Carreras Exploradas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-number">28</div>
+                    <div class="stat-label">Materiales Revisados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-number">75%</div>
+                    <div class="stat-label">Progreso Total</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resultados del Test Vocacional -->
+        <section class="test-results">
+            <h2>Resultados del Test Vocacional</h2>
+            <div class="test-card">
+                <div class="test-header">
+                    <span class="status completed">Completado ✓</span>
+                    <span class="date">Finalizado hace 2 días</span>
+                </div>
+                <div class="test-content">
+                    <h3>Carreras Recomendadas</h3>
+                    <ol>
+                        <li>Ingeniería de Sistemas (95% compatibilidad)</li>
+                        <li>Ciencias de la Computación (88% compatibilidad)</li>
+                        <li>Ingeniería de Software (85% compatibilidad)</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materiales y Recursos -->
+        <section class="materials-section">
+            <h2>Progreso en Materiales</h2>
+            <div class="materials-grid">
+                <div class="material-card completed">
+                    <div class="material-icon">📚</div>
+                    <h3>Fundamentos de Programación</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%;">100%</div>
+                    </div>
+                </div>
+                <div class="material-card in-progress">
+                    <div class="material-icon">🤖</div>
+                    <h3>Introducción a la IA</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 65%;">65%</div>
+                    </div>
+                </div>
+                <div class="material-card">
+                    <div class="material-icon">💻</div>
+                    <h3>Desarrollo Web</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 45%;">45%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carreras Favoritas -->
+        <section class="favorites-section">
+            <h2>Carreras Favoritas</h2>
+            <div class="favorites-grid">
+                <div class="favorite-card">
+                    <div class="favorite-icon">🎓</div>
+                    <h3>Ingeniería de Sistemas</h3>
+                    <span class="save-date">Guardada hace 1 semana</span>
+                </div>
+                <div class="favorite-card">
+                    <div class="favorite-icon">💼</div>
+                    <h3>Administración de Empresas</h3>
+                    <span class="save-date">Guardada hace 3 días</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Actividad Reciente -->
+        <section class="recent-activity">
+            <h2>Actividad Reciente</h2>
+            <div class="activity-timeline">
+                <div class="activity-item">
+                    <div class="activity-icon">✅</div>
+                    <div class="activity-content">
+                        <h4>Test Vocacional Completado</h4>
+                        <span class="activity-date">Hace 2 días</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">⭐</div>
+                    <div class="activity-content">
+                        <h4>Calificación de Material: 5 estrellas</h4>
+                        <span class="activity-date">Hace 5 días</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">📚</div>
+                    <div class="activity-content">
+                        <h4>Nuevo Material Iniciado: Introducción a la IA</h4>
+                        <span class="activity-date">Hace 1 semana</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>    <!-- Navigation -->
+    <nav class="main-nav">
+        <span class="logo">vocatio</span>
+        <div class="nav-links">
+            <a href="#" class="nav-link">Explorar carreras</a>
+            <a href="#" class="nav-link">Eventos</a>
+            <a href="#" class="nav-link">Test vocacional</a>
+            <a href="#" class="nav-link">Ruta de aprendizaje</a>
+            <a href="#" class="nav-link active">Progreso</a>
+            <a href="#" class="nav-link">Resultados</a>
+        </div>
+    </nav>
+
+    <!-- Back Button -->
+    <div class="back-button">
+        <button onclick="history.back()">← Volver</button>
+    </div>
+</div>
+
+<!-- Scripts for interactivity -->
+<script>
+    // Función para actualizar las barras de progreso con animación
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBars = document.querySelectorAll('.progress-bar .progress');
+        progressBars.forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0';
+            setTimeout(() => {
+                bar.style.width = width;
+            }, 100);
+        });
+    });
+</script>
+</body>
+</html>
