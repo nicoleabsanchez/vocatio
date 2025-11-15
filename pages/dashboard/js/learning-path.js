@@ -4,7 +4,7 @@ function showLockedNotification(message) {
   if (existingMessage) {
     existingMessage.remove();
   }
-  
+
   const notificationDiv = document.createElement('div');
   notificationDiv.className = 'locked-notification';
   notificationDiv.innerHTML = `
@@ -30,9 +30,9 @@ function showLockedNotification(message) {
     max-width: 90%;
     text-align: center;
   `;
-  
+
   document.body.appendChild(notificationDiv);
-  
+
   setTimeout(() => {
     notificationDiv.style.animation = 'slideUp 0.3s ease';
     setTimeout(() => notificationDiv.remove(), 300);
@@ -40,47 +40,47 @@ function showLockedNotification(message) {
 }
 
 // AGREGAR EVENTOS A LAS FASES BLOQUEADAS
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   console.log('Script cargado - Buscando fases bloqueadas...');
-  
+
   // Buscar todos los divs con el badge "Bloqueada"
   const allDivs = document.querySelectorAll('div');
   const lockedPhases = [];
-  
+
   allDivs.forEach(div => {
-    const hasBlockedBadge = div.querySelector('span') && 
-                           div.querySelector('span').textContent.includes('Bloqueada');
+    const hasBlockedBadge = div.querySelector('span') &&
+      div.querySelector('span').textContent.includes('Bloqueada');
     const hasOpacity = div.style.opacity === '0.7';
-    
+
     if (hasBlockedBadge && hasOpacity) {
       lockedPhases.push(div);
       console.log('Fase bloqueada encontrada:', div);
     }
   });
-  
+
   console.log(`Total fases bloqueadas encontradas: ${lockedPhases.length}`);
-  
+
   lockedPhases.forEach((phase, index) => {
-    // Hacer el cursor pointer para indicar que es clickeable
+    // Hacer el cursor pointer para indicar que es clickeableaa
     phase.style.cursor = 'pointer';
-    
+
     // Agregar efecto hover
-    phase.addEventListener('mouseenter', function() {
+    phase.addEventListener('mouseenter', function () {
       this.style.opacity = '0.85';
       this.style.transition = 'opacity 0.3s ease';
       console.log('Mouse sobre fase bloqueada');
     });
-    
-    phase.addEventListener('mouseleave', function() {
+
+    phase.addEventListener('mouseleave', function () {
       this.style.opacity = '0.7';
     });
-    
+
     // Agregar evento click
-    phase.addEventListener('click', function(e) {
+    phase.addEventListener('click', function (e) {
       console.log('Click en fase bloqueada!');
       const phaseTitle = this.querySelector('h2').textContent;
       console.log('Título de la fase:', phaseTitle);
-      
+
       if (phaseTitle.includes('Fase 2')) {
         showLockedNotification('⚠️ Debes completar la Fase 1 para acceder a esta fase');
       } else if (phaseTitle.includes('Fase 3')) {
