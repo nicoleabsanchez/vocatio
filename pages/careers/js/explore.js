@@ -139,14 +139,17 @@ function createSearchBar() {
   searchContainer.style.cssText = `
     margin: 2rem auto;
     max-width: 600px;
+    padding: 0 1rem;
   `;
   
   const searchForm = document.createElement('form');
   searchForm.id = 'search-form';
   searchForm.style.cssText = `
+    position: relative;
+    width: 100%;
     display: flex;
-    gap: 1rem;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.75rem;
   `;
   
   const searchInput = document.createElement('input');
@@ -154,12 +157,15 @@ function createSearchBar() {
   searchInput.id = 'search-input';
   searchInput.placeholder = 'Buscar carreras...';
   searchInput.style.cssText = `
-    flex: 1;
+    width: 100%;
     padding: 0.75rem 1rem;
     border: 2px solid var(--gray-light);
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    background-color: white;
+    color: var(--dark);
   `;
   
   const searchButton = document.createElement('button');
@@ -167,7 +173,10 @@ function createSearchBar() {
   searchButton.textContent = 'Buscar';
   searchButton.className = 'btn btn-primary';
   searchButton.style.cssText = `
+    width: 100%;
+    padding: 0.75rem 1rem;
     white-space: nowrap;
+    border-radius: 8px;
   `;
   
   searchForm.appendChild(searchInput);
@@ -369,6 +378,38 @@ style.textContent = `
     to {
       opacity: 0;
       transform: translateX(-50%) translateY(-20px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #search-bar-container {
+      padding: 0 0.5rem !important;
+    }
+    
+    #search-input {
+      font-size: 0.875rem !important;
+      padding: 0.625rem 0.75rem !important;
+    }
+    
+    #search-form button {
+      padding: 0.625rem 1rem !important;
+      font-size: 0.875rem !important;
+    }
+  }
+  
+  @media (min-width: 481px) {
+    #search-form {
+      flex-direction: row !important;
+      align-items: stretch !important;
+    }
+    
+    #search-input {
+      flex: 1 !important;
+    }
+    
+    #search-form button {
+      width: auto !important;
+      flex-shrink: 0 !important;
     }
   }
 `;
