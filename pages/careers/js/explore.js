@@ -356,7 +356,7 @@ function updateFavoritesCount() {
   }
 }
 
-// ESTILOS DE ANIMACIÓN
+// ESTILOS DE ANIMACIÓN dgsdg
 const style = document.createElement('style');
 style.textContent = `
   @keyframes slideDown {
