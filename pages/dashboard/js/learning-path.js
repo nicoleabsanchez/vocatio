@@ -39,7 +39,7 @@ function showLockedNotification(message) {
   }, 3000);
 }
 
-// AGREGAR EVENTOS A LAS FASES BLOQUEADAS
+// AGREGAR EVENTOS A LAS FASES BLOQUEADASssssss
 document.addEventListener('DOMContentLoaded', function () {
   console.log('Script cargado - Buscando fases bloqueadas...');
 
