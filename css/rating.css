@@ -1,0 +1,110 @@
+/* Estilos para el sistema de calificación */
+.video-container {
+    margin-bottom: 20px;
+}
+
+.video-player {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+}
+
+.video-info {
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.rating-container {
+    margin: 1rem 0;
+}
+
+.star-rating {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+.star.active {
+    color: #ffd700;
+}
+
+.rating-text {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #8b8a92;
+}
+
+.comments-section {
+    margin-top: 20px;
+}
+
+.comment {
+    border: 1px solid #d9d4ff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.comment-form {
+    margin-bottom: 20px;
+}
+
+.comment-input {
+    width: 100%;
+    height: 100px;
+    padding: 1rem;
+    border: 1px solid #d9d4ff;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    resize: none;
+    font-family: inherit;
+}
+
+.vote-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.vote-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0.25rem;
+    transition: opacity 0.2s;
+}
+
+.vote-btn:hover {
+    opacity: 0.8;
+}
+
+.vote-count {
+    font-weight: bold;
+    color: #693efe;
+}
+
+.btn {
+    background: #693efe;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #5a35d9;
+}
