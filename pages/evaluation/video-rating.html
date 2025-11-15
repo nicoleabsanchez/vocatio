@@ -391,18 +391,5 @@
         </div>
     </div>
 
-    <script>
-        // Funcionalidad básica para las estrellas de calificación
-        document.querySelectorAll('.rating-stars').forEach(container => {
-            const stars = container.querySelectorAll('.star');
-            stars.forEach((star, index) => {
-                star.addEventListener('click', () => {
-                    stars.forEach((s, i) => {
-                        s.style.opacity = i <= index ? '1' : '0.5';
-                    });
-                });
-            });
-        });
-    </script>
 </body>
 </html>
