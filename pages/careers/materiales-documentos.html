@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiales - Documentos - VOCATIO</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <style>
+        /* Estilos para página de materiales por tipo */
+        body {
+            font-family: var(--font-primary);
+        }
+
+        .materials-page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-2xl);
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .materials-page-header h1 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-top: var(--spacing-sm);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: var(--spacing-2xl);
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .back-button::before {
+            content: "←";
+            font-size: 1.25rem;
+        }
+
+        .tabs-container {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: var(--spacing-md) 0;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-button.active {
+            color: var(--dark);
+            border-bottom-color: var(--primary);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-2xl);
+            padding: 0 var(--spacing-lg);
+            border-bottom: 2px solid var(--gray-light);
+            padding-bottom: var(--spacing-md);
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            padding: var(--spacing-md) 0;
+            font-size: 1rem;
+            color: var(--dark);
+            width: 100%;
+            font-family: var(--font-primary);
+        }
+
+        .search-box input::placeholder {
+            color: var(--gray);
+        }
+
+        .search-box input:focus {
+            outline: none;
+        }
+
+        .search-icon {
+            color: var(--gray);
+            margin-right: var(--spacing-md);
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .material-card {
+            background-color: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .material-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .material-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            color: var(--white);
+            font-size: 3rem;
+            position: relative;
+            padding: var(--spacing-lg);
+        }
+
+        .material-image.type-2 {
+            background-image: url('/placeholder.svg?height=200&width=600');
+        }
+
+        .material-image.type-3 {
+            background-image: url('/placeholder.svg?height=200&width=600');
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--white);
+            transition: transform 0.3s ease;
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .favorite-btn.active {
+            color: var(--accent);
+        }
+
+        .material-content {
+            padding: var(--spacing-lg);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .material-content h3 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--dark);
+            font-size: 1.125rem;
+        }
+
+        .material-content p {
+            margin-bottom: var(--spacing-lg);
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .material-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .view-details-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .view-details-btn::after {
+            content: "ℹ";
+        }
+
+        .view-details-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-3xl);
+            color: var(--gray);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .empty-state h3 {
+            color: var(--dark);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Added modal overlay styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #7C3AED;
+            color: var(--white);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background-color: #6D28D9;
+        }
+
+        .modal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            padding: var(--spacing-3xl);
+        }
+
+        .modal-left {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .modal-left h2 {
+            color: var(--dark);
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .modal-left p {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .modal-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .modal-info-item {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .modal-info-item strong {
+            color: var(--dark);
+            min-width: 150px;
+        }
+
+        .modal-info-item span {
+            color: var(--gray);
+        }
+
+        .modal-rating {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .rating-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 4px;
+        }
+
+        .rating-stars span {
+            color: #7C3AED;
+            font-size: 1.5rem;
+        }
+
+        .rating-info {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .modal-views {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--gray);
+            margin-top: var(--spacing-md);
+        }
+
+        .modal-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-2xl);
+        }
+
+        .modal-preview {
+            width: 100%;
+            background-color: #F3F4F6;
+            border-radius: var(--radius-md);
+            padding: var(--spacing-2xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .modal-preview img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: var(--radius-md);
+        }
+
+        .modal-download-btn {
+            background-color: #7C3AED;
+            color: var(--white);
+            border: none;
+            padding: var(--spacing-lg) var(--spacing-2xl);
+            border-radius: var(--radius-md);
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            transition: background-color 0.3s ease;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .modal-download-btn:hover {
+            background-color: #6D28D9;
+        }
+
+        .modal-download-btn::before {
+            content: "⬇";
+            font-size: 1.25rem;
+        }
+
+        /* Added loading overlay styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-content img {
+            max-width: 400px;
+            width: 90%;
+        }
+
+        /* Added success overlay styles */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .success-overlay.active {
+            display: flex;
+        }
+
+        .success-content {
+            text-align: center;
+        }
+
+        .success-content img {
+            max-width: 400px;
+            width: 90%;
+        }
+
+        @media (max-width: 768px) {
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .materials-page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-right {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dashboard">
+            <div class="container">
+                <input type="checkbox" id="menu-toggle" class="hamburger-menu">
+                <div class="navbar-content">
+                    <a href="../dashboard/dashboard.html" class="logo">
+                        <span class="logo-text">vocatio</span>
+                    </a>
+                    <label for="menu-toggle" class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <ul class="nav-menu">
+                        <li><a href="explore.html">Explorar carreras</a></li>
+                        <li><a href="../events/events.html">Eventos</a></li>
+                        <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+                        <li><a href="../vocational-test/results.html">Resultados</a></li>
+                        <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
+                        <li><a href="../dashboard/progress.html">Progreso</a></li>
+                    </ul>
+                    <div class="profile-dropdown">
+                        <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
+                        <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+                            <div class="profile-icon">J</div>
+                        </label>
+                        <div class="dropdown-menu">
+                            <a href="../profile/profile.html">Mi Perfil</a>
+                            <a href="../notifications/notifications.html">Notificaciones</a>
+                            <a href="../../index.html" class="logout">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="details.html" class="back-button">Volver a Carrera</a>
+
+            <div class="materials-page-header">
+                <div>
+                    <h1 id="section-title">Materiales sugeridos</h1>
+                    <p class="page-subtitle">Recursos para ampliar tu comprensión</p>
+                </div>
+            </div>
+
+            <div class="tabs-container">
+                <button class="tab-button active" onclick="showSuggested()">Materiales sugeridos</button>
+                <button class="tab-button" onclick="showSaved()">Materiales guardados</button>
+            </div>
+
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Buscar materiales..." id="search-input" onkeyup="filterMaterials()">
+            </div>
+
+            <div id="main-content">
+                <div class="materials-grid" id="materials-grid">
+                    <div class="material-card">
+                        <div class="material-image" style="background-image: url('../../public/database-sql.jpg');">
+                            <button class="favorite-btn" onclick="toggleFavorite(event, 'doc-1')">☆</button>
+                        </div>
+                        <div class="material-content">
+                            <h3>Guía Completa de Estructuras de Datos</h3>
+                            <p>Documento detallado sobre estructuras de datos y algoritmos fundamentales</p>
+                            <div class="material-footer">
+                                <button class="view-details-btn" onclick="openModal('doc-1')">Ver Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="material-card">
+                        <div class="material-image" style="background-image: url('../../public/software-architecture.jpg');">
+                            <button class="favorite-btn" onclick="toggleFavorite(event, 'doc-2')">☆</button>
+                        </div>
+                        <div class="material-content">
+                            <h3>Arquitectura de Software</h3>
+                            <p>Patrones de diseño y mejores prácticas en arquitectura de sistemas</p>
+                            <div class="material-footer">
+                                <button class="view-details-btn" onclick="openModal('doc-2')">Ver Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="material-card">
+                        <div class="material-image" style="background-image: url('../../public/python-programming-concept.png');">
+                            <button class="favorite-btn" onclick="toggleFavorite(event, 'doc-3')">☆</button>
+                        </div>
+                        <div class="material-content">
+                            <h3>Programación en Python</h3>
+                            <p>Guía práctica para dominar Python desde lo básico hasta conceptos avanzados</p>
+                            <div class="material-footer">
+                                <button class="view-details-btn" onclick="openModal('doc-3')">Ver Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="material-card">
+                        <div class="material-image" style="background-image: url('../../public/key-technologies.jpg');">
+                            <button class="favorite-btn" onclick="toggleFavorite(event, 'doc-4')">☆</button>
+                        </div>
+                        <div class="material-content">
+                            <h3>Seguridad en Sistemas Informáticos</h3>
+                            <p>Manual completo sobre vulnerabilidades, criptografía y mejores prácticas</p>
+                            <div class="material-footer">
+                                <button class="view-details-btn" onclick="openModal('doc-4')">Ver Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="saved-content" style="display: none;">
+                    <div class="materials-grid" id="saved-materials-grid"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 VOCATIO by DecideClaro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Added modal for document details -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-body">
+                <div class="modal-left">
+                    <h2 id="modal-title">Guía Completa de Estructuras de Datos</h2>
+                    <p id="modal-description">Este documento trata sobre las estructuras de datos y su uso en ingeniería. Explica que las estructuras de datos son colecciones de datos organizados de manera que permiten acceder y almacenar elementos de forma eficiente.</p>
+                    
+                    <div class="modal-info">
+                        <div class="modal-info-item">
+                            <strong>Autor:</strong>
+                            <span id="modal-author">Gladys Vergel</span>
+                        </div>
+                        <div class="modal-info-item">
+                            <strong>Año de publicación:</strong>
+                            <span id="modal-year">2010</span>
+                        </div>
+                        <div class="modal-info-item">
+                            <strong>Número de páginas:</strong>
+                            <span id="modal-pages">18 páginas</span>
+                        </div>
+                        <div class="modal-info-item">
+                            <strong>Nivel:</strong>
+                            <span id="modal-level">Básico</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-rating">
+                        <div class="rating-number" id="modal-rating">4.5</div>
+                        <div>
+                            <div class="rating-stars">
+                                <span>★</span>
+                                <span>★</span>
+                                <span>★</span>
+                                <span>★</span>
+                                <span>★</span>
+                            </div>
+                            <div class="rating-info" id="modal-rating-count">Basado en 127 calificaciones</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-views">
+                        <span>👁</span>
+                        <span id="modal-views">100 vistas</span>
+                    </div>
+                </div>
+
+                <div class="modal-right">
+                    <div class="modal-preview">
+                        <img id="modal-preview-img" src="/placeholder.svg?height=400&width=300" alt="Vista previa del documento">
+                    </div>
+                    <button class="modal-download-btn" onclick="downloadDocument()">Descargar PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Added loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <img src="/images/cargando.png" alt="Procesando documento">
+        </div>
+    </div>
+
+    <!-- Added success overlay -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-content">
+            <img src="/images/documento-descargado.png" alt="Archivo descargado correctamente">
+        </div>
+    </div>
+
+    <script src="js/materiales-documentos.js"></script>
+</body>
+</html>
