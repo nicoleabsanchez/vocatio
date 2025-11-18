@@ -1,906 +1,952 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - VOCATIO</title>
-    <link rel="stylesheet" href="../../css/styles.css">
-    <link rel="stylesheet" href="../../css/components.css">
-    <link rel="stylesheet" href="../../css/responsive.css">
-    
+    <link rel="stylesheet" href="../../css/styles.css" />
+    <link rel="stylesheet" href="../../css/components.css" />
+    <link rel="stylesheet" href="../../css/responsive.css" />
+
     <!-- Inlining dashboard.css styles directly to fix hamburger menu -->
     <style>
-        /* Dashboard Inline Styles */
-        
-        /* Hamburger Menu Styles */
-        .hamburger-menu {
-            display: none;
-        }
+      /* Dashboard dgsdgsdgdgInline Styles */
 
+      /* Hamburger Menu Styles */
+      .hamburger-menu {
+        display: none;
+      }
+
+      .hamburger-icon {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+        padding: 8px;
+        z-index: 1001;
+      }
+
+      .hamburger-icon span {
+        width: 25px;
+        height: 3px;
+        background-color: var(--primary);
+        border-radius: 3px;
+        transition: all 0.3s ease;
+      }
+
+      /* Profile Dropdown with Checkbox */
+      .profile-dropdown-checkbox {
+        display: none;
+      }
+
+      .profile-dropdown-label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+
+      .profile-dropdown-checkbox:checked ~ .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      /* Dashboard Navigation */
+      .navbar-dashboard {
+        background-color: var(--white);
+        box-shadow: var(--shadow-md);
+      }
+
+      .profile-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        object-fit: cover;
+        border: 2px solid var(--primary);
+        transition: all 0.3s ease;
+      }
+
+      .profile-image:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: var(--white);
+        border: 1px solid var(--gray-light);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+        margin-top: var(--spacing-sm);
+        min-width: 200px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: var(--spacing-md) var(--spacing-lg);
+        color: var(--dark);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid var(--gray-light);
+      }
+
+      .dropdown-menu a:last-child {
+        border-bottom: none;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: var(--gray-lighter);
+        color: var(--primary);
+        padding-left: var(--spacing-xl);
+      }
+
+      .dropdown-menu a.logout {
+        color: var(--error);
+      }
+
+      .dropdown-menu a.logout:hover {
+        background-color: rgba(239, 68, 68, 0.1);
+      }
+
+      /* Dashboard Main Content */
+      .dashboard-main {
+        padding: var(--spacing-2xl) 0;
+        background-color: var(--gray-lighter);
+        min-height: calc(100vh - 80px);
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: var(--spacing-2xl);
+      }
+
+      /* Welcome Section */
+      .welcome-section {
+        background-color: var(--white);
+        padding: var(--spacing-2xl);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--spacing-2xl);
+      }
+
+      .welcome-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--spacing-xl);
+      }
+
+      .welcome-profile-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--primary);
+        box-shadow: var(--shadow-md);
+        flex-shrink: 0;
+      }
+
+      .welcome-text {
+        flex: 1;
+      }
+
+      .welcome-text h1 {
+        margin-bottom: var(--spacing-sm);
+      }
+
+      /* Vocational Profile Card */
+      .vocational-profile-card {
+        background: linear-gradient(
+          135deg,
+          rgba(124, 58, 237, 0.1),
+          rgba(167, 139, 250, 0.05)
+        );
+        border: 2px solid var(--primary-light);
+        padding: var(--spacing-2xl);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--spacing-2xl);
+        text-align: center;
+      }
+
+      .profile-type {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        background-color: rgba(124, 58, 237, 0.1);
+        padding: var(--spacing-xl);
+        border-radius: var(--radius-md);
+      }
+
+      /* Skills Section */
+      .skills-section {
+        background-color: var(--white);
+        padding: var(--spacing-2xl);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--spacing-2xl);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-2xl);
+        border: 1px solid var(--gray-light);
+      }
+
+      .section-left,
+      .section-right {
+        padding: var(--spacing-lg);
+        border: 1px solid var(--gray-light);
+        border-radius: var(--radius-md);
+      }
+
+      .skill-item {
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .skill-item label {
+        display: block;
+        margin-bottom: var(--spacing-sm);
+        font-weight: 500;
+      }
+
+      .progress-bar {
+        height: 8px;
+        background-color: var(--gray-light);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .progress-bar.small {
+        height: 6px;
+      }
+
+      .progress-bar.large {
+        height: 12px;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background-color: var(--primary);
+        border-radius: 4px;
+        transition: width 0.3s ease;
+      }
+
+      .percentage {
+        font-size: 0.875rem;
+        color: var(--gray);
+        float: right;
+      }
+
+      .areas-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+      }
+
+      .area-item {
+        display: flex;
+        gap: var(--spacing-md);
+        align-items: center;
+      }
+
+      .area-name {
+        font-weight: 500;
+        min-width: 100px;
+      }
+
+      /* Learning Path */
+      .learning-path {
+        background-color: var(--white);
+        padding: var(--spacing-2xl);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--spacing-2xl);
+        border: 1px solid var(--gray-light);
+      }
+
+      .learning-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-lg);
+      }
+
+      .progress-badge {
+        background-color: var(--accent);
+        color: var(--dark);
+        padding: var(--spacing-sm) var(--spacing-md);
+        border-radius: var(--radius-md);
+        font-weight: 600;
+      }
+
+      .learning-subtitle {
+        color: var(--gray);
+        margin-bottom: var(--spacing-xl);
+      }
+
+      .progress-info {
+        margin-bottom: var(--spacing-xl);
+      }
+
+      .progress-info p {
+        margin-bottom: var(--spacing-sm);
+        font-weight: 500;
+      }
+
+      .learning-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-xl);
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: var(--spacing-md);
+        background-color: var(--gray-lighter);
+        border-radius: var(--radius-md);
+      }
+
+      .stat-icon {
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .stat-item p {
+        margin: 0;
+        font-size: 0.95rem;
+      }
+
+      /* My Progress */
+      .my-progress {
+        background-color: var(--white);
+        padding: var(--spacing-2xl);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--gray-light);
+      }
+
+      .progress-header {
+        margin-bottom: var(--spacing-2xl);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .progress-header p {
+        margin: var(--spacing-sm) 0;
+        font-size: 0.95rem;
+      }
+
+      .progress-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-lg);
+      }
+
+      .stat-card {
+        border: 1px solid var(--gray-light);
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-md);
+        text-align: center;
+      }
+
+      .stat-card p:first-of-type {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 0;
+      }
+
+      .stat-label {
+        font-size: 0.875rem;
+        color: var(--gray);
+        margin-top: var(--spacing-sm) !important;
+      }
+
+      /* Dashboard Sidebar */
+      .dashboard-sidebar {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .upcoming-events {
+        background-color: var(--white);
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--gray-light);
+      }
+
+      .upcoming-events h3 {
+        margin-bottom: var(--spacing-md);
+      }
+
+      .mini-calendar {
+        margin-bottom: var(--spacing-lg);
+        border: 1px solid var(--gray-light);
+        border-radius: var(--radius-md);
+        padding: var(--spacing-md);
+      }
+
+      .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-md);
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+
+      .calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        font-size: 0.8rem;
+      }
+
+      .cal-day-header {
+        font-weight: 600;
+        text-align: center;
+        padding: var(--spacing-xs);
+        color: var(--gray);
+      }
+
+      .cal-day {
+        text-align: center;
+        padding: var(--spacing-xs);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+      }
+
+      .cal-day.empty {
+        color: var(--gray-light);
+      }
+
+      .cal-day.highlight {
+        background-color: var(--primary);
+        color: var(--white);
+        font-weight: 600;
+      }
+
+      .event-card {
+        background-color: var(--gray-lighter);
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+        margin-bottom: var(--spacing-lg);
+        font-size: 0.9rem;
+      }
+
+      .event-card p {
+        margin: var(--spacing-xs) 0;
+      }
+
+      .event-date {
+        color: var(--gray);
+        font-size: 0.85rem;
+      }
+
+      /* Help Button */
+      .help-button {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--white);
+        border: 2px solid var(--dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        font-weight: 700;
+        box-shadow: var(--shadow-lg);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: var(--dark);
+      }
+
+      .help-button:hover {
+        background-color: var(--dark);
+        color: var(--white);
+      }
+
+      /* Text Utilities */
+      .text-small {
+        font-size: 0.875rem;
+        color: var(--gray);
+      }
+
+      /* Responsive Hamburger Menu */
+      @media (max-width: 768px) {
         .hamburger-icon {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-            padding: 8px;
-            z-index: 1001;
+          display: flex;
         }
 
-        .hamburger-icon span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--primary);
-            border-radius: 3px;
-            transition: all 0.3s ease;
+        .nav-menu {
+          position: fixed;
+          top: 70px;
+          left: -100%;
+          width: 100%;
+          height: calc(100vh - 70px);
+          background-color: var(--white);
+          flex-direction: column;
+          padding: var(--spacing-2xl);
+          gap: var(--spacing-lg);
+          transition: left 0.3s ease;
+          box-shadow: var(--shadow-lg);
+          overflow-y: auto;
+          z-index: 999;
         }
 
-        /* Profile Dropdown with Checkbox */
-        .profile-dropdown-checkbox {
-            display: none;
+        .hamburger-menu:checked ~ .navbar-content .nav-menu {
+          left: 0;
         }
 
-        .profile-dropdown-label {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
+        .hamburger-menu:checked
+          ~ .navbar-content
+          .hamburger-icon
+          span:nth-child(1) {
+          transform: rotate(45deg) translate(8px, 8px);
         }
 
-        .profile-dropdown-checkbox:checked ~ .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+        .hamburger-menu:checked
+          ~ .navbar-content
+          .hamburger-icon
+          span:nth-child(2) {
+          opacity: 0;
         }
 
-        /* Dashboard Navigation */
-        .navbar-dashboard {
-            background-color: var(--white);
-            box-shadow: var(--shadow-md);
+        .hamburger-menu:checked
+          ~ .navbar-content
+          .hamburger-icon
+          span:nth-child(3) {
+          transform: rotate(-45deg) translate(7px, -7px);
         }
 
-        .profile-image {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            object-fit: cover;
-            border: 2px solid var(--primary);
-            transition: all 0.3s ease;
+        .nav-menu li {
+          width: 100%;
         }
 
-        .profile-image:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-lg);
+        .nav-menu a {
+          display: block;
+          padding: var(--spacing-md);
+          border-radius: var(--radius-md);
+          font-size: 1.125rem;
         }
 
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: var(--white);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
-            margin-top: var(--spacing-sm);
-            min-width: 200px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 1000;
+        .nav-menu a:hover,
+        .nav-menu a.active {
+          background-color: rgba(124, 58, 237, 0.1);
         }
 
-        .dropdown-menu a {
-            display: block;
-            padding: var(--spacing-md) var(--spacing-lg);
-            color: var(--dark);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .dropdown-menu a:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: var(--gray-lighter);
-            color: var(--primary);
-            padding-left: var(--spacing-xl);
-        }
-
-        .dropdown-menu a.logout {
-            color: var(--error);
-        }
-
-        .dropdown-menu a.logout:hover {
-            background-color: rgba(239, 68, 68, 0.1);
-        }
-
-        /* Dashboard Main Content */
-        .dashboard-main {
-            padding: var(--spacing-2xl) 0;
-            background-color: var(--gray-lighter);
-            min-height: calc(100vh - 80px);
+        .profile-dropdown {
+          width: 100%;
+          margin-top: var(--spacing-lg);
         }
 
         .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: var(--spacing-2xl);
+          grid-template-columns: 1fr;
         }
 
-        /* Welcome Section */
-        .welcome-section {
-            background-color: var(--white);
-            padding: var(--spacing-2xl);
-            border-radius: var(--radius-lg);
-            margin-bottom: var(--spacing-2xl);
+        .dashboard-sidebar {
+          order: -1;
         }
 
-        .welcome-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: var(--spacing-xl);
-        }
-
-        .welcome-profile-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary);
-            box-shadow: var(--shadow-md);
-            flex-shrink: 0;
-        }
-
-        .welcome-text {
-            flex: 1;
-        }
-
-        .welcome-text h1 {
-            margin-bottom: var(--spacing-sm);
-        }
-
-        /* Vocational Profile Card */
-        .vocational-profile-card {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(167, 139, 250, 0.05));
-            border: 2px solid var(--primary-light);
-            padding: var(--spacing-2xl);
-            border-radius: var(--radius-lg);
-            margin-bottom: var(--spacing-2xl);
-            text-align: center;
-        }
-
-        .profile-type {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            background-color: rgba(124, 58, 237, 0.1);
-            padding: var(--spacing-xl);
-            border-radius: var(--radius-md);
-        }
-
-        /* Skills Section */
         .skills-section {
-            background-color: var(--white);
-            padding: var(--spacing-2xl);
-            border-radius: var(--radius-lg);
-            margin-bottom: var(--spacing-2xl);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-2xl);
-            border: 1px solid var(--gray-light);
-        }
-
-        .section-left,
-        .section-right {
-            padding: var(--spacing-lg);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--radius-md);
-        }
-
-        .skill-item {
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .skill-item label {
-            display: block;
-            margin-bottom: var(--spacing-sm);
-            font-weight: 500;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background-color: var(--gray-light);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .progress-bar.small {
-            height: 6px;
-        }
-
-        .progress-bar.large {
-            height: 12px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background-color: var(--primary);
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        .percentage {
-            font-size: 0.875rem;
-            color: var(--gray);
-            float: right;
-        }
-
-        .areas-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-md);
-        }
-
-        .area-item {
-            display: flex;
-            gap: var(--spacing-md);
-            align-items: center;
-        }
-
-        .area-name {
-            font-weight: 500;
-            min-width: 100px;
-        }
-
-        /* Learning Path */
-        .learning-path {
-            background-color: var(--white);
-            padding: var(--spacing-2xl);
-            border-radius: var(--radius-lg);
-            margin-bottom: var(--spacing-2xl);
-            border: 1px solid var(--gray-light);
-        }
-
-        .learning-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .progress-badge {
-            background-color: var(--accent);
-            color: var(--dark);
-            padding: var(--spacing-sm) var(--spacing-md);
-            border-radius: var(--radius-md);
-            font-weight: 600;
-        }
-
-        .learning-subtitle {
-            color: var(--gray);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .progress-info {
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .progress-info p {
-            margin-bottom: var(--spacing-sm);
-            font-weight: 500;
+          grid-template-columns: 1fr;
+          padding: var(--spacing-lg);
         }
 
         .learning-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: var(--spacing-md);
-            background-color: var(--gray-lighter);
-            border-radius: var(--radius-md);
-        }
-
-        .stat-icon {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .stat-item p {
-            margin: 0;
-            font-size: 0.95rem;
-        }
-
-        /* My Progress */
-        .my-progress {
-            background-color: var(--white);
-            padding: var(--spacing-2xl);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--gray-light);
-        }
-
-        .progress-header {
-            margin-bottom: var(--spacing-2xl);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .progress-header p {
-            margin: var(--spacing-sm) 0;
-            font-size: 0.95rem;
+          grid-template-columns: 1fr;
         }
 
         .progress-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-lg);
+          grid-template-columns: 1fr;
         }
 
-        .stat-card {
-            border: 1px solid var(--gray-light);
-            padding: var(--spacing-lg);
-            border-radius: var(--radius-md);
-            text-align: center;
+        .welcome-section {
+          padding: var(--spacing-lg);
         }
 
-        .stat-card p:first-of-type {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 0;
+        .welcome-profile-image {
+          width: 60px;
+          height: 60px;
         }
 
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--gray);
-            margin-top: var(--spacing-sm) !important;
+        .vocational-profile-card {
+          padding: var(--spacing-lg);
         }
 
-        /* Dashboard Sidebar */
-        .dashboard-sidebar {
-            display: flex;
-            flex-direction: column;
+        .profile-type {
+          font-size: 1.5rem;
+          padding: var(--spacing-lg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .dashboard-main {
+          padding: var(--spacing-lg) 0;
         }
 
+        .container {
+          padding: 0 var(--spacing-md);
+        }
+
+        .welcome-section,
+        .vocational-profile-card,
+        .skills-section,
+        .learning-path,
+        .my-progress,
         .upcoming-events {
-            background-color: var(--white);
-            padding: var(--spacing-lg);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--gray-light);
+          padding: var(--spacing-md);
+          margin-bottom: var(--spacing-lg);
         }
 
-        .upcoming-events h3 {
-            margin-bottom: var(--spacing-md);
+        .welcome-content {
+          flex-direction: column;
+          text-align: center;
+          gap: var(--spacing-md);
         }
 
-        .mini-calendar {
-            margin-bottom: var(--spacing-lg);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--radius-md);
-            padding: var(--spacing-md);
+        .welcome-profile-image {
+          width: 70px;
+          height: 70px;
         }
 
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--spacing-md);
-            font-weight: 600;
-            font-size: 0.875rem;
+        .learning-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: var(--spacing-sm);
+        }
+
+        .progress-badge {
+          align-self: flex-start;
         }
 
         .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-            font-size: 0.8rem;
-        }
-
-        .cal-day-header {
-            font-weight: 600;
-            text-align: center;
-            padding: var(--spacing-xs);
-            color: var(--gray);
+          font-size: 0.7rem;
+          gap: 2px;
         }
 
         .cal-day {
-            text-align: center;
-            padding: var(--spacing-xs);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
+          padding: 4px;
         }
 
-        .cal-day.empty {
-            color: var(--gray-light);
-        }
-
-        .cal-day.highlight {
-            background-color: var(--primary);
-            color: var(--white);
-            font-weight: 600;
-        }
-
-        .event-card {
-            background-color: var(--gray-lighter);
-            padding: var(--spacing-md);
-            border-radius: var(--radius-md);
-            margin-bottom: var(--spacing-lg);
-            font-size: 0.9rem;
-        }
-
-        .event-card p {
-            margin: var(--spacing-xs) 0;
-        }
-
-        .event-date {
-            color: var(--gray);
-            font-size: 0.85rem;
-        }
-
-        /* Help Button */
         .help-button {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--white);
-            border: 2px solid var(--dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            font-weight: 700;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: var(--dark);
+          bottom: 1rem;
+          right: 1rem;
+          width: 45px;
+          height: 45px;
+          font-size: 1.25rem;
         }
-
-        .help-button:hover {
-            background-color: var(--dark);
-            color: var(--white);
-        }
-
-        /* Text Utilities */
-        .text-small {
-            font-size: 0.875rem;
-            color: var(--gray);
-        }
-
-        /* Responsive Hamburger Menu */
-        @media (max-width: 768px) {
-            .hamburger-icon {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background-color: var(--white);
-                flex-direction: column;
-                padding: var(--spacing-2xl);
-                gap: var(--spacing-lg);
-                transition: left 0.3s ease;
-                box-shadow: var(--shadow-lg);
-                overflow-y: auto;
-                z-index: 999;
-            }
-
-            .hamburger-menu:checked ~ .navbar-content .nav-menu {
-                left: 0;
-            }
-
-            .hamburger-menu:checked ~ .navbar-content .hamburger-icon span:nth-child(1) {
-                transform: rotate(45deg) translate(8px, 8px);
-            }
-
-            .hamburger-menu:checked ~ .navbar-content .hamburger-icon span:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger-menu:checked ~ .navbar-content .hamburger-icon span:nth-child(3) {
-                transform: rotate(-45deg) translate(7px, -7px);
-            }
-
-            .nav-menu li {
-                width: 100%;
-            }
-
-            .nav-menu a {
-                display: block;
-                padding: var(--spacing-md);
-                border-radius: var(--radius-md);
-                font-size: 1.125rem;
-            }
-
-            .nav-menu a:hover,
-            .nav-menu a.active {
-                background-color: rgba(124, 58, 237, 0.1);
-            }
-
-            .profile-dropdown {
-                width: 100%;
-                margin-top: var(--spacing-lg);
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .dashboard-sidebar {
-                order: -1;
-            }
-
-            .skills-section {
-                grid-template-columns: 1fr;
-                padding: var(--spacing-lg);
-            }
-
-            .learning-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .progress-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .welcome-section {
-                padding: var(--spacing-lg);
-            }
-
-            .welcome-profile-image {
-                width: 60px;
-                height: 60px;
-            }
-
-            .vocational-profile-card {
-                padding: var(--spacing-lg);
-            }
-
-            .profile-type {
-                font-size: 1.5rem;
-                padding: var(--spacing-lg);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .dashboard-main {
-                padding: var(--spacing-lg) 0;
-            }
-
-            .container {
-                padding: 0 var(--spacing-md);
-            }
-
-            .welcome-section,
-            .vocational-profile-card,
-            .skills-section,
-            .learning-path,
-            .my-progress,
-            .upcoming-events {
-                padding: var(--spacing-md);
-                margin-bottom: var(--spacing-lg);
-            }
-
-            .welcome-content {
-                flex-direction: column;
-                text-align: center;
-                gap: var(--spacing-md);
-            }
-
-            .welcome-profile-image {
-                width: 70px;
-                height: 70px;
-            }
-
-            .learning-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: var(--spacing-sm);
-            }
-
-            .progress-badge {
-                align-self: flex-start;
-            }
-
-            .calendar-days {
-                font-size: 0.7rem;
-                gap: 2px;
-            }
-
-            .cal-day {
-                padding: 4px;
-            }
-
-            .help-button {
-                bottom: 1rem;
-                right: 1rem;
-                width: 45px;
-                height: 45px;
-                font-size: 1.25rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navbar con navegación mejorada -->
     <nav class="navbar navbar-dashboard">
-        <div class="container">
-            <!-- Moving checkbox outside navbar-content for hamburger menu to work -->
-            <input type="checkbox" id="menu-toggle" class="hamburger-menu">
-            <div class="navbar-content">
-                <a href="../dashboard/dashboard.html" class="logo">
-                    <span class="logo-text">vocatio</span>
-                </a>
-                <label for="menu-toggle" class="hamburger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </label>
-                <ul class="nav-menu">
-                    <li><a href="../careers/explore.html">Explorar carreras</a></li>
-                    <li><a href="../events/events.html">Eventos</a></li>
-                    <li><a href="../vocational-test/test.html">Test vocacional</a></li>
-                    <!-- Cambiando enlace de Resultados para que apunte al historial completo -->
-                    <li><a href="../results/results.html">Resultados</a></li>
-                    <!-- Reemplazar Materiales por Ruta de aprendizaje -->
-                    <li><a href="learning-path.html">Ruta de aprendizaje</a></li>
-                    <li><a href="progress.html">Progreso</a></li>
-                </ul>
-                <div class="profile-dropdown">
-                    <!-- Añadiendo checkbox hack para dropdown con clic -->
-                    <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
-                    <label for="profile-dropdown-toggle" class="profile-dropdown-label">
-                        <img src="../../assets/images/jose-profile.jpg" alt="José" class="profile-image">
-                    </label>
-                    <div class="dropdown-menu">
-                        <a href="../profile/profile.html">Mi Perfil</a>
-                        <a href="../notifications/notifications.html">Mis Notificaciones</a>
-                        <a href="../../index.html" class="logout">Cerrar sesión</a>
-                    </div>
-                </div>
+      <div class="container">
+        <!-- Moving checkbox outside navbar-content for hamburger menu to work -->
+        <input type="checkbox" id="menu-toggle" class="hamburger-menu" />
+        <div class="navbar-content">
+          <a href="../dashboard/dashboard.html" class="logo">
+            <span class="logo-text">vocatio</span>
+          </a>
+          <label for="menu-toggle" class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+          <ul class="nav-menu">
+            <li><a href="../careers/explore.html">Explorar carreras</a></li>
+            <li><a href="../events/events.html">Eventos</a></li>
+            <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+            <!-- Cambiando enlace de Resultados para que apunte al historial completo -->
+            <li><a href="../results/results.html">Resultados</a></li>
+            <!-- Reemplazar Materiales por Ruta de aprendizaje -->
+            <li><a href="learning-path.html">Ruta de aprendizaje</a></li>
+            <li><a href="progress.html">Progreso</a></li>
+          </ul>
+          <div class="profile-dropdown">
+            <!-- Añadiendo checkbox hack para dropdown con clic -->
+            <input
+              type="checkbox"
+              id="profile-dropdown-toggle"
+              class="profile-dropdown-checkbox"
+            />
+            <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+              <img
+                src="../../assets/images/jose-profile.jpg"
+                alt="José"
+                class="profile-image"
+              />
+            </label>
+            <div class="dropdown-menu">
+              <a href="../profile/profile.html">Mi Perfil</a>
+              <a href="../notifications/notifications.html"
+                >Mis Notificaciones</a
+              >
+              <a href="../../index.html" class="logout">Cerrar sesión</a>
             </div>
+          </div>
         </div>
+      </div>
     </nav>
 
     <!-- Main con HTML semántico mejorado -->
     <main class="dashboard-main">
-        <div class="container">
-            <!-- Welcome section -->
-            <header class="welcome-section">
-                <div class="welcome-content">
-                    <img src="../../assets/images/jose-profile.jpg" alt="José" class="welcome-profile-image">
-                    <div class="welcome-text">
-                        <h1>Hola José!!</h1>
-                        <p>Continúa explorando tu camino profesional</p>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Grid responsivo con mejor estructura -->
-            <div class="dashboard-grid">
-                <!-- Main Content -->
-                <div class="dashboard-main-content">
-                    <!-- Vocational Profile Card -->
-                    <article class="vocational-profile-card">
-                        <header class="profile-header">
-                            <h2>Tu Perfil Vocacional</h2>
-                        </header>
-                        <div class="profile-type">
-                            Analítico-Sistemático
-                        </div>
-                    </article>
-
-                    <!-- Skills & Areas -->
-                    <section class="skills-section">
-                        <article class="section-left">
-                            <h3>Tu Perfil Vocacional</h3>
-                            <p class="text-small">Última actualización: 10 de enero, 2025</p>
-                            
-                            <div class="skill-item">
-                                <label>Ingeniería</label>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 80%"></div>
-                                </div>
-                                <span class="percentage">80%</span>
-                            </div>
-
-                            <div class="skill-item">
-                                <label>Tecnología</label>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 60%"></div>
-                                </div>
-                                <span class="percentage">60%</span>
-                            </div>
-
-                            <div class="skill-item">
-                                <label>Negocios</label>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 20%"></div>
-                                </div>
-                                <span class="percentage">20%</span>
-                            </div>
-
-                            <a href="../vocational-test/results.html" class="btn btn-primary btn-block">Ver resultados</a>
-                        </article>
-
-                        <article class="section-right">
-                            <h3>Áreas de Mayor Afinidad</h3>
-                            <div class="areas-list">
-                                <div class="area-item">
-                                    <span class="area-name">Ingeniería</span>
-                                    <div class="progress-bar small">
-                                        <div class="progress-fill" style="width: 80%"></div>
-                                    </div>
-                                    <span class="percentage">80%</span>
-                                </div>
-                                <div class="area-item">
-                                    <span class="area-name">Tecnología</span>
-                                    <div class="progress-bar small">
-                                        <div class="progress-fill" style="width: 60%"></div>
-                                    </div>
-                                    <span class="percentage">60%</span>
-                                </div>
-                                <div class="area-item">
-                                    <span class="area-name">Negocios</span>
-                                    <div class="progress-bar small">
-                                        <div class="progress-fill" style="width: 20%"></div>
-                                    </div>
-                                    <span class="percentage">20%</span>
-                                </div>
-                            </div>
-                        </article>
-                    </section>
-
-                    <!-- Learning Path -->
-                    <section class="learning-path">
-                        <header class="learning-header">
-                            <h3>Tu Ruta de Aprendizaje Personalizada</h3>
-                            <span class="progress-badge">45% Completado</span>
-                        </header>
-                        <p class="learning-subtitle">Ingeniería de Sistemas - Módulo 1</p>
-                        
-                        <div class="progress-info">
-                            <p><strong>Progreso general</strong></p>
-                            <div class="progress-bar large">
-                                <div class="progress-fill" style="width: 45%"></div>
-                            </div>
-                            <p>2 de 5 materiales</p>
-                        </div>
-
-                        <div class="learning-stats">
-                            <div class="stat-item">
-                                <span class="stat-icon">🏅</span>
-                                <p><strong>2</strong> Logros</p>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-icon">⏱️</span>
-                                <p><strong>2h</strong> Tiempo invertido</p>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-icon">📚</span>
-                                <p><strong>0 de 3</strong> Módulos completados</p>
-                            </div>
-                        </div>
-
-                        <a href="../materials/materials.html" class="btn btn-primary btn-block">Continuar Aprendiendo</a>
-                    </section>
-
-                    <!-- My Progress -->
-                    <section class="my-progress">
-                        <header class="progress-header">
-                            <div>
-                                <h3>Mi progreso</h3>
-                                <p>Visualiza tus logros alcanzados hasta la fecha: 10 de enero, 2025</p>
-                            </div>
-                            <a href="progress.html" class="btn btn-primary btn-small">Ver más</a>
-                        </header>
-
-                        <div class="progress-stats">
-                            <article class="stat-card">
-                                <span class="stat-icon">📊</span>
-                                <p><strong>3</strong></p>
-                                <p class="stat-label">Tests Completados</p>
-                            </article>
-                            <article class="stat-card">
-                                <span class="stat-icon">⭐</span>
-                                <p><strong>12</strong></p>
-                                <p class="stat-label">Carreras Exploradas</p>
-                            </article>
-                            <article class="stat-card">
-                                <span class="stat-icon">📖</span>
-                                <p><strong>28</strong></p>
-                                <p class="stat-label">Materiales Revisados</p>
-                            </article>
-                        </div>
-                    </section>
-                </div>
-
-                <!-- Sidebar -->
-                <aside class="dashboard-sidebar">
-                    <div class="upcoming-events">
-                        <h3>Próximos eventos</h3>
-                        <div class="mini-calendar">
-                            <div class="calendar-header">
-                                <span>&lt;</span>
-                                <span>January 2025</span>
-                                <span>&gt;</span>
-                            </div>
-                            <div class="calendar-days">
-                                <div class="cal-day-header">DOM</div>
-                                <div class="cal-day-header">LUN</div>
-                                <div class="cal-day-header">MAR</div>
-                                <div class="cal-day-header">MIE</div>
-                                <div class="cal-day-header">JUE</div>
-                                <div class="cal-day-header">VIE</div>
-                                <div class="cal-day-header">SAB</div>
-                                <div class="cal-day empty">28</div>
-                                <div class="cal-day empty">29</div>
-                                <div class="cal-day empty">30</div>
-                                <div class="cal-day empty">31</div>
-                                <div class="cal-day">1</div>
-                                <div class="cal-day">2</div>
-                                <div class="cal-day">3</div>
-                                <div class="cal-day">4</div>
-                                <div class="cal-day">5</div>
-                                <div class="cal-day">6</div>
-                                <div class="cal-day">7</div>
-                                <div class="cal-day">8</div>
-                                <div class="cal-day">9</div>
-                                <div class="cal-day">10</div>
-                                <div class="cal-day">11</div>
-                                <div class="cal-day">12</div>
-                                <div class="cal-day">13</div>
-                                <div class="cal-day highlight">14</div>
-                                <div class="cal-day">15</div>
-                                <div class="cal-day">16</div>
-                                <div class="cal-day">17</div>
-                                <div class="cal-day">18</div>
-                                <div class="cal-day">19</div>
-                                <div class="cal-day">20</div>
-                                <div class="cal-day">21</div>
-                                <div class="cal-day">22</div>
-                                <div class="cal-day">23</div>
-                                <div class="cal-day">24</div>
-                                <div class="cal-day">25</div>
-                                <div class="cal-day">26</div>
-                                <div class="cal-day">27</div>
-                                <div class="cal-day">28</div>
-                                <div class="cal-day">29</div>
-                                <div class="cal-day">30</div>
-                                <div class="cal-day">31</div>
-                            </div>
-                        </div>
-
-                        <article class="event-card">
-                            <p><strong>Charla: Ingeniería en Sistemas</strong></p>
-                            <p class="event-date">14 de enero de 2025 - 16:00</p>
-                        </article>
-
-                        <a href="../events/events.html" class="btn btn-primary btn-block">Explorar más eventos</a>
-                    </div>
-                </aside>
+      <div class="container">
+        <!-- Welcome section -->
+        <header class="welcome-section">
+          <div class="welcome-content">
+            <img
+              src="../../assets/images/jose-profile.jpg"
+              alt="José"
+              class="welcome-profile-image"
+            />
+            <div class="welcome-text">
+              <h1>Hola José!!</h1>
+              <p>Continúa explorando tu camino profesional</p>
             </div>
+          </div>
+        </header>
+
+        <!-- Grid responsivo con mejor estructura -->
+        <div class="dashboard-grid">
+          <!-- Main Content -->
+          <div class="dashboard-main-content">
+            <!-- Vocational Profile Card -->
+            <article class="vocational-profile-card">
+              <header class="profile-header">
+                <h2>Tu Perfil Vocacional</h2>
+              </header>
+              <div class="profile-type">Analítico-Sistemático</div>
+            </article>
+
+            <!-- Skills & Areas -->
+            <section class="skills-section">
+              <article class="section-left">
+                <h3>Tu Perfil Vocacional</h3>
+                <p class="text-small">
+                  Última actualización: 10 de enero, 2025
+                </p>
+
+                <div class="skill-item">
+                  <label>Ingeniería</label>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 80%"></div>
+                  </div>
+                  <span class="percentage">80%</span>
+                </div>
+
+                <div class="skill-item">
+                  <label>Tecnología</label>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%"></div>
+                  </div>
+                  <span class="percentage">60%</span>
+                </div>
+
+                <div class="skill-item">
+                  <label>Negocios</label>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 20%"></div>
+                  </div>
+                  <span class="percentage">20%</span>
+                </div>
+
+                <a
+                  href="../vocational-test/results.html"
+                  class="btn btn-primary btn-block"
+                  >Ver resultados</a
+                >
+              </article>
+
+              <article class="section-right">
+                <h3>Áreas de Mayor Afinidad</h3>
+                <div class="areas-list">
+                  <div class="area-item">
+                    <span class="area-name">Ingeniería</span>
+                    <div class="progress-bar small">
+                      <div class="progress-fill" style="width: 80%"></div>
+                    </div>
+                    <span class="percentage">80%</span>
+                  </div>
+                  <div class="area-item">
+                    <span class="area-name">Tecnología</span>
+                    <div class="progress-bar small">
+                      <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                    <span class="percentage">60%</span>
+                  </div>
+                  <div class="area-item">
+                    <span class="area-name">Negocios</span>
+                    <div class="progress-bar small">
+                      <div class="progress-fill" style="width: 20%"></div>
+                    </div>
+                    <span class="percentage">20%</span>
+                  </div>
+                </div>
+              </article>
+            </section>
+
+            <!-- Learning Path -->
+            <section class="learning-path">
+              <header class="learning-header">
+                <h3>Tu Ruta de Aprendizaje Personalizada</h3>
+                <span class="progress-badge">45% Completado</span>
+              </header>
+              <p class="learning-subtitle">Ingeniería de Sistemas - Módulo 1</p>
+
+              <div class="progress-info">
+                <p><strong>Progreso general</strong></p>
+                <div class="progress-bar large">
+                  <div class="progress-fill" style="width: 45%"></div>
+                </div>
+                <p>2 de 5 materiales</p>
+              </div>
+
+              <div class="learning-stats">
+                <div class="stat-item">
+                  <span class="stat-icon">🏅</span>
+                  <p><strong>2</strong> Logros</p>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-icon">⏱️</span>
+                  <p><strong>2h</strong> Tiempo invertido</p>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-icon">📚</span>
+                  <p><strong>0 de 3</strong> Módulos completados</p>
+                </div>
+              </div>
+
+              <a
+                href="../materials/materials.html"
+                class="btn btn-primary btn-block"
+                >Continuar Aprendiendo</a
+              >
+            </section>
+
+            <!-- My Progress -->
+            <section class="my-progress">
+              <header class="progress-header">
+                <div>
+                  <h3>Mi progreso</h3>
+                  <p>
+                    Visualiza tus logros alcanzados hasta la fecha: 10 de enero,
+                    2025
+                  </p>
+                </div>
+                <a href="progress.html" class="btn btn-primary btn-small"
+                  >Ver más</a
+                >
+              </header>
+
+              <div class="progress-stats">
+                <article class="stat-card">
+                  <span class="stat-icon">📊</span>
+                  <p><strong>3</strong></p>
+                  <p class="stat-label">Tests Completados</p>
+                </article>
+                <article class="stat-card">
+                  <span class="stat-icon">⭐</span>
+                  <p><strong>12</strong></p>
+                  <p class="stat-label">Carreras Exploradas</p>
+                </article>
+                <article class="stat-card">
+                  <span class="stat-icon">📖</span>
+                  <p><strong>28</strong></p>
+                  <p class="stat-label">Materiales Revisados</p>
+                </article>
+              </div>
+            </section>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="dashboard-sidebar">
+            <div class="upcoming-events">
+              <h3>Próximos eventos</h3>
+              <div class="mini-calendar">
+                <div class="calendar-header">
+                  <span>&lt;</span>
+                  <span>January 2025</span>
+                  <span>&gt;</span>
+                </div>
+                <div class="calendar-days">
+                  <div class="cal-day-header">DOM</div>
+                  <div class="cal-day-header">LUN</div>
+                  <div class="cal-day-header">MAR</div>
+                  <div class="cal-day-header">MIE</div>
+                  <div class="cal-day-header">JUE</div>
+                  <div class="cal-day-header">VIE</div>
+                  <div class="cal-day-header">SAB</div>
+                  <div class="cal-day empty">28</div>
+                  <div class="cal-day empty">29</div>
+                  <div class="cal-day empty">30</div>
+                  <div class="cal-day empty">31</div>
+                  <div class="cal-day">1</div>
+                  <div class="cal-day">2</div>
+                  <div class="cal-day">3</div>
+                  <div class="cal-day">4</div>
+                  <div class="cal-day">5</div>
+                  <div class="cal-day">6</div>
+                  <div class="cal-day">7</div>
+                  <div class="cal-day">8</div>
+                  <div class="cal-day">9</div>
+                  <div class="cal-day">10</div>
+                  <div class="cal-day">11</div>
+                  <div class="cal-day">12</div>
+                  <div class="cal-day">13</div>
+                  <div class="cal-day highlight">14</div>
+                  <div class="cal-day">15</div>
+                  <div class="cal-day">16</div>
+                  <div class="cal-day">17</div>
+                  <div class="cal-day">18</div>
+                  <div class="cal-day">19</div>
+                  <div class="cal-day">20</div>
+                  <div class="cal-day">21</div>
+                  <div class="cal-day">22</div>
+                  <div class="cal-day">23</div>
+                  <div class="cal-day">24</div>
+                  <div class="cal-day">25</div>
+                  <div class="cal-day">26</div>
+                  <div class="cal-day">27</div>
+                  <div class="cal-day">28</div>
+                  <div class="cal-day">29</div>
+                  <div class="cal-day">30</div>
+                  <div class="cal-day">31</div>
+                </div>
+              </div>
+
+              <article class="event-card">
+                <p><strong>Charla: Ingeniería en Sistemas</strong></p>
+                <p class="event-date">14 de enero de 2025 - 16:00</p>
+              </article>
+
+              <a href="../events/events.html" class="btn btn-primary btn-block"
+                >Explorar más eventos</a
+              >
+            </div>
+          </aside>
         </div>
+      </div>
     </main>
 
     <!-- Help button -->
-    <a href="../help/help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
-
-</body>
+    <a
+      href="../help/help-center.html"
+      class="help-button"
+      aria-label="Centro de ayuda"
+      >?</a
+    >
+  </body>
 </html>
