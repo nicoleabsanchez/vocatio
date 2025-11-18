@@ -323,7 +323,7 @@
                     <!-- Real video 1: Introduction to Systems Engineering -->
                     <div class="material-card">
                         <div class="material-image" style="background-image: url('../../public/admin-concept.jpg');">
-                            <button class="favorite-btn" onclick="toggleFavorite(event, 'vid-1')">☆</button>
+                            <button class="favorite-btn" onclick="toggleFavorite(event, 'video-1')">☆</button>
                         </div>
                         <div class="material-content">
                             <h3>Introducción a la Ingeniería de Sistemas</h3>
@@ -337,7 +337,7 @@
                     <!-- Real video 2: Introduction to Python Programming -->
                     <div class="material-card">
                         <div class="material-image" style="background-image: url('../../public/python-programming-concept.png');">
-                            <button class="favorite-btn" onclick="toggleFavorite(event, 'vid-2')">☆</button>
+                            <button class="favorite-btn" onclick="toggleFavorite(event, 'video-2')">☆</button>
                         </div>
                         <div class="material-content">
                             <h3>Introducción a la Programación en Python</h3>
@@ -349,12 +349,9 @@
                     </div>
                 </div>
 
+                <!-- Updated saved-content to be dynamically populated -->
                 <div id="saved-content" style="display: none;">
-                    <div class="empty-state">
-                        <div class="empty-icon">🎬</div>
-                        <h3>No tienes materiales guardados</h3>
-                        <p>Agrega materiales a favoritos para verlos aquí</p>
-                    </div>
+                    <div class="materials-grid" id="saved-materials-grid"></div>
                 </div>
             </div>
         </div>
@@ -368,66 +365,7 @@
         </div>
     </footer>
 
-    <script>
-        let savedMaterials = [];
-
-        function toggleFavorite(event, materialId) {
-            event.preventDefault();
-            const btn = event.target;
-            btn.classList.toggle('active');
-            
-            if (btn.classList.contains('active')) {
-                btn.textContent = '★';
-                if (!savedMaterials.includes(materialId)) {
-                    savedMaterials.push(materialId);
-                }
-            } else {
-                btn.textContent = '☆';
-                savedMaterials = savedMaterials.filter(id => id !== materialId);
-            }
-        }
-
-        function showSuggested() {
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById('main-content').style.display = 'block';
-            document.getElementById('saved-content').style.display = 'none';
-            document.getElementById('section-title').textContent = 'Materiales sugeridos';
-        }
-
-        function showSaved() {
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('saved-content').style.display = 'block';
-            document.getElementById('section-title').textContent = 'Materiales guardados';
-            
-            if (savedMaterials.length === 0) {
-                document.getElementById('saved-content').innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">🎬</div>
-                        <h3>No tienes materiales guardados</h3>
-                        <p>Agrega materiales a favoritos para verlos aquí</p>
-                    </div>
-                `;
-            }
-        }
-
-        function filterMaterials() {
-            const searchInput = document.getElementById('search-input').value.toLowerCase();
-            const cards = document.querySelectorAll('.material-card');
-            
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const description = card.querySelector('p').textContent.toLowerCase();
-                
-                if (title.includes(searchInput) || description.includes(searchInput)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
+   
+    <script src="js/materiales-videos.js"></script>
 </body>
 </html>

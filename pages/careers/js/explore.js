@@ -92,7 +92,6 @@ const careersData = {
   },
 };
 
-// NOTIFICACIÓN DE ÉXITO
 function showSuccessMessage(message) {
   const existingMessage = document.querySelector('.success-message');
   if (existingMessage) {
@@ -125,7 +124,6 @@ function showSuccessMessage(message) {
   }, 3000);
 }
 
-// CREAR BARRA DE BÚSQUEDA
 function createSearchBar() {
   const stepContent = document.querySelector('#step-3 .step-content');
   const careersTitle = stepContent.querySelector('.careers-title');
@@ -201,28 +199,6 @@ function createSearchBar() {
   });
 }
 
-// FILTRAR CARRERAS
-function filterCareers(searchTerm) {
-  const careers = careersData[selectedArea][selectedFormation] || [];
-  const normalizedSearch = searchTerm.toLowerCase().trim();
-  
-  if (normalizedSearch === '') {
-    loadCareers();
-    return;
-  }
-  
-  const filteredCareers = careers.filter(career => 
-    career.name.toLowerCase().includes(normalizedSearch) ||
-    career.description.toLowerCase().includes(normalizedSearch)
-  );
-  
-  renderCareers(filteredCareers);
-  
-  document.getElementById('careers-count').textContent = 
-    `${filteredCareers.length} ${filteredCareers.length === 1 ? 'carrera encontrada' : 'carreras encontradas'}`;
-}
-
-// RENDERIZAR CARRERAS
 function renderCareers(careers) {
   const careersList = document.getElementById('careers-list');
   
@@ -257,15 +233,24 @@ function renderCareers(careers) {
   updateFavoriteButtons();
 }
 
-function goToStep(step) {
-  document.querySelectorAll(".carousel-step").forEach((el) => el.classList.remove("active"));
-  document.querySelectorAll(".progress-step").forEach((el) => el.classList.remove("active"));
-
-  document.getElementById("step-" + step).classList.add("active");
-  document.getElementById("progress-step-" + step).classList.add("active");
-
-  currentStep = step;
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function filterCareers(searchTerm) {
+  const careers = careersData[selectedArea][selectedFormation] || [];
+  const normalizedSearch = searchTerm.toLowerCase().trim();
+  
+  if (normalizedSearch === '') {
+    loadCareers();
+    return;
+  }
+  
+  const filteredCareers = careers.filter(career => 
+    career.name.toLowerCase().includes(normalizedSearch) ||
+    career.description.toLowerCase().includes(normalizedSearch)
+  );
+  
+  renderCareers(filteredCareers);
+  
+  document.getElementById('careers-count').textContent = 
+    `${filteredCareers.length} ${filteredCareers.length === 1 ? 'carrera encontrada' : 'carreras encontradas'}`;
 }
 
 function previousStep() {
@@ -285,6 +270,17 @@ function loadCareers() {
 
   renderCareers(careers);
   createSearchBar();
+}
+
+function goToStep(step) {
+  document.querySelectorAll(".carousel-step").forEach((el) => el.classList.remove("active"));
+  document.querySelectorAll(".progress-step").forEach((el) => el.classList.remove("active"));
+
+  document.getElementById("step-" + step).classList.add("active");
+  document.getElementById("progress-step-" + step).classList.add("active");
+
+  currentStep = step;
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function toggleFavorite(event, careerName, area, formation) {
@@ -319,22 +315,6 @@ function toggleFavorite(event, careerName, area, formation) {
   updateFavoritesCount();
 }
 
-function updateFavoriteButtons() {
-  const favorites = JSON.parse(localStorage.getItem("favoritesCareers") || "[]");
-  const favoriteNames = favorites.map((fav) => fav.name);
-
-  document.querySelectorAll(".favorite-btn").forEach((button) => {
-    const careerName = button.closest(".career-item").querySelector("h3").textContent;
-    if (favoriteNames.includes(careerName)) {
-      button.textContent = "♥";
-      button.style.color = "var(--error)";
-    } else {
-      button.textContent = "♡";
-      button.style.color = "var(--gray)";
-    }
-  });
-}
-
 function updateFavoritesCount() {
   const favorites = JSON.parse(localStorage.getItem("favoritesCareers") || "[]");
   const placeholder = document.querySelector(".favorites-placeholder");
@@ -355,6 +335,23 @@ function updateFavoritesCount() {
     placeholder.onclick = null;
   }
 }
+
+function updateFavoriteButtons() {
+  const favorites = JSON.parse(localStorage.getItem("favoritesCareers") || "[]");
+  const favoriteNames = favorites.map((fav) => fav.name);
+
+  document.querySelectorAll(".favorite-btn").forEach((button) => {
+    const careerName = button.closest(".career-item").querySelector("h3").textContent;
+    if (favoriteNames.includes(careerName)) {
+      button.textContent = "♥";
+      button.style.color = "var(--error)";
+    } else {
+      button.textContent = "♡";
+      button.style.color = "var(--gray)";
+    }
+  });
+}
+
 
 // ESTILOS DE ANIMACIÓN 
 const style = document.createElement('style');
