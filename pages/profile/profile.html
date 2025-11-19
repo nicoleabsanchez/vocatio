@@ -14,11 +14,9 @@
     <header>
         <nav class="navbar navbar-dashboard">
             <div class="container">
-                <!-- Moving hamburger checkbox outside navbar-content for proper positioning -->
                 <input type="checkbox" id="menu-toggle" class="hamburger-menu">
                 
                 <div class="navbar-content">
-                    <!-- Logo apunta a dashboard.html -->
                     <a href="../dashboard/dashboard.html" class="logo">
                         <span class="logo-text">vocatio</span>
                     </a>
@@ -34,7 +32,6 @@
                         <li><a href="../events/events.html">Eventos</a></li>
                         <li><a href="../vocational-test/test.html">Test vocacional</a></li>
                         <li><a href="../vocational-test/results.html">Resultados</a></li>
-                        <!-- Reemplazar Materiales por Ruta de aprendizaje -->
                         <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
                         <li><a href="../dashboard/progress.html">Progreso</a></li>
                     </ul>
@@ -42,7 +39,7 @@
                     <div class="profile-dropdown">
                         <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
                         <label for="profile-dropdown-toggle" class="profile-dropdown-label">
-                            <div class="profile-icon">J</div>
+                            <div class="profile-icon"></div>
                         </label>
                         <div class="dropdown-menu">
                             <a href="profile.html" class="active">Mi Perfil</a>
@@ -65,7 +62,6 @@
             <div class="profile-page-layout">
                 <section class="profile-info-card">
                     <div class="profile-info-header">
-                        <!-- Reduciendo tamaño de imagen de perfil -->
                         <img src="../../assets/images/jose-profile.jpg" alt="José" class="profile-large-pic">
                         <div class="profile-info-text">
                             <h2>José García</h2>
@@ -76,26 +72,48 @@
                     <div class="profile-divider"></div>
 
                     <div class="profile-section-box">
-                        <h3>Información Personal</h3>
+                    <h3>Información Personal</h3>
+
+                    <div id="alertBox" class="alert" style="display:none;"></div>
+
+                    <form id="profileForm">
+
                         <div class="profile-field">
                             <label>Nombre Completo</label>
-                            <input type="text" value="José García" readonly>
+                            <input type="text" id="name" value="José García">
                         </div>
+
                         <div class="profile-field">
                             <label>Correo Electrónico</label>
-                            <input type="email" value="jose.garcia@vocatio.com" readonly>
+                            <input type="email" id="email" value="jose.garcia@vocatio.com">
                         </div>
+
                         <div class="profile-field">
                             <label>Teléfono</label>
-                            <input type="tel" value="+51 987654321" readonly>
+                            <input type="tel" id="phone" value="+51 987654321">
                         </div>
+
                         <div class="profile-field">
                             <label>Fecha de Nacimiento</label>
-                            <input type="date" value="2005-03-15" readonly>
+                            <input type="date" id="birthdate" value="2005-03-15">
                         </div>
-                    </div>
 
-                    <a href="#editar" class="btn btn-primary btn-block profile-edit-btn">Modificar Datos</a>
+                        <button type="submit" class="btn btn-primary btn-block profile-edit-btn">
+                            Modificar datos
+                        </button>
+
+                        <div id="alert-box" style="display: none;"></div>
+
+                    </form>
+
+                    <script src="./js/profile.js"></script>
+
+
+                    <div id="alertBox" class="alert" style="display:none;"></div>
+
+
+                </div>
+
                 </section>
 
                 <section class="profile-security-card">
@@ -137,6 +155,7 @@
             </section>
         </div>
     </main>
+    <script src="../profile/js/profile.js"></script>
 
     <a href="../help/help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
 </body>

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../../css/components.css">
     <link rel="stylesheet" href="../../css/responsive.css">
     <link rel="stylesheet" href="../../css/dashboard.css">
+    <!-- Added notifications.css stylesheet -->
+    <link rel="stylesheet" href="../../css/notifications.css">
 </head>
 <body>
     <!-- Updated navbar to match all authenticated pages with hamburger menu and checkbox dropdown hack -->
@@ -163,148 +165,8 @@
     </main>
 
     <!-- Help button -->
-    <a href="help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
+    <a href="../help/help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
 
-    <script>
-        // Mark notification as read
-        document.querySelectorAll('.btn-icon').forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.closest('.notification-item').classList.remove('unread');
-            });
-        });
-
-        // Filter notifications
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    </script>
-
-    <style>
-        .notifications-main {
-            padding: var(--spacing-3xl) 0;
-        }
-
-        .notifications-header h1 {
-            margin-bottom: var(--spacing-md);
-        }
-
-        .notifications-header p {
-            color: var(--gray);
-            font-size: 1rem;
-        }
-
-        .notifications-filters {
-            display: flex;
-            gap: var(--spacing-md);
-            margin: var(--spacing-2xl) 0;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: var(--spacing-sm) var(--spacing-lg);
-            border: 2px solid var(--gray-light);
-            background-color: var(--white);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            border-color: var(--primary);
-            color: var(--primary);
-            background-color: rgba(124, 58, 237, 0.05);
-        }
-
-        .notifications-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-lg);
-        }
-
-        .notification-item {
-            display: grid;
-            grid-template-columns: 50px 1fr 100px;
-            gap: var(--spacing-lg);
-            padding: var(--spacing-lg);
-            background-color: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--gray-light);
-        }
-
-        .notification-item.unread {
-            background-color: rgba(124, 58, 237, 0.05);
-            border-left-color: var(--primary);
-        }
-
-        .notification-icon {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .notification-content h3 {
-            margin: 0 0 var(--spacing-sm) 0;
-            color: var(--dark);
-        }
-
-        .notification-content p {
-            margin: 0 0 var(--spacing-sm) 0;
-            color: var(--gray);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .notification-time {
-            font-size: 0.85rem;
-            color: var(--gray-light);
-        }
-
-        .notification-actions {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-        }
-
-        .btn-icon {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.25rem;
-            color: var(--gray);
-            transition: color 0.3s ease;
-        }
-
-        .btn-icon:hover {
-            color: var(--primary);
-        }
-
-        @media (max-width: 768px) {
-            .notification-item {
-                grid-template-columns: 40px 1fr;
-                gap: var(--spacing-md);
-            }
-
-            .notification-actions {
-                grid-column: 1 / -1;
-                justify-content: flex-start;
-            }
-
-            .notifications-filters {
-                flex-direction: column;
-            }
-
-            .filter-btn {
-                width: 100%;
-            }
-        }
-    </style>
+    <script src="../../pages/notifications/js/notifications.js"></script>
 </body>
 </html>
