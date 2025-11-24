@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Evaluación y Calificación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #454E4C;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr 300px;
+            gap: 2rem;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* Barra lateral izquierda */
+        .sidebar {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #693efe;
+            margin-bottom: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: #8b8a92;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #693efe;
+            color: white;
+        }
+
+        /* Contenido principal */
+        .main-content {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .evaluation-card {
+            background: white;
+            border: 1px solid #d9d4ff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .evaluation-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .evaluation-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .rating {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .rating-dot {
+            width: 24px;
+            height: 24px;
+            background: #693efe;
+            border: 3px solid #39017d;
+            border-radius: 50%;
+        }
+
+        /* Panel lateral derecho */
+        .score-panel {
+            background: #eeeef2;
+            padding: 1.5rem;
+            border-radius: 12px;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .score-box {
+            background: #d9d4ff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #693efe;
+        }
+
+        .comment-box {
+            background: white;
+            border: 1px solid #d9d4ff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            background: #693efe;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: #5a35d9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral izquierda -->
+        <aside class="sidebar">
+            <div class="logo">vocatio</div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">Dashboard</a>
+                <a href="#" class="nav-item">Cursos</a>
+                <a href="#" class="nav-item">Estudiantes</a>
+                <a href="#" class="nav-item">Evaluación</a>
+                <a href="#" class="nav-item">Reportes</a>
+                <a href="#" class="nav-item">Materiales</a>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <div class="header">
+                <h1>Evaluación y Calificación</h1>
+            </div>
+
+            <div class="evaluation-card">
+                <div>
+                    <h3 class="evaluation-title">Evaluación 1</h3>
+                    <p class="evaluation-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <span class="date">10/12/23</span>
+                </div>
+                <div class="rating">
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                </div>
+            </div>
+
+            <div class="evaluation-card">
+                <div>
+                    <h3 class="evaluation-title">Evaluación 2</h3>
+                    <p class="evaluation-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <span class="date">15/12/23</span>
+                </div>
+                <div class="rating">
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                </div>
+            </div>
+
+            <button class="btn">Enviar Evaluación</button>
+        </main>
+
+        <!-- Panel lateral derecho -->
+        <aside class="score-panel">
+            <h2>Calificación</h2>
+            <div class="score-box">
+                <div class="score-value">95</div>
+                <div class="rating">
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                    <span class="rating-dot"></span>
+                </div>
+                <p>Excelente trabajo continúa así</p>
+            </div>
+
+            <h3>Evaluación</h3>
+            <div class="rating" style="margin: 1rem 0;">
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+                <span class="rating-dot"></span>
+            </div>
+
+            <h3>Comentarios</h3>
+            <div class="comment-box">
+                <p>Escribe tus comentarios aquí...</p>
+            </div>
+
+            <button class="btn">Guardar Calificación</button>
+        </aside>
+    </div>
+</body>
+<script src="evaluacion.js"></script>
+</html>
