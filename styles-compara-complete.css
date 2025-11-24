@@ -1,0 +1,21 @@
+/* Add font files for Rethink Sans */
+@font-face {
+  font-family: 'Rethink Sans';
+  src: url('fonts/rethink-sans.woff2') format('woff2'),
+       url('fonts/rethink-sans.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  --font-family-inter: 'Inter', sans-serif;
+  --font-family-rethink-sans: 'Rethink Sans', sans-serif;
+  --text-rgb-69-68-76: rgba(69, 68, 76, 1);
+  --text-rgb-103-102-111: rgba(103, 102, 111, 1);
+  --text-rgb-105-62-254: rgba(105, 62, 254, 1);
+  --text-black: rgba(0, 0, 0, 1);
+  --text-rgb-139-138-146: rgba(139, 138, 146, 1);
+  --text-white: rgba(255, 255, 255, 1);
+  --text-rgb-217-212-255: rgba(217, 212, 255, 1);
+}
+
+/* ...existing code... */
