@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Exported from Figma">
+  <title>Exported Figma Design</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="frame-2-13">
+  <header style="text-align:center; margin-bottom:28px;">
+    <h1 style="font-family:var(--font-family-rethink-sans); font-size:64px; margin:0; color:#693EFE;">vocatio</h1>
+    <h2 style="font-size:48px; margin:16px 0 8px 0; color:var(--text-rgb-69-68-76);">Comparar Carreras</h2>
+    <p style="font-size:20px; color:var(--text-rgb-103-102-111); margin:0;">Compara tus carreras favoritas lado a lado para tomar una mejor decisión</p>
+  </header>
+
+  <!-- Action buttons (centred as in the React example) -->
+  <div class="comparison-controls" style="margin:18px 0 24px 0; justify-content:center;">
+    <div class="left-controls">
+      <label for="career-select" class="text-5" style="margin-right:8px; align-self:center;">Selecciona carrera:</label>
+      <select id="career-select" aria-label="Seleccionar carrera">
+        <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+        <option value="Administración de empresas">Administración de empresas</option>
+        <option value="Psicología">Psicología</option>
+        <option value="Medicina">Medicina</option>
+        <option value="Diseño Gráfico">Diseño Gráfico</option>
+        <option value="Arquitectura">Arquitectura</option>
+      </select>
+      <button id="add-career-btn" class="btn btn--primary">{+ Agregar Carrera}</button>
+      <button id="download-pdf-btn" class="btn btn--primary">Descargar Comparación PDF</button>
+      <button id="explore-btn" class="btn btn--ghost">Volver a Explorar</button>
+    </div>
+  </div>
+
+  <!-- placeholder: compare.js injecta el catálogo justo después de controls -->
+
+  <!-- Grid interactivo generado por JS -->
+  <div class="comparison-data-grid" id="comparison-grid" aria-live="polite"></div>
+
+  <!-- Menú de columna (oculto por defecto) -->
+  <div id="col-menu" class="col-menu" style="display:none; position:absolute; z-index:1000;">
+    <button id="edit-col-name">Editar nombre</button>
+    <button id="remove-col">Eliminar carrera</button>
+    <button id="close-col-menu">Cerrar</button>
+  </div>
+
+</main>
+
+<script src="compare.js"></script>
+</body>
+</html>
