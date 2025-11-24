@@ -29,7 +29,16 @@
   const addBtn = document.getElementById('add-career-btn');
   const select = document.getElementById('career-select');
   const downloadBtn = document.getElementById('download-pdf-btn');
+  const compareStrengthsBtn = document.getElementById('compare-strengths-btn');
+  const strengthsAnalysis = document.getElementById('strengths-analysis');
   const grid = document.getElementById('comparison-grid');
+  const exploreBtn = document.getElementById('explore-btn');
+    if (exploreBtn) {
+      exploreBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = 'pages/careers/explore.html';
+      });
+    }
 
   // Crear contenedor de catálogo dinámicamente (inserta después de controls)
   const catalogContainer = document.createElement('div');
@@ -92,12 +101,125 @@
       });
     }
 
+
     if (downloadBtn) {
-      downloadBtn.addEventListener('click', (e) => {
+      downloadBtn.addEventListener('click', async (e) => {
         e.preventDefault();
-        window.print();
+        await exportarComparacionPDF();
       });
     }
+  // Exporta la tabla y el análisis a PDF usando jsPDF y html2canvas
+  async function exportarComparacionPDF() {
+    // Cargar jsPDF y html2canvas si no están presentes
+    if (typeof window.jspdf === 'undefined') {
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+    }
+    if (typeof window.html2canvas === 'undefined') {
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+    }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
+
+    // Captura la tabla de comparación
+    const gridElem = document.getElementById('comparison-grid');
+    const analysisElem = document.getElementById('strengths-analysis');
+    let y = 40;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.text('Comparación de Carreras', 40, y);
+    y += 20;
+
+    if (gridElem) {
+      const gridCanvas = await window.html2canvas(gridElem, { backgroundColor: '#fff', scale: 2 });
+      const gridImg = gridCanvas.toDataURL('image/png');
+      doc.addImage(gridImg, 'PNG', 40, y, 750, 180, undefined, 'FAST');
+      y += 200;
+    }
+
+    if (analysisElem && analysisElem.style.display !== 'none') {
+      doc.setFontSize(18);
+      doc.text('Fortalezas y Debilidades', 40, y);
+      y += 16;
+      const analysisCanvas = await window.html2canvas(analysisElem, { backgroundColor: '#fff', scale: 2 });
+      const analysisImg = analysisCanvas.toDataURL('image/png');
+      doc.addImage(analysisImg, 'PNG', 40, y, 750, 180, undefined, 'FAST');
+      y += 200;
+    }
+
+    doc.save('comparacion-carreras.pdf');
+  }
+
+  // Utilidad para cargar scripts externos
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
+    if (compareStrengthsBtn) {
+      compareStrengthsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        mostrarAnalisisFortalezas();
+      });
+    }
+  // Analiza fortalezas y debilidades de cada carrera vs la primera seleccionada
+  function mostrarAnalisisFortalezas() {
+    if (!strengthsAnalysis) return;
+    strengthsAnalysis.innerHTML = '';
+    if (selectedCareerIds.length < 2) {
+      strengthsAnalysis.style.display = 'block';
+      strengthsAnalysis.innerHTML = '<p style="color:#693EFE; font-weight:600;">Agrega al menos dos carreras para comparar fortalezas y debilidades.</p>';
+      return;
+    }
+    const baseId = selectedCareerIds[0];
+    const baseCareer = careerCatalog.find(c => c.id === baseId);
+    if (!baseCareer) return;
+    const rows = [
+      { label: 'Duración', key: 'duration' },
+      { label: 'Área', key: 'area' },
+      { label: 'Modalidad', key: 'modality' },
+      { label: 'Salida Laboral', key: 'jobDemand' },
+      { label: 'Nivel de Dificultad', key: 'difficulty' },
+      { label: 'Inversión Promedio', key: 'investment' }
+    ];
+    let html = `<h3 style="color:#693EFE; font-size:24px; margin-bottom:16px;">Fortalezas y Debilidades respecto a <span style='font-weight:700;'>${baseCareer.name}</span></h3>`;
+    html += '<div style="overflow-x:auto;"><table style="width:100%; border-collapse:collapse;">';
+    html += '<tr><th style="text-align:left; padding:8px 12px;">Carrera</th>';
+    rows.forEach(row => { html += `<th style='padding:8px 12px;'>${row.label}</th>`; });
+    html += '</tr>';
+    selectedCareerIds.slice(1).forEach(id => {
+      const c = careerCatalog.find(ca => ca.id === id);
+      if (!c) return;
+      html += `<tr><td style='font-weight:600; color:#45444C; padding:8px 12px;'>${c.name}</td>`;
+      rows.forEach(row => {
+        const baseVal = baseCareer[row.key] || '';
+        const val = c[row.key] || '';
+        let cell = val;
+        if (val === baseVal) {
+          cell = `<span style='color:#888;'>Igual</span>`;
+        } else if (row.key === 'jobDemand' || row.key === 'difficulty') {
+          // Resalta si es mejor o peor (simplificado)
+          if (row.key === 'jobDemand') {
+            cell = val.includes('Alta') && !baseVal.includes('Alta') ? `<span style='color:green;'>Más demanda</span>` :
+                   !val.includes('Alta') && baseVal.includes('Alta') ? `<span style='color:red;'>Menos demanda</span>` : val;
+          } else if (row.key === 'difficulty') {
+            cell = val.includes('Alto') && !baseVal.includes('Alto') ? `<span style='color:red;'>Más difícil</span>` :
+                   !val.includes('Alto') && baseVal.includes('Alto') ? `<span style='color:green;'>Más fácil</span>` : val;
+          }
+        }
+        html += `<td style='padding:8px 12px; text-align:center;'>${cell}</td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</table></div>';
+    strengthsAnalysis.innerHTML = html;
+    strengthsAnalysis.style.display = 'block';
+    strengthsAnalysis.scrollIntoView({ behavior: 'smooth' });
+  }
 
     // cerrar catálogo si se hace click fuera
     document.addEventListener('click', (e) => {
