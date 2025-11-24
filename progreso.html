@@ -8,61 +8,121 @@
     <link rel="stylesheet" href="./css/main-progreso.css">
 </head>
 <body>
+    <!-- Barra de estado global -->
+    <div class="barra-estado-global">
+        <div class="logo">vocatio</div>
+        <nav class="nav-global">
+            <a href="#">Explorar carreras</a>
+            <a href="#">Eventos</a>
+            <a href="#">Test vocacional</a>
+            <a href="#">Resultados</a>
+            <a href="#">Ruta de aprendizaje</a>
+            <a href="#" class="active">Progreso</a>
+        </nav>
+        <div class="usuario"><span style="font-size:1.7em;vertical-align:middle;">&#128100;</span></div>
+    </div>
     <div class="container">
-        <section class="barra-progreso">
+        <section class="barra-progreso" id="barraProgresoSection">
             <label for="barra">Progreso General</label>
-            <div class="progress-bar">
+            <div class="progress-bar" id="progressBarClickable" style="cursor:pointer;">
                 <div class="progress" id="barraProgreso" style="width: 75%"></div>
             </div>
         </section>
-        <header>
-            <h1>Mi Progreso</h1>
-            <p>Visualiza tu avance en Vocatio y tus logros alcanzados</p>
-        </header>
-        <section class="resumen">
-            <div class="card">
-                <span class="icon">📊</span>
-                <span class="value" id="testsCompletados">3</span>
-                <span class="label">Tests Completados</span>
+        <!-- Vista 1: Resumen con gráficas -->
+        <div id="vistaResumen">
+            <header>
+                <h1>Mi Progreso</h1>
+                <p>Visualiza tu avance en Vocatio y tus logros alcanzados</p>
+                <div id="mensajeProgresoCero" class="mensaje-cero" style="display:block;">Aún no has completado ninguna actividad. ¡Comienza para ver tu progreso!</div>
+            </header>
+            <section class="resumen">
+                <div class="card">
+                    <span class="icon">📊</span>
+                    <span class="value" id="testsCompletados">3</span>
+                    <span class="label">Tests Completados</span>
+                </div>
+                <div class="card">
+                    <span class="icon">⭐</span>
+                    <span class="value" id="carrerasExploradas">12</span>
+                    <span class="label">Carreras Exploradas</span>
+                </div>
+                <div class="card">
+                    <span class="icon">📚</span>
+                    <span class="value" id="materialesRevisados">28</span>
+                    <span class="label">Materiales Revisados</span>
+                </div>
+                <div class="card">
+                    <span class="icon">🎯</span>
+                    <span class="value" id="progresoTotal">75%</span>
+                    <span class="label">Progreso Total</span>
+                </div>
+            </section>
+            <section class="intereses">
+                <h2>Intereses Predominantes</h2>
+                <div class="grafica-intereses">
+                    <div class="barra" data-cat="Tecnología" style="height:0%"><span>0%</span><div>Tecnología</div></div>
+                    <div class="barra" data-cat="Ciencias" style="height:0%"><span>0%</span><div>Ciencias</div></div>
+                    <div class="barra" data-cat="Arte" style="height:0%"><span>0%</span><div>Arte</div></div>
+                    <div class="barra" data-cat="Negocios" style="height:0%"><span>0%</span><div>Negocios</div></div>
+                    <div class="barra" data-cat="Social" style="height:0%"><span>0%</span><div>Social</div></div>
+                </div>
+            </section>
+            <section class="actividad-semanal">
+                <h2>Actividad Semanal</h2>
+                <div class="grafica-semanal">
+                    <!-- Las fechas se generan dinámicamente para los últimos 7 días -->
+                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Lun</div></div>
+                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Mar</div></div>
+                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Mié</div></div>
+                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Jue</div></div>
+                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Vie</div></div>
+                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Sáb</div></div>
+                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Dom</div></div>
+                </div>
+            </section>
+            <button id="btnSiguiente" class="btn-principal">Siguiente</button>
+        </div>
+        <!-- Vista 2: Detalle de actividades -->
+        <div id="vistaDetalle" style="display:none;">
+            <header>
+                <h1>Mi Progreso</h1>
+                <p>Visualiza tu avance en Vocatio y tus logros alcanzados</p>
+                <div id="mensajeProgresoCeroDetalle" class="mensaje-cero" style="display:block;">Aún no has completado ninguna actividad. ¡Comienza para ver tu progreso!</div>
+            </header>
+            <div class="detalle-actividades">
+                <div class="actividad-box">
+                    <div class="icono"><img src="./assets/images/icon-barchart.png" alt="Test" width="32"></div>
+                    <div class="info">
+                        <strong>Test Vocacional - Completado</strong>
+                        <div class="sub">Finalizado hace 2 días • Ingeniería de Sistemas</div>
+                    </div>
+                    <div class="barra-actividad"><div class="barra" style="width:100%;background:#eaff6c;"></div><span>100%</span></div>
+                </div>
+                <div class="actividad-box">
+                    <div class="icono"><img src="./assets/images/icon-barchart.png" alt="Material" width="32"></div>
+                    <div class="info">
+                        <strong>Material: Introducción a la IA</strong>
+                        <div class="sub">En progreso • 12 min restantes</div>
+                    </div>
+                    <div class="barra-actividad"><div class="barra" style="width:65%;background:#eaff6c;"></div><span>65%</span></div>
+                </div>
+                <div class="actividad-box">
+                    <div class="icono"><img src="./assets/images/icon-star.png" alt="Favorita" width="32"></div>
+                    <div class="info">
+                        <strong>Carrera Guardada como Favorita</strong>
+                        <div class="sub">Hace 3 días • Administración de Empresas</div>
+                    </div>
+                </div>
+                <div class="actividad-box">
+                    <div class="icono"><img src="./assets/images/icon-barchart.png" alt="Calificación" width="32"></div>
+                    <div class="info">
+                        <strong>Calificación de Material</strong>
+                        <div class="sub">Hace 5 días • 5 estrellas</div>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <span class="icon">⭐</span>
-                <span class="value" id="carrerasExploradas">12</span>
-                <span class="label">Carreras Exploradas</span>
-            </div>
-            <div class="card">
-                <span class="icon">📚</span>
-                <span class="value" id="materialesRevisados">28</span>
-                <span class="label">Materiales Revisados</span>
-            </div>
-            <div class="card">
-                <span class="icon">🎯</span>
-                <span class="value" id="progresoTotal">75%</span>
-                <span class="label">Progreso Total</span>
-            </div>
-        </section>
-        <section class="intereses">
-            <h2>Intereses Predominantes</h2>
-            <ul>
-                <li>Tecnología <span class="percent">85%</span></li>
-                <li>Ciencias <span class="percent">70%</span></li>
-                <li>Arte <span class="percent">60%</span></li>
-                <li>Negocios <span class="percent">45%</span></li>
-                <li>Social <span class="percent">30%</span></li>
-            </ul>
-        </section>
-        <section class="actividad-semanal">
-            <h2>Actividad Semanal</h2>
-            <div class="semana">
-                <div><span>Lun</span><span class="actividad">4</span></div>
-                <div><span>Mar</span><span class="actividad">6</span></div>
-                <div><span>Mié</span><span class="actividad">8</span></div>
-                <div><span>Jue</span><span class="actividad">5</span></div>
-                <div><span>Vie</span><span class="actividad">7</span></div>
-                <div><span>Sáb</span><span class="actividad">9</span></div>
-                <div><span>Dom</span><span class="actividad">3</span></div>
-            </div>
-        </section>
+            <button id="btnVolver" class="btn-principal">Volver</button>
+        </div>
         <footer>
             <nav>
                 <a href="#">Explorar carreras</a>
