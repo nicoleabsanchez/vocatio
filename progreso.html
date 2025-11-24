@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progreso del Estudiante</title>
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/main-progreso.css">
+</head>
+<body>
+    <div class="container">
+        <section class="barra-progreso">
+            <label for="barra">Progreso General</label>
+            <div class="progress-bar">
+                <div class="progress" id="barraProgreso" style="width: 75%"></div>
+            </div>
+        </section>
+        <header>
+            <h1>Mi Progreso</h1>
+            <p>Visualiza tu avance en Vocatio y tus logros alcanzados</p>
+        </header>
+        <section class="resumen">
+            <div class="card">
+                <span class="icon">📊</span>
+                <span class="value" id="testsCompletados">3</span>
+                <span class="label">Tests Completados</span>
+            </div>
+            <div class="card">
+                <span class="icon">⭐</span>
+                <span class="value" id="carrerasExploradas">12</span>
+                <span class="label">Carreras Exploradas</span>
+            </div>
+            <div class="card">
+                <span class="icon">📚</span>
+                <span class="value" id="materialesRevisados">28</span>
+                <span class="label">Materiales Revisados</span>
+            </div>
+            <div class="card">
+                <span class="icon">🎯</span>
+                <span class="value" id="progresoTotal">75%</span>
+                <span class="label">Progreso Total</span>
+            </div>
+        </section>
+        <section class="intereses">
+            <h2>Intereses Predominantes</h2>
+            <ul>
+                <li>Tecnología <span class="percent">85%</span></li>
+                <li>Ciencias <span class="percent">70%</span></li>
+                <li>Arte <span class="percent">60%</span></li>
+                <li>Negocios <span class="percent">45%</span></li>
+                <li>Social <span class="percent">30%</span></li>
+            </ul>
+        </section>
+        <section class="actividad-semanal">
+            <h2>Actividad Semanal</h2>
+            <div class="semana">
+                <div><span>Lun</span><span class="actividad">4</span></div>
+                <div><span>Mar</span><span class="actividad">6</span></div>
+                <div><span>Mié</span><span class="actividad">8</span></div>
+                <div><span>Jue</span><span class="actividad">5</span></div>
+                <div><span>Vie</span><span class="actividad">7</span></div>
+                <div><span>Sáb</span><span class="actividad">9</span></div>
+                <div><span>Dom</span><span class="actividad">3</span></div>
+            </div>
+        </section>
+        <footer>
+            <nav>
+                <a href="#">Explorar carreras</a>
+                <a href="#">Eventos</a>
+                <a href="#">Test vocacional</a>
+                <a href="#">Ruta de aprendizaje</a>
+                <a href="#" class="active">Progreso</a>
+                <a href="#">Resultados</a>
+            </nav>
+        </footer>
+    </div>
+    <script src="./main-progreso.js"></script>
+</body>
+</html>

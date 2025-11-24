@@ -1,0 +1,159 @@
+/* main-progreso.css: estilos para la página de progreso */
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f8f8ff;
+    margin: 0;
+    padding: 0;
+    color: #45444c;
+}
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(178,166,255,0.15);
+    padding: 32px 24px 16px 24px;
+}
+.barra-progreso {
+    margin-bottom: 32px;
+    margin-top: 0;
+}
+.progress-bar {
+    background: #e0e0e0;
+    border-radius: 8px;
+    height: 24px;
+    width: 100%;
+    margin-top: 8px;
+    overflow: hidden;
+}
+.progress {
+    background: linear-gradient(90deg, #6c63ff 60%, #b2a6ff 100%);
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+    transition: width 0.5s;
+}
+header {
+    text-align: left;
+    margin-bottom: 32px;
+}
+header h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+header p {
+    color: #b2a6ff;
+    font-size: 22px;
+    margin: 0;
+}
+.resumen {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+.card {
+    background: #f3f0ff;
+    border-radius: 12px;
+    padding: 24px 16px;
+    flex: 1;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(178,166,255,0.08);
+}
+.card .icon {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 8px;
+}
+.card .value {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #6c63ff;
+}
+.card .label {
+    display: block;
+    color: #888;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+.intereses {
+    margin-bottom: 32px;
+}
+.intereses h2 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+.intereses ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.intereses li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1.1rem;
+}
+.intereses .percent {
+    color: #6c63ff;
+    font-weight: 700;
+}
+.actividad-semanal {
+    margin-bottom: 32px;
+}
+.actividad-semanal h2 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+.semana {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+}
+.semana div {
+    background: #f3f0ff;
+    border-radius: 8px;
+    padding: 12px 10px;
+    text-align: center;
+    flex: 1;
+}
+.semana span {
+    display: block;
+}
+.semana .actividad {
+    font-size: 1.2rem;
+    color: #6c63ff;
+    font-weight: 700;
+    margin-top: 4px;
+}
+footer {
+    margin-top: 32px;
+    text-align: center;
+}
+footer nav {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+footer nav a {
+    color: #6c63ff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+footer nav a.active, footer nav a:hover {
+    background: #f3f0ff;
+}
+@media (max-width: 700px) {
+    .container {
+        padding: 12px 4px;
+    }
+    .resumen {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
