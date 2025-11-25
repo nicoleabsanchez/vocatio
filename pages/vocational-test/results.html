@@ -1,597 +1,666 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Descubre tus carreras recomendadas basadas en tu perfil vocacional">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Descubre tus carreras recomendadas basadas en tu perfil vocacional"
+    />
     <title>Resultado de tu Test Vocacional - VOCATIO</title>
-    <link rel="stylesheet" href="../../css/styles.css">
-    <link rel="stylesheet" href="../../css/components.css">
-    <link rel="stylesheet" href="../../css/responsive.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../../css/styles.css" />
+    <link rel="stylesheet" href="../../css/components.css" />
+    <link rel="stylesheet" href="../../css/responsive.css" />
+  </head>
+  <body>
     <!-- Updated navbar to match dashboard style -->
     <nav class="navbar navbar-dashboard">
-        <div class="container">
-            <input type="checkbox" id="menu-toggle" class="hamburger-menu">
-            <div class="navbar-content">
-                <a href="../dashboard/dashboard.html" class="logo">
-                    <span class="logo-text">vocatio</span>
-                </a>
-                <label for="menu-toggle" class="hamburger-icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </label>
-                <ul class="nav-menu">
-                    <li><a href="../careers/explore.html">Explorar carreras</a></li>
-                    <li><a href="../events/events.html">Eventos</a></li>
-                    <li><a href="test.html">Test vocacional</a></li>
-                    <li><a href="../results/results.html">Resultados</a></li>
-                    <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
-                    <li><a href="../dashboard/progress.html">Progreso</a></li>
-                </ul>
-                <div class="profile-dropdown">
-                    <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
-                    <label for="profile-dropdown-toggle" class="profile-dropdown-label">
-                        <img src="../../assets/images/jose-profile.jpg" alt="José" class="profile-image">
-                    </label>
-                    <div class="dropdown-menu">
-                        <a href="../profile/profile.html">Mi Perfil</a>
-                        <a href="../notifications/notifications.html">Notificaciones</a>
-                        <a href="../../index.html" class="logout">Cerrar sesión</a>
-                    </div>
-                </div>
+      <div class="container">
+        <input type="checkbox" id="menu-toggle" class="hamburger-menu" />
+        <div class="navbar-content">
+          <a href="../dashboard/dashboard.html" class="logo">
+            <span class="logo-text">vocatio</span>
+          </a>
+          <label for="menu-toggle" class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+          <ul class="nav-menu">
+            <li><a href="../careers/explore.html">Explorar carreras</a></li>
+            <li><a href="../events/events.html">Eventos</a></li>
+            <li><a href="test.html">Test vocacional</a></li>
+            <li><a href="../results/results.html">Resultados</a></li>
+            <li>
+              <a href="../dashboard/learning-path.html">Ruta de aprendizaje</a>
+            </li>
+            <li><a href="../dashboard/progress.html">Progreso</a></li>
+          </ul>
+          <div class="profile-dropdown">
+            <input
+              type="checkbox"
+              id="profile-dropdown-toggle"
+              class="profile-dropdown-checkbox"
+            />
+            <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+              <img
+                src="../../assets/images/jose-profile.jpg"
+                alt="José"
+                class="profile-image"
+              />
+            </label>
+            <div class="dropdown-menu">
+              <a href="../profile/profile.html">Mi Perfil</a>
+              <a href="../notifications/notifications.html">Notificaciones</a>
+              <a href="../../index.html" class="logout">Cerrar sesión</a>
             </div>
+          </div>
         </div>
+      </div>
     </nav>
 
     <!-- Complete results page matching the design -->
     <main class="results-main">
-        <div class="container">
-            <!-- Results Header -->
-            <div class="results-header">
-                <h1>Resultado de tu Test Vocacional</h1>
-                <p>Basado en tus respuestas, hemos identificado tus áreas de mayor afinidad y las carreras más compatibles contigo.</p>
-            </div>
-
-            <!-- Hero Section with Profile -->
-            <div class="results-hero">
-                <div class="hero-content">
-                    <div class="profile-badge">
-                        <h2>Tu Perfil Vocacional</h2>
-                        <div class="profile-type" id="profileType">Analítico-Sistemático</div>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="../../assets/images/jose-profile.jpg" alt="Perfil" class="profile-hero-img">
-                </div>
-            </div>
-
-            <!-- Areas de Mayor Afinidad -->
-            <section class="affinity-section">
-                <h2>Áreas de Mayor Afinidad</h2>
-                <div class="affinity-grid" id="affinityGrid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Carreras Recomendadas -->
-            <section class="careers-section">
-                <h2>Carreras Recomendadas para Ti</h2>
-                <div class="careers-grid" id="careersGrid">
-                    <!-- Will be populated by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Action Buttons -->
-            <div class="results-actions">
-                <button class="btn btn-primary btn-large" id="generatePdfBtn">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 14L6 10H8.5V6H11.5V10H14L10 14Z" fill="currentColor"/>
-                        <path d="M17 16V18H3V16H17Z" fill="currentColor"/>
-                    </svg>
-                    Generar Reporte PDF
-                </button>
-                <button class="btn btn-secondary btn-large" id="shareBtn">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 13.5C14.3 13.5 13.7 13.8 13.2 14.2L7.9 11.2C7.9 11.1 8 11 8 10.9C8 10.8 7.9 10.7 7.9 10.6L13.2 7.6C13.7 8 14.3 8.3 15 8.3C16.4 8.3 17.5 7.2 17.5 5.8C17.5 4.4 16.4 3.3 15 3.3C13.6 3.3 12.5 4.4 12.5 5.8C12.5 5.9 12.5 6 12.6 6.1L7.3 9.1C6.8 8.7 6.2 8.4 5.5 8.4C4.1 8.4 3 9.5 3 10.9C3 12.3 4.1 13.4 5.5 13.4C6.2 13.4 6.8 13.1 7.3 12.7L12.6 15.7C12.5 15.8 12.5 15.9 12.5 16C12.5 17.4 13.6 18.5 15 18.5C16.4 18.5 17.5 17.4 17.5 16C17.5 14.6 16.4 13.5 15 13.5Z" fill="currentColor"/>
-                    </svg>
-                    Compartir
-                </button>
-            </div>
-
-            <!-- Proximos Pasos -->
-            <section class="next-steps-section">
-                <h2>¿Listo para el siguiente paso?</h2>
-                <p class="next-steps-subtitle">Explora en detalle las carreras recomendadas y comienza a planificar tu futuro académico y profesional.</p>
-                
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <h3>Explorar las carreras recomendadas en detalle</h3>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-number">2</div>
-                        <h3>Visitar universidades y programas técnicos</h3>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-number">3</div>
-                        <h3>Hablar con profesionales del área</h3>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-number">4</div>
-                        <h3>Considerar cursos preparatorios en el área de interés</h3>
-                    </div>
-                </div>
-
-                <div class="cta-section">
-                    <a href="../careers/explore.html" class="btn btn-primary btn-large">Explorar carreras</a>
-                </div>
-            </section>
+      <div class="container">
+        <!-- Results Header -->
+        <div class="results-header">
+          <h1>Resultado de tu Test Vocacional</h1>
+          <p>
+            Basado en tus respuestas, hemos identificado tus áreas de mayor
+            afinidad y las carreras más compatibles contigo.
+          </p>
         </div>
+
+        <!-- Hero Section with Profile -->
+        <div class="results-hero">
+          <div class="hero-content">
+            <div class="profile-badge">
+              <h2>Tu Perfil Vocacional</h2>
+              <div class="profile-type" id="profileType">
+                Analítico-Sistemático
+              </div>
+            </div>
+          </div>
+          <div class="hero-image">
+            <img
+              src="../../assets/images/jose-profile.jpg"
+              alt="Perfil"
+              class="profile-hero-img"
+            />
+          </div>
+        </div>
+
+        <!-- Areas de Mayor Afinidad -->
+        <section class="affinity-section">
+          <h2>Áreas de Mayor Afinidad</h2>
+          <div class="affinity-grid" id="affinityGrid">
+            <!-- Will be populated by JavaScript -->
+          </div>
+        </section>
+
+        <!-- Carreras Recomendadas -->
+        <section class="careers-section">
+          <h2>Carreras Recomendadas para Ti</h2>
+          <div class="careers-grid" id="careersGrid">
+            <!-- Will be populated by JavaScript -->
+          </div>
+        </section>
+
+        <!-- Action Buttons -->
+        <div class="results-actions">
+          <button class="btn btn-primary btn-large" id="generatePdfBtn">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 14L6 10H8.5V6H11.5V10H14L10 14Z"
+                fill="currentColor"
+              />
+              <path d="M17 16V18H3V16H17Z" fill="currentColor" />
+            </svg>
+            Generar Reporte PDF
+          </button>
+          <button class="btn btn-secondary btn-large" id="shareBtn">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 13.5C14.3 13.5 13.7 13.8 13.2 14.2L7.9 11.2C7.9 11.1 8 11 8 10.9C8 10.8 7.9 10.7 7.9 10.6L13.2 7.6C13.7 8 14.3 8.3 15 8.3C16.4 8.3 17.5 7.2 17.5 5.8C17.5 4.4 16.4 3.3 15 3.3C13.6 3.3 12.5 4.4 12.5 5.8C12.5 5.9 12.5 6 12.6 6.1L7.3 9.1C6.8 8.7 6.2 8.4 5.5 8.4C4.1 8.4 3 9.5 3 10.9C3 12.3 4.1 13.4 5.5 13.4C6.2 13.4 6.8 13.1 7.3 12.7L12.6 15.7C12.5 15.8 12.5 15.9 12.5 16C12.5 17.4 13.6 18.5 15 18.5C16.4 18.5 17.5 17.4 17.5 16C17.5 14.6 16.4 13.5 15 13.5Z"
+                fill="currentColor"
+              />
+            </svg>
+            Compartir
+          </button>
+        </div>
+
+        <!-- Proximos Pasos -->
+        <section class="next-steps-section">
+          <h2>¿Listo para el siguiente paso?</h2>
+          <p class="next-steps-subtitle">
+            Explora en detalle las carreras recomendadas y comienza a planificar
+            tu futuro académico y profesional.
+          </p>
+
+          <div class="steps-grid">
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <h3>Explorar las carreras recomendadas en detalle</h3>
+            </div>
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <h3>Visitar universidades y programas técnicos</h3>
+            </div>
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <h3>Hablar con profesionales del área</h3>
+            </div>
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <h3>Considerar cursos preparatorios en el área de interés</h3>
+            </div>
+          </div>
+
+          <div class="cta-section">
+            <a href="../careers/explore.html" class="btn btn-primary btn-large"
+              >Explorar carreras</a
+            >
+          </div>
+        </section>
+      </div>
     </main>
 
     <!-- Help button -->
-    <a href="../help/help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
+    <a
+      href="../help/help-center.html"
+      class="help-button"
+      aria-label="Centro de ayuda"
+      >?</a
+    >
 
     <style>
-        /* Complete styling matching the design image */
-        .results-main {
-            min-height: calc(100vh - 80px);
-            background-color: #f8f9fa;
-            padding: var(--spacing-2xl) 0;
-        }
+      /* Complete styling matching the design image */
+      .results-main {
+        min-height: calc(100vh - 80px);
+        background-color: #f8f9fa;
+        padding: var(--spacing-2xl) 0;
+      }
 
-        .results-header {
-            text-align: center;
-            margin-bottom: var(--spacing-3xl);
-        }
+      .results-header {
+        text-align: center;
+        margin-bottom: var(--spacing-3xl);
+      }
 
-        .results-header h1 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: var(--spacing-md);
-        }
+      .results-header h1 {
+        font-size: 2.5rem;
+        color: var(--dark);
+        margin-bottom: var(--spacing-md);
+      }
 
-        .results-header p {
-            font-size: 1.125rem;
-            color: var(--gray);
-            max-width: 800px;
-            margin: 0 auto;
-        }
+      .results-header p {
+        font-size: 1.125rem;
+        color: var(--gray);
+        max-width: 800px;
+        margin: 0 auto;
+      }
 
+      .results-hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-2xl);
+        background: white;
+        padding: var(--spacing-3xl);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        margin-bottom: var(--spacing-3xl);
+        align-items: center;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xl);
+      }
+
+      .profile-badge h2 {
+        font-size: 1.5rem;
+        color: var(--gray);
+        margin-bottom: var(--spacing-lg);
+        font-weight: 500;
+      }
+
+      .profile-type {
+        background: linear-gradient(135deg, #7c3aed, #a78bfa);
+        color: white;
+        padding: var(--spacing-lg) var(--spacing-2xl);
+        border-radius: var(--radius-lg);
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .hero-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .profile-hero-img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        border-radius: var(--radius-lg);
+        object-fit: cover;
+      }
+
+      .affinity-section {
+        margin-bottom: var(--spacing-3xl);
+      }
+
+      .affinity-section h2 {
+        font-size: 2rem;
+        color: var(--dark);
+        margin-bottom: var(--spacing-xl);
+      }
+
+      .affinity-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--spacing-xl);
+      }
+
+      .affinity-card {
+        background: white;
+        padding: var(--spacing-xl);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        border-left: 4px solid var(--primary);
+      }
+
+      .affinity-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .affinity-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .affinity-percentage {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .affinity-description {
+        color: var(--gray);
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .affinity-progress {
+        width: 100%;
+        height: 8px;
+        background-color: #e5e7eb;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+      }
+
+      .affinity-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #7c3aed, #a78bfa);
+        border-radius: var(--radius-lg);
+        transition: width 0.6s ease;
+      }
+
+      .careers-section {
+        margin-bottom: var(--spacing-3xl);
+      }
+
+      .careers-section h2 {
+        font-size: 2rem;
+        color: var(--dark);
+        margin-bottom: var(--spacing-xl);
+      }
+
+      .careers-grid {
+        display: grid;
+        gap: var(--spacing-xl);
+      }
+
+      .career-card {
+        background: white;
+        padding: var(--spacing-xl);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: var(--spacing-xl);
+        align-items: center;
+        transition: all 0.3s ease;
+      }
+
+      .career-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .career-info {
+        flex: 1;
+      }
+
+      .career-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .career-level {
+        display: inline-block;
+        background-color: var(--primary);
+        color: white;
+        padding: 4px 12px;
+        border-radius: var(--radius-md);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .career-duration {
+        color: var(--gray);
+        font-size: 0.95rem;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .career-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+      }
+
+      .career-tag {
+        background-color: #f3f4f6;
+        color: var(--gray);
+        padding: 6px 12px;
+        border-radius: var(--radius-md);
+        font-size: 0.875rem;
+      }
+
+      .career-match {
+        text-align: center;
+      }
+
+      .match-percentage {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: var(--spacing-sm);
+      }
+
+      .match-label {
+        color: var(--gray);
+        font-size: 0.875rem;
+      }
+
+      .career-action .btn {
+        white-space: nowrap;
+      }
+
+      .results-actions {
+        display: flex;
+        gap: var(--spacing-lg);
+        justify-content: center;
+        margin-bottom: var(--spacing-3xl);
+      }
+
+      .btn-large {
+        padding: var(--spacing-lg) var(--spacing-2xl);
+        font-size: 1.125rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+      }
+
+      .next-steps-section {
+        background: white;
+        padding: var(--spacing-3xl);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        text-align: center;
+      }
+
+      .next-steps-section h2 {
+        font-size: 2rem;
+        color: var(--dark);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .next-steps-subtitle {
+        font-size: 1.125rem;
+        color: var(--gray);
+        margin-bottom: var(--spacing-2xl);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-xl);
+        margin-bottom: var(--spacing-2xl);
+      }
+
+      .step-card {
+        background: #f8f9fa;
+        padding: var(--spacing-xl);
+        border-radius: var(--radius-lg);
+        text-align: left;
+      }
+
+      .step-number {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #7c3aed, #a78bfa);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: var(--spacing-md);
+      }
+
+      .step-card h3 {
+        font-size: 1rem;
+        color: var(--dark);
+        line-height: 1.5;
+      }
+
+      .cta-section {
+        margin-top: var(--spacing-2xl);
+      }
+
+      .help-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background-color: var(--primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: var(--shadow-lg);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .help-button:hover {
+        transform: scale(1.1);
+        box-shadow: var(--shadow-xl);
+      }
+
+      @media (max-width: 768px) {
         .results-hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-2xl);
-            background: white;
-            padding: var(--spacing-3xl);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            margin-bottom: var(--spacing-3xl);
-            align-items: center;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-xl);
-        }
-
-        .profile-badge h2 {
-            font-size: 1.5rem;
-            color: var(--gray);
-            margin-bottom: var(--spacing-lg);
-            font-weight: 500;
-        }
-
-        .profile-type {
-            background: linear-gradient(135deg, #7c3aed, #a78bfa);
-            color: white;
-            padding: var(--spacing-lg) var(--spacing-2xl);
-            border-radius: var(--radius-lg);
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .profile-hero-img {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: var(--radius-lg);
-            object-fit: cover;
-        }
-
-        .affinity-section {
-            margin-bottom: var(--spacing-3xl);
-        }
-
-        .affinity-section h2 {
-            font-size: 2rem;
-            color: var(--dark);
-            margin-bottom: var(--spacing-xl);
+          grid-template-columns: 1fr;
         }
 
         .affinity-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-xl);
-        }
-
-        .affinity-card {
-            background: white;
-            padding: var(--spacing-xl);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            border-left: 4px solid var(--primary);
-        }
-
-        .affinity-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .affinity-name {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .affinity-percentage {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .affinity-description {
-            color: var(--gray);
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .affinity-progress {
-            width: 100%;
-            height: 8px;
-            background-color: #e5e7eb;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-        }
-
-        .affinity-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #7c3aed, #a78bfa);
-            border-radius: var(--radius-lg);
-            transition: width 0.6s ease;
-        }
-
-        .careers-section {
-            margin-bottom: var(--spacing-3xl);
-        }
-
-        .careers-section h2 {
-            font-size: 2rem;
-            color: var(--dark);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .careers-grid {
-            display: grid;
-            gap: var(--spacing-xl);
+          grid-template-columns: 1fr;
         }
 
         .career-card {
-            background: white;
-            padding: var(--spacing-xl);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: var(--spacing-xl);
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .career-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .career-info {
-            flex: 1;
-        }
-
-        .career-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .career-level {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: var(--radius-md);
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .career-duration {
-            color: var(--gray);
-            font-size: 0.95rem;
-            margin-bottom: var(--spacing-md);
+          grid-template-columns: 1fr;
+          text-align: center;
         }
 
         .career-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--spacing-sm);
-        }
-
-        .career-tag {
-            background-color: #f3f4f6;
-            color: var(--gray);
-            padding: 6px 12px;
-            border-radius: var(--radius-md);
-            font-size: 0.875rem;
-        }
-
-        .career-match {
-            text-align: center;
-        }
-
-        .match-percentage {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .match-label {
-            color: var(--gray);
-            font-size: 0.875rem;
-        }
-
-        .career-action .btn {
-            white-space: nowrap;
+          justify-content: center;
         }
 
         .results-actions {
-            display: flex;
-            gap: var(--spacing-lg);
-            justify-content: center;
-            margin-bottom: var(--spacing-3xl);
-        }
-
-        .btn-large {
-            padding: var(--spacing-lg) var(--spacing-2xl);
-            font-size: 1.125rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-
-        .next-steps-section {
-            background: white;
-            padding: var(--spacing-3xl);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            text-align: center;
-        }
-
-        .next-steps-section h2 {
-            font-size: 2rem;
-            color: var(--dark);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .next-steps-subtitle {
-            font-size: 1.125rem;
-            color: var(--gray);
-            margin-bottom: var(--spacing-2xl);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+          flex-direction: column;
         }
 
         .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-xl);
-            margin-bottom: var(--spacing-2xl);
+          grid-template-columns: 1fr;
         }
-
-        .step-card {
-            background: #f8f9fa;
-            padding: var(--spacing-xl);
-            border-radius: var(--radius-lg);
-            text-align: left;
-        }
-
-        .step-number {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #7c3aed, #a78bfa);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .step-card h3 {
-            font-size: 1rem;
-            color: var(--dark);
-            line-height: 1.5;
-        }
-
-        .cta-section {
-            margin-top: var(--spacing-2xl);
-        }
-
-        .help-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background-color: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .help-button:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-xl);
-        }
-
-        @media (max-width: 768px) {
-            .results-hero {
-                grid-template-columns: 1fr;
-            }
-
-            .affinity-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .career-card {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .career-tags {
-                justify-content: center;
-            }
-
-            .results-actions {
-                flex-direction: column;
-            }
-
-            .steps-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+      }
     </style>
 
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <script>
-        const careerDatabase = {
-            tech: [
-                {
-                    title: "Ingeniería de Sistemas",
-                    level: "Universitaria",
-                    duration: "5 años",
-                    tags: ["Pensamiento lógico", "Resolución de problemas", "Innovación técnica"],
-                    description: "Fuerte afinidad por la innovación y solución de problemas técnicos"
-                }
+      const careerDatabase = {
+        tech: [
+          {
+            title: "Ingeniería de Sistemas",
+            level: "Universitaria",
+            duration: "5 años",
+            tags: [
+              "Pensamiento lógico",
+              "Resolución de problemas",
+              "Innovación técnica",
             ],
-            analytical: [
-                {
-                    title: "Ingeniería Industrial",
-                    level: "Universitaria",
-                    duration: "5 años",
-                    tags: ["Pensamiento lógico", "Resolución de problemas", "Innovación técnica"],
-                    description: "Fuerte afinidad por la innovación y solución de problemas técnicos"
-                }
+            description:
+              "Fuerte afinidad por la innovación y solución de problemas técnicos",
+          },
+        ],
+        analytical: [
+          {
+            title: "Ingeniería Industrial",
+            level: "Universitaria",
+            duration: "5 años",
+            tags: [
+              "Pensamiento lógico",
+              "Resolución de problemas",
+              "Innovación técnica",
             ],
-            creative: [
-                {
-                    title: "Diseño de Videojuegos",
-                    level: "Universitaria",
-                    duration: "4 años",
-                    tags: ["Afinidad digital", "Creatividad técnica", "Adaptabilidad"],
-                    description: "Interés en sistemas digitales y desarrollo tecnológico"
-                }
-            ],
-            social: [
-                {
-                    title: "Técnico en Redes",
-                    level: "Técnica",
-                    duration: "2 años",
-                    tags: ["Afinidad digital", "Creatividad técnica", "Adaptabilidad"],
-                    description: "Habilidades para la gestión y desarrollo empresarial"
-                }
-            ]
-        };
+            description:
+              "Fuerte afinidad por la innovación y solución de problemas técnicos",
+          },
+        ],
+        creative: [
+          {
+            title: "Diseño de Videojuegos",
+            level: "Universitaria",
+            duration: "4 años",
+            tags: ["Afinidad digital", "Creatividad técnica", "Adaptabilidad"],
+            description:
+              "Interés en sistemas digitales y desarrollo tecnológico",
+          },
+        ],
+        social: [
+          {
+            title: "Técnico en Redes",
+            level: "Técnica",
+            duration: "2 años",
+            tags: ["Afinidad digital", "Creatividad técnica", "Adaptabilidad"],
+            description: "Habilidades para la gestión y desarrollo empresarial",
+          },
+        ],
+      };
 
-        const areaNames = {
-            tech: "Ingeniería",
-            analytical: "Tecnología",
-            creative: "Negocios",
-            social: "Ciencias Sociales"
-        };
+      const areaNames = {
+        tech: "Ingeniería",
+        analytical: "Tecnología",
+        creative: "Negocios",
+        social: "Ciencias Sociales",
+      };
 
-        const areaDescriptions = {
-            tech: "Fuerte afinidad por la innovación y solución de problemas técnicos",
-            analytical: "Interés en sistemas digitales y desarrollo tecnológico",
-            creative: "Habilidades para la gestión y desarrollo empresarial",
-            social: "Capacidad para trabajar con personas y entender necesidades sociales"
-        };
+      const areaDescriptions = {
+        tech: "Fuerte afinidad por la innovación y solución de problemas técnicos",
+        analytical: "Interés en sistemas digitales y desarrollo tecnológico",
+        creative: "Habilidades para la gestión y desarrollo empresarial",
+        social:
+          "Capacidad para trabajar con personas y entender necesidades sociales",
+      };
 
-        const profileTypes = {
-            tech: "Innovador-Tecnológico",
-            analytical: "Analítico-Sistemático",
-            creative: "Creativo-Emprendedor",
-            social: "Social-Humanista"
-        };
+      const profileTypes = {
+        tech: "Innovador-Tecnológico",
+        analytical: "Analítico-Sistemático",
+        creative: "Creativo-Emprendedor",
+        social: "Social-Humanista",
+      };
 
-        function loadResults() {
-            const scoresStr = localStorage.getItem('vocationalTestScores');
-            
-            if (!scoresStr) {
-                // No test completed, redirect to test
-                window.location.href = 'test.html';
-                return;
-            }
+      function loadResults() {
+        const scoresStr = localStorage.getItem("vocationalTestScores");
 
-            const scores = JSON.parse(scoresStr);
-            
-            // Calculate percentages
-            const total = Object.values(scores).reduce((a, b) => a + b, 0);
-            const percentages = {};
-            Object.keys(scores).forEach(key => {
-                percentages[key] = Math.round((scores[key] / total) * 100);
-            });
+        if (!scoresStr) {
+          // No test completed, redirect to test
+          window.location.href = "test.html";
+          return;
+        }
 
-            // Sort by score
-            const sortedAreas = Object.entries(percentages).sort((a, b) => b[1] - a[1]);
-            
-            // Determine profile type (highest scoring area)
-            const topArea = sortedAreas[0][0];
-            document.getElementById('profileType').textContent = profileTypes[topArea];
+        const scores = JSON.parse(scoresStr);
 
-            // Render affinity areas (top 3)
-            const affinityGrid = document.getElementById('affinityGrid');
-            sortedAreas.slice(0, 3).forEach(([area, percentage]) => {
-                const card = document.createElement('div');
-                card.className = 'affinity-card';
-                card.innerHTML = `
+        // Calculate percentages
+        const total = Object.values(scores).reduce((a, b) => a + b, 0);
+        const percentages = {};
+        Object.keys(scores).forEach((key) => {
+          percentages[key] = Math.round((scores[key] / total) * 100);
+        });
+
+        // Sort by score
+        const sortedAreas = Object.entries(percentages).sort(
+          (a, b) => b[1] - a[1]
+        );
+
+        // Determine profile type (highest scoring area)
+        const topArea = sortedAreas[0][0];
+        document.getElementById("profileType").textContent =
+          profileTypes[topArea];
+
+        // Render affinity areas (top 3)
+        const affinityGrid = document.getElementById("affinityGrid");
+        sortedAreas.slice(0, 3).forEach(([area, percentage]) => {
+          const card = document.createElement("div");
+          card.className = "affinity-card";
+          card.innerHTML = `
                     <div class="affinity-header">
                         <div class="affinity-name">${areaNames[area]}</div>
                         <div class="affinity-percentage">${percentage}%</div>
@@ -601,22 +670,29 @@
                         <div class="affinity-progress-fill" style="width: ${percentage}%"></div>
                     </div>
                 `;
-                affinityGrid.appendChild(card);
-            });
+          affinityGrid.appendChild(card);
+        });
 
-            // Render recommended careers (top 3 areas)
-            const careersGrid = document.getElementById('careersGrid');
-            sortedAreas.slice(0, 3).forEach(([area, percentage]) => {
-                const career = careerDatabase[area][0];
-                const card = document.createElement('div');
-                card.className = 'career-card';
-                card.innerHTML = `
+        // Render recommended careers (top 3 areas)
+        const careersGrid = document.getElementById("careersGrid");
+        sortedAreas.slice(0, 3).forEach(([area, percentage]) => {
+          const career = careerDatabase[area][0];
+          const card = document.createElement("div");
+          card.className = "career-card";
+          card.innerHTML = `
                     <div class="career-info">
                         <h3 class="career-title">${career.title}</h3>
                         <span class="career-level">${career.level}</span>
-                        <p class="career-duration">Duración: ${career.duration}</p>
+                        <p class="career-duration">Duración: ${
+                          career.duration
+                        }</p>
                         <div class="career-tags">
-                            ${career.tags.map(tag => `<span class="career-tag">${tag}</span>`).join('')}
+                            ${career.tags
+                              .map(
+                                (tag) =>
+                                  `<span class="career-tag">${tag}</span>`
+                              )
+                              .join("")}
                         </div>
                     </div>
                     <div class="career-match">
@@ -627,96 +703,305 @@
                         <a href="../careers/details.html" class="btn btn-primary">Ver detalles</a>
                     </div>
                 `;
-                careersGrid.appendChild(card);
-            });
-        }
-
-        document.getElementById('generatePdfBtn').addEventListener('click', () => {
-            const scoresStr = localStorage.getItem('vocationalTestScores');
-            
-            if (!scoresStr) {
-                alert('No se encontraron resultados del test vocacional.');
-                return;
-            }
-
-            const scores = JSON.parse(scoresStr);
-            const total = Object.values(scores).reduce((a, b) => a + b, 0);
-            const percentages = {};
-            Object.keys(scores).forEach(key => {
-                percentages[key] = Math.round((scores[key] / total) * 100);
-            });
-
-            const sortedAreas = Object.entries(percentages).sort((a, b) => b[1] - a[1]);
-            const topArea = sortedAreas[0][0];
-            const profileType = profileTypes[topArea];
-
-            // Generate text content
-            let textContent = '='.repeat(60) + '\n';
-            textContent += '           REPORTE DE TEST VOCACIONAL - VOCATIO\n';
-            textContent += '='.repeat(60) + '\n\n';
-            textContent += `Fecha: ${new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}\n\n`;
-            
-            textContent += 'TU PERFIL VOCACIONAL\n';
-            textContent += '-'.repeat(60) + '\n';
-            textContent += `Perfil: ${profileType}\n\n`;
-            
-            textContent += 'ÁREAS DE MAYOR AFINIDAD\n';
-            textContent += '-'.repeat(60) + '\n';
-            sortedAreas.slice(0, 3).forEach(([area, percentage], index) => {
-                textContent += `${index + 1}. ${areaNames[area]}: ${percentage}%\n`;
-                textContent += `   ${areaDescriptions[area]}\n\n`;
-            });
-            
-            textContent += 'CARRERAS RECOMENDADAS\n';
-            textContent += '-'.repeat(60) + '\n';
-            sortedAreas.slice(0, 3).forEach(([area, percentage], index) => {
-                const career = careerDatabase[area][0];
-                textContent += `${index + 1}. ${career.title}\n`;
-                textContent += `   Nivel: ${career.level}\n`;
-                textContent += `   Duración: ${career.duration}\n`;
-                textContent += `   Compatibilidad: ${percentage}%\n`;
-                textContent += `   Habilidades: ${career.tags.join(', ')}\n\n`;
-            });
-            
-            textContent += 'PRÓXIMOS PASOS RECOMENDADOS\n';
-            textContent += '-'.repeat(60) + '\n';
-            textContent += '1. Explorar las carreras recomendadas en detalle\n';
-            textContent += '2. Visitar universidades y programas técnicos\n';
-            textContent += '3. Hablar con profesionales del área\n';
-            textContent += '4. Considerar cursos preparatorios en el área de interés\n\n';
-            
-            textContent += '='.repeat(60) + '\n';
-            textContent += 'VOCATIO - Tu guía para elegir la carrera ideal\n';
-            textContent += 'www.vocatio.com\n';
-            textContent += '='.repeat(60) + '\n';
-
-            // Create and download the file
-            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `Reporte_Test_Vocacional_${new Date().toISOString().split('T')[0]}.txt`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
+          careersGrid.appendChild(card);
         });
+      }
 
-        // Share functionality
-        document.getElementById('shareBtn').addEventListener('click', () => {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Mis Resultados del Test Vocacional',
-                    text: 'He completado mi test vocacional en VOCATIO. ¡Descubre tu perfil también!',
-                    url: window.location.href
+      document
+        .getElementById("generatePdfBtn")
+        .addEventListener("click", async () => {
+          const scoresStr = localStorage.getItem("vocationalTestScores");
+
+          if (!scoresStr) {
+            alert("No se encontraron resultados del test vocacional.");
+            return;
+          }
+
+          const scores = JSON.parse(scoresStr);
+          const total = Object.values(scores).reduce((a, b) => a + b, 0);
+          const percentages = {};
+          Object.keys(scores).forEach((key) => {
+            percentages[key] = Math.round((scores[key] / total) * 100);
+          });
+
+          const sortedAreas = Object.entries(percentages).sort(
+            (a, b) => b[1] - a[1]
+          );
+          const topArea = sortedAreas[0][0];
+          const profileType = profileTypes[topArea];
+
+          // Mostrar indicador de progreso
+          const btn = document.getElementById("generatePdfBtn");
+          const originalText = btn.innerHTML;
+          btn.disabled = true;
+          btn.innerHTML =
+            '<svg class="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10" opacity="0.75"></path></svg> Generando PDF...';
+
+          try {
+            // Usar jsPDF para generar PDF profesional
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const primaryColor = [108, 92, 231];
+            const textColor = [26, 26, 26];
+            const grayColor = [102, 102, 102];
+
+            let yPosition = 20;
+
+            // Header con diseño profesional
+            doc.setFillColor(...primaryColor);
+            doc.rect(0, 0, 210, 40, "F");
+
+            doc.setFontSize(28);
+            doc.setTextColor(255, 255, 255);
+            doc.setFont(undefined, "bold");
+            doc.text("VOCATIO", 105, 20, { align: "center" });
+
+            doc.setFontSize(14);
+            doc.setFont(undefined, "normal");
+            doc.text("Reporte de Test Vocacional", 105, 30, {
+              align: "center",
+            });
+
+            yPosition = 50;
+
+            // Fecha
+            doc.setFontSize(10);
+            doc.setTextColor(...grayColor);
+            const currentDate = new Date();
+            doc.text(
+              `Fecha: ${currentDate.toLocaleDateString("es-ES", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}`,
+              105,
+              yPosition,
+              { align: "center" }
+            );
+
+            yPosition += 15;
+
+            // Perfil Vocacional
+            doc.setFontSize(16);
+            doc.setTextColor(...primaryColor);
+            doc.setFont(undefined, "bold");
+            doc.text("Tu Perfil Vocacional", 20, yPosition);
+            yPosition += 10;
+
+            doc.setFontSize(20);
+            doc.setTextColor(...textColor);
+            doc.text(profileType, 20, yPosition);
+            yPosition += 15;
+
+            // Áreas de Mayor Afinidad
+            doc.setFontSize(16);
+            doc.setTextColor(...primaryColor);
+            doc.setFont(undefined, "bold");
+            doc.text("Áreas de Mayor Afinidad", 20, yPosition);
+            yPosition += 10;
+
+            // Intentar capturar el gráfico de afinidad
+            const affinitySection = document.querySelector(".affinity-section");
+            if (affinitySection && window.html2canvas) {
+              try {
+                const canvas = await html2canvas(affinitySection, {
+                  scale: 2,
+                  logging: false,
+                  backgroundColor: "#ffffff",
                 });
+                const imgData = canvas.toDataURL("image/png");
+
+                const imgWidth = 170;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                if (yPosition + imgHeight > 270) {
+                  doc.addPage();
+                  yPosition = 20;
+                }
+
+                doc.addImage(
+                  imgData,
+                  "PNG",
+                  20,
+                  yPosition,
+                  imgWidth,
+                  imgHeight
+                );
+                yPosition += imgHeight + 10;
+              } catch (error) {
+                console.error("Error al capturar gráfico:", error);
+                // Fallback a versión de texto
+                sortedAreas.slice(0, 3).forEach(([area, percentage]) => {
+                  doc.setFontSize(12);
+                  doc.setTextColor(...textColor);
+                  doc.setFont(undefined, "bold");
+                  doc.text(`• ${areaNames[area]}`, 25, yPosition);
+
+                  doc.setFont(undefined, "normal");
+                  doc.setTextColor(...grayColor);
+                  doc.text(`${percentage}%`, 180, yPosition, {
+                    align: "right",
+                  });
+
+                  yPosition += 7;
+                });
+                yPosition += 10;
+              }
             } else {
-                alert('Compartir resultados... Esta funcionalidad estará disponible próximamente.');
+              // Versión de texto si no hay html2canvas
+              sortedAreas.slice(0, 3).forEach(([area, percentage]) => {
+                doc.setFontSize(12);
+                doc.setTextColor(...textColor);
+                doc.setFont(undefined, "bold");
+                doc.text(`• ${areaNames[area]}`, 25, yPosition);
+
+                doc.setFont(undefined, "normal");
+                doc.setTextColor(...grayColor);
+                doc.text(`${percentage}%`, 180, yPosition, { align: "right" });
+
+                yPosition += 7;
+              });
+              yPosition += 10;
             }
+
+            // Carreras Recomendadas
+            if (yPosition > 230) {
+              doc.addPage();
+              yPosition = 20;
+            }
+
+            doc.setFontSize(16);
+            doc.setTextColor(...primaryColor);
+            doc.setFont(undefined, "bold");
+            doc.text("Carreras Recomendadas", 20, yPosition);
+            yPosition += 10;
+
+            sortedAreas.slice(0, 3).forEach(([area, percentage], index) => {
+              if (yPosition > 270) {
+                doc.addPage();
+                yPosition = 20;
+              }
+
+              const career = careerDatabase[area][0];
+
+              doc.setFontSize(12);
+              doc.setTextColor(...textColor);
+              doc.setFont(undefined, "bold");
+              doc.text(`${index + 1}. ${career.title}`, 25, yPosition);
+
+              doc.setFontSize(10);
+              doc.setTextColor(...grayColor);
+              doc.setFont(undefined, "normal");
+              doc.text(
+                `Nivel: ${career.level} | Duración: ${career.duration}`,
+                25,
+                yPosition + 5
+              );
+              doc.text(`Compatibilidad: ${percentage}%`, 25, yPosition + 10);
+
+              yPosition += 18;
+            });
+
+            yPosition += 10;
+
+            // Próximos Pasos
+            if (yPosition > 200) {
+              doc.addPage();
+              yPosition = 20;
+            }
+
+            doc.setFontSize(16);
+            doc.setTextColor(...primaryColor);
+            doc.setFont(undefined, "bold");
+            doc.text("Próximos Pasos Recomendados", 20, yPosition);
+            yPosition += 10;
+
+            doc.setFontSize(10);
+            doc.setTextColor(...textColor);
+            doc.setFont(undefined, "normal");
+
+            const steps = [
+              "1. Explorar las carreras recomendadas en detalle",
+              "2. Visitar universidades y programas técnicos",
+              "3. Hablar con profesionales del área",
+              "4. Considerar cursos preparatorios en el área de interés",
+            ];
+
+            steps.forEach((step) => {
+              doc.text(step, 20, yPosition);
+              yPosition += 6;
+            });
+
+            // Footer en todas las páginas
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+              doc.setPage(i);
+
+              doc.setDrawColor(...grayColor);
+              doc.setLineWidth(0.5);
+              doc.line(20, 285, 190, 285);
+
+              doc.setFontSize(8);
+              doc.setTextColor(...grayColor);
+              doc.text(
+                "Generado por VOCATIO - Tu plataforma de orientación vocacional",
+                105,
+                290,
+                { align: "center" }
+              );
+              doc.text(`Página ${i} de ${pageCount}`, 190, 290, {
+                align: "right",
+              });
+            }
+
+            // Descargar PDF
+            const fileName = `Reporte_Test_Vocacional_${
+              currentDate.toISOString().split("T")[0]
+            }.pdf`;
+            doc.save(fileName);
+
+            // Mostrar mensaje de éxito
+            setTimeout(() => {
+              btn.disabled = false;
+              btn.innerHTML = originalText;
+              alert("✅ PDF generado exitosamente");
+            }, 500);
+          } catch (error) {
+            console.error("Error al generar PDF:", error);
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+            alert("❌ Error al generar el PDF. Por favor, inténtalo de nuevo.");
+          }
         });
 
-        // Load results on page load
-        loadResults();
+      // Share functionality
+      document.getElementById("shareBtn").addEventListener("click", () => {
+        if (navigator.share) {
+          navigator.share({
+            title: "Mis Resultados del Test Vocacional",
+            text: "He completado mi test vocacional en VOCATIO. ¡Descubre tu perfil también!",
+            url: window.location.href,
+          });
+        } else {
+          alert(
+            "Compartir resultados... Esta funcionalidad estará disponible próximamente."
+          );
+        }
+      });
+
+      // Load results on page load
+      loadResults();
+
+      // Agregar animación de spin
+      const style = document.createElement("style");
+      style.textContent = `
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
     </script>
-</body>
+  </body>
 </html>
