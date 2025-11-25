@@ -7,7 +7,7 @@
   <title>Exported Figma Design</title>
   <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../../styles-compara-complete.css">
+  <link rel="stylesheet" href="styles-compara-complete.css"> 
 </head>
 <body>
 <main class="frame-2-13">
@@ -17,11 +17,9 @@
     <p style="font-size:20px; color:var(--text-rgb-103-102-111); margin:0;">Compara tus carreras favoritas lado a lado para tomar una mejor decisión</p>
   </header>
 
-  <!-- Action buttons (centred as in the React example) -->
   <div class="comparison-controls" style="margin:18px 0 24px 0; justify-content:center;">
-    <div class="left-controls">
-      <label for="career-select" class="text-5" style="margin-right:8px; align-self:center;">Selecciona carrera:</label>
-      <select id="career-select" aria-label="Seleccionar carrera">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <select id="career-select" style="padding:10px; border:2px solid #D9D4FF; border-radius:7px; font-size:16px;">
         <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
         <option value="Administración de empresas">Administración de empresas</option>
         <option value="Psicología">Psicología</option>
@@ -32,27 +30,19 @@
       <button id="add-career-btn" class="btn btn--primary">+ Agregar Carrera</button>
       <button id="compare-strengths-btn" class="btn btn--primary">Comparar Fortalezas y Debilidades</button>
       <button id="download-pdf-btn" class="btn btn--primary">Exportar PDF</button>
-      <a href="../careers/explore.html" id="explore-btn" class="btn btn--ghost" style="text-decoration:none;">Volver a explorar carreras</a>
+      <a href="vocatio/pages/careers/explore.html" id="explore-btn" class="btn btn--ghost" style="text-decoration:none;">Volver a explorar carreras</a>
     </div>
   </div>
 
-  <!-- Resultado del análisis comparativo -->
   <section id="strengths-analysis" style="display:none; margin:32px 0 0 0;"></section>
 
-  <!-- placeholder: compare.js injecta el catálogo justo después de controls -->
-
-  <!-- Grid interactivo generado por JS -->
   <div class="comparison-data-grid" id="comparison-grid" aria-live="polite"></div>
 
-  <!-- Menú de columna (oculto por defecto) -->
   <div id="col-menu" class="col-menu" style="display:none; position:absolute; z-index:1000;">
-    <button id="edit-col-name">Editar nombre</button>
-    <button id="remove-col">Eliminar carrera</button>
-    <button id="close-col-menu">Cerrar</button>
+    <button class="remove-btn-menu" data-id="0">Quitar Comparación</button>
   </div>
-
 </main>
-
-<script src="../../compare-complete.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="compare-complete.js"></script>
 </body>
 </html>
