@@ -254,7 +254,6 @@
       cursor: pointer;
       transition: all 0.3s;
       display: inline-block;
-      text-decoration: none;
       text-align: center;
       margin-top: 30px;
     }
@@ -650,7 +649,7 @@
       </div>
       </div>
       <div style="text-align: center; margin-top: 40px; padding-bottom: 40px;">
-        <a href="./explore.html" onclick="return confirm('¿Deseas volver a Explorar Carreras?') || event.preventDefault();" class="contact-btn">← Volver a Explorar Carreras</a>
+        <button class="contact-btn" onclick="window.location.href = './explore.html';">← Volver a Explorar Carreras</button>
       </div>
   </div>
 
