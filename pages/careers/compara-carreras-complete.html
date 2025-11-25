@@ -1,25 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Exported from Figma">
-  <title>Exported Figma Design</title>
-  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+  <meta name="description" content="Comparar Carreras en Vocatio">
+  <title>Comparar Carreras - Vocatio</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <link rel="stylesheet" href="styles-compara-complete.css"> 
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #693efe;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #2d2d2d;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #999;
+      margin-bottom: 30px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .controls select {
+      padding: 12px 16px;
+      border: 2px solid #d9d4ff;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      background-color: white;
+      cursor: pointer;
+      min-width: 280px;
+    }
+
+    .controls select:focus {
+      outline: none;
+      border-color: #693efe;
+      box-shadow: 0 0 0 3px rgba(105, 62, 254, 0.1);
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: #693efe;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #5a2fd5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(105, 62, 254, 0.3);
+    }
+
+    .btn-secondary {
+      background-color: #f0f0f0;
+      color: #666;
+      border: 2px solid #e0e0e0;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e8e8e8;
+      border-color: #693efe;
+    }
+
+    .table-wrapper {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background-color: #f9f9f9;
+      padding: 20px;
+      text-align: left;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 2px solid #e0e0e0;
+      font-size: 0.95rem;
+    }
+
+    th .career-name {
+      display: block;
+      color: #693efe;
+      font-weight: 700;
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    th .remove-btn {
+      display: block;
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      text-decoration: underline;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    th .remove-btn:hover {
+      color: #d32f2f;
+    }
+
+    td {
+      padding: 20px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    td.label {
+      background-color: #fafafa;
+      font-weight: 600;
+      color: #333;
+      width: 150px;
+      min-width: 150px;
+    }
+
+    tbody tr:hover td:not(.label) {
+      background-color: #f5f9ff;
+    }
+
+    #comparison-table {
+      display: none;
+    }
+
+    #comparison-table.active {
+      display: table;
+    }
+
+    .message {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .controls select,
+      .btn {
+        width: 100%;
+      }
+
+      th, td {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .logo {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<main class="frame-2-13">
-  <header style="text-align:center; margin-bottom:28px;">
-    <h1 style="font-family:var(--font-family-rethink-sans); font-size:64px; margin:0; color:#693EFE;">vocatio</h1>
-    <h2 style="font-size:48px; margin:16px 0 8px 0; color:var(--text-rgb-69-68-76);">Comparar Carreras</h2>
-    <p style="font-size:20px; color:var(--text-rgb-103-102-111); margin:0;">Compara tus carreras favoritas lado a lado para tomar una mejor decisión</p>
-  </header>
+  <div class="container">
+    <header>
+      <div class="logo">vocatio</div>
+      <h1>Comparar Carreras</h1>
+      <p class="subtitle">Compara tus carreras favoritas lado a lado para tomar una mejor decisión</p>
+    </header>
 
-  <div class="comparison-controls" style="margin:18px 0 24px 0; justify-content:center;">
-    <div style="display:flex; align-items:center; gap:10px;">
-      <select id="career-select" style="padding:10px; border:2px solid #D9D4FF; border-radius:7px; font-size:16px;">
+    <div class="controls">
+      <select id="career-select">
+        <option value="">Selecciona una carrera...</option>
         <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
         <option value="Administración de empresas">Administración de empresas</option>
         <option value="Psicología">Psicología</option>
@@ -27,22 +240,167 @@
         <option value="Diseño Gráfico">Diseño Gráfico</option>
         <option value="Arquitectura">Arquitectura</option>
       </select>
-      <button id="add-career-btn" class="btn btn--primary">+ Agregar Carrera</button>
-      <button id="compare-strengths-btn" class="btn btn--primary">Comparar Fortalezas y Debilidades</button>
-      <button id="download-pdf-btn" class="btn btn--primary">Exportar PDF</button>
-      <a href="vocatio/pages/careers/explore.html" id="explore-btn" class="btn btn--ghost" style="text-decoration:none;">Volver a explorar carreras</a>
+      <button class="btn btn-primary" id="add-career-btn">+ Agregar Carrera</button>
+      <button class="btn btn-primary" id="compare-btn">Comparar Fortalezas y Debilidades</button>
+      <button class="btn btn-primary" id="export-pdf-btn">Exportar PDF</button>
+      <a href="./explore.html" class="btn btn-secondary">Volver a explorar carreras</a>
+    </div>
+
+    <div class="table-wrapper">
+      <div id="message" class="message">Selecciona una carrera y haz clic en "Agregar Carrera" para comenzar la comparación</div>
+      <table id="comparison-table">
+        <thead id="table-head"></thead>
+        <tbody id="table-body"></tbody>
+      </table>
     </div>
   </div>
 
-  <section id="strengths-analysis" style="display:none; margin:32px 0 0 0;"></section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    // Base de datos de carreras
+    const careerData = {
+      "Ingeniería de Sistemas": {
+        "Duración": "5 años",
+        "Área": "Tecnología",
+        "Modalidad": "Presencial",
+        "Salida Laboral": "Alta demanda",
+        "Nivel de Dificultad": "Alto",
+        "Inversión Promedio": "S/. 2,500-4,000/mes"
+      },
+      "Administración de empresas": {
+        "Duración": "5 años",
+        "Área": "Negocios",
+        "Modalidad": "Presencial",
+        "Salida Laboral": "Media demanda",
+        "Nivel de Dificultad": "Medio",
+        "Inversión Promedio": "S/. 2,000-3,500/mes"
+      },
+      "Psicología": {
+        "Duración": "5 años",
+        "Área": "Social",
+        "Modalidad": "Presencial",
+        "Salida Laboral": "Media demanda",
+        "Nivel de Dificultad": "Medio-Alto",
+        "Inversión Promedio": "S/. 2,200-3,800/mes"
+      },
+      "Medicina": {
+        "Duración": "6 años",
+        "Área": "Salud",
+        "Modalidad": "Presencial",
+        "Salida Laboral": "Alta demanda",
+        "Nivel de Dificultad": "Muy Alto",
+        "Inversión Promedio": "S/. 4,000-7,000/mes"
+      },
+      "Diseño Gráfico": {
+        "Duración": "4 años",
+        "Área": "Arte y Diseño",
+        "Modalidad": "Presencial",
+        "Salida Laboral": "Media demanda",
+        "Nivel de Dificultad": "Medio",
+        "Inversión Promedio": "S/. 1,800-3,200/mes"
+      },
+      "Arquitectura": {
+        "Duración": "5 años",
+        "Área": "Construcción",
+        "Modalidad": "Presencial",
+        "Salida Laboral": "Media demanda",
+        "Nivel de Dificultad": "Alto",
+        "Inversión Promedio": "S/. 2,800-4,500/mes"
+      }
+    };
 
-  <div class="comparison-data-grid" id="comparison-grid" aria-live="polite"></div>
+    const attributes = ["Duración", "Área", "Modalidad", "Salida Laboral", "Nivel de Dificultad", "Inversión Promedio"];
+    let selectedCareers = [];
 
-  <div id="col-menu" class="col-menu" style="display:none; position:absolute; z-index:1000;">
-    <button class="remove-btn-menu" data-id="0">Quitar Comparación</button>
-  </div>
-</main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="compare-complete.js"></script>
+    const careerSelect = document.getElementById('career-select');
+    const addBtn = document.getElementById('add-career-btn');
+    const compareBtn = document.getElementById('compare-btn');
+    const exportBtn = document.getElementById('export-pdf-btn');
+    const tableHead = document.getElementById('table-head');
+    const tableBody = document.getElementById('table-body');
+    const comparisonTable = document.getElementById('comparison-table');
+    const message = document.getElementById('message');
+
+    addBtn.addEventListener('click', () => {
+      const selectedValue = careerSelect.value;
+      if (!selectedValue) {
+        alert('Por favor selecciona una carrera');
+        return;
+      }
+      if (selectedCareers.includes(selectedValue)) {
+        alert('Esta carrera ya está en la comparación');
+        return;
+      }
+      selectedCareers.push(selectedValue);
+      renderTable();
+      careerSelect.value = '';
+    });
+
+    compareBtn.addEventListener('click', () => {
+      if (selectedCareers.length === 0) {
+        alert('Agrega al menos una carrera para comparar');
+        return;
+      }
+      alert('Comparación de fortalezas y debilidades:\n\n' + selectedCareers.join(', '));
+    });
+
+    exportBtn.addEventListener('click', exportToPDF);
+
+    function renderTable() {
+      if (selectedCareers.length === 0) {
+        comparisonTable.classList.remove('active');
+        message.style.display = 'block';
+        return;
+      }
+
+      message.style.display = 'none';
+      comparisonTable.classList.add('active');
+
+      // Header
+      tableHead.innerHTML = `
+        <tr>
+          <th style="width: 150px;"></th>
+          ${selectedCareers.map((career, idx) => `
+            <th>
+              <span class="career-name">${career}</span>
+              <button class="remove-btn" onclick="removeCareeer(${idx})">Quitar Comparación</button>
+            </th>
+          `).join('')}
+        </tr>
+      `;
+
+      // Body
+      tableBody.innerHTML = attributes.map(attr => `
+        <tr>
+          <td class="label">${attr}</td>
+          ${selectedCareers.map(career => `
+            <td>${careerData[career][attr]}</td>
+          `).join('')}
+        </tr>
+      `).join('');
+    }
+
+    window.removeCareeer = (idx) => {
+      selectedCareers.splice(idx, 1);
+      renderTable();
+    };
+
+    function exportToPDF() {
+      if (selectedCareers.length === 0) {
+        alert('Agrega al menos una carrera para exportar');
+        return;
+      }
+
+      const element = document.querySelector('.table-wrapper');
+      const opt = {
+        margin: 10,
+        filename: 'Comparacion_Carreras.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { orientation: 'landscape', unit: 'mm', format: 'a4' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
 </body>
 </html>
