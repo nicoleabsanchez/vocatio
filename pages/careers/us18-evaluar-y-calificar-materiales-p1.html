@@ -543,43 +543,6 @@
   </style>
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="container">
-        <input type="checkbox" id="menu-toggle" class="hamburger-menu" />
-        <div class="navbar-content">
-          <a href="./explore.html" class="logo">
-            <span class="logo-text">vocatio</span>
-          </a>
-          <label for="menu-toggle" class="hamburger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
-          <ul class="nav-menu">
-            <li><a href="./explore.html">Explorar carreras</a></li>
-            <li><a href="../events/events.html">Eventos</a></li>
-            <li><a href="../vocational-test/test.html">Test vocacional</a></li>
-            <li><a href="../results/results.html">Resultados</a></li>
-            <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
-            <li><a href="./progreso.complete.html">Progreso</a></li>
-          </ul>
-          <div class="profile-dropdown">
-            <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox" />
-            <label for="profile-dropdown-toggle" class="profile-dropdown-label">
-              <div class="profile-icon">J</div>
-            </label>
-            <div class="dropdown-menu">
-              <a href="../profile/profile.html">Mi Perfil</a>
-              <a href="../notifications/notifications.html">Notificaciones</a>
-              <a href="../../index.html" class="logout">Cerrar sesión</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
-
   <div class="container">
 
     <div class="content">
@@ -687,7 +650,7 @@
       </div>
       </div>
       <div style="text-align: center; margin-top: 40px; padding-bottom: 40px;">
-        <a href="./explore.html" class="contact-btn">← Volver a Explorar Carreras</a>
+        <a href="./explore.html" onclick="return confirm('¿Deseas volver a Explorar Carreras?') || event.preventDefault();" class="contact-btn">← Volver a Explorar Carreras</a>
       </div>
   </div>
 
