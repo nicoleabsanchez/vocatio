@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Exported from Figma">
+  <title>Exported Figma Design</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compartir Resultados - Vocatio</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,500,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">vocatio</div>
+      <nav class="nav">
+        <a href="#explorar">Explorar carreras</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#test">Test vocacional</a>
+        <a href="#ruta">Ruta de aprendizaje</a>
+        <a href="#progreso">Progreso</a>
+        <a href="#resultados" class="active">Resultados</a>
+      </nav>
+    </header>
+
+    <!-- Results Section -->
+    <section class="results-section">
+      <h1 class="results-title">Mis Resultados</h1>
+      <p class="results-subtitle">Resultados de tu test vocacional completado</p>
+
+      <div class="career-cards">
+        <div class="career-card">
+          <div class="career-emoji">💻</div>
+          <div class="career-name">Tecnología</div>
+          <div class="career-percentage" id="affinity-tecnologia">0% de afinidad</div>
+        </div>
+        <div class="career-card">
+          <div class="career-emoji">📊</div>
+          <div class="career-name">Análisis</div>
+          <div class="career-percentage" id="affinity-analisis">0% de afinidad</div>
+        </div>
+        <div class="career-card">
+          <div class="career-emoji">🔬</div>
+          <div class="career-name">Ciencias</div>
+          <div class="career-percentage" id="affinity-ciencias">0% de afinidad</div>
+        </div>
+        <div class="career-card">
+          <div class="career-emoji">💡</div>
+          <div class="career-name">Innovación</div>
+          <div class="career-percentage" id="affinity-innovacion">0% de afinidad</div>
+        </div>
+      </div>
+  <script>
+    // Simulación: estos valores deberían venir de las actividades del usuario
+    // Si el usuario no hizo ninguna actividad, los valores quedan en 0
+    const afinidades = {
+      tecnologia: 0, // Cambia estos valores según la actividad real
+      analisis: 0,
+      ciencias: 0,
+      innovacion: 0
+    };
+
+    // Si tienes datos reales, reemplaza los valores de arriba
+    // Ejemplo: afinidades.tecnologia = 85;
+
+    window.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('affinity-tecnologia').textContent = afinidades.tecnologia + '% de afinidad';
+      document.getElementById('affinity-analisis').textContent = afinidades.analisis + '% de afinidad';
+      document.getElementById('affinity-ciencias').textContent = afinidades.ciencias + '% de afinidad';
+      document.getElementById('affinity-innovacion').textContent = afinidades.innovacion + '% de afinidad';
+    });
+  </script>
+
+      <div class="test-info">
+        <p class="test-date">✓ Test Vocacional Completado - Realizado el 28 de septiembre, 2025</p>
+      </div>
+    </section>
+
+    <!-- Share Section -->
+    <section class="share-section">
+      <h2 class="share-title">Compartir Resultados</h2>
+      <p class="share-subtitle">Inspira a otros compartiendo tu experiencia en Vocatio</p>
+
+      <div class="social-buttons">
+        <a href="#" class="social-btn facebook" onclick="shareOn('facebook'); return false;">
+          Facebook
+        </a>
+        <a href="#" class="social-btn twitter" onclick="shareOn('twitter'); return false;">
+          Twitter
+        </a>
+        <a href="#" class="social-btn linkedin" onclick="shareOn('linkedin'); return false;">
+          LinkedIn
+        </a>
+        <a href="#" class="social-btn instagram" onclick="shareOn('instagram'); return false;">
+          Instagram
+        </a>
+      </div>
+
+      <button class="customize-btn" onclick="customizeContent()">
+        Personalizar Contenido
+      </button>
+    </section>
+
+    <!-- Recommended Careers Section -->
+    <section class="recommended-section">
+      <h3 class="recommended-title">Carreras Recomendadas (8)</h3>
+      <ul class="career-list">
+        <li>Ingeniería de Sistemas</li>
+        <li>Ciencias de la Computación</li>
+        <li>Ingeniería Industrial</li>
+        <li>Biotecnología</li>
+        <li>Ingeniería Biomédica</li>
+        <li>Ciencia de Datos</li>
+        <li>Ingeniería Electrónica</li>
+        <li>Matemática Aplicada</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="compartir.js"></script>
+</body>
+</html>
+<img src="images/line-20-32.svg" class="line-20-32" alt="line-20" />
+</div>
+<div class="frame-1000006557-33">
+<div class="rectangle-89-34"></div>
+<p class="text-35"><span class="text-black">Compartir Resultados</span></p>
+<p class="text-36"><span class="text-rgb-103-102-111">Inspira a otros compartiendo tu experiencia en Vocatio</span></p>
+<div class="group-26-37">
+<div class="rectangle-22-38"></div>
+<p class="text-39"><span class="text-rgb-105-62-254">Facebook</span></p>
+</div>
+<div class="group-30-40">
+<div class="rectangle-22-41"></div>
+<p class="text-42"><span class="text-rgb-105-62-254">Twitter</span></p>
+</div>
+<div class="group-31-43">
+<div class="rectangle-22-44"></div>
+<p class="text-45"><span class="text-rgb-105-62-254">Linkedln</span></p>
+</div>
+<div class="group-29-46">
+<div class="rectangle-22-47"></div>
+<p class="text-48"><span class="text-rgb-105-62-254">Instagram</span></p>
+</div>
+<div class="group-29-49">
+<div class="rectangle-22-50"></div>
+<p class="text-51"><span class="text-white">Personalizar Cotenido</span></p>
+</div>
+</div>
+<div class="frame-1000006558-52">
+<div class="rectangle-90-53"></div>
+<p class="text-54"><span class="text-black">Carreras Recomendadas (8)</span></p>
+<p class="text-55"><span class="text-black">✓ Ingeniería de Sistemas
+✓ Ciencias de la Computación
+✓ Ingeniería Industrial
+✓ Biotecnología
+✓ Ingeniería Biomédica
+✓ Ciencia de Datos
+✓ Ingeniería Electrónica
+✓ Matemática Aplicada</span></p>
+</div>
+</div>
+
+</body>
+</html>
+
+<script src="compartir.js"></script>
