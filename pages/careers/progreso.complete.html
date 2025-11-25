@@ -138,37 +138,8 @@
                 <p>Visualiza tu avance en Vocatio y tus logros alcanzados</p>
                 <div id="mensajeProgresoCeroDetalle" class="mensaje-cero" style="display:block;">Aún no has completado ninguna actividad. ¡Comienza para ver tu progreso!</div>
             </header>
-            <div class="detalle-actividades">
-                <div class="actividad-box">
-                    <div class="icono"><img src="./assets/images/icon-barchart.png" alt="Test" width="32"></div>
-                    <div class="info">
-                        <strong>Test Vocacional - Completado</strong>
-                        <div class="sub">Finalizado hace 2 días • Ingeniería de Sistemas</div>
-                    </div>
-                    <div class="barra-actividad"><div class="barra" style="width:100%;background:#eaff6c;"></div><span>100%</span></div>
-                </div>
-                <div class="actividad-box">
-                    <div class="icono"><img src="./assets/images/icon-barchart.png" alt="Material" width="32"></div>
-                    <div class="info">
-                        <strong>Material: Introducción a la IA</strong>
-                        <div class="sub">En progreso • 12 min restantes</div>
-                    </div>
-                    <div class="barra-actividad"><div class="barra" style="width:65%;background:#eaff6c;"></div><span>65%</span></div>
-                </div>
-                <div class="actividad-box">
-                    <div class="icono"><img src="./assets/images/icon-star.png" alt="Favorita" width="32"></div>
-                    <div class="info">
-                        <strong>Carrera Guardada como Favorita</strong>
-                        <div class="sub">Hace 3 días • Administración de Empresas</div>
-                    </div>
-                </div>
-                <div class="actividad-box">
-                    <div class="icono"><img src="./assets/images/icon-barchart.png" alt="Calificación" width="32"></div>
-                    <div class="info">
-                        <strong>Calificación de Material</strong>
-                        <div class="sub">Hace 5 días • 5 estrellas</div>
-                    </div>
-                </div>
+            <div class="detalle-actividades" id="actividadesContainer">
+                <!-- Se llena dinámicamente con JavaScript -->
             </div>
             <button id="btnVolver" class="btn-principal">Volver</button>
         </div>
@@ -217,8 +188,82 @@
                 social: 0
             },
             weekActivity: [0, 0, 0, 0, 0, 0, 0],  // Lun a Dom
-            activities: []  // Se llena con actividades reales del usuario
+            activities: [
+                // Formato: { type: 'test'|'material'|'career'|'rating', name, progress, timeSpent, timestamp, careerName }
+            ]
         };
+
+        // Función para generar actividades dinámicamente
+        function renderActivities() {
+            const container = document.getElementById('actividadesContainer');
+            const hasActivities = userData.activities && userData.activities.length > 0;
+
+            if (!hasActivities) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = userData.activities.map(activity => {
+                let icono = '📊';
+                let titulo = '';
+                let subtitulo = '';
+                let mostrarProgreso = false;
+                let progreso = 0;
+
+                const tiempoTranscurrido = getTimeAgo(activity.timestamp);
+
+                switch(activity.type) {
+                    case 'test':
+                        icono = '📋';
+                        titulo = 'Test Vocacional - Completado';
+                        subtitulo = `${tiempoTranscurrido} • ${activity.careerName || 'Resultado pendiente'}`;
+                        mostrarProgreso = true;
+                        progreso = 100;  // El test se marca como completado
+                        break;
+                    case 'material':
+                        icono = '📚';
+                        titulo = `Material: ${activity.name}`;
+                        subtitulo = `${activity.timeSpent > 0 ? 'En progreso' : 'Iniciado'} • ${activity.timeSpent} min ${activity.timeSpent > 0 ? 'invertidos' : ''}`;
+                        mostrarProgreso = true;
+                        progreso = activity.progress || 0;
+                        break;
+                    case 'career':
+                        icono = '⭐';
+                        titulo = 'Carrera Guardada como Favorita';
+                        subtitulo = `${tiempoTranscurrido} • ${activity.careerName || 'Carrera'}`;
+                        break;
+                    case 'rating':
+                        icono = '💬';
+                        titulo = 'Calificación de Material';
+                        subtitulo = `${tiempoTranscurrido} • ${activity.name} - ${activity.rating || 5} estrellas`;
+                        break;
+                }
+
+                return `
+                    <div class="actividad-box">
+                        <div class="icono">${icono}</div>
+                        <div class="info">
+                            <strong>${titulo}</strong>
+                            <div class="sub">${subtitulo}</div>
+                        </div>
+                        ${mostrarProgreso ? `<div class="barra-actividad"><div class="barra" style="width:${progreso}%;background:#d4ff00;"></div><span>${progreso}%</span></div>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Función auxiliar para calcular tiempo transcurrido
+        function getTimeAgo(timestamp) {
+            if (!timestamp) return 'Hace poco';
+            const now = new Date();
+            const time = new Date(timestamp);
+            const diff = Math.floor((now - time) / 1000);  // Segundos
+
+            if (diff < 60) return 'Hace poco';
+            if (diff < 3600) return `Hace ${Math.floor(diff / 60)} min`;
+            if (diff < 86400) return `Hace ${Math.floor(diff / 3600)} h`;
+            return `Hace ${Math.floor(diff / 86400)} días`;
+        }
 
         // Cargar datos al iniciar
         window.addEventListener('load', function() {
@@ -258,6 +303,9 @@
                 barra.querySelector('span').textContent = value;
             });
 
+            // Generar actividades en vista de detalles
+            renderActivities();
+
             // Mostrar/ocultar elementos según si hay progreso
             const hasProgress = userData.totalProgress > 0 || userData.activities.length > 0;
             if (hasProgress) {
@@ -267,13 +315,40 @@
                 document.getElementById('mensajeProgresoCero').style.display = 'block';
                 document.getElementById('mensajeProgresoCeroDetalle').style.display = 'block';
             }
-
-            // Si hay actividades, actualizar la vista de detalles
-            if (userData.activities && userData.activities.length > 0) {
-                // Aquí se podrían cargar dinámicamente las actividades
-                console.log('Actividades disponibles:', userData.activities.length);
-            }
         });
+
+        // Función para agregar actividades (se puede llamar desde otras páginas)
+        window.agregarActividad = function(activityData) {
+            if (!userData.activities) userData.activities = [];
+            
+            // activityData ejemplo: { type: 'test', name: 'Test 1', progress: 100, careerName: 'Ing. Sistemas' }
+            userData.activities.push({
+                ...activityData,
+                timestamp: new Date().toISOString()
+            });
+
+            // Actualizar estadísticas según tipo
+            switch(activityData.type) {
+                case 'test':
+                    userData.testsCompleted++;
+                    break;
+                case 'material':
+                    userData.materialsReviewed++;
+                    break;
+                case 'career':
+                    userData.careersExplored++;
+                    break;
+            }
+
+            // Recalcular progreso total
+            userData.totalProgress = Math.round(((userData.testsCompleted + userData.careersExplored + userData.materialsReviewed) / 30) * 100);
+
+            // Guardar en localStorage
+            localStorage.setItem('vocatioUserProgress', JSON.stringify(userData));
+            
+            // Recargar la página para mostrar cambios
+            location.reload();
+        };
 
         // Función para incrementar progreso (se puede llamar desde otras páginas)
         window.incrementarProgreso = function(type, amount = 1) {
