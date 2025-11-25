@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Solicitar ayuda o soporte">
+	<title>Solicitar ayuda o soporte</title>
+	<link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+	<style>
+		html, body { font-family: 'Inter', Inter, Arial, sans-serif !important; }
+		* { font-family: 'Inter', Inter, Arial, sans-serif !important; }
+	</style>
+</head>
+<body>
+	<div style="text-align:center; margin-bottom:40px;">
+		<a href="index.html" style="display:inline-block;font-size:18px;font-weight:600;color:#693EFE;text-decoration:underline;background:none;border:none;padding:0;margin-bottom:18px;">Volver</a>
+		<h1 style="font-size:64px; font-weight:700; color:#693EFE; margin:0 0 10px 0;">vocatio</h1>
+		<h2 style="font-size:48px; font-weight:700; color:#45444C; margin:20px 0 10px 0;">Centro de Ayuda</h2>
+		<p style="font-size:24px; color:#67666F; margin:0;">Completa el formulario y te responderemos lo antes posible</p>
+	</div>
+	<form id="form-ayuda" enctype="multipart/form-data" autocomplete="off" style="max-width:800px; margin:0 auto; background:#fff; border:3px solid #D9D4FF; border-radius:10px; padding:40px;">
+		<div style="margin-bottom:25px;">
+			<label for="nombre" style="display:block;font-size:20px;font-weight:700;color:#45444C;margin-bottom:10px;">Nombre completo: *</label>
+			<input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre completo" style="width:100%;padding:15px;font-size:20px;border:2px solid #D9D4FF;border-radius:8px;outline:none;">
+		</div>
+		<div style="margin-bottom:25px;">
+			<label for="correo" style="display:block;font-size:20px;font-weight:700;color:#45444C;margin-bottom:10px;">Correo electrónico: *</label>
+			<input type="email" id="correo" name="correo" required placeholder="tucorreo@ejemplo.com" style="width:100%;padding:15px;font-size:20px;border:2px solid #D9D4FF;border-radius:8px;outline:none;">
+		</div>
+		<div style="margin-bottom:25px;">
+			<label for="tipo" style="display:block;font-size:20px;font-weight:700;color:#45444C;margin-bottom:10px;">Tipo de incidencia: *</label>
+			<select id="tipo" name="tipo" required style="width:100%;padding:15px;font-size:20px;border:2px solid #D9D4FF;border-radius:8px;outline:none;background:#fff;color:#45444C;">
+				<option value="">Seleccionar</option>
+				<option value="Problema técnico">Problema técnico</option>
+				<option value="Consulta sobre carreras">Consulta sobre carreras</option>
+				<option value="Error en test vocacional">Error en test vocacional</option>
+				<option value="Problema de acceso/cuenta">Problema de acceso/cuenta</option>
+				<option value="Sugerencia o feedback">Sugerencia o feedback</option>
+				<option value="Otro">Otro</option>
+			</select>
+		</div>
+		<div style="margin-bottom:25px;">
+			<label for="prioridad" style="display:block;font-size:20px;font-weight:700;color:#45444C;margin-bottom:10px;">Prioridad: *</label>
+			<select id="prioridad" name="prioridad" required style="width:100%;padding:15px;font-size:20px;border:2px solid #D9D4FF;border-radius:8px;outline:none;background:#fff;color:#45444C;">
+				<option value="">Seleccionar</option>
+				<option value="Baja">Baja</option>
+				<option value="Media">Media</option>
+				<option value="Alta">Alta</option>
+				<option value="Urgente">Urgente</option>
+			</select>
+		</div>
+		<div style="margin-bottom:25px;">
+			<label for="asunto" style="display:block;font-size:20px;font-weight:700;color:#45444C;margin-bottom:10px;">Asunto: *</label>
+			<input type="text" id="asunto" name="asunto" required placeholder="Resumen breve de tu consulta" style="width:100%;padding:15px;font-size:20px;border:2px solid #D9D4FF;border-radius:8px;outline:none;">
+		</div>
+		<div style="margin-bottom:25px;">
+			<label for="descripcion" style="display:block;font-size:20px;font-weight:700;color:#45444C;margin-bottom:10px;">Descripción detallada: *</label>
+			<textarea id="descripcion" name="descripcion" rows="6" required placeholder="Describe tu problema o consulta con el mayor detalle posible..." style="width:100%;padding:15px;font-size:16px;border:2px solid #D9D4FF;border-radius:8px;outline:none;resize:vertical;font-family:Inter,sans-serif;"></textarea>
+		</div>
+		<div style="margin-bottom:30px;">
+			<label for="archivo" style="display:block;font-size:20px;font-weight:700;color:#45444C;margin-bottom:10px;">Adjuntar archivo (JPG, PNG o PDF hasta 5MB)</label>
+			<div style="border:2px dashed #B2A6FF;border-radius:8px;padding:30px;text-align:center;background:#fff;cursor:pointer;position:relative;">
+				<input type="file" id="archivo" name="archivo" accept=".png,.jpg,.jpeg,.pdf" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;">
+				<p id="archivo-nombre" style="font-size:16px;font-weight:700;color:#693EFE;margin:0 0 5px 0;">Haz clic para seleccionar archivos</p>
+				<p style="font-size:16px;color:#D9D4FF;margin:0;">PNG, JPG, PDF - Hasta 5MB</p>
+			</div>
+		</div>
+		<button type="submit" style="width:100%;background:#693EFE;color:#fff;border:none;border-radius:7px;padding:18px;font-size:20px;font-weight:500;cursor:pointer;transition:opacity 0.2s;">Enviar Solicitud</button>
+	</form>
+	<div id="ticket-resultado" style="margin-top:30px;"></div>
+	<div id="estado-ticket" style="margin-top:20px;"></div>
+	<script src="solicitar-ayuda.js"></script>
+</body>
+</html>
