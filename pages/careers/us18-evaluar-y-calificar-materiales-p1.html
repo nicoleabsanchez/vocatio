@@ -88,39 +88,181 @@
       transform: translateX(-5px);
     }
 
-    .header {
+    header {
       background: linear-gradient(135deg, #693efe 0%, #8b7aff 100%);
-      padding: 40px;
-      text-align: center;
+      padding: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     .logo {
-      font-size: 48px;
+      font-size: 28px;
       font-weight: 700;
       color: white;
-      margin-bottom: 10px;
-    }
-
-    .nav {
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .nav a {
-      color: rgba(255,255,255,0.9);
       text-decoration: none;
-      font-size: 16px;
+    }
+
+    .logo-text {
+      display: inline-block;
+    }
+
+    .hamburger-menu {
+      display: none;
+    }
+
+    .hamburger-icon {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hamburger-icon span {
+      width: 25px;
+      height: 2px;
+      background: white;
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .nav-menu li {
+      position: relative;
+    }
+
+    .nav-menu a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      padding: 10px 20px;
+      display: block;
       transition: color 0.3s;
+      font-size: 15px;
+      font-weight: 500;
     }
 
-    .nav a:hover {
+    .nav-menu a:hover,
+    .nav-menu a.active {
       color: white;
+      background: rgba(255, 255, 255, 0.1);
     }
 
-    .content {
-      padding: 40px;
+    .profile-dropdown {
+      position: relative;
+    }
+
+    .profile-dropdown-checkbox {
+      display: none;
+    }
+
+    .profile-dropdown-label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      min-width: 200px;
+      display: none;
+      z-index: 100;
+      margin-top: 10px;
+    }
+
+    .profile-dropdown-checkbox:checked ~ .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #45444c;
+      text-decoration: none;
+      transition: background 0.3s;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f5f3ff;
+    }
+
+    .dropdown-menu a.logout {
+      color: #d32f2f;
+    }
+
+    .contact-btn {
+      background: #d4ff00;
+      color: #27017d;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .contact-btn:hover {
+      background: #b2ff00;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 255, 0, 0.3);
     }
 
     .video-section {
@@ -370,20 +512,75 @@
       .rating-number {
         font-size: 48px;
       }
+
+      .hamburger-icon {
+        display: flex;
+      }
+
+      .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: #693efe;
+        display: none;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .hamburger-menu:checked ~ .navbar-content .nav-menu {
+        display: flex;
+      }
+
+      .nav-menu a {
+        padding: 15px 20px;
+      }
+
+      .navbar-content {
+        gap: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="logo">vocatio</div>
-      <div class="nav">
-        <a href="#">Explorar carreras</a>
-        <a href="#">Ruta de aprendizaje</a>
-        <a href="#">Test vocacional</a>
-        <a href="#">Progreso</a>
+  <header>
+    <nav class="navbar">
+      <div class="container">
+        <input type="checkbox" id="menu-toggle" class="hamburger-menu" />
+        <div class="navbar-content">
+          <a href="./explore.html" class="logo">
+            <span class="logo-text">vocatio</span>
+          </a>
+          <label for="menu-toggle" class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+          <ul class="nav-menu">
+            <li><a href="./explore.html">Explorar carreras</a></li>
+            <li><a href="../events/events.html">Eventos</a></li>
+            <li><a href="../vocational-test/test.html">Test vocacional</a></li>
+            <li><a href="../results/results.html">Resultados</a></li>
+            <li><a href="../dashboard/learning-path.html">Ruta de aprendizaje</a></li>
+            <li><a href="./progreso.complete.html">Progreso</a></li>
+          </ul>
+          <div class="profile-dropdown">
+            <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox" />
+            <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+              <div class="profile-icon">J</div>
+            </label>
+            <div class="dropdown-menu">
+              <a href="../profile/profile.html">Mi Perfil</a>
+              <a href="../notifications/notifications.html">Notificaciones</a>
+              <a href="../../index.html" class="logout">Cerrar sesión</a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
+  </header>
+
+  <div class="container">
 
     <div class="content">
       <div class="tab-navigation">
@@ -488,6 +685,9 @@
             </div>
         </div>
       </div>
+      </div>
+      <div style="text-align: center; margin-top: 40px; padding-bottom: 40px;">
+        <a href="./explore.html" class="contact-btn">← Volver a Explorar Carreras</a>
       </div>
   </div>
 
