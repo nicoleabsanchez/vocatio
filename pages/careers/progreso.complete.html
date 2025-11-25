@@ -265,8 +265,8 @@
             return `Hace ${Math.floor(diff / 86400)} días`;
         }
 
-        // Cargar datos al iniciar
-        window.addEventListener('load', function() {
+        // Función para actualizar toda la página
+        function actualizarPagina() {
             // Intentar cargar datos de localStorage o API
             const storedData = localStorage.getItem('vocatioUserProgress');
             if (storedData) {
@@ -314,6 +314,18 @@
             } else {
                 document.getElementById('mensajeProgresoCero').style.display = 'block';
                 document.getElementById('mensajeProgresoCeroDetalle').style.display = 'block';
+            }
+        }
+
+        // Cargar datos al iniciar
+        document.addEventListener('DOMContentLoaded', function() {
+            actualizarPagina();
+        });
+
+        // Cargar datos cada vez que la página se hace visible
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                actualizarPagina();
             }
         });
 
