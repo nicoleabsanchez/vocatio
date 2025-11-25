@@ -203,23 +203,36 @@
             window.scrollTo(0, 0);
         });
 
-        // Datos de ejemplo (simular progreso)
+        // Datos del usuario - Comienza en cero, se actualiza según actividades reales
         const userData = {
-            testsCompleted: 3,
-            careersExplored: 12,
-            materialsReviewed: 28,
-            totalProgress: 75,
+            testsCompleted: 0,  // Se incrementa cuando usuario completa un test
+            careersExplored: 0,  // Se incrementa cuando usuario explora carreras
+            materialsReviewed: 0,  // Se incrementa cuando usuario revisa materiales
+            totalProgress: 0,  // Se calcula: (tests + carreras + materiales) / 3
             interests: {
-                technology: 85,
-                science: 70,
-                art: 60,
-                business: 45,
-                social: 30
-            }
+                technology: 0,  // Se actualiza según resultados del test
+                science: 0,
+                art: 0,
+                business: 0,
+                social: 0
+            },
+            weekActivity: [0, 0, 0, 0, 0, 0, 0],  // Lun a Dom
+            activities: []  // Se llena con actividades reales del usuario
         };
 
         // Cargar datos al iniciar
         window.addEventListener('load', function() {
+            // Intentar cargar datos de localStorage o API
+            const storedData = localStorage.getItem('vocatioUserProgress');
+            if (storedData) {
+                try {
+                    const loaded = JSON.parse(storedData);
+                    Object.assign(userData, loaded);
+                } catch (e) {
+                    console.log('No se pudo cargar datos guardados, usando valores iniciales');
+                }
+            }
+
             // Actualizar estadísticas
             document.getElementById('testsCompletados').textContent = userData.testsCompleted;
             document.getElementById('carrerasExploradas').textContent = userData.careersExplored;
@@ -229,21 +242,57 @@
 
             // Actualizar gráfica de intereses
             const barras = document.querySelectorAll('.grafica-intereses .barra');
-            barras[0].style.height = userData.interests.technology + '%';
-            barras[0].querySelector('span').textContent = userData.interests.technology + '%';
-            barras[1].style.height = userData.interests.science + '%';
-            barras[1].querySelector('span').textContent = userData.interests.science + '%';
-            barras[2].style.height = userData.interests.art + '%';
-            barras[2].querySelector('span').textContent = userData.interests.art + '%';
-            barras[3].style.height = userData.interests.business + '%';
-            barras[3].querySelector('span').textContent = userData.interests.business + '%';
-            barras[4].style.height = userData.interests.social + '%';
-            barras[4].querySelector('span').textContent = userData.interests.social + '%';
+            const interests = [userData.interests.technology, userData.interests.science, userData.interests.art, userData.interests.business, userData.interests.social];
+            barras.forEach((barra, index) => {
+                const value = interests[index] || 0;
+                barra.style.height = value + '%';
+                barra.querySelector('span').textContent = value + '%';
+            });
 
-            // Ocultar mensajes de progreso cero si hay datos
-            if (userData.totalProgress > 0) {
+            // Actualizar gráfica semanal
+            const diasBarras = document.querySelectorAll('.grafica-semanal .barra-dia');
+            diasBarras.forEach((barra, index) => {
+                const value = userData.weekActivity[index] || 0;
+                const heightPercent = (value / 10) * 100;  // Escala basada en máximo 10
+                barra.style.height = Math.max(heightPercent, 5) + '%';
+                barra.querySelector('span').textContent = value;
+            });
+
+            // Mostrar/ocultar elementos según si hay progreso
+            const hasProgress = userData.totalProgress > 0 || userData.activities.length > 0;
+            if (hasProgress) {
                 document.getElementById('mensajeProgresoCero').style.display = 'none';
                 document.getElementById('mensajeProgresoCeroDetalle').style.display = 'none';
+            } else {
+                document.getElementById('mensajeProgresoCero').style.display = 'block';
+                document.getElementById('mensajeProgresoCeroDetalle').style.display = 'block';
+            }
+
+            // Si hay actividades, actualizar la vista de detalles
+            if (userData.activities && userData.activities.length > 0) {
+                // Aquí se podrían cargar dinámicamente las actividades
+                console.log('Actividades disponibles:', userData.activities.length);
             }
         });
+
+        // Función para incrementar progreso (se puede llamar desde otras páginas)
+        window.incrementarProgreso = function(type, amount = 1) {
+            switch(type) {
+                case 'test':
+                    userData.testsCompleted += amount;
+                    break;
+                case 'career':
+                    userData.careersExplored += amount;
+                    break;
+                case 'material':
+                    userData.materialsReviewed += amount;
+                    break;
+            }
+            // Calcular progreso total
+            userData.totalProgress = Math.round(((userData.testsCompleted + userData.careersExplored + userData.materialsReviewed) / 30) * 100);
+            // Guardar en localStorage
+            localStorage.setItem('vocatioUserProgress', JSON.stringify(userData));
+            // Recargar la página para mostrar cambios
+            location.reload();
+        };
     </script>
