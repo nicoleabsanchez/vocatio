@@ -196,6 +196,74 @@
       font-size: 1.1rem;
     }
 
+    .analysis-section {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      margin-bottom: 40px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+
+    .analysis-section.active {
+      display: block;
+    }
+
+    .analysis-section h2 {
+      color: #693efe;
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .analysis-section .subtitle {
+      text-align: center;
+      color: #999;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+    }
+
+    .comparison-item {
+      margin-bottom: 25px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .comparison-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .comparison-item h3 {
+      color: #693efe;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .comparison-item ul {
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .comparison-item li {
+      color: #666;
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+      font-size: 0.95rem;
+    }
+
+    .comparison-item li:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #693efe;
+      font-weight: bold;
+    }
+
     @media (max-width: 768px) {
       .controls {
         flex-direction: column;
@@ -244,6 +312,12 @@
       <button class="btn btn-primary" id="compare-btn">Comparar Fortalezas y Debilidades</button>
       <button class="btn btn-primary" id="export-pdf-btn">Exportar PDF</button>
       <a href="./explore.html" class="btn btn-secondary">Volver a explorar carreras</a>
+    </div>
+
+    <div class="analysis-section" id="analysis-section">
+      <h2>Análisis comparativo de Fortalezas y Debilidades</h2>
+      <p class="subtitle" id="analysis-subtitle"></p>
+      <div id="analysis-content"></div>
     </div>
 
     <div class="table-wrapper">
@@ -309,6 +383,34 @@
       }
     };
 
+    // Análisis de fortalezas y debilidades por carrera
+    const analysisData = {
+      "Ingeniería de Sistemas": {
+        strengths: ["Alta demanda laboral", "Excelentes salarios", "Oportunidades internacionales", "Trabajo remoto disponible"],
+        weaknesses: ["Nivel de dificultad alto", "Inversión considerable", "Requiere dedicación intensiva", "Constante actualización tecnológica"]
+      },
+      "Administración de empresas": {
+        strengths: ["Versatilidad profesional", "Oportunidades en distintos sectores", "Desarrollo de liderazgo", "Menor inversión que Ingeniería"],
+        weaknesses: ["Media demanda actual", "Mercado competitivo", "Requiere experiencia práctica", "Salarios iniciales moderados"]
+      },
+      "Psicología": {
+        strengths: ["Ayuda significativa a la sociedad", "Múltiples especializaciones", "Flexibilidad laboral", "Demanda creciente en salud mental"],
+        weaknesses: ["Nivel medio-alto de dificultad", "Prácticas clínicas obligatorias", "Saturación en algunas ciudades", "Salarios variables según especialidad"]
+      },
+      "Medicina": {
+        strengths: ["Prestigio profesional", "Altísima demanda laboral", "Excelentes ingresos", "Impacto directo en vidas"],
+        weaknesses: ["Nivel muy alto de dificultad", "Inversión muy considerable", "Horarios exigentes", "Carrera muy larga"]
+      },
+      "Diseño Gráfico": {
+        strengths: ["Creatividad y expresión personal", "Demanda en industria digital", "Trabajo freelance posible", "Menor inversión"],
+        weaknesses: ["Mercado saturado en algunas áreas", "Salarios iniciales bajos", "Requiere portafolio fuerte", "Competencia internacional"]
+      },
+      "Arquitectura": {
+        strengths: ["Creatividad técnica", "Proyectos visibles e impactantes", "Demanda en construcción", "Potencial para emprendimiento"],
+        weaknesses: ["Nivel alto de dificultad", "Inversión considerable", "Mercado depende de economía", "Prácticas extensas requeridas"]
+      }
+    };
+
     const attributes = ["Duración", "Área", "Modalidad", "Salida Laboral", "Nivel de Dificultad", "Inversión Promedio"];
     let selectedCareers = [];
 
@@ -320,6 +422,9 @@
     const tableBody = document.getElementById('table-body');
     const comparisonTable = document.getElementById('comparison-table');
     const message = document.getElementById('message');
+    const analysisSection = document.getElementById('analysis-section');
+    const analysisContent = document.getElementById('analysis-content');
+    const analysisSubtitle = document.getElementById('analysis-subtitle');
 
     addBtn.addEventListener('click', () => {
       const selectedValue = careerSelect.value;
@@ -334,6 +439,7 @@
       selectedCareers.push(selectedValue);
       renderTable();
       careerSelect.value = '';
+      analysisSection.classList.remove('active');
     });
 
     compareBtn.addEventListener('click', () => {
@@ -341,10 +447,34 @@
         alert('Agrega al menos una carrera para comparar');
         return;
       }
-      alert('Comparación de fortalezas y debilidades:\n\n' + selectedCareers.join(', '));
+      generateAnalysis();
     });
 
     exportBtn.addEventListener('click', exportToPDF);
+
+    function generateAnalysis() {
+      const baseCareer = selectedCareers[0];
+      const otherCareers = selectedCareers.slice(1);
+
+      let html = `Se compara cada carrera respecto a <strong>${baseCareer}</strong>:<br><br>`;
+
+      // Comparar cada carrera contra la primera
+      otherCareers.forEach(career => {
+        html += `
+          <div class="comparison-item">
+            <h3>${career} vs ${baseCareer}</h3>
+            <ul>
+              <li><strong>Dificultad:</strong> ${careerData[career]["Nivel de Dificultad"]} vs ${careerData[baseCareer]["Nivel de Dificultad"]}.</li>
+              <li><strong>Salida Laboral:</strong> ${careerData[career]["Salida Laboral"]} vs ${careerData[baseCareer]["Salida Laboral"]}.</li>
+              <li><strong>Inversión Promedio:</strong> ${careerData[career]["Inversión Promedio"]} vs ${careerData[baseCareer]["Inversión Promedio"]}.</li>
+            </ul>
+          </div>
+        `;
+      });
+
+      analysisSubtitle.innerHTML = html;
+      analysisSection.classList.add('active');
+    }
 
     function renderTable() {
       if (selectedCareers.length === 0) {
@@ -363,7 +493,7 @@
           ${selectedCareers.map((career, idx) => `
             <th>
               <span class="career-name">${career}</span>
-              <button class="remove-btn" onclick="removeCareeer(${idx})">Quitar Comparación</button>
+              <button class="remove-btn" onclick="removeCareer(${idx})">Quitar Comparación</button>
             </th>
           `).join('')}
         </tr>
@@ -380,9 +510,10 @@
       `).join('');
     }
 
-    window.removeCareeer = (idx) => {
+    window.removeCareer = (idx) => {
       selectedCareers.splice(idx, 1);
       renderTable();
+      analysisSection.classList.remove('active');
     };
 
     function exportToPDF() {
