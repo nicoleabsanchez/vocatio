@@ -192,7 +192,14 @@ nextBtn.addEventListener("click", () => {
             respuestas: answers,
             intereses: testResults.intereses,
             porcentajes: testResults.porcentajes,
-            recomendaciones: testResults.recomendaciones
+            recomendaciones: testResults.recomendaciones,
+            interests: {
+                technology: testResults.porcentajes['Tecnología'] || 0,
+                science: testResults.porcentajes['Ciencias'] || 0,
+                art: testResults.porcentajes['Arte'] || 0,
+                business: testResults.porcentajes['Negocios'] || 0,
+                social: testResults.porcentajes['Social'] || 0
+            }
         }));
         
         // Guardar progreso
