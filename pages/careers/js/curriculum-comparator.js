@@ -734,7 +734,253 @@ function closeCurriculumComparator() {
   }
 }
 
-// Exportar comparación
+// Exportar comparación a PDF
 function exportComparison() {
-  alert('Funcionalidad de exportación en desarrollo. Próximamente podrás descargar la comparación en PDF.');
+  // Verificar que jsPDF esté disponible
+  if (typeof window.jspdf === 'undefined') {
+    alert('Error: La librería jsPDF no está cargada. Por favor, recarga la página.');
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  
+  // Obtener universidades seleccionadas
+  const selectedUniversities = [];
+  document.querySelectorAll('.university-chip input[type="checkbox"]:checked').forEach(input => {
+    selectedUniversities.push(input.value);
+  });
+
+  if (selectedUniversities.length === 0) {
+    alert('Por favor, selecciona al menos una universidad para exportar.');
+    return;
+  }
+
+  // Obtener filtro de semestre
+  const semesterFilter = document.getElementById('semester-filter').value;
+  const careerId = 'ingenieria-sistemas';
+  const careerData = curriculumData[careerId];
+
+  // Crear documento PDF
+  const doc = new jsPDF('p', 'mm', 'a4');
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 15;
+  let yPosition = margin;
+
+  // Función para agregar nueva página si es necesario
+  function checkNewPage(requiredSpace = 20) {
+    if (yPosition + requiredSpace > pageHeight - margin) {
+      doc.addPage();
+      yPosition = margin;
+      return true;
+    }
+    return false;
+  }
+
+  // Encabezado del documento
+  doc.setFillColor(102, 92, 231);
+  doc.rect(0, 0, pageWidth, 35, 'F');
+  
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(18);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Comparación de Mallas Curriculares', pageWidth / 2, 15, { align: 'center' });
+  
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Ingeniería de Sistemas', pageWidth / 2, 25, { align: 'center' });
+  
+  // Fecha de generación
+  doc.setFontSize(9);
+  const today = new Date().toLocaleDateString('es-PE', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+  doc.text(`Generado el: ${today}`, pageWidth - margin, 25, { align: 'right' });
+
+  yPosition = 45;
+
+  // Información de universidades comparadas
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Universidades comparadas:', margin, yPosition);
+  yPosition += 7;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  selectedUniversities.forEach(uniKey => {
+    const uni = careerData[uniKey];
+    doc.setTextColor(102, 92, 231);
+    doc.text(`• ${uni.name}`, margin + 5, yPosition);
+    doc.setTextColor(100, 100, 100);
+    doc.text(`${uni.totalCredits} créditos - ${uni.duration}`, margin + 5, yPosition + 5);
+    yPosition += 12;
+  });
+
+  yPosition += 5;
+
+  // Filtro aplicado
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'italic');
+  const filterText = semesterFilter === 'all' ? 'Todos los ciclos' : `Ciclo ${semesterFilter}`;
+  doc.text(`Filtro aplicado: ${filterText}`, margin, yPosition);
+  yPosition += 10;
+
+  // Línea separadora
+  doc.setDrawColor(200, 200, 200);
+  doc.line(margin, yPosition, pageWidth - margin, yPosition);
+  yPosition += 10;
+
+  // Obtener semestres a mostrar
+  const semestersToShow = semesterFilter === 'all' 
+    ? careerData[selectedUniversities[0]].semesters 
+    : careerData[selectedUniversities[0]].semesters.filter(s => s.semester === parseInt(semesterFilter));
+
+  // Iterar por cada semestre
+  semestersToShow.forEach((semester, semIndex) => {
+    checkNewPage(30);
+
+    // Título del semestre
+    doc.setFillColor(240, 240, 245);
+    doc.rect(margin, yPosition, pageWidth - 2 * margin, 10, 'F');
+    
+    doc.setTextColor(102, 92, 231);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Ciclo ${semester.semester}`, margin + 3, yPosition + 7);
+    yPosition += 15;
+
+    // Para cada universidad seleccionada
+    selectedUniversities.forEach((uniKey, uniIndex) => {
+      const uni = careerData[uniKey];
+      const uniSemester = uni.semesters.find(s => s.semester === semester.semester);
+      
+      if (!uniSemester) return;
+
+      checkNewPage(25);
+
+      // Nombre de la universidad
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.text(uni.name.split(' - ')[0], margin + 2, yPosition);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(100, 100, 100);
+      doc.text(`${uniSemester.credits} créditos`, pageWidth - margin - 20, yPosition);
+      yPosition += 7;
+
+      // Cursos
+      doc.setFontSize(8);
+      uniSemester.courses.forEach((course, courseIndex) => {
+        checkNewPage(8);
+
+        const isObligatorio = course.type === 'obligatorio';
+        const courseText = `${course.code} - ${course.name}`;
+        const creditText = `${course.credits} CR`;
+
+        // Indicador de tipo (círculo pequeño)
+        if (isObligatorio) {
+          doc.setFillColor(102, 92, 231);
+        } else {
+          doc.setFillColor(255, 165, 0);
+        }
+        doc.circle(margin + 4, yPosition - 1, 1, 'F');
+
+        // Texto del curso
+        doc.setTextColor(60, 60, 60);
+        doc.setFont('helvetica', 'normal');
+        
+        // Truncar texto si es muy largo
+        let displayText = courseText;
+        if (doc.getTextWidth(displayText) > (pageWidth - 2 * margin - 30)) {
+          while (doc.getTextWidth(displayText + '...') > (pageWidth - 2 * margin - 30) && displayText.length > 10) {
+            displayText = displayText.substring(0, displayText.length - 1);
+          }
+          displayText += '...';
+        }
+
+        doc.text(displayText, margin + 7, yPosition);
+        
+        // Créditos alineados a la derecha
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(102, 92, 231);
+        doc.text(creditText, pageWidth - margin - 3, yPosition, { align: 'right' });
+        
+        yPosition += 5;
+      });
+
+      yPosition += 5;
+
+      // Línea separadora entre universidades
+      if (uniIndex < selectedUniversities.length - 1) {
+        doc.setDrawColor(220, 220, 220);
+        doc.line(margin + 5, yPosition, pageWidth - margin - 5, yPosition);
+        yPosition += 5;
+      }
+    });
+
+    yPosition += 5;
+
+    // Separador entre ciclos
+    if (semIndex < semestersToShow.length - 1) {
+      checkNewPage(10);
+      doc.setDrawColor(200, 200, 200);
+      doc.setLineWidth(0.5);
+      doc.line(margin, yPosition, pageWidth - margin, yPosition);
+      yPosition += 10;
+    }
+  });
+
+  // Pie de página en todas las páginas
+  const totalPages = doc.internal.pages.length - 1;
+  for (let i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    doc.setFontSize(8);
+    doc.setTextColor(150, 150, 150);
+    doc.setFont('helvetica', 'italic');
+    doc.text(
+      `Página ${i} de ${totalPages} - VOCATIO by DecideClaro`,
+      pageWidth / 2,
+      pageHeight - 10,
+      { align: 'center' }
+    );
+  }
+
+  // Guardar PDF
+  const fileName = `Comparacion_Mallas_Ingenieria_Sistemas_${new Date().getTime()}.pdf`;
+  doc.save(fileName);
+
+  // Mostrar mensaje de éxito
+  showExportSuccess();
+}
+
+// Mostrar mensaje de éxito después de exportar
+function showExportSuccess() {
+  const successMsg = document.createElement('div');
+  successMsg.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 10002;
+    font-weight: 600;
+    animation: slideIn 0.3s ease;
+  `;
+  successMsg.innerHTML = '✓ Comparación exportada exitosamente';
+  document.body.appendChild(successMsg);
+
+  setTimeout(() => {
+    successMsg.style.opacity = '0';
+    successMsg.style.transition = 'opacity 0.3s';
+    setTimeout(() => successMsg.remove(), 300);
+  }, 3000);
 }

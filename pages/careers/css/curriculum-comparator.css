@@ -623,6 +623,17 @@
   }
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .semester-card,
 .unified-semester {
   animation: fadeInUp 0.3s ease;
