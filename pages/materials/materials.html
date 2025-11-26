@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../css/styles.css" />
     <link rel="stylesheet" href="../../css/components.css" />
     <link rel="stylesheet" href="../../css/responsive.css" />
+    <link rel="stylesheet" href="css/materials.css" />
   </head>
   <body>
     <!-- Actualizado navbar con naveaaaaaaaaaaaaaaaagación completa y checkbox hack para menú hamburguesa -->
@@ -72,163 +73,378 @@
             >← Volver a Carrera</a
           >
           <h1>Materiales sugeridos</h1>
-          <p>Ingeniería de Sistemas</p>
+          <p class="materials-description">
+            Explora los recursos educativos recomendados para ayudarte a
+            desarrollar las habilidades necesarias en tu camino profesional.
+          </p>
+
+          <!-- Estadísticas rápidas -->
+          <div class="materials-stats">
+            <div class="stat-item">
+              <span class="stat-value" id="total-materials">26</span>
+              <span class="stat-label">Recursos totales</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="saved-materials">5</span>
+              <span class="stat-label">Guardados</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Barra de búsqueda y filtros -->
+      <section class="filters-section">
+        <div class="container">
+          <!-- Búsqueda -->
+          <div class="search-bar">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Buscar materiales por título, tema o tecnología..."
+              class="search-input"
+            />
+            <button class="search-btn">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Botones de filtros rápidos y toggle de filtros -->
+          <div class="quick-filters-row">
+            <div class="quick-filters">
+              <button class="quick-filter-btn" id="show-all" data-filter="all">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                </svg>
+                Todos
+              </button>
+              <button
+                class="quick-filter-btn"
+                id="show-saved"
+                data-filter="saved"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
+                  ></path>
+                </svg>
+                Guardados (<span id="saved-count">5</span>)
+              </button>
+            </div>
+
+            <!-- Toggle de filtros -->
+            <button class="toggle-filters-btn" id="toggle-filters">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="4" y1="21" x2="4" y2="14"></line>
+                <line x1="4" y1="10" x2="4" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="3"></line>
+                <line x1="20" y1="21" x2="20" y2="16"></line>
+                <line x1="20" y1="12" x2="20" y2="3"></line>
+                <line x1="1" y1="14" x2="7" y2="14"></line>
+                <line x1="9" y1="8" x2="15" y2="8"></line>
+                <line x1="17" y1="16" x2="23" y2="16"></line>
+              </svg>
+              Filtros avanzados
+              <span class="filters-count" id="active-filters-count">0</span>
+            </button>
+          </div>
+
+          <!-- Panel de filtros colapsable -->
+          <div class="filters-panel" id="filters-panel">
+            <div class="filters-grid">
+              <!-- Filtro: Tipo de Recurso -->
+              <div class="filter-group">
+                <h4 class="filter-title">Tipo de Recurso</h4>
+                <div class="filter-options">
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="type" value="video" />
+                    <span class="checkbox-custom"></span>
+                    <span>Video</span>
+                    <span class="count">(12)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="type" value="lectura" />
+                    <span class="checkbox-custom"></span>
+                    <span>Lectura</span>
+                    <span class="count">(8)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="type" value="curso" />
+                    <span class="checkbox-custom"></span>
+                    <span>Curso</span>
+                    <span class="count">(5)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="type" value="enlace" />
+                    <span class="checkbox-custom"></span>
+                    <span>Enlace</span>
+                    <span class="count">(1)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Filtro: Nivel -->
+              <div class="filter-group">
+                <h4 class="filter-title">Nivel</h4>
+                <div class="filter-options">
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="level" value="principiante" />
+                    <span class="checkbox-custom"></span>
+                    <span>⭐ Principiante</span>
+                    <span class="count">(10)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="level" value="intermedio" />
+                    <span class="checkbox-custom"></span>
+                    <span>⭐⭐ Intermedio</span>
+                    <span class="count">(12)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="level" value="avanzado" />
+                    <span class="checkbox-custom"></span>
+                    <span>⭐⭐⭐ Avanzado</span>
+                    <span class="count">(4)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Filtro: Duración -->
+              <div class="filter-group">
+                <h4 class="filter-title">Duración</h4>
+                <div class="filter-options">
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="duration" value="corto" />
+                    <span class="checkbox-custom"></span>
+                    <span>< 30 min</span>
+                    <span class="count">(3)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="duration" value="medio" />
+                    <span class="checkbox-custom"></span>
+                    <span>30 min - 1h</span>
+                    <span class="count">(8)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="duration" value="largo" />
+                    <span class="checkbox-custom"></span>
+                    <span>1h - 3h</span>
+                    <span class="count">(7)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="duration" value="curso" />
+                    <span class="checkbox-custom"></span>
+                    <span>Curso completo</span>
+                    <span class="count">(8)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Filtro: Plataforma -->
+              <div class="filter-group">
+                <h4 class="filter-title">Plataforma</h4>
+                <div class="filter-options">
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="platform" value="youtube" />
+                    <span class="checkbox-custom"></span>
+                    <span>YouTube</span>
+                    <span class="count">(8)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="platform" value="coursera" />
+                    <span class="checkbox-custom"></span>
+                    <span>Coursera</span>
+                    <span class="count">(6)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="platform" value="udemy" />
+                    <span class="checkbox-custom"></span>
+                    <span>Udemy</span>
+                    <span class="count">(7)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="platform" value="linkedin" />
+                    <span class="checkbox-custom"></span>
+                    <span>LinkedIn Learning</span>
+                    <span class="count">(2)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="platform" value="otro" />
+                    <span class="checkbox-custom"></span>
+                    <span>Otros</span>
+                    <span class="count">(3)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Filtro: Precio -->
+              <div class="filter-group">
+                <h4 class="filter-title">Precio</h4>
+                <div class="filter-options">
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="price" value="gratis" />
+                    <span class="checkbox-custom"></span>
+                    <span>💚 Gratis</span>
+                    <span class="count">(15)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="price" value="pago" />
+                    <span class="checkbox-custom"></span>
+                    <span>💰 De pago</span>
+                    <span class="count">(11)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Filtro: Idioma -->
+              <div class="filter-group">
+                <h4 class="filter-title">Idioma</h4>
+                <div class="filter-options">
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="language" value="es" />
+                    <span class="checkbox-custom"></span>
+                    <span>🇪🇸 Español</span>
+                    <span class="count">(15)</span>
+                  </label>
+                  <label class="filter-checkbox">
+                    <input type="checkbox" name="language" value="en" />
+                    <span class="checkbox-custom"></span>
+                    <span>🇺🇸 Inglés</span>
+                    <span class="count">(11)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones de acción de filtros -->
+            <div class="filters-actions">
+              <button class="btn-text" id="clear-filters">
+                Limpiar filtros
+              </button>
+              <button class="btn-primary" id="apply-filters">
+                Aplicar filtros (<span id="results-count">26</span>)
+              </button>
+            </div>
+          </div>
+
+          <!-- Chips de filtros activos -->
+          <div class="active-filters-chips" id="active-filters-chips"></div>
+
+          <!-- Ordenamiento y vista -->
+          <div class="toolbar">
+            <div class="sort-controls">
+              <label for="sort-select">Ordenar por:</label>
+              <select id="sort-select" class="sort-select">
+                <option value="relevancia">Más relevantes</option>
+                <option value="populares">Más populares</option>
+                <option value="recientes">Más recientes</option>
+                <option value="valorados">Mejor valorados</option>
+                <option value="titulo">Título (A-Z)</option>
+              </select>
+            </div>
+            <div class="view-toggle">
+              <button class="view-btn active" data-view="grid">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                </svg>
+              </button>
+              <button class="view-btn" data-view="list">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="materials-content">
         <div class="container">
-          <div class="materials-grid">
-            <article class="material-card">
-              <div class="material-image">
-                <img
-                  src="../../assets/images/admin-concept.jpg"
-                  alt="Administración"
-                />
-              </div>
-              <div class="material-info">
-                <span class="material-type">Video</span>
-                <h3>¿Qué es la administración?</h3>
-                <p>
-                  Aprende los conceptos básicos de la administración en este
-                  video introductorio.
-                </p>
-                <div class="material-actions">
-                  <!-- Botones ahora son enlaces funcionales -->
-                  <a href="#guardar" class="btn btn-small btn-secondary"
-                    >★ Guardar</a
-                  >
-                  <a href="#explorar" class="btn btn-small btn-primary"
-                    >Explorar recurso</a
-                  >
-                </div>
-              </div>
-            </article>
+          <div class="materials-grid" id="materials-grid">
+            <!-- Los materiales se generarán dinámicamente con JavaScript -->
+          </div>
 
-            <article class="material-card">
-              <div class="material-image">
-                <img
-                  src="../../assets/images/project-management.png"
-                  alt="Gestión de Proyectos"
-                />
-              </div>
-              <div class="material-info">
-                <span class="material-type">Lectura</span>
-                <h3>Gestión de proyectos</h3>
-                <p>
-                  En este programa aprenderás gestión de proyectos y
-                  herramientas como Google Workspace.
-                </p>
-                <div class="material-actions">
-                  <a href="#guardar" class="btn btn-small btn-secondary"
-                    >★ Guardar</a
-                  >
-                  <a href="#explorar" class="btn btn-small btn-primary"
-                    >Explorar recurso</a
-                  >
-                </div>
-              </div>
-            </article>
+          <!-- Mensaje de sin resultados -->
+          <div class="no-results" id="no-results">
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <h3>No se encontraron materiales</h3>
+            <p>Intenta ajustar tus filtros o búsqueda</p>
+            <button
+              class="btn-primary"
+              onclick="document.getElementById('clear-filters').click()"
+            >
+              Limpiar filtros
+            </button>
+          </div>
 
-            <article class="material-card">
-              <div class="material-image">
-                <img
-                  src="../../assets/images/key-technologies.jpg"
-                  alt="Tecnologías Clave"
-                />
-              </div>
-              <div class="material-info">
-                <span class="material-type">Video</span>
-                <h3>Tecnologías clave</h3>
-                <p>
-                  Descubre las tecnologías empresariales clave que necesitas
-                  conocer.
-                </p>
-                <div class="material-actions">
-                  <a href="#guardar" class="btn btn-small btn-secondary"
-                    >★ Guardar</a
-                  >
-                  <a href="#explorar" class="btn btn-small btn-primary"
-                    >Explorar recurso</a
-                  >
-                </div>
-              </div>
-            </article>
-
-            <article class="material-card">
-              <div class="material-image">
-                <img
-                  src="../../assets/images/data-analysis.jpg"
-                  alt="Análisis de Datos"
-                />
-              </div>
-              <div class="material-info">
-                <span class="material-type">Lectura</span>
-                <h3>Análisis de Datos</h3>
-                <p>
-                  Aprende a analizar datos y tomar decisiones basadas en
-                  información.
-                </p>
-                <div class="material-actions">
-                  <a href="#guardar" class="btn btn-small btn-secondary"
-                    >★ Guardar</a
-                  >
-                  <a href="#explorar" class="btn btn-small btn-primary"
-                    >Explorar recurso</a
-                  >
-                </div>
-              </div>
-            </article>
-
-            <article class="material-card">
-              <div class="material-image">
-                <img
-                  src="../../assets/images/software-architecture.jpg"
-                  alt="Arquitectura de Software"
-                />
-              </div>
-              <div class="material-info">
-                <span class="material-type">Enlace</span>
-                <h3>Arquitectura de Software</h3>
-                <p>
-                  Guía completa sobre patrones y principios de arquitectura de
-                  software.
-                </p>
-                <div class="material-actions">
-                  <a href="#guardar" class="btn btn-small btn-secondary"
-                    >★ Guardar</a
-                  >
-                  <a href="#explorar" class="btn btn-small btn-primary"
-                    >Explorar recurso</a
-                  >
-                </div>
-              </div>
-            </article>
-
-            <article class="material-card">
-              <div class="material-image">
-                <img
-                  src="../../assets/images/diverse-students.jpg"
-                  alt="Desarrollo Profesional"
-                />
-              </div>
-              <div class="material-info">
-                <span class="material-type">Video</span>
-                <h3>Desarrollo Profesional</h3>
-                <p>
-                  Consejos para desarrollar tu carrera profesional en
-                  tecnología.
-                </p>
-                <div class="material-actions">
-                  <a href="#guardar" class="btn btn-small btn-secondary"
-                    >★ Guardar</a
-                  >
-                  <a href="#explorar" class="btn btn-small btn-primary"
-                    >Explorar recurso</a
-                  >
-                </div>
-              </div>
-            </article>
+          <!-- Botón cargar más -->
+          <div class="load-more-container" id="load-more-container">
+            <button class="btn-secondary" id="load-more-btn">
+              Cargar más materiales
+            </button>
           </div>
         </div>
       </section>
@@ -244,198 +460,6 @@
       </div>
     </footer>
 
-    <style>
-      .materials-header {
-        padding: var(--spacing-3xl) 0;
-        background: linear-gradient(
-          135deg,
-          rgba(124, 58, 237, 0.1),
-          rgba(191, 219, 254, 0.1)
-        );
-      }
-
-      .materials-header h1 {
-        margin-bottom: var(--spacing-sm);
-      }
-
-      .materials-header p {
-        color: var(--gray);
-        font-size: 1.125rem;
-      }
-
-      .materials-content {
-        padding: var(--spacing-3xl) 0;
-      }
-
-      .materials-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--spacing-2xl);
-      }
-
-      .material-card {
-        background-color: var(--white);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-md);
-        overflow: hidden;
-        transition: all 0.3s ease;
-      }
-
-      .material-card:hover {
-        box-shadow: var(--shadow-lg);
-        transform: translateY(-5px);
-      }
-
-      .material-image {
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-      }
-
-      .material-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .material-info {
-        padding: var(--spacing-lg);
-      }
-
-      .material-type {
-        display: inline-block;
-        background-color: var(--accent);
-        color: var(--dark);
-        padding: var(--spacing-xs) var(--spacing-md);
-        border-radius: var(--radius-md);
-        font-size: 0.875rem;
-        font-weight: 500;
-        margin-bottom: var(--spacing-md);
-      }
-
-      .material-card h3 {
-        margin-bottom: var(--spacing-sm);
-        color: var(--dark);
-      }
-
-      .material-card p {
-        margin-bottom: var(--spacing-lg);
-        color: var(--gray);
-      }
-
-      .material-actions {
-        display: flex;
-        gap: var(--spacing-md);
-      }
-
-      .material-actions a {
-        flex: 1;
-        text-decoration: none;
-      }
-
-      .hamburger-menu {
-        display: none;
-      }
-
-      .hamburger-icon {
-        display: none;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 24px;
-        cursor: pointer;
-      }
-
-      .hamburger-icon span {
-        width: 24px;
-        height: 3px;
-        background-color: var(--dark);
-        border-radius: 5px;
-      }
-
-      .profile-dropdown-checkbox {
-        display: none;
-      }
-
-      .profile-dropdown-label {
-        cursor: pointer;
-      }
-
-      .dropdown-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: var(--white);
-        width: 200px;
-        box-shadow: var(--shadow-md);
-        padding: var(--spacing-lg);
-      }
-
-      .dropdown-menu a {
-        color: var(--dark);
-        text-decoration: none;
-        display: block;
-        padding: var(--spacing-sm) 0;
-      }
-
-      .dropdown-menu a:hover {
-        background-color: var(--gray-light);
-      }
-
-      .profile-dropdown-checkbox:checked
-        + .profile-dropdown-label
-        + .dropdown-menu {
-        display: block;
-      }
-
-      @media (max-width: 768px) {
-        .materials-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        .hamburger-menu {
-          display: block;
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          z-index: 1000;
-        }
-
-        .hamburger-icon {
-          display: flex;
-        }
-
-        .nav-menu {
-          display: none;
-          position: absolute;
-          top: 60px;
-          right: 0;
-          background-color: var(--white);
-          width: 200px;
-          box-shadow: var(--shadow-md);
-          padding: var(--spacing-lg);
-        }
-
-        .nav-menu li {
-          margin-bottom: var(--spacing-md);
-        }
-
-        .nav-menu a {
-          color: var(--dark);
-          text-decoration: none;
-        }
-
-        .hamburger-menu:checked + .navbar-content .nav-menu {
-          display: block;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .materials-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
     <script src="js/materials.js"></script>
   </body>
 </html>
