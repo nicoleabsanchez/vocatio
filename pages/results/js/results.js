@@ -61,7 +61,19 @@ function updateResultsDisplay() {
 }
 
 // Cargar resultados al iniciar
-document.addEventListener('DOMContentLoaded', loadTestResults)
+document.addEventListener('DOMContentLoaded', function() {
+  loadTestResults();
+  
+  // Agregar listener al botón Personalizar
+  const personalizeBtn = document.querySelector('a.btn-share[href="./results.html"]');
+  if (personalizeBtn) {
+    personalizeBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Navegar a us20
+      window.location.href = '../careers/us20-compartir-resultados-en-redes-sociales-p1.html';
+    });
+  }
+});
 
 // ============================================
 // FUNCIONES DE HISTORIAL
