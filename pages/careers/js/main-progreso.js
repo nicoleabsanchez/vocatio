@@ -18,6 +18,53 @@ let categorias = ['Tecnología', 'Ciencias', 'Arte', 'Negocios', 'Social'];
 let progresoPorCategoria = { 'Tecnología': 0, 'Ciencias': 0, 'Arte': 0, 'Negocios': 0, 'Social': 0 };
 let actividadPorDia = {};
 
+// --- Cargar datos del test vocacional ---
+function cargarDatosDelTest() {
+    const testResults = localStorage.getItem('vocatioTestResults');
+    if (testResults) {
+        const data = JSON.parse(testResults);
+        
+        // Agregar el test como actividad
+        const hoy = new Date().toISOString().slice(0, 10);
+        const testActividad = {
+            fecha: hoy,
+            categoria: Object.entries(data.porcentajes || {}).sort((a, b) => b[1] - a[1])[0]?.[0] || 'Tecnología',
+            tipo: 'Test Vocacional Completado',
+            progreso: 100,
+            careerName: '',
+            rating: 5
+        };
+        
+        actividades.push(testActividad);
+        
+        // Actualizar intereses basados en el test
+        if (data.porcentajes) {
+            Object.entries(data.porcentajes).forEach(([categoria, porcentaje]) => {
+                progresoPorCategoria[categoria] = porcentaje;
+            });
+        }
+    }
+}
+
+// Cargar datos del localStorage si existen
+function cargarDatosDelLocalStorage() {
+    const userProgress = localStorage.getItem('vocatioUserProgress');
+    if (userProgress) {
+        const data = JSON.parse(userProgress);
+        // Usar datos existentes si están disponibles
+        if (data.activities && Array.isArray(data.activities)) {
+            actividades = [...data.activities];
+        }
+    }
+}
+
+// Inicializar carga de datos
+document.addEventListener('DOMContentLoaded', () => {
+    cargarDatosDelLocalStorage();
+    cargarDatosDelTest();
+});
+
+
 // --- Utilidades de cálculo ---
 function calcularProgresoTotal() {
     if (actividades.length === 0) return 0;

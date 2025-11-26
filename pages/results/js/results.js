@@ -4,6 +4,44 @@
 const BASE_FILE_SIZE = 0.5; // MB
 const SIZE_PER_SECTION = 0.5; // MB por sección
 
+// Cargar datos del test vocacional
+let testResults = null;
+function loadTestResults() {
+  const stored = localStorage.getItem('vocatioTestResults');
+  if (stored) {
+    testResults = JSON.parse(stored);
+    // Actualizar la página con los datos del test
+    updateResultsDisplay();
+  }
+}
+
+function updateResultsDisplay() {
+  if (!testResults) return;
+  
+  // Actualizar porcentajes de afinidad
+  const affinity = testResults.porcentajes || {};
+  document.querySelectorAll('.affinity-item').forEach((item, index) => {
+    const labels = item.querySelectorAll('span');
+    const interests = Object.keys(affinity);
+    if (interests[index]) {
+      labels[1].textContent = affinity[interests[index]] + '%';
+    }
+  });
+  
+  // Actualizar carreras recomendadas
+  if (testResults.recomendaciones && testResults.recomendaciones.length > 0) {
+    const recommendedList = document.querySelector('.recommended-careers');
+    if (recommendedList) {
+      recommendedList.innerHTML = testResults.recomendaciones.map(career => 
+        `<div class="career-item"><strong>${career}</strong></div>`
+      ).join('');
+    }
+  }
+}
+
+// Cargar resultados al iniciar
+document.addEventListener('DOMContentLoaded', loadTestResults)
+
 // ============================================
 // FUNCIONES DE HISTORIAL
 // ============================================
