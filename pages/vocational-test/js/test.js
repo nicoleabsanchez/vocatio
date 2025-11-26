@@ -6,16 +6,18 @@ function calculateResults(answers) {
         'Tecnología': 0,
         'Ciencias': 0,
         'Arte': 0,
-        'Negocios': 0
+        'Negocios': 0,
+        'Social': 0
     };
     
     // Mapeo de opciones a intereses
+    // Opción 0: Tecnología, 1: Social/Ciencias, 2: Arte, 3: Negocios/Planificación
     const respuestasAIntereses = [
-        ['Tecnología', 'Ciencias', 'Arte', 'Negocios'],
-        ['Tecnología', 'Ciencias', 'Arte', 'Negocios'],
-        ['Tecnología', 'Negocios', 'Negocios', 'Ciencias'],
-        ['Tecnología', 'Ciencias', 'Arte', 'Negocios'],
-        ['Tecnología', 'Ciencias', 'Arte', 'Negocios']
+        ['Tecnología', 'Social', 'Arte', 'Negocios'],           // ¿Qué tipo de actividades disfrutas?
+        ['Tecnología', 'Ciencias', 'Arte', 'Negocios'],         // ¿Qué ambiente prefieres?
+        ['Tecnología', 'Social', 'Social', 'Negocios'],         // ¿Qué tan cómodo trabajando en equipo?
+        ['Tecnología', 'Social', 'Arte', 'Negocios'],           // ¿Qué te motiva más?
+        ['Tecnología', 'Social', 'Arte', 'Negocios']            // ¿Qué habilidad es tu fortaleza?
     ];
     
     // Contar intereses
@@ -28,7 +30,7 @@ function calculateResults(answers) {
     const total = Object.values(interesesMap).reduce((a, b) => a + b, 0);
     const porcentajes = {};
     Object.entries(interesesMap).forEach(([key, value]) => {
-        porcentajes[key] = Math.round((value / total) * 100);
+        porcentajes[key] = total > 0 ? Math.round((value / total) * 100) : 0;
     });
     
     // Recomendaciones basadas en intereses dominantes
@@ -42,7 +44,8 @@ function getCareerRecommendations(porcentajes) {
         'Tecnología': ['Ingeniería de Sistemas', 'Desarrollo de Software', 'Ciencia de Datos'],
         'Ciencias': ['Medicina', 'Psicología', 'Biología', 'Química'],
         'Arte': ['Diseño Gráfico', 'Artes Plásticas', 'Comunicación Social'],
-        'Negocios': ['Administración', 'Contabilidad', 'Marketing', 'Emprendimiento']
+        'Negocios': ['Administración', 'Contabilidad', 'Marketing', 'Emprendimiento'],
+        'Social': ['Psicología', 'Trabajo Social', 'Educación', 'Recursos Humanos']
     };
     
     const sorted = Object.entries(porcentajes).sort((a, b) => b[1] - a[1]);
