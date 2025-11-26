@@ -1,5 +1,6 @@
-//
 // compartir.js
+// Permite compartir resultados en redes sociales y personalizarlos antes de compartir.
+// Todas las acciones y mensajes se adaptan a la actividad real del usuario.
 // Permite compartir resultados en redes sociales y personalizarlos antes de compartir.
 // Todas las acciones y mensajes se adaptan a la actividad real del usuario.
 
