@@ -18,13 +18,34 @@ function loadTestResults() {
 function updateResultsDisplay() {
   if (!testResults) return;
   
-  // Actualizar porcentajes de afinidad
+  // Mapeo de categorías del test a labels de UI
+  const categoryLabels = {
+    'Tecnología': 'Tecnología',
+    'Ciencias': 'Ingeniería',  // Ciencias mapeado a Ingeniería en UI
+    'Arte': 'Arte y Diseño',    // Arte mapeado a Arte y Diseño en UI
+    'Negocios': 'Negocios'      // Negocios se mantiene igual
+  };
+  
+  // Obtener porcentajes del test y ordenarlos de mayor a menor
   const affinity = testResults.porcentajes || {};
-  document.querySelectorAll('.affinity-item').forEach((item, index) => {
-    const labels = item.querySelectorAll('span');
-    const interests = Object.keys(affinity);
-    if (interests[index]) {
-      labels[1].textContent = affinity[interests[index]] + '%';
+  const sortedAffinity = Object.entries(affinity)
+    .sort((a, b) => b[1] - a[1])  // Ordenar descendente
+    .slice(0, 3);  // Tomar top 3
+  
+  // Actualizar cada affinity-item con los valores ordenados
+  const affinityItems = document.querySelectorAll('.affinity-item');
+  affinityItems.forEach((item, index) => {
+    if (sortedAffinity[index]) {
+      const [categoryKey, percentage] = sortedAffinity[index];
+      const displayLabel = categoryLabels[categoryKey] || categoryKey;
+      
+      const labels = item.querySelectorAll('span');
+      if (labels[0]) labels[0].textContent = displayLabel;
+      if (labels[1]) labels[1].textContent = percentage + '%';
+      
+      // Actualizar barra de progreso
+      const progressBar = item.querySelector('.progress-bar-fill');
+      if (progressBar) progressBar.style.width = percentage + '%';
     }
   });
   
