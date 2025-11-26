@@ -36,8 +36,7 @@
     if (exploreBtn) {
       exploreBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        // Nota: Asumiendo que esta es la ruta correcta
-        window.location.href = 'pages/careers/explore.html'; 
+        window.location.href = './explore.html'; 
       });
     }
 
