@@ -267,14 +267,70 @@
 
         // Función para actualizar toda la página
         function actualizarPagina() {
-            // Intentar cargar datos de localStorage o API
+            // Cargar test results
+            const testResults = localStorage.getItem('vocatioTestResults');
+            if (testResults) {
+                try {
+                    const data = JSON.parse(testResults);
+                    if (data.interests) {
+                        userData.testsCompleted = 1;
+                        userData.interests = {
+                            technology: data.interests.technology || 0,
+                            science: data.interests.science || 0,
+                            art: data.interests.art || 0,
+                            business: data.interests.business || 0,
+                            social: data.interests.social || 0
+                        };
+                        userData.totalProgress += 25;
+                    }
+                } catch (e) {
+                    console.error('Error loading test results:', e);
+                }
+            }
+            
+            // Cargar carreras exploradas
+            const careersExplored = localStorage.getItem('vocatioCareersExplored');
+            if (careersExplored) {
+                try {
+                    const careers = JSON.parse(careersExplored);
+                    userData.careersExplored = careers.length;
+                    userData.totalProgress += Math.min(25, careers.length * 5);
+                } catch (e) {
+                    console.error('Error loading careers:', e);
+                }
+            }
+            
+            // Cargar materiales revisados
+            const materialsReviewed = localStorage.getItem('vocatioMaterialsReviewed');
+            if (materialsReviewed) {
+                try {
+                    const materials = JSON.parse(materialsReviewed);
+                    userData.materialsReviewed = materials.length;
+                    userData.totalProgress += Math.min(25, materials.length * 5);
+                } catch (e) {
+                    console.error('Error loading materials:', e);
+                }
+            }
+            
+            // Cargar carrera seleccionada
+            const selectedCareer = localStorage.getItem('vocatioSelectedCareer');
+            if (selectedCareer) {
+                userData.totalProgress += 25;
+            }
+            
+            // Limitar progreso a 100%
+            userData.totalProgress = Math.min(100, userData.totalProgress);
+            
+            // Intentar cargar datos adicionales de vocatioUserProgress
             const storedData = localStorage.getItem('vocatioUserProgress');
             if (storedData) {
                 try {
                     const loaded = JSON.parse(storedData);
-                    Object.assign(userData, loaded);
+                    if (loaded.activities && Array.isArray(loaded.activities)) {
+                        userData.activities = loaded.activities;
+                    }
                 } catch (e) {
-                    console.log('No se pudo cargar datos guardados, usando valores iniciales');
+                    console.log('No se pudo cargar datos guardados');
                 }
             }
 

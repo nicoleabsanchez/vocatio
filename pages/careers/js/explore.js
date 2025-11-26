@@ -451,10 +451,23 @@ function registrarInteresArea(area) {
 
 // Función para registrar visualización de carrera
 function registrarVisualizacionCarrera(careerName) {
+  // Guardar en vocatioCareersExplored
+  const careersExplored = JSON.parse(localStorage.getItem('vocatioCareersExplored') || '[]');
+  
+  const careerExploration = {
+    type: 'career',
+    careerName: careerName,
+    area: selectedArea,
+    timestamp: new Date().toISOString()
+  };
+  
+  careersExplored.push(careerExploration);
+  localStorage.setItem('vocatioCareersExplored', JSON.stringify(careersExplored));
+  
+  // También guardar en vocatioUserProgress para compatibilidad
   const userProgress = JSON.parse(localStorage.getItem('vocatioUserProgress') || '{}');
   userProgress.careersExplored = (userProgress.careersExplored || 0) + 1;
   
-  // Registrar como actividad
   if (!userProgress.activities) {
     userProgress.activities = [];
   }
