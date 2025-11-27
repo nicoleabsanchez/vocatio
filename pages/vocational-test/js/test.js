@@ -1,68 +1,5 @@
 let testCompletado = false;
 
-// Función para calcular resultados basados en respuestas
-function calculateResults(answers) {
-    const interesesMap = {
-        'Tecnología': 0,
-        'Ciencias': 0,
-        'Arte': 0,
-        'Negocios': 0,
-        'Social': 0
-    };
-    
-    // Mapeo de opciones a intereses
-    // Opción 0: Tecnología, 1: Social/Ciencias, 2: Arte, 3: Negocios/Planificación
-    const respuestasAIntereses = [
-        ['Tecnología', 'Social', 'Arte', 'Negocios'],           // ¿Qué tipo de actividades disfrutas?
-        ['Tecnología', 'Ciencias', 'Arte', 'Negocios'],         // ¿Qué ambiente prefieres?
-        ['Tecnología', 'Social', 'Social', 'Negocios'],         // ¿Qué tan cómodo trabajando en equipo?
-        ['Tecnología', 'Social', 'Arte', 'Negocios'],           // ¿Qué te motiva más?
-        ['Tecnología', 'Social', 'Arte', 'Negocios']            // ¿Qué habilidad es tu fortaleza?
-    ];
-    
-    // Contar intereses
-    Object.entries(answers).forEach(([question, answer]) => {
-        const interes = respuestasAIntereses[parseInt(question)][answer];
-        interesesMap[interes] = (interesesMap[interes] || 0) + 1;
-    });
-    
-    // Calcular porcentajes
-    const total = Object.values(interesesMap).reduce((a, b) => a + b, 0);
-    const porcentajes = {};
-    Object.entries(interesesMap).forEach(([key, value]) => {
-        porcentajes[key] = total > 0 ? Math.round((value / total) * 100) : 0;
-    });
-    
-    // Recomendaciones basadas en intereses dominantes
-    const recomendaciones = getCareerRecommendations(porcentajes);
-    
-    return { intereses: interesesMap, porcentajes, recomendaciones };
-}
-
-function getCareerRecommendations(porcentajes) {
-    const careers = {
-        'Tecnología': ['Ingeniería de Sistemas', 'Desarrollo de Software', 'Ciencia de Datos'],
-        'Ciencias': ['Medicina', 'Psicología', 'Biología', 'Química'],
-        'Arte': ['Diseño Gráfico', 'Artes Plásticas', 'Comunicación Social'],
-        'Negocios': ['Administración', 'Contabilidad', 'Marketing', 'Emprendimiento'],
-        'Social': ['Psicología', 'Trabajo Social', 'Educación', 'Recursos Humanos']
-    };
-    
-    const sorted = Object.entries(porcentajes).sort((a, b) => b[1] - a[1]);
-    const topCareer = sorted[0][0];
-    return careers[topCareer] || [];
-}
-
-function calculateProgress(currentProgress) {
-    const testsCompleted = currentProgress.testsCompleted || 0;
-    const careersExplored = currentProgress.careersExplored || 0;
-    const materialsReviewed = currentProgress.materialsReviewed || 0;
-    
-    const totalActivities = testsCompleted + careersExplored + materialsReviewed;
-    const maxActivities = 10;
-    return Math.min(Math.round((totalActivities / maxActivities) * 100), 100);
-}
-
 // Handler para evitar salida
 const beforeUnloadHandler = (event) => {
     if (!testCompletado) {
@@ -187,30 +124,17 @@ nextBtn.addEventListener("click", () => {
     } else {
         testCompletado = true;
         window.removeEventListener("beforeunload", beforeUnloadHandler);
-        
-        // Guardar resultados en localStorage
-        const testResults = calculateResults(answers);
-        localStorage.setItem('vocatioTestResults', JSON.stringify({
-            fecha: new Date().toISOString(),
-            respuestas: answers,
-            intereses: testResults.intereses,
-            porcentajes: testResults.porcentajes,
-            recomendaciones: testResults.recomendaciones,
-            interests: {
-                technology: testResults.porcentajes['Tecnología'] || 0,
-                science: testResults.porcentajes['Ciencias'] || 0,
-                art: testResults.porcentajes['Arte'] || 0,
-                business: testResults.porcentajes['Negocios'] || 0,
-                social: testResults.porcentajes['Social'] || 0
-            }
-        }));
-        
-        // Guardar progreso
-        const currentProgress = JSON.parse(localStorage.getItem('vocatioUserProgress') || '{}');
-        currentProgress.testsCompleted = (currentProgress.testsCompleted || 0) + 1;
-        currentProgress.totalProgress = calculateProgress(currentProgress);
-        localStorage.setItem('vocatioUserProgress', JSON.stringify(currentProgress));
-        
+        // Analizar respuestas seleccionadas, guardarlas y luego redirigir a resultados
+        const answersText = {};
+        for (let i = 0; i < questions.length; i++) {
+            const selectedIndex = answers[i];
+            answersText[`pregunta${i+1}`] = questions[i].options[selectedIndex];
+        }
+
+        const resultado = analizarPerfilVocacional(answersText);
+        guardarResultados(resultado, answersText);
+
+        // Redirigir a la página de resultados
         window.location.href = "../results/results.html";
     }
 });
@@ -223,3 +147,121 @@ prevBtn.addEventListener("click", () => {
 });
 
 renderQuestion();
+
+// =================================================================
+// CÓDIGO DE ANÁLISIS DE PERFIL VOCACIONAL
+// Basado en las 5 preguntas y categorías proporcionadas
+// =================================================================
+
+function analizarPerfilVocacional(respuestasUsuario) {
+    // Matriz de clasificación (mapeo respuesta -> categorías)
+    const matrizClasificacion = {
+        "Resolver problemas complejos": ["Tecnología", "Ciencias", "Ingeniería"],
+        "Ayudar a otras personas": ["Salud"],
+        "Crear o diseñar cosas": ["Arte y Diseño"],
+        "Organizar información o datos": ["Negocios"],
+        "Tecnología y computadoras": ["Tecnología", "Ingeniería"],
+        "Salud y bienestar": ["Salud"],
+        "Arte y creatividad": ["Arte y Diseño"],
+        "Administración y gestión": ["Negocios"],
+        "Prefiero trabajar solo": ["Ciencias", "Arte y Diseño", "Tecnología"],
+        "Me adapto bien a equipos": ["Salud", "Negocios"],
+        "Me encanta liderar grupos": ["Negocios"],
+        "Prefiero seguir instrucciones claras": ["Negocios", "Ingeniería"],
+        "Innovar y crear nuevas soluciones": ["Tecnología", "Ciencias", "Ingeniería"],
+        "Impactar positivamente en otros": ["Salud"],
+        "Expresar ideas creativas": ["Arte y Diseño"],
+        "Lograr eficiencia y organización": ["Negocios", "Ingeniería"],
+        "Pensamiento lógico": ["Tecnología", "Ciencias", "Ingeniería"],
+        "Empatía": ["Salud"],
+        "Creatividad": ["Arte y Diseño"],
+        "Planificación": ["Negocios", "Ingeniería"]
+    };
+
+    // Mapeo de categoría -> carreras recomendadas (simple)
+    const carrerasPorCategoria = {
+        "Tecnología": ["Ingeniería de Sistemas", "Ciencias de la Computación"],
+        "Salud": ["Medicina", "Enfermería", "Psicología"],
+        "Negocios": ["Administración de Empresas", "Economía", "Marketing"],
+        "Ingeniería": ["Ingeniería Civil", "Ingeniería Industrial"],
+        "Arte y Diseño": ["Diseño Gráfico", "Arquitectura", "Bellas Artes"],
+        "Ciencias": ["Biología", "Química", "Física"]
+    };
+
+    // Inicializar contadores
+    const puntuacionCategorias = {
+        "Tecnología": 0,
+        "Salud": 0,
+        "Negocios": 0,
+        "Ingeniería": 0,
+        "Arte y Diseño": 0,
+        "Ciencias": 0
+    };
+
+    const totalPreguntas = Object.keys(respuestasUsuario).length || questions.length;
+
+    // Sumar puntos según la matriz
+    for (const [, respuesta] of Object.entries(respuestasUsuario)) {
+        const categorias = matrizClasificacion[respuesta] || [];
+        categorias.forEach(cat => {
+            if (puntuacionCategorias.hasOwnProperty(cat)) puntuacionCategorias[cat] += 1;
+        });
+    }
+
+    // Calcular porcentajes y determinar categoría principal
+    const resultadosPorcentuales = {};
+    let maxPuntuacion = 0;
+    let categoriaRecomendada = "";
+
+    for (const [categoria, puntuacion] of Object.entries(puntuacionCategorias)) {
+        const porcentaje = Math.round((puntuacion / totalPreguntas) * 100);
+        resultadosPorcentuales[categoria] = porcentaje;
+        if (puntuacion > maxPuntuacion) {
+            maxPuntuacion = puntuacion;
+            categoriaRecomendada = categoria;
+        }
+    }
+
+    // Mensaje y carreras
+    let mensaje = "";
+    if (maxPuntuacion === 0) {
+        mensaje = "No se encontró una coincidencia clara. Por favor, completa el test nuevamente.";
+    } else if (maxPuntuacion >= 3) {
+        mensaje = `Tu perfil muestra una fuerte afinidad con ${categoriaRecomendada}. ¡Estas carreras son ideales para ti!`;
+    } else {
+        mensaje = `Tienes una tendencia hacia ${categoriaRecomendada}. Te recomendamos explorar estas opciones.`;
+    }
+
+    return {
+        categorias: resultadosPorcentuales,
+        categoriaRecomendada,
+        puntuacionMaxima: maxPuntuacion,
+        porcentajeMaximo: resultadosPorcentuales[categoriaRecomendada] || 0,
+        carrerasRecomendadas: carrerasPorCategoria[categoriaRecomendada] || [],
+        mensaje
+    };
+}
+
+function guardarResultados(resultado, respuestasUsuario) {
+    try {
+        localStorage.setItem('vocatioTestResults', JSON.stringify(resultado));
+        localStorage.setItem('vocatioTestAnswers', JSON.stringify(respuestasUsuario));
+        localStorage.setItem('vocatioTestDate', new Date().toISOString());
+
+        // Actualizar progreso del usuario (estructura simple)
+        let userProgress = { testsCompleted: 0, careersExplored: 0, materialsReviewed: 0, totalProgress: 0 };
+        const stored = localStorage.getItem('vocatioUserProgress');
+        if (stored) {
+            try { userProgress = JSON.parse(stored); } catch (e) { }
+        }
+        userProgress.testsCompleted = (userProgress.testsCompleted || 0) + 1;
+        // recalcular totalProgress con una regla simple
+        const suma = (userProgress.testsCompleted || 0) + (userProgress.careersExplored || 0) + (userProgress.materialsReviewed || 0);
+        userProgress.totalProgress = Math.min(Math.round((suma / 30) * 100), 100);
+        localStorage.setItem('vocatioUserProgress', JSON.stringify(userProgress));
+
+        console.log('Resultados guardados en localStorage:', resultado);
+    } catch (err) {
+        console.error('No se pudo guardar resultados:', err);
+    }
+}
