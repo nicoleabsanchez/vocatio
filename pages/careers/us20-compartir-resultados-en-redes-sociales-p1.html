@@ -207,42 +207,92 @@
 
     // Cargar datos del test vocacional desde localStorage
     function cargarDatosDelTest() {
-      const testResults = localStorage.getItem('vocatioTestResults');
-      if (testResults) {
-        const data = JSON.parse(testResults);
-        
-        // Cargar porcentajes de afinidad
-        if (data.porcentajes) {
-          const porcentajesMap = {
-            'Tecnología': 'affinity-tecnologia',
-            'Ciencias': 'affinity-ciencias',
-            'Arte': 'affinity-innovacion',
-            'Negocios': 'affinity-analisis'
+      // Soporta varios formatos históricos de `vocatioTestResults`
+      const raw = localStorage.getItem('vocatioTestResults');
+      let data = null;
+      if (raw) {
+        try { data = JSON.parse(raw); } catch (e) { data = null; }
+      }
+
+      // Si no hay objeto en vocatioTestResults, intentar claves antiguas
+      if (!data) {
+        const alt = localStorage.getItem('vocatioTestResults_old') || localStorage.getItem('vocatioResults');
+        if (alt) {
+          try { data = JSON.parse(alt); } catch (e) { data = null; }
+        }
+      }
+
+      // Obtener porcentajes: soporta `porcentajes` o `categorias`
+      let porcentajes = null;
+      if (data) {
+        if (data.porcentajes) porcentajes = data.porcentajes;
+        else if (data.categorias) porcentajes = data.categorias;
+        else if (data.interests) {
+          // Si se guardó como objeto interests con keys pequeñas
+          porcentajes = {
+            'Tecnología': data.interests.technology || 0,
+            'Ciencias': data.interests.science || 0,
+            'Arte': data.interests.art || data.interests['arte'] || 0,
+            'Negocios': data.interests.business || 0,
+            'Social': data.interests.social || 0
           };
-          
-          Object.entries(data.porcentajes).forEach(([key, value]) => {
-            const elementId = porcentajesMap[key];
-            if (elementId) {
-              document.getElementById(elementId).textContent = value + '% de afinidad';
-            }
-          });
         }
-        
-        // Cargar fecha del test
-        if (data.fecha) {
-          const fecha = new Date(data.fecha).toLocaleDateString('es-ES', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          });
+      }
+
+      const porcentajesMap = {
+        'Tecnología': 'affinity-tecnologia',
+        'Ciencias': 'affinity-ciencias',
+        // algunas versiones usan 'Arte' y otras 'Arte y Diseño'
+        'Arte': 'affinity-innovacion',
+        'Arte y Diseño': 'affinity-innovacion',
+        'Negocios': 'affinity-analisis',
+        'Social': null // no mostramos Social en los 4 bloques actuales
+      };
+
+      if (porcentajes) {
+        Object.entries(porcentajes).forEach(([key, value]) => {
+          const elementId = porcentajesMap[key];
+          if (elementId) {
+            document.getElementById(elementId).textContent = (typeof value === 'number' ? value : parseInt(value) || 0) + '% de afinidad';
+          }
+        });
+      }
+
+      // Fecha: preferir `vocatioTestDate`, luego `data.fecha` o `data.date`
+      const dateRaw = localStorage.getItem('vocatioTestDate') || (data && (data.fecha || data.date));
+      if (dateRaw) {
+        try {
+          const fecha = new Date(dateRaw).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
           document.getElementById('dateInfo').textContent = 'Realizado el ' + fecha;
+        } catch (e) {
+          // si la fecha no es válida, mostrar texto bruto
+          document.getElementById('dateInfo').textContent = 'Realizado el ' + dateRaw;
         }
-        
-        // Cargar carreras recomendadas
-        if (data.recomendaciones && data.recomendaciones.length > 0) {
-          const listHTML = data.recomendaciones.map(career => `<li>${career}</li>`).join('');
-          document.getElementById('recommended-list').innerHTML = listHTML;
+      }
+
+      // Carreras recomendadas: `carrerasRecomendadas` || `recomendaciones` || `recomendaciones` dentro de otros formatos
+      let carreras = [];
+      if (data) {
+        if (Array.isArray(data.carrerasRecomendadas) && data.carrerasRecomendadas.length) carreras = data.carrerasRecomendadas;
+        else if (Array.isArray(data.recomendaciones) && data.recomendaciones.length) carreras = data.recomendaciones;
+        else if (Array.isArray(data.recomendacionesCarreras) && data.recomendacionesCarreras.length) carreras = data.recomendacionesCarreras;
+        else if (data.categoriaRecomendada) {
+          // si solo se guardó la categoría principal, mostrar las carreras del mapeo simple
+          const map = {
+            'Tecnología': ['Ingeniería de Sistemas','Ciencias de la Computación'],
+            'Ciencias': ['Biología','Química','Física'],
+            'Arte': ['Diseño Gráfico','Arquitectura'],
+            'Arte y Diseño': ['Diseño Gráfico','Arquitectura'],
+            'Negocios': ['Administración de Empresas','Economía'],
+            'Salud': ['Medicina','Enfermería']
+          };
+          carreras = map[data.categoriaRecomendada] || [];
         }
+      }
+
+      if (carreras && carreras.length) {
+        const listHTML = carreras.map(c => `<li>${c}</li>`).join('');
+        document.getElementById('recommended-list').innerHTML = listHTML;
       }
     }
 
