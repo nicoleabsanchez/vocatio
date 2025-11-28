@@ -32,9 +32,11 @@
         .intereses, .actividad-semanal { background: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; }
         .intereses h2, .actividad-semanal h2 { font-size: 1.3rem; font-weight: 600; margin-bottom: 25px; }
         .grafica-intereses, .grafica-semanal { display: flex; align-items: flex-end; justify-content: space-between; height: 250px; gap: 15px; }
-        .barra { background: linear-gradient(180deg, #8b7fff, #6c63ff); border-radius: 8px 8px 0 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 10px; min-width: 50px; flex: 1; }
-        .barra span { color: #6c63ff; font-weight: 600; margin-bottom: 8px; }
-        .barra div { font-size: 0.85rem; color: #666; text-align: center; margin-top: 10px; }
+        /* Interest bar: percent above, fill grows from bottom */
+        .barra { background: transparent; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-width: 50px; flex: 1; position: relative; }
+        .barra .percent { color: #6c63ff; font-weight: 700; margin-bottom: 8px; }
+        .barra .bar-fill { width: 100%; background: linear-gradient(180deg, #8b7fff, #6c63ff); border-radius: 8px 8px 0 0; transition: height 0.5s ease; display: block; }
+        .barra .label { font-size: 0.85rem; color: #666; text-align: center; margin-top: 8px; }
         .barra-dia { background: linear-gradient(180deg, #8b7fff, #6c63ff); border-radius: 8px 8px 0 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 10px; flex: 1; }
         .barra-dia span { color: #6c63ff; font-weight: 600; margin-bottom: 8px; }
         .barra-dia div { font-size: 0.85rem; color: #666; text-align: center; margin-top: 10px; }
@@ -110,23 +112,23 @@
             <section class="intereses">
                 <h2>Intereses Predominantes</h2>
                 <div class="grafica-intereses">
-                    <div class="barra" data-cat="Tecnología" style="height:0%"><span>0%</span><div>Tecnología</div></div>
-                    <div class="barra" data-cat="Ciencias" style="height:0%"><span>0%</span><div>Ciencias</div></div>
-                    <div class="barra" data-cat="Arte" style="height:0%"><span>0%</span><div>Arte</div></div>
-                    <div class="barra" data-cat="Negocios" style="height:0%"><span>0%</span><div>Negocios</div></div>
-                    <div class="barra" data-cat="Social" style="height:0%"><span>0%</span><div>Social</div></div>
+                    <div class="barra" data-cat="Tecnología"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Tecnología</div></div>
+                    <div class="barra" data-cat="Ciencias"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Ciencias</div></div>
+                    <div class="barra" data-cat="Arte"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Arte</div></div>
+                    <div class="barra" data-cat="Negocios"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Negocios</div></div>
+                    <div class="barra" data-cat="Social"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Social</div></div>
                 </div>
             </section>
             <section class="actividad-semanal">
                 <h2>Actividad Semanal</h2>
                 <div class="grafica-semanal">
-                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Lun</div></div>
-                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Mar</div></div>
-                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Mié</div></div>
-                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Jue</div></div>
-                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Vie</div></div>
-                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Sáb</div></div>
-                    <div class="barra-dia" data-fecha="" style="height:20%"><span>0</span><div>Dom</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="0" style="height:5%"><span>0</span><div>Lun</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="1" style="height:5%"><span>0</span><div>Mar</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="2" style="height:5%"><span>0</span><div>Mié</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="3" style="height:5%"><span>0</span><div>Jue</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="4" style="height:5%"><span>0</span><div>Vie</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="5" style="height:5%"><span>0</span><div>Sáb</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="6" style="height:5%"><span>0</span><div>Dom</div></div>
                 </div>
             </section>
             <button id="btnSiguiente" class="btn-principal">Siguiente</button>
@@ -267,56 +269,77 @@
 
         // Función para actualizar toda la página
         function actualizarPagina() {
-            // Cargar test results
-            const testResults = localStorage.getItem('vocatioTestResults');
-            if (testResults) {
+                // Cargar contadores persistentes
+                // Tests: use 'vocatioTestsTaken' counter (number of times user completed test)
+                const testsTaken = parseInt(localStorage.getItem('vocatioTestsTaken') || '0', 10);
+                // If testsTaken is zero but a result exists, initialize to 1
+                const rawTestResults = localStorage.getItem('vocatioTestResults');
+                const hasTestResults = !!rawTestResults;
+                let testsCount = testsTaken;
+                if (testsCount === 0 && hasTestResults) {
+                    testsCount = 1;
+                    localStorage.setItem('vocatioTestsTaken', '1');
+                }
+                userData.testsCompleted = testsCount;
+
+                // Intereses desde el último resultado
+                if (hasTestResults) {
+                    try {
+                        const data = JSON.parse(rawTestResults);
+                        if (data.interests) {
+                            userData.interests = {
+                                technology: data.interests.technology || 0,
+                                science: data.interests.science || 0,
+                                art: data.interests.art || 0,
+                                business: data.interests.business || 0,
+                                social: data.interests.social || 0
+                            };
+                        }
+                    } catch (e) {
+                        console.error('Error loading test results:', e);
+                    }
+                }
+
+                // Carreras favoritas: prefer 'vocatioFavoriteCareers' else fallback to 'vocatioCareersExplored'
                 try {
-                    const data = JSON.parse(testResults);
-                    if (data.interests) {
-                        userData.testsCompleted = 1;
-                        userData.interests = {
-                            technology: data.interests.technology || 0,
-                            science: data.interests.science || 0,
-                            art: data.interests.art || 0,
-                            business: data.interests.business || 0,
-                            social: data.interests.social || 0
-                        };
-                        userData.totalProgress += 25;
+                    const favs = JSON.parse(localStorage.getItem('vocatioFavoriteCareers') || 'null');
+                    if (Array.isArray(favs)) {
+                        userData.careersExplored = favs.length;
+                    } else {
+                        const careersExplored = JSON.parse(localStorage.getItem('vocatioCareersExplored') || '[]');
+                        userData.careersExplored = Array.isArray(careersExplored) ? careersExplored.length : 0;
                     }
                 } catch (e) {
-                    console.error('Error loading test results:', e);
+                    console.error('Error loading favorite careers:', e);
                 }
-            }
-            
-            // Cargar carreras exploradas
-            const careersExplored = localStorage.getItem('vocatioCareersExplored');
-            if (careersExplored) {
+
+                // Materiales revisados: stored as array 'vocatioMaterialsReviewed' OR track by selected career history
                 try {
-                    const careers = JSON.parse(careersExplored);
-                    userData.careersExplored = careers.length;
-                    userData.totalProgress += Math.min(25, careers.length * 5);
+                    const materials = JSON.parse(localStorage.getItem('vocatioMaterialsReviewed') || 'null');
+                    if (Array.isArray(materials)) {
+                        userData.materialesRevisados = materials.length;
+                        userData.materialsReviewed = materials.length;
+                    }
                 } catch (e) {
-                    console.error('Error loading careers:', e);
+                    console.error('Error loading materials reviewed:', e);
                 }
-            }
-            
-            // Cargar materiales revisados
-            const materialsReviewed = localStorage.getItem('vocatioMaterialsReviewed');
-            if (materialsReviewed) {
+                // If a career was selected, ensure it's counted once in a by-career set
                 try {
-                    const materials = JSON.parse(materialsReviewed);
-                    userData.materialsReviewed = materials.length;
-                    userData.totalProgress += Math.min(25, materials.length * 5);
+                    const sel = localStorage.getItem('vocatioSelectedCareer');
+                    if (sel) {
+                        const reviewedByCareer = JSON.parse(localStorage.getItem('vocatioMaterialsReviewedByCareer') || '[]');
+                        const careerKey = typeof sel === 'string' ? sel : JSON.stringify(sel);
+                        if (Array.isArray(reviewedByCareer)) {
+                            if (!reviewedByCareer.includes(careerKey)) {
+                                reviewedByCareer.push(careerKey);
+                                localStorage.setItem('vocatioMaterialsReviewedByCareer', JSON.stringify(reviewedByCareer));
+                            }
+                            userData.materialsReviewed = reviewedByCareer.length;
+                        }
+                    }
                 } catch (e) {
-                    console.error('Error loading materials:', e);
+                    console.error('Error handling selected career materials:', e);
                 }
-            }
-            
-            // Cargar carrera seleccionada
-            const selectedCareer = localStorage.getItem('vocatioSelectedCareer');
-            if (selectedCareer) {
-                userData.totalProgress += 25;
-            }
             
             // Limitar progreso a 100%
             userData.totalProgress = Math.min(100, userData.totalProgress);
@@ -329,34 +352,52 @@
                     if (loaded.activities && Array.isArray(loaded.activities)) {
                         userData.activities = loaded.activities;
                     }
+                        if (Array.isArray(loaded.weekActivity)) {
+                            userData.weekActivity = loaded.weekActivity;
+                        }
                 } catch (e) {
                     console.log('No se pudo cargar datos guardados');
                 }
             }
 
+                // Load week activity from dedicated key if present
+                try {
+                    const week = JSON.parse(localStorage.getItem('vocatioWeekActivity') || 'null');
+                    if (Array.isArray(week) && week.length === 7) {
+                        userData.weekActivity = week;
+                    }
+                } catch (e) {
+                    console.error('Error loading week activity:', e);
+                }
+
             // Actualizar estadísticas
             document.getElementById('testsCompletados').textContent = userData.testsCompleted;
             document.getElementById('carrerasExploradas').textContent = userData.careersExplored;
-            document.getElementById('materialesRevisados').textContent = userData.materialsReviewed;
+            document.getElementById('materialesRevisados').textContent = (userData.materialsReviewed || 0);
             document.getElementById('progresoTotal').textContent = userData.totalProgress + '%';
             document.getElementById('barraProgreso').style.width = userData.totalProgress + '%';
 
-            // Actualizar gráfica de intereses
+            // Actualizar gráfica de intereses (usar .bar-fill y .percent)
             const barras = document.querySelectorAll('.grafica-intereses .barra');
             const interests = [userData.interests.technology, userData.interests.science, userData.interests.art, userData.interests.business, userData.interests.social];
             barras.forEach((barra, index) => {
-                const value = interests[index] || 0;
-                barra.style.height = value + '%';
-                barra.querySelector('span').textContent = value + '%';
+                const value = Math.round(interests[index] || 0);
+                const fill = barra.querySelector('.bar-fill');
+                const pct = barra.querySelector('.percent');
+                if (fill) fill.style.height = Math.max(value, 2) + '%';
+                if (pct) pct.textContent = value + '%';
             });
 
-            // Actualizar gráfica semanal
+            // Actualizar gráfica semanal (persistida en userData.weekActivity)
             const diasBarras = document.querySelectorAll('.grafica-semanal .barra-dia');
-            diasBarras.forEach((barra, index) => {
+            diasBarras.forEach((barra) => {
+                const index = parseInt(barra.getAttribute('data-day-index') || '0', 10);
                 const value = userData.weekActivity[index] || 0;
-                const heightPercent = (value / 10) * 100;  // Escala basada en máximo 10
+                const maxPerDay = 10; // escala máxima por día
+                const heightPercent = (value / maxPerDay) * 100;
                 barra.style.height = Math.max(heightPercent, 5) + '%';
-                barra.querySelector('span').textContent = value;
+                const span = barra.querySelector('span');
+                if (span) span.textContent = value;
             });
 
             // Generar actividades en vista de detalles
@@ -398,22 +439,54 @@
             // Actualizar estadísticas según tipo
             switch(activityData.type) {
                 case 'test':
-                    userData.testsCompleted++;
+                    // increment tests counter (persisted)
+                    const prevCount = parseInt(localStorage.getItem('vocatioTestsTaken') || '0', 10);
+                    const newCount = prevCount + 1;
+                    localStorage.setItem('vocatioTestsTaken', String(newCount));
+                    userData.testsCompleted = newCount;
                     break;
                 case 'material':
-                    userData.materialsReviewed++;
+                    // track reviewed materials; if careerName present, mark by career
+                    if (activityData.careerName) {
+                        try {
+                            const key = activityData.careerName;
+                            const reviewed = JSON.parse(localStorage.getItem('vocatioMaterialsReviewedByCareer') || '[]');
+                            if (!reviewed.includes(key)) {
+                                reviewed.push(key);
+                                localStorage.setItem('vocatioMaterialsReviewedByCareer', JSON.stringify(reviewed));
+                            }
+                            userData.materialsReviewed = reviewed.length;
+                        } catch (e) {
+                            console.error('Error updating materials by career', e);
+                        }
+                    } else {
+                        userData.materialsReviewed++;
+                    }
                     break;
                 case 'career':
                     userData.careersExplored++;
                     break;
             }
 
+            // Increment weekly activity for today
+            try {
+                const now = new Date();
+                // convert JS getDay (0=Sun) to our index Mon=0..Sun=6
+                const jsDay = now.getDay();
+                const dayIndex = (jsDay + 6) % 7;
+                userData.weekActivity = userData.weekActivity || [0,0,0,0,0,0,0];
+                userData.weekActivity[dayIndex] = (userData.weekActivity[dayIndex] || 0) + 1;
+                localStorage.setItem('vocatioWeekActivity', JSON.stringify(userData.weekActivity));
+            } catch (e) {
+                console.error('Error updating week activity', e);
+            }
+
             // Recalcular progreso total
-            userData.totalProgress = Math.round(((userData.testsCompleted + userData.careersExplored + userData.materialsReviewed) / 30) * 100);
+            userData.totalProgress = Math.round(((userData.testsCompleted + userData.careersExplored + (userData.materialsReviewed||0)) / 30) * 100);
 
             // Guardar en localStorage
             localStorage.setItem('vocatioUserProgress', JSON.stringify(userData));
-            
+
             // Recargar la página para mostrar cambios
             location.reload();
         };
@@ -422,7 +495,11 @@
         window.incrementarProgreso = function(type, amount = 1) {
             switch(type) {
                 case 'test':
-                    userData.testsCompleted += amount;
+                    // update persistent tests counter
+                    const prev = parseInt(localStorage.getItem('vocatioTestsTaken') || '0', 10);
+                    const updated = prev + amount;
+                    localStorage.setItem('vocatioTestsTaken', String(updated));
+                    userData.testsCompleted = updated;
                     break;
                 case 'career':
                     userData.careersExplored += amount;
@@ -437,5 +514,36 @@
             localStorage.setItem('vocatioUserProgress', JSON.stringify(userData));
             // Recargar la página para mostrar cambios
             location.reload();
+        };
+
+        // Helper: registrar test completion from test page
+        window.registrarTestCompletion = function(resultData) {
+            // resultData optional, will be stored as last result
+            try {
+                const prev = parseInt(localStorage.getItem('vocatioTestsTaken') || '0', 10);
+                const updated = prev + 1;
+                localStorage.setItem('vocatioTestsTaken', String(updated));
+                if (resultData) localStorage.setItem('vocatioTestResults', JSON.stringify(resultData));
+                // also push activity
+                window.agregarActividad({ type: 'test', name: resultData && resultData.name ? resultData.name : 'Test', progress: 100, careerName: (resultData && resultData.topCareer) || '' });
+            } catch (e) { console.error(e); }
+        };
+
+        // Helper: mark a selected career (from explore) so materialsReviewed counts by career
+        window.marcarSeleccionCarrera = function(careerKey) {
+            try {
+                if (!careerKey) return;
+                localStorage.setItem('vocatioSelectedCareer', careerKey);
+                const reviewed = JSON.parse(localStorage.getItem('vocatioMaterialsReviewedByCareer') || '[]');
+                if (!reviewed.includes(careerKey)) {
+                    reviewed.push(careerKey);
+                    localStorage.setItem('vocatioMaterialsReviewedByCareer', JSON.stringify(reviewed));
+                }
+                // update materialsReviewed
+                const materialsArr = JSON.parse(localStorage.getItem('vocatioMaterialsReviewed') || '[]');
+                localStorage.setItem('vocatioMaterialsReviewed', JSON.stringify(materialsArr));
+                // push an activity
+                window.agregarActividad({ type: 'career', name: careerKey, careerName: careerKey });
+            } catch (e) { console.error(e); }
         };
     </script>
