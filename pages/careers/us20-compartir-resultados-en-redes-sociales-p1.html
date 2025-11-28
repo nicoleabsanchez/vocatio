@@ -17,87 +17,105 @@
       <a href="./progreso.complete.html" style="color:rgba(255,255,255,0.9); text-decoration:none; font-size:16px; transition:color 0.3s;">Progreso</a>
     </nav>
   </div>
-  <div class="header">
-    <div class="logo">vocatio</div>
-    <h1 class="title">Mis Resultados</h1>
-    <p class="subtitle">Personaliza y comparte tus resultados</p>
-  </div>
-
   <div class="container">
-    <div class="main-content">
-      <div class="results-card" id="resultsCard">
-        <div class="results-grid">
-          <div class="result-item">
-            <div class="result-emoji">💻</div>
-            <div class="result-name">Tecnología</div>
-            <div class="result-percentage" id="affinity-tecnologia">—% de afinidad</div>
-          </div>
-          <div class="result-item">
-            <div class="result-emoji">🔬</div>
-            <div class="result-name">Ciencias</div>
-            <div class="result-percentage" id="affinity-ciencias">—% de afinidad</div>
-          </div>
-          <div class="result-item">
-            <div class="result-emoji">🎨</div>
-            <div class="result-name">Arte</div>
-            <div class="result-percentage" id="affinity-arte">—% de afinidad</div>
-          </div>
-          <div class="result-item">
-            <div class="result-emoji">💼</div>
-            <div class="result-name">Negocios</div>
-            <div class="result-percentage" id="affinity-negocios">—% de afinidad</div>
-          </div>
-          <div class="result-item">
-            <div class="result-emoji">🤝</div>
-            <div class="result-name">Social</div>
-            <div class="result-percentage" id="affinity-social">—% de afinidad</div>
-          </div>
-        </div>
-        <div class="date-info" id="dateInfo">Realizado el —</div>
+    <div class="header-card">
+      <div class="header-left">
+        <div class="logo">vocatio</div>
       </div>
-
-      <div class="careers-card">
-        <h3 class="careers-title">Carreras Recomendadas</h3>
-        <ul class="careers-list" id="recommended-list">
-          <!-- Se rellenará dinámicamente -->
-        </ul>
+      <div class="header-center">
+        <h1 class="title">Mis Resultados</h1>
+        <p class="subtitle">Resultados de tu test vocacional completado</p>
       </div>
     </div>
 
-    <div class="sidebar">
-      <div class="customize-card">
-        <h2 class="customize-title">✨ Personalizar</h2>
-        <div class="form-group">
-          <label class="form-label">Título personalizado</label>
-          <input type="text" class="form-input" id="customTitle" placeholder="Ej: ¡Descubrí mi vocación!">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mensaje personalizado</label>
-          <textarea class="form-textarea" id="customMessage" placeholder="Agrega un mensaje personal para compartir..."></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Tema de color</label>
-          <select class="form-select" id="colorTheme">
-            <option value="purple">Morado (Predeterminado)</option>
-            <option value="blue">Azul</option>
-            <option value="green">Verde</option>
-            <option value="orange">Naranja</option>
-            <option value="pink">Rosa</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mostrar fecha</label>
-          <select class="form-select" id="showDate">
-            <option value="yes">Sí</option>
-            <option value="no">No</option>
-          </select>
-        </div>
-        <button class="preview-btn" id="previewBtn">👁️ Vista Previa</button>
+    <div class="results-section">
+      <div class="results-header">
+        <h2 class="results-title">Test Vocacional Completado</h2>
+        <p class="results-date" id="dateInfo">Realizado el —</p>
       </div>
 
-      <div class="share-card">
-        <h3 class="share-title">Compartir en:</h3>
-        <div class="social-buttons">
+      <h3 class="section-subtitle">Tus Áreas de Interés Principales</h3>
+      
+      <div class="results-grid">
+        <div class="result-item">
+          <div class="result-emoji">💻</div>
+          <div class="result-name">Tecnología</div>
+          <div class="result-percentage" id="affinity-tecnologia">—%</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-tecnologia" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="result-item">
+          <div class="result-emoji">🔬</div>
+          <div class="result-name">Ciencias</div>
+          <div class="result-percentage" id="affinity-ciencias">—%</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-ciencias" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="result-item">
+          <div class="result-emoji">🎨</div>
+          <div class="result-name">Arte</div>
+          <div class="result-percentage" id="affinity-arte">—%</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-arte" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="result-item">
+          <div class="result-emoji">💼</div>
+          <div class="result-name">Negocios</div>
+          <div class="result-percentage" id="affinity-negocios">—%</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-negocios" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-column-layout">
+      <div class="main-content">
+        <div class="recommendations-card">
+          <h3 class="recommendations-title">Carreras Recomendadas (8)</h3>
+          <ul class="careers-list" id="recommended-list">
+            <!-- Se rellenará dinámicamente -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="customize-card">
+          <h2 class="customize-title">✨ Personalizar</h2>
+          <div class="form-group">
+            <label class="form-label">Título personalizado</label>
+            <input type="text" class="form-input" id="customTitle" placeholder="Ej: ¡Descubrí mi vocación!">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mensaje personalizado</label>
+            <textarea class="form-textarea" id="customMessage" placeholder="Agrega un mensaje personal para compartir..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tema de color</label>
+            <select class="form-select" id="colorTheme">
+              <option value="purple">Morado (Predeterminado)</option>
+              <option value="blue">Azul</option>
+              <option value="green">Verde</option>
+              <option value="orange">Naranja</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mostrar fecha</label>
+            <select class="form-select" id="showDate">
+              <option value="yes">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <button class="preview-btn" id="previewBtn">👁️ Vista Previa</button>
+        </div>
+
+        <div class="share-card">
+          <h3 class="share-title">Compartir Resultados</h3>
+          <p class="share-subtitle">Inspira a otros compartiéndo tu experiencia en Vocatio</p>
+          <div class="social-buttons">
           <a href="#" class="social-btn" id="facebookBtn">📘 Facebook</a>
           <a href="#" class="social-btn" id="twitterBtn">🐦 Twitter</a>
           <a href="#" class="social-btn" id="linkedinBtn">💼 LinkedIn</a>
