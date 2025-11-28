@@ -286,7 +286,18 @@
                 if (hasTestResults) {
                     try {
                         const data = JSON.parse(rawTestResults);
-                        if (data.interests) {
+                        // Usar la estructura de categorías del test (Tecnología, Ciencias, Arte, Negocios, Social)
+                        if (data.categorias) {
+                            // Mapeo de nombres en test a keys en userData.interests
+                            userData.interests = {
+                                technology: data.categorias['Tecnología'] || data.categorias.Tecnologia || 0,
+                                science: data.categorias['Ciencias'] || 0,
+                                art: data.categorias['Arte'] || 0,
+                                business: data.categorias['Negocios'] || 0,
+                                social: data.categorias['Social'] || 0
+                            };
+                        } else if (data.interests) {
+                            // Fallback a estructura antigua si existe
                             userData.interests = {
                                 technology: data.interests.technology || 0,
                                 science: data.interests.science || 0,
@@ -378,10 +389,14 @@
             document.getElementById('barraProgreso').style.width = userData.totalProgress + '%';
 
             // Actualizar gráfica de intereses (usar .bar-fill y .percent)
+            // Las barras corresponden a: Tecnología, Ciencias, Arte, Negocios, Social
             const barras = document.querySelectorAll('.grafica-intereses .barra');
-            const interests = [userData.interests.technology, userData.interests.science, userData.interests.art, userData.interests.business, userData.interests.social];
+            const interestKeys = ['technology', 'science', 'art', 'business', 'social'];
+            const interestLabels = ['Tecnología', 'Ciencias', 'Arte', 'Negocios', 'Social'];
+            
             barras.forEach((barra, index) => {
-                const value = Math.round(interests[index] || 0);
+                const key = interestKeys[index];
+                const value = Math.round(userData.interests[key] || 0);
                 const fill = barra.querySelector('.bar-fill');
                 const pct = barra.querySelector('.percent');
                 if (fill) fill.style.height = Math.max(value, 2) + '%';
@@ -389,12 +404,19 @@
             });
 
             // Actualizar gráfica semanal (persistida en userData.weekActivity)
+            // Height escala según hora del día: hora actual / 24h = % de día transcurrido
             const diasBarras = document.querySelectorAll('.grafica-semanal .barra-dia');
+            const ahora = new Date();
+            const horaActual = ahora.getHours() + (ahora.getMinutes() / 60);
+            const porcentajeDia = (horaActual / 24) * 100; // % del día que ha pasado (0-100%)
+            
             diasBarras.forEach((barra) => {
                 const index = parseInt(barra.getAttribute('data-day-index') || '0', 10);
                 const value = userData.weekActivity[index] || 0;
-                const maxPerDay = 10; // escala máxima por día
-                const heightPercent = (value / maxPerDay) * 100;
+                
+                // Si hay visitas: altura = porcentajeDia (hora actual)
+                // Si no hay visitas: altura = 5% (mínimo)
+                const heightPercent = value > 0 ? porcentajeDia : 5;
                 barra.style.height = Math.max(heightPercent, 5) + '%';
                 const span = barra.querySelector('span');
                 if (span) span.textContent = value;
