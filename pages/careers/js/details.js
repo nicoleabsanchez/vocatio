@@ -1,6 +1,82 @@
 // Variable global para guardar el botón de favorito actual
 let botonFavoritoActual = null;
 
+// Datos de carreras para poder cargar dinámicamente
+const careerDatabase = {
+  sistemas: {
+    name: "Ingeniería de Sistemas",
+    description: "Diseña y desarrolla sistemas de software y tecnología de punta",
+    duration: "5 años",
+    modality: "Presencial/Virtual",
+    rating: "Excelente"
+  },
+  programacion: {
+    name: "Técnico en Programación",
+    description: "Aprende a programar aplicaciones y software básico",
+    duration: "2 años",
+    modality: "Presencial",
+    rating: "Muy Bueno"
+  },
+  medicina: {
+    name: "Medicina",
+    description: "Formación completa para profesionales de la salud",
+    duration: "6 años",
+    modality: "Presencial",
+    rating: "Excelente"
+  },
+  admin: {
+    name: "Administración de Empresas",
+    description: "Lidera organizaciones hacia el éxito",
+    duration: "4 años",
+    modality: "Presencial/Online",
+    rating: "Excelente"
+  },
+  civil: {
+    name: "Ingeniería Civil",
+    description: "Diseña y construye infraestructuras",
+    duration: "5 años",
+    modality: "Presencial",
+    rating: "Excelente"
+  },
+  diseño: {
+    name: "Diseño Gráfico",
+    description: "Crea experiencias visuales impactantes",
+    duration: "4 años",
+    modality: "Presencial",
+    rating: "Muy Bueno"
+  },
+  biologia: {
+    name: "Biología",
+    description: "Investiga la vida y organismos vivientes",
+    duration: "4 años",
+    modality: "Presencial",
+    rating: "Excelente"
+  }
+};
+
+// Cargar carrera desde parámetro de URL
+function loadCareerFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const careerCode = params.get('career');
+  
+  if (careerCode && careerDatabase[careerCode]) {
+    const career = careerDatabase[careerCode];
+    
+    // Actualizar título de página
+    document.title = career.name + ' - VOCATIO';
+    
+    // Guardar en localStorage para referencia
+    localStorage.setItem('currentCareer', JSON.stringify(career));
+    
+    // Registrar visualización de carrera
+    const userProgress = JSON.parse(localStorage.getItem('vocatioUserProgress') || '{}');
+    userProgress.careersExplored = (userProgress.careersExplored || 0) + 1;
+    localStorage.setItem('vocatioUserProgress', JSON.stringify(userProgress));
+    
+    console.log('Carrera cargada:', career);
+  }
+}
+
 // Verificar si el usuario está logueado al cargar la página
 function validarSesion() {
     // Verificar si existe un usuario en localStorage
@@ -43,6 +119,9 @@ function validarEnlaceUniversidad(url) {
 
 // Agregar validación a todos los botones de universidades
 document.addEventListener('DOMContentLoaded', function() {
+    // Cargar carrera desde URL
+    loadCareerFromURL();
+    
     const botonesInfo = document.querySelectorAll('.btn-info');
     
     botonesInfo.forEach(function(boton) {

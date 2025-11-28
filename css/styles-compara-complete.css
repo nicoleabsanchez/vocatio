@@ -1,0 +1,244 @@
+/* Add font files for Rethink Sans */
+@font-face {
+  font-family: 'Rethink Sans';
+  src: url('fonts/rethink-sans.woff2') format('woff2'),
+       url('fonts/rethink-sans.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  --font-family-inter: 'Inter', sans-serif;
+  --font-family-rethink-sans: 'Rethink Sans', sans-serif;
+  --text-rgb-69-68-76: rgba(69, 68, 76, 1);
+  --text-rgb-103-102-111: rgba(103, 102, 111, 1);
+  --text-rgb-105-62-254: rgba(105, 62, 254, 1);
+  --text-black: rgba(0, 0, 0, 1);
+  --text-rgb-139-138-146: rgba(139, 138, 146, 1);
+  --text-white: rgba(255, 255, 255, 1);
+  --text-rgb-217-212-255: rgba(217, 212, 255, 1);
+  /* Colores principales para el look & feel */
+  --color-primary: #693EFE;
+  --color-border: rgba(217, 212, 255, 1);
+  --color-header-bg: #faf9ff;
+  --color-text-dark: #45444C;
+}
+
+/* Clases de utilidad */
+.text-rgb-69-68-76 { color: var(--text-rgb-69-68-76); }
+.text-rgb-103-102-111 { color: var(--text-rgb-103-102-111); }
+.text-rgb-105-62-254 { color: var(--color-primary); }
+
+/* CSS Reset y Layout Principal */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: var(--font-family-inter);
+  color: var(--color-text-dark);
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ------------------------------------------------------------- */
+/* FIX PRINCIPAL: Estilos CSS Grid para la tabla de comparación */
+/* ------------------------------------------------------------- */
+
+/* Contenedor principal de la tabla de comparación */
+.comparison-data-grid {
+  display: grid;
+  /* Define la cuadrícula: 1.2fr para etiqueta + 3 columnas de 1fr para datos */
+  grid-template-columns: 1.2fr repeat(3, 1fr); 
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 1000px;
+  margin: 0 auto 30px auto; 
+}
+
+/* Estilo general de todas las celdas de la cuadrícula */
+.comparison-data-grid > div {
+  padding: 16px 12px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--color-text-dark);
+  border-bottom: 1px solid var(--color-border); /* Separador de filas */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrar horizontalmente el contenido de datos */
+  box-sizing: border-box;
+}
+
+/* Estilo específico para los encabezados de columna (la primera fila) */
+.grid-header-item {
+  background: var(--color-header-bg);
+  font-weight: 700 !important;
+  color: var(--color-text-dark) !important;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-border) !important; /* Separador más grueso */
+  flex-direction: column;
+  gap: 8px;
+  min-height: 100px; 
+}
+
+/* Estilo específico para la columna de nombres de características (etiquetas de fila) */
+.grid-feature-label {
+  background: #ffffff;
+  justify-content: flex-start !important; /* Alinea a la izquierda la característica */
+  text-align: left !important;
+  padding-left: 24px !important;
+  font-weight: 700 !important;
+  border-right: 1px solid var(--color-border); /* Separador vertical */
+  color: var(--color-text-dark) !important;
+}
+
+/* Estilo para las celdas de datos */
+.grid-data-cell {
+  background: #ffffff;
+  border-right: 1px solid var(--color-border);
+}
+
+/* Eliminar el borde derecho de la última columna de datos (cada 4to elemento) */
+.comparison-data-grid > div:nth-child(4n) { 
+    border-right: none;
+}
+
+/* Estilos para el botón de remover en el encabezado */
+.remove-btn {
+  font-size: 13px;
+  color: rgba(105,62,254,0.9);
+  background: transparent;
+  border: none;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.grid-title {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Estilos de Botones y Catálogo (Aseguran que los botones se vean bien) */
+.comparison-controls {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 10px; 
+  margin: 18px auto 24px auto; 
+  justify-content: center;
+  max-width: 1000px;
+}
+
+.btn {
+  padding: 10px 18px;
+  border-radius: 7px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: var(--text-white);
+  border: 2px solid var(--color-primary);
+}
+
+.btn--primary:hover {
+  background-color: #5a2ce0;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-border);
+}
+
+.btn--ghost:hover {
+  background-color: var(--color-header-bg);
+}
+
+/* Estilos del Catálogo de Carreras (cuando está visible) */
+.career-catalog {
+  margin-top: 16px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.career-catalog .catalog-box {
+  background-color: var(--color-header-bg);
+  border: 4px solid var(--color-border);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.career-catalog .catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.career-card {
+  background: #fff;
+  border: 2px solid var(--color-border);
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.career-card:hover { 
+  border-color: var(--color-primary); 
+  transform: translateY(-2px);
+}
+
+.career-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 4px;
+}
+
+.career-card__meta {
+  font-size: 14px;
+  color: var(--text-rgb-139-138-146);
+}
+
+/* Media Query para responsividad básica */
+@media (max-width: 768px) {
+  .comparison-data-grid {
+    grid-template-columns: 1fr; /* Apila en móvil */
+    max-width: 100%;
+  }
+  .comparison-data-grid > div {
+    border-right: none; 
+    text-align: left !important;
+    justify-content: flex-start;
+  }
+  .grid-feature-label {
+    background: #f0f0f5 !important;
+    padding-left: 12px !important;
+  }
+  .grid-header-item {
+     border-bottom: 1px solid var(--color-border) !important; 
+     padding: 12px;
+  }
+  .grid-header-item:first-child {
+      display: none; 
+  }
+}

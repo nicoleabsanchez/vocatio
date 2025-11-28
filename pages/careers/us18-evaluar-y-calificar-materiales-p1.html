@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calificar Material - Vocatio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f8f8;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .tab-navigation {
+      display: flex;
+      gap: 0;
+      background: #f5f3ff;
+      padding: 0;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 20px;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      font-weight: 600;
+      color: #8b8a92;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab-btn:hover {
+      background: rgba(105, 62, 254, 0.05);
+    }
+
+    .tab-btn.active {
+      color: #693efe;
+      border-bottom-color: #693efe;
+      background: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .back-btn {
+      background: #f5f3ff;
+      color: #693efe;
+      padding: 12px 30px;
+      border: 2px solid #d9d4ff;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .back-btn:hover {
+      background: #693efe;
+      color: white;
+      transform: translateX(-5px);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #693efe 0%, #8b7aff 100%);
+      padding: 40px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .nav a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover {
+      color: white;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .video-section {
+      margin-bottom: 40px;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-info {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: #b2a6ff;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .video-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #45444c;
+      margin-bottom: 15px;
+    }
+
+    .video-description {
+      color: #67666f;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .tag {
+      background: #d9d4ff;
+      color: #27017d;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .rating-section {
+      background: #f5f3ff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+
+    .rating-header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .overall-rating {
+      text-align: center;
+    }
+
+    .rating-number {
+      font-size: 64px;
+      font-weight: 700;
+      color: #693efe;
+      line-height: 1;
+    }
+
+    .rating-count {
+      color: #693efe;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .rating-stars-display {
+      display: flex;
+      gap: 5px;
+    }
+
+    .rating-form {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      border: 2px solid #d9d4ff;
+    }
+
+    .form-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #45444c;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 700;
+      color: #45444c;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .star-rating {
+      display: flex;
+      gap: 10px;
+      font-size: 40px;
+      cursor: pointer;
+    }
+
+    .star {
+      color: #ddd;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .star:hover,
+    .star.active {
+      color: #ffc107;
+      transform: scale(1.1);
+    }
+
+    .comment-input {
+      width: 100%;
+      min-height: 120px;
+      padding: 15px;
+      border: 1px solid #d9d4ff;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      resize: vertical;
+    }
+
+    .comment-input:focus {
+      outline: none;
+      border-color: #693efe;
+    }
+
+    .submit-btn {
+      background: #693efe;
+      color: white;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+      background: #5530d9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(105, 62, 254, 0.3);
+    }
+
+    .comments-section {
+      margin-top: 40px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #45444c;
+      margin-bottom: 25px;
+    }
+
+    .comment-card {
+      background: white;
+      border: 2px solid #d9d4ff;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .comment-author {
+      font-weight: 700;
+      color: #000;
+      font-size: 18px;
+    }
+
+    .comment-date {
+      color: #b2a6ff;
+      font-size: 14px;
+    }
+
+    .comment-rating {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 10px;
+    }
+
+    .comment-text {
+      color: #45444c;
+      line-height: 1.6;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        padding: 20px;
+      }
+
+      .video-title {
+        font-size: 24px;
+      }
+
+      .rating-number {
+        font-size: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">vocatio</div>
+      <div class="nav">
+        <a href="./explore.html">Explorar carreras</a>
+        <a href="./progreso.complete.html">Progreso</a>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="tab-navigation">
+        <button class="tab-btn active" onclick="switchTab('video')">📹 Video y Calificación</button>
+        <button class="tab-btn" onclick="switchTab('comments')">💬 Comentarios</button>
+      </div>
+
+      <div id="videoTab" class="tab-content active" style="padding: 40px;">
+        <div class="video-section">
+          <div class="video-info">
+            <span>⏱️ 15 min</span>
+            <span>🔹 Video</span>
+            <span>👁️ <span id="viewCount">2,345</span> vistas</span>
+          </div>
+
+          <h1 class="video-title">Introducción a la Ingeniería de Sistemas</h1>
+
+          <div class="video-container">
+            <iframe 
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <p class="video-description">
+            Este video introductorio te ayudará a comprender los fundamentos de la Ingeniería de Sistemas, 
+            incluyendo las áreas de especialización, habilidades necesarias y oportunidades profesionales 
+            en el mercado actual.
+          </p>
+
+          <div class="tags">
+            <span class="tag">Tecnología</span>
+            <span class="tag">Ingeniería</span>
+            <span class="tag">Programación</span>
+            <span class="tag">Innovación</span>
+          </div>
+        </div>
+
+        <div class="rating-section">
+          <div class="rating-header">
+            <div class="overall-rating">
+              <div class="rating-number" id="overallRating">4.5</div>
+              <div class="rating-count">Basado en <span id="ratingCount">127</span> calificaciones</div>
+              <div class="rating-stars-display" id="overallStars">
+                ⭐⭐⭐⭐⭐
+              </div>
+            </div>
+          </div>
+
+          <div class="rating-form">
+            <h2 class="form-title">Calificar Material</h2>
+            
+            <div id="successMessage" class="success-message">
+              ¡Gracias por tu calificación! Tu opinión ha sido publicada.
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tu calificación</label>
+              <div class="star-rating" id="starRating">
+                <span class="star" data-rating="1">★</span>
+                <span class="star" data-rating="2">★</span>
+                <span class="star" data-rating="3">★</span>
+                <span class="star" data-rating="4">★</span>
+                <span class="star" data-rating="5">★</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tu comentario (opcional)</label>
+              <textarea 
+                id="commentText" 
+                class="comment-input" 
+                placeholder="Comparte tu opinión sobre este material...">
+              </textarea>
+            </div>
+
+            <button class="submit-btn">Publicar Calificación</button>
+          </div>
+        </div>
+      </div>
+      <div id="commentsTab" class="tab-content" style="padding: 40px;">
+        <button class="back-btn" onclick="switchTab('video')">
+          ← Volver al Video
+        </button>
+
+        <div class="comments-section">
+          <h2 class="section-title">Opiniones de otros usuarios</h2>
+          <div id="commentsList">
+            <div class="comment-card">
+              <div class="comment-header">
+                <span class="comment-author">María González</span>
+                <span class="comment-date">Hace 2 días</span>
+              </div>
+              <div class="comment-rating">⭐⭐⭐⭐⭐</div>
+              <p class="comment-text">
+                Excelente material, muy claro y directo. Me ayudó mucho a entender mejor las opciones 
+                dentro de esta carrera.
+              </p>
+            </div>
+            </div>
+        </div>
+      </div>
+      </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let selectedRating = 0;
+      const stars = document.querySelectorAll('.star');
+
+      // Sistema de calificación por estrellas
+      stars.forEach(star => {
+        star.addEventListener('click', function() {
+          selectedRating = parseInt(this.dataset.rating);
+          updateStars(selectedRating);
+        });
+        star.addEventListener('mouseenter', function() {
+          const rating = parseInt(this.dataset.rating);
+          updateStars(rating);
+        });
+      });
+      document.getElementById('starRating').addEventListener('mouseleave', function() {
+        updateStars(selectedRating);
+      });
+
+      function updateStars(rating) {
+        stars.forEach((star, index) => {
+          if (index < rating) {
+            star.classList.add('active');
+          } else {
+            star.classList.remove('active');
+          }
+        });
+      }
+
+      window.switchTab = function(tabName) {
+        // Ocultar todas las pestañas
+        document.querySelectorAll('.tab-content').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        // Desactivar todos los botones
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        // Activar la pestaña seleccionada
+        if (tabName === 'video') {
+          document.getElementById('videoTab').classList.add('active');
+          document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        } else if (tabName === 'comments') {
+          document.getElementById('commentsTab').classList.add('active');
+          document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        }
+        // Scroll suave hacia arriba
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Event Listener para el botón de Publicar Calificación
+      document.querySelector('.submit-btn').addEventListener('click', function() {
+        const commentText = document.getElementById('commentText').value.trim();
+        if (selectedRating === 0) {
+          alert('Por favor selecciona una calificación con estrellas');
+          return;
+        }
+        
+        // ** COMENTARIO VISIBLE: La lógica de inserción y cambio de pestaña es la siguiente: **
+        
+        // Crear nuevo comentario
+        const commentCard = document.createElement('div');
+        commentCard.className = 'comment-card';
+        const starString = '⭐'.repeat(selectedRating);
+        const timeAgo = 'Hace unos momentos';
+        commentCard.innerHTML = `
+          <div class="comment-header">
+            <span class="comment-author">Usuario Anónimo</span>
+            <span class="comment-date">${timeAgo}</span>
+          </div>
+          <div class="comment-rating">${starString}</div>
+          <p class="comment-text">${commentText || 'Sin comentario adicional'}</p>
+        `;
+        // Agregar al inicio de la lista
+        const commentsList = document.getElementById('commentsList');
+        commentsList.insertBefore(commentCard, commentsList.firstChild);
+        
+        // Actualizar calificación promedio
+        updateOverallRating(selectedRating);
+        
+        // Mostrar mensaje de éxito
+        const successMsg = document.getElementById('successMessage');
+        successMsg.style.display = 'block';
+        setTimeout(() => {
+          successMsg.style.display = 'none';
+        }, 3000);
+        
+        // Cambiar automáticamente a la pestaña de comentarios (inmediatamente)
+        window.switchTab('comments');
+        
+        // Resetear formulario
+        selectedRating = 0;
+        updateStars(0);
+        document.getElementById('commentText').value = '';
+      });
+
+      // Función para actualizar el promedio de calificación
+      function updateOverallRating(newRating) {
+        const currentCount = parseInt(document.getElementById('ratingCount').textContent);
+        const currentRating = parseFloat(document.getElementById('overallRating').textContent);
+        const newCount = currentCount + 1;
+        // Fórmula de promedio ponderado: (SumaVieja + NuevoValor) / NuevoConteo
+        const newOverallRating = ((currentRating * currentCount) + newRating) / newCount;
+        document.getElementById('ratingCount').textContent = newCount;
+        document.getElementById('overallRating').textContent = newOverallRating.toFixed(1);
+      }
+    });
+  </script>
+</body>
+</html>

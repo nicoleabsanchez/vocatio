@@ -18,6 +18,122 @@ let categorias = ['Tecnología', 'Ciencias', 'Arte', 'Negocios', 'Social'];
 let progresoPorCategoria = { 'Tecnología': 0, 'Ciencias': 0, 'Arte': 0, 'Negocios': 0, 'Social': 0 };
 let actividadPorDia = {};
 
+// --- Cargar datos del test vocacional ---
+function cargarDatosDelTest() {
+    const testResults = localStorage.getItem('vocatioTestResults');
+    if (testResults) {
+        try {
+            const data = JSON.parse(testResults);
+            
+            // Agregar el test como actividad solo si no existe
+            const hoy = new Date().toISOString().slice(0, 10);
+            const yaExiste = actividades.some(a => a.tipo === 'Test Vocacional Completado' && a.fecha === hoy);
+            
+            if (!yaExiste) {
+                // Encontrar categoría dominante
+                let categoriaDominante = 'Tecnología';
+                if (data.interests) {
+                    const categorias = {
+                        'Tecnología': data.interests.technology || 0,
+                        'Ciencias': data.interests.science || 0,
+                        'Arte': data.interests.art || 0,
+                        'Negocios': data.interests.business || 0,
+                        'Social': data.interests.social || 0
+                    };
+                    categoriaDominante = Object.entries(categorias).sort((a, b) => b[1] - a[1])[0][0];
+                }
+                
+                const testActividad = {
+                    fecha: hoy,
+                    categoria: categoriaDominante,
+                    tipo: 'Test Vocacional Completado',
+                    progreso: 100,
+                    careerName: '',
+                    rating: 5
+                };
+                
+                actividades.push(testActividad);
+            }
+            
+            // Actualizar intereses basados en el test
+            if (data.interests) {
+                progresoPorCategoria['Tecnología'] = Math.round(data.interests.technology || 0);
+                progresoPorCategoria['Ciencias'] = Math.round(data.interests.science || 0);
+                progresoPorCategoria['Arte'] = Math.round(data.interests.art || 0);
+                progresoPorCategoria['Negocios'] = Math.round(data.interests.business || 0);
+                progresoPorCategoria['Social'] = Math.round(data.interests.social || 0);
+            }
+        } catch (e) {
+            console.error('Error loading test results:', e);
+        }
+    }
+}
+
+// Cargar datos del localStorage si existen
+function cargarDatosDelLocalStorage() {
+    const userProgress = localStorage.getItem('vocatioUserProgress');
+    if (userProgress) {
+        try {
+            const data = JSON.parse(userProgress);
+            // Usar datos existentes si están disponibles
+            if (data.activities && Array.isArray(data.activities)) {
+                actividades = [...actividades, ...data.activities];
+            }
+        } catch (e) {
+            console.error('Error loading user progress:', e);
+        }
+    }
+    
+    // Cargar carreras exploradas
+    const careersExplored = localStorage.getItem('vocatioCareersExplored');
+    if (careersExplored) {
+        try {
+            const careers = JSON.parse(careersExplored);
+            careers.forEach(career => {
+                // Evitar duplicados
+                const yaExiste = actividades.some(a => a.tipo === 'Carrera Explorada' && a.careerName === career.careerName);
+                if (!yaExiste && career.careerName) {
+                    const fecha = career.timestamp ? career.timestamp.slice(0, 10) : new Date().toISOString().slice(0, 10);
+                    actividades.push({
+                        fecha: fecha,
+                        categoria: career.area || 'Tecnología',
+                        tipo: 'Carrera Explorada',
+                        progreso: 100,
+                        careerName: career.careerName,
+                        rating: 0
+                    });
+                }
+            });
+        } catch (e) {
+            console.error('Error loading careers explored:', e);
+        }
+    }
+    
+    // Cargar materiales revisados
+    const materialsReviewed = localStorage.getItem('vocatioMaterialsReviewed');
+    if (materialsReviewed) {
+        try {
+            const materials = JSON.parse(materialsReviewed);
+            materials.forEach(material => {
+                const yaExiste = actividades.some(a => a.tipo === 'Material Revisado' && a.careerName === material.name);
+                if (!yaExiste && material.name) {
+                    const fecha = material.timestamp ? material.timestamp.slice(0, 10) : new Date().toISOString().slice(0, 10);
+                    actividades.push({
+                        fecha: fecha,
+                        categoria: 'Material',
+                        tipo: 'Material Revisado',
+                        progreso: 100,
+                        careerName: material.name,
+                        rating: 0
+                    });
+                }
+            });
+        } catch (e) {
+            console.error('Error loading materials reviewed:', e);
+        }
+    }
+}
+
 // --- Utilidades de cálculo ---
 function calcularProgresoTotal() {
     if (actividades.length === 0) return 0;
@@ -102,8 +218,13 @@ function actualizarGraficas() {
 
 // --- Eventos ---
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicialización: todo en cero
-    actualizarBarraProgreso(0);
+    // Cargar datos desde localStorage
+    cargarDatosDelLocalStorage();
+    cargarDatosDelTest();
+    
+    // Calcular progreso total basado en actividades
+    const progresoTotal = calcularProgresoTotal();
+    actualizarBarraProgreso(progresoTotal);
     actualizarGraficas();
 
     // Alternar vistas al hacer clic en la barra de progreso o botones

@@ -226,7 +226,7 @@ function renderCareers(careers) {
         <span>📍 ${career.modality}</span>
         <span>⭐ ${career.rating}</span>
       </div>
-      <a href="${career.link}" class="btn btn-primary">Ver Detalles</a>
+      <a href="${career.link}" class="btn btn-primary" onclick="registrarVisualizacionCarrera('${career.name}')">Ver Detalles</a>
     </article>
   `).join('');
   
@@ -430,4 +430,56 @@ document.addEventListener('DOMContentLoaded', function() {
       goToStep(3);
     });
   });
+
+  // Registrar visualización de áreas de interés
+  document.querySelectorAll("#step-1 .carousel-card").forEach((card) => {
+    card.addEventListener("click", function () {
+      registrarInteresArea(this.dataset.area);
+    });
+  });
 });
+
+// Función para registrar interés en un área
+function registrarInteresArea(area) {
+  const userProgress = JSON.parse(localStorage.getItem('vocatioUserProgress') || '{}');
+  if (!userProgress.interestsViewed) {
+    userProgress.interestsViewed = {};
+  }
+  userProgress.interestsViewed[area] = (userProgress.interestsViewed[area] || 0) + 1;
+  localStorage.setItem('vocatioUserProgress', JSON.stringify(userProgress));
+}
+
+// Función para registrar visualización de carrera
+function registrarVisualizacionCarrera(careerName) {
+  // Guardar en vocatioCareersExplored
+  const careersExplored = JSON.parse(localStorage.getItem('vocatioCareersExplored') || '[]');
+  
+  const careerExploration = {
+    type: 'career',
+    careerName: careerName,
+    area: selectedArea,
+    timestamp: new Date().toISOString()
+  };
+  
+  careersExplored.push(careerExploration);
+  localStorage.setItem('vocatioCareersExplored', JSON.stringify(careersExplored));
+  
+  // También guardar en vocatioUserProgress para compatibilidad
+  const userProgress = JSON.parse(localStorage.getItem('vocatioUserProgress') || '{}');
+  userProgress.careersExplored = (userProgress.careersExplored || 0) + 1;
+  
+  if (!userProgress.activities) {
+    userProgress.activities = [];
+  }
+  
+  const today = new Date().toISOString().split('T')[0];
+  userProgress.activities.push({
+    fecha: today,
+    tipo: 'Carrera Explorada',
+    name: careerName,
+    progress: 50,
+    timeSpent: 0
+  });
+  
+  localStorage.setItem('vocatioUserProgress', JSON.stringify(userProgress));
+}

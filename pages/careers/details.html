@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../css/styles.css" />
     <link rel="stylesheet" href="../../css/components.css" />
     <link rel="stylesheet" href="../../css/responsive.css" />
+    <link rel="stylesheet" href="css/curriculum-comparator.css" />
     <style>
       /* Estilos completos para la ficha de carrera según diseño */
       body {
@@ -492,7 +493,7 @@
                   >Ruta de aprendizaje</a
                 >
               </li>
-              <li><a href="../dashboard/progress.html">Progreso</a></li>
+              <li><a href="./progreso.complete.html">Progreso</a></li>
             </ul>
             <div class="profile-dropdown">
               <input
@@ -658,6 +659,127 @@
           </div>
         </div>
 
+        <!-- Comparador de mallas curriculares -->
+        <div
+          class="curriculum-comparison-section"
+          style="
+            margin-top: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+          "
+        >
+          <div style="text-align: center; color: white">
+            <div style="font-size: 3rem; margin-bottom: 1rem">🎓</div>
+            <h2
+              style="
+                color: white;
+                font-size: 1.75rem;
+                margin-bottom: 1rem;
+                font-weight: 700;
+              "
+            >
+              Compara Mallas Curriculares
+            </h2>
+            <p
+              style="
+                color: rgba(255, 255, 255, 0.95);
+                margin-bottom: 2rem;
+                line-height: 1.7;
+                font-size: 1.05rem;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+              "
+            >
+              Visualiza y compara los planes de estudio de
+              <strong>Ingeniería de Sistemas</strong> en las principales
+              universidades peruanas: UPC, UNI y Universidad de Lima
+            </p>
+
+            <div
+              style="
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: 2rem;
+                font-size: 0.9rem;
+              "
+            >
+              <div
+                style="
+                  background: rgba(255, 255, 255, 0.2);
+                  padding: 0.5rem 1rem;
+                  border-radius: 20px;
+                  backdrop-filter: blur(10px);
+                "
+              >
+                ✓ Vista lado a lado
+              </div>
+              <div
+                style="
+                  background: rgba(255, 255, 255, 0.2);
+                  padding: 0.5rem 1rem;
+                  border-radius: 20px;
+                  backdrop-filter: blur(10px);
+                "
+              >
+                ✓ Filtrado por ciclos
+              </div>
+              <div
+                style="
+                  background: rgba(255, 255, 255, 0.2);
+                  padding: 0.5rem 1rem;
+                  border-radius: 20px;
+                  backdrop-filter: blur(10px);
+                "
+              >
+                ✓ Análisis de créditos
+              </div>
+            </div>
+
+            <button
+              class="btn-primary btn-large"
+              onclick="openCurriculumComparator('ingenieria-sistemas')"
+              style="
+                background: white;
+                color: #667eea;
+                border: none;
+                padding: 1.25rem 2.5rem;
+                font-size: 1.125rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.75rem;
+                font-weight: 700;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+              "
+              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'"
+              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+              </svg>
+              Comparar Ahora
+            </button>
+          </div>
+        </div>
+
         <!-- Sistema de rating -->
         <div class="rating-section">
           <h3>Califica esta carrera</h3>
@@ -685,6 +807,12 @@
         </div>
       </div>
     </footer>
+
+    <!-- Librería jsPDF para exportar a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Scripts del comparador de mallas -->
+    <script src="js/curriculum-comparator.js"></script>
 
     <!-- Modal de confirmación para favoritos -->
     <div id="modalFavorito" class="modal">
