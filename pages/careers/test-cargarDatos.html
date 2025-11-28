@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Test cargarDatosDelTest</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    .test-section { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; }
+    .success { color: green; }
+    .error { color: red; }
+    pre { background: #eee; padding: 10px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Test de cargarDatosDelTest()</h1>
+  
+  <div class="test-section">
+    <h2>Test 1: Formato estándar con porcentajes</h2>
+    <pre id="test1-result">Ejecutando...</pre>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 2: Formato interests</h2>
+    <pre id="test2-result">Ejecutando...</pre>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 3: Array format</h2>
+    <pre id="test3-result">Ejecutando...</pre>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 4: Sin datos (debe mostrar 0%)</h2>
+    <pre id="test4-result">Ejecutando...</pre>
+  </div>
+
+  <!-- Elementos HTML necesarios -->
+  <div id="affinity-tecnologia" style="display:none;">—% de afinidad</div>
+  <div id="affinity-ciencias" style="display:none;">—% de afinidad</div>
+  <div id="affinity-innovacion" style="display:none;">—% de afinidad</div>
+  <div id="affinity-analisis" style="display:none;">—% de afinidad</div>
+  <div id="dateInfo" style="display:none;">Realizado el —</div>
+  <ul id="recommended-list" style="display:none;"></ul>
+
+  <script>
+    // Función copiada desde us20
+    function cargarDatosDelTest() {
+      const raw = localStorage.getItem('vocatioTestResults') || localStorage.getItem('vocatioTestResults_old') || localStorage.getItem('vocatioResults') || localStorage.getItem('vocatioResults_old');
+      let data = null;
+      if (raw) {
+        try { data = JSON.parse(raw); } catch (e) { data = null; }
+      }
+
+      if (!data) {
+        const alt = localStorage.getItem('vocatioTestDate') || localStorage.getItem('vocatioResultsSimple');
+        if (alt) {
+          try { data = JSON.parse(alt); } catch (e) { data = null; }
+        }
+      }
+
+      const canonical = {
+        'tecnologia': 'Tecnología', 'tecnología': 'Tecnología', 'technology': 'Tecnología',
+        'ciencias': 'Ciencias', 'science': 'Ciencias',
+        'arte': 'Arte', 'arte y diseño': 'Arte', 'arteydiseno': 'Arte', 'innovacion': 'Arte', 'innovación': 'Arte',
+        'negocios': 'Negocios', 'analisis': 'Negocios', 'análisis': 'Negocios', 'business': 'Negocios',
+        'social': 'Social'
+      };
+
+      let rawPorcentajes = null;
+      if (data) {
+        if (data.porcentajes) rawPorcentajes = data.porcentajes;
+        else if (data.categorias) rawPorcentajes = data.categorias;
+        else if (data.interests) rawPorcentajes = data.interests;
+        else if (Array.isArray(data)) {
+          rawPorcentajes = {};
+          data.forEach(i => { if (i && i.name) rawPorcentajes[i.name] = i.value || i.percentage || 0; });
+        } else if (typeof data === 'object') {
+          if (data.Tecnología || data.Tecnologia || data.tecnologia) rawPorcentajes = data;
+        }
+      }
+
+      const normalized = { 'Tecnología': 0, 'Ciencias': 0, 'Arte': 0, 'Negocios': 0 };
+
+      if (rawPorcentajes) {
+        Object.entries(rawPorcentajes).forEach(([k, v]) => {
+          let key = String(k || '').toLowerCase().trim();
+          const keyNoAcc = key.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+          let canon = canonical[key] || canonical[keyNoAcc];
+          if (!canon) {
+            const compact = keyNoAcc.replace(/[^a-z0-9]/g, '');
+            canon = canonical[compact];
+          }
+          if (canon && normalized.hasOwnProperty(canon)) {
+            const num = (typeof v === 'number') ? v : parseInt(String(v).replace(/[^0-9-]/g, '')) || 0;
+            normalized[canon] = num;
+          }
+        });
+      }
+
+      document.getElementById('affinity-tecnologia').textContent = (normalized['Tecnología'] || 0) + '% de afinidad';
+      document.getElementById('affinity-ciencias').textContent = (normalized['Ciencias'] || 0) + '% de afinidad';
+      document.getElementById('affinity-innovacion').textContent = (normalized['Arte'] || 0) + '% de afinidad';
+      document.getElementById('affinity-analisis').textContent = (normalized['Negocios'] || 0) + '% de afinidad';
+
+      const dateRaw = localStorage.getItem('vocatioTestDate') || (data && (data.fecha || data.date));
+      if (dateRaw) {
+        try {
+          const fecha = new Date(dateRaw).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+          document.getElementById('dateInfo').textContent = 'Realizado el ' + fecha;
+        } catch (e) {
+          document.getElementById('dateInfo').textContent = 'Realizado el ' + dateRaw;
+        }
+      }
+
+      let carreras = [];
+      if (data) {
+        if (Array.isArray(data.carrerasRecomendadas) && data.carrerasRecomendadas.length) carreras = data.carrerasRecomendadas;
+        else if (Array.isArray(data.recomendaciones) && data.recomendaciones.length) carreras = data.recomendaciones;
+        else if (Array.isArray(data.recomendacionesCarreras) && data.recomendacionesCarreras.length) carreras = data.recomendacionesCarreras;
+        else if (data.categoriaRecomendada) {
+          const map = {
+            'Tecnología': ['Ingeniería de Sistemas','Ciencias de la Computación','Ingeniería de Software'],
+            'Ciencias': ['Biología','Química','Física'],
+            'Arte': ['Diseño Gráfico','Arquitectura','Comunicación Visual'],
+            'Negocios': ['Administración de Empresas','Economía','Marketing'],
+            'Salud': ['Medicina','Enfermería']
+          };
+          carreras = map[data.categoriaRecomendada] || [];
+        }
+      }
+
+      if ((!carreras || !carreras.length)) {
+        const entries = Object.entries(normalized).sort((a,b) => b[1] - a[1]);
+        const top = entries.slice(0,2).map(e => e[0]);
+        const map = {
+          'Tecnología': ['Ingeniería de Sistemas','Ciencias de la Computación','Ingeniería Informática'],
+          'Ciencias': ['Biología','Química','Física'],
+          'Arte': ['Diseño Gráfico','Arquitectura','Artes Visuales'],
+          'Negocios': ['Administración de Empresas','Economía','Contabilidad']
+        };
+        top.forEach(cat => { if (map[cat]) carreras = carreras.concat(map[cat].slice(0,3)); });
+      }
+
+      if (carreras && carreras.length) {
+        const unique = [...new Set(carreras)];
+        const listHTML = unique.map(c => `<li>${c}</li>`).join('');
+        document.getElementById('recommended-list').innerHTML = listHTML;
+      }
+
+      return { normalized, carreras };
+    }
+
+    // Tests
+    function test1() {
+      localStorage.clear();
+      localStorage.setItem('vocatioTestResults', JSON.stringify({
+        porcentajes: { 'Tecnología': 80, 'Ciencias': 60, 'Arte': 40, 'Negocios': 50 },
+        carrerasRecomendadas: ['Ing. Sistemas', 'Administración']
+      }));
+      localStorage.setItem('vocatioTestDate', new Date().toISOString());
+      
+      const result = cargarDatosDelTest();
+      const tech = document.getElementById('affinity-tecnologia').textContent;
+      const sci = document.getElementById('affinity-ciencias').textContent;
+      const carreras = document.getElementById('recommended-list').innerHTML;
+      
+      const success = tech.includes('80') && sci.includes('60') && carreras.includes('Administración');
+      document.getElementById('test1-result').innerHTML = success ? 
+        `<span class="success">✓ PASSOU</span>\n${tech}\n${sci}\n${carreras}` :
+        `<span class="error">✗ FALHOU</span>\nEsperado: 80% Tecnología, 60% Ciencias, 2 carreras\nObtenido:\n${tech}\n${sci}\n${carreras}`;
+    }
+
+    function test2() {
+      localStorage.clear();
+      localStorage.setItem('vocatioTestResults', JSON.stringify({
+        interests: { technology: 75, science: 55, art: 35, business: 65 }
+      }));
+      
+      const result = cargarDatosDelTest();
+      const tech = document.getElementById('affinity-tecnologia').textContent;
+      const bus = document.getElementById('affinity-analisis').textContent;
+      
+      const success = tech.includes('75') && bus.includes('65');
+      document.getElementById('test2-result').innerHTML = success ? 
+        `<span class="success">✓ PASSOU</span>\n${tech}\n${bus}` :
+        `<span class="error">✗ FALHOU</span>\nEsperado: 75% Tecnología, 65% Negocios\nObtenido:\n${tech}\n${bus}`;
+    }
+
+    function test3() {
+      localStorage.clear();
+      localStorage.setItem('vocatioTestResults', JSON.stringify([
+        { name: 'Tecnología', value: 70 },
+        { name: 'Ciencias', percentage: 50 }
+      ]));
+      
+      const result = cargarDatosDelTest();
+      const tech = document.getElementById('affinity-tecnologia').textContent;
+      const sci = document.getElementById('affinity-ciencias').textContent;
+      
+      const success = tech.includes('70') && sci.includes('50');
+      document.getElementById('test3-result').innerHTML = success ? 
+        `<span class="success">✓ PASSOU</span>\n${tech}\n${sci}` :
+        `<span class="error">✗ FALHOU</span>\nEsperado: 70% Tecnología, 50% Ciencias\nObtenido:\n${tech}\n${sci}`;
+    }
+
+    function test4() {
+      localStorage.clear();
+      
+      const result = cargarDatosDelTest();
+      const tech = document.getElementById('affinity-tecnologia').textContent;
+      const all = [
+        document.getElementById('affinity-tecnologia').textContent,
+        document.getElementById('affinity-ciencias').textContent,
+        document.getElementById('affinity-innovacion').textContent,
+        document.getElementById('affinity-analisis').textContent
+      ];
+      
+      const success = all.every(x => x.includes('0%'));
+      document.getElementById('test4-result').innerHTML = success ? 
+        `<span class="success">✓ PASSOU (sin datos = 0%)</span>\n${all.join('\n')}` :
+        `<span class="error">✗ FALHOU</span>\nEsperado: todos 0%\nObtenido:\n${all.join('\n')}`;
+    }
+
+    // Ejecutar tests al cargar
+    window.addEventListener('load', () => {
+      test1();
+      test2();
+      test3();
+      test4();
+    });
+  </script>
+</body>
+</html>
