@@ -351,3 +351,53 @@ body {
   .careers-list { grid-template-columns: 1fr; }
 }
 
+/* --- Estilos adicionales para parecerse al ejemplo visual --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.header { grid-column: 1 / -1; text-align: center; margin-bottom: 10px; }
+.title { font-size: 34px; font-weight: 800; color: var(--text-dark); margin-bottom: 6px; }
+.subtitle { color: var(--light-purple); font-size: 16px; margin-bottom: 24px; }
+
+.results-card {
+  border-radius: 24px;
+  border: 3px solid var(--pale-purple);
+  padding: 36px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(105,50,254,0.04);
+}
+
+.results-card .results-grid { gap: 18px; }
+.results-card .result-item { min-height: 120px; border-radius: 12px; }
+.result-name { font-size: 20px; }
+.result-percentage { font-size: 13px; color: var(--primary-color); font-weight:600; margin-top:8px }
+
+/* Sidebar (Compartir) estilo morado del ejemplo */
+.share-card {
+  background: linear-gradient(180deg, rgba(112,88,255,0.08) 0%, rgba(241,237,255,0.6) 100%);
+  border-radius: 22px;
+  padding: 24px;
+  border: 2px solid rgba(112,88,255,0.15);
+}
+.share-title { font-size: 20px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; }
+.social-buttons { display:flex; flex-direction:column; gap:12px; margin-bottom: 14px; }
+.social-btn { padding: 10px 12px; border-radius: 8px; border: 2px solid var(--primary-color); background: white; color: var(--primary-color); font-weight:700 }
+.social-btn:hover { background: var(--primary-color); color: white }
+.customize-btn { width:100%; margin-top:12px }
+
+/* Recommended careers box style */
+.recommended-section { margin-top: 18px; border-radius: 18px; padding: 18px; border: 2px solid var(--pale-purple); background: #fff }
+.recommended-title { font-weight:700; margin-bottom:10px }
+.career-list li { padding-left: 6px }
+
+@media (max-width: 1024px) {
+  .container { grid-template-columns: 1fr; }
+  .share-card { order: 99 }
+}
+
