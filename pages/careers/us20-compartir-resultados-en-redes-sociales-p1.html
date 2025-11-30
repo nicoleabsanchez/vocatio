@@ -76,6 +76,7 @@
       <div class="main-content">
         <div class="recommendations-card">
           <h3 class="recommendations-title">Carreras Recomendadas (8)</h3>
+          <div id="recommendation-source" class="recommendation-source" style="font-size:13px;color:#67666f;margin-bottom:8px"></div>
           <ul class="careers-list" id="recommended-list">
             <!-- Se rellenará dinámicamente -->
           </ul>
@@ -304,26 +305,37 @@
         top.forEach(cat => { if (map[cat]) carreras = carreras.concat(map[cat].slice(0,3)); });
       }
 
-      // Asegurar que siempre haya contenido en la lista. Si todo falla, mostrar recomendaciones por defecto
+      // Asegurar que siempre haya contenido en la lista. Determinar origen de las recomendaciones
       const unique = carreras && carreras.length ? [...new Set(carreras)] : [];
+      const sourceEl = document.getElementById('recommendation-source');
+      // Si ya vienen carreras explícitas desde los datos
       if (unique.length) {
         const listHTML = unique.map(c => `<li>${c}</li>`).join('');
         document.getElementById('recommended-list').innerHTML = listHTML;
+        if (sourceEl) sourceEl.textContent = 'Basado en los resultados de tu test';
       } else {
-        // Fallback: usar las dos categorías principales aunque sus porcentajes sean 0
-        const fallbackEntries = Object.entries(normalized).sort((a,b) => b[1] - a[1]);
-        const fallbackTop = fallbackEntries.slice(0,2).map(e => e[0]);
-        const fallbackMap = {
-          'Tecnología': ['Ingeniería de Sistemas','Ciencias de la Computación','Ingeniería Informática'],
-          'Ciencias': ['Biología','Química','Física'],
-          'Arte': ['Diseño Gráfico','Arquitectura','Artes Visuales'],
-          'Negocios': ['Administración de Empresas','Economía','Contabilidad'],
-          'Social': ['Medicina','Enfermería','Psicología']
-        };
-        let fallback = [];
-        fallbackTop.forEach(cat => { if (fallbackMap[cat]) fallback = fallback.concat(fallbackMap[cat].slice(0,3)); });
-        if (!fallback.length) fallback = ['Explorar carreras en Vocatio'];
-        document.getElementById('recommended-list').innerHTML = fallback.map(c => `<li>${c}</li>`).join('');
+        // Si no hay carreras explícitas, inferir sólo si hay porcentajes (>0)
+        const hasData = Object.values(normalized).some(v => v && v > 0);
+        if (hasData) {
+          const inferredEntries = Object.entries(normalized).sort((a,b) => b[1] - a[1]);
+          const inferredTop = inferredEntries.slice(0,2).map(e => e[0]);
+          const inferredMap = {
+            'Tecnología': ['Ingeniería de Sistemas','Ciencias de la Computación','Ingeniería Informática'],
+            'Ciencias': ['Biología','Química','Física'],
+            'Arte': ['Diseño Gráfico','Arquitectura','Artes Visuales'],
+            'Negocios': ['Administración de Empresas','Economía','Contabilidad'],
+            'Social': ['Medicina','Enfermería','Psicología']
+          };
+          let inferred = [];
+          inferredTop.forEach(cat => { if (inferredMap[cat]) inferred = inferred.concat(inferredMap[cat].slice(0,3)); });
+          const listHTML = [...new Set(inferred)].map(c => `<li>${c}</li>`).join('');
+          document.getElementById('recommended-list').innerHTML = listHTML || '<li>Aún no hay carreras recomendadas</li>';
+          if (sourceEl) sourceEl.textContent = 'Recomendaciones inferidas según tus afinidades';
+        } else {
+          // No hay datos del test: mostrar mensaje y guía
+          document.getElementById('recommended-list').innerHTML = '<li>No hay datos del test. Toma el test para recibir recomendaciones personalizadas.</li>';
+          if (sourceEl) sourceEl.textContent = 'Sin datos del test';
+        }
       }
     }
 
