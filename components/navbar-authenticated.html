@@ -1,45 +1,59 @@
 <!-- Navbar consistente para usuarios autenticados -->
 <nav class="navbar navbar-dashboard">
-    <div class="container">
-        <!-- Checkbox para menú hamburguesa responsivo -->
-        <input type="checkbox" id="menu-toggle" class="hamburger-menu">
-        
-        <div class="navbar-content">
-            <!-- Logo siempre apunta a dashboard.html -->
-            <a href="../../pages/dashboard/dashboard.html" class="logo">
-                <span class="logo-text">vocatio</span>
-            </a>
-            
-            <!-- Icono hamburguesa para móvil -->
-            <label for="menu-toggle" class="hamburger-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-            
-            <!-- Menú de navegación consistente -->
-            <ul class="nav-menu">
-                <li><a href="../../pages/careers/explore.html">Explorar carreras</a></li>
-                <li><a href="../../pages/events/events.html">Eventos</a></li>
-                <li><a href="../../pages/vocational-test/test.html">Test vocacional</a></li>
-                <li><a href="../../pages/careers/us20-compartir-resultados-en-redes-sociales-p1.html">Resultados</a></li>
-                <!-- Reemplazar Materiales por Ruta de aprendizaje -->
-                <li><a href="../../pages/dashboard/learning-path.html">Ruta de aprendizaje</a></li>
-                <li><a href="../../pages/careers/progreso.complete.html">Progreso</a></li>
-            </ul>
-            
-            <!-- Dropdown de perfil con checkbox hack -->
-            <div class="profile-dropdown">
-                <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
-                <label for="profile-dropdown-toggle" class="profile-dropdown-label">
-                    <div class="profile-icon">J</div>
-                </label>
-                <div class="dropdown-menu">
-                    <a href="../../pages/profile/profile.html">Mi Perfil</a>
-                    <a href="../../pages/notifications/notifications.html">Notificaciones</a>
-                    <a href="../../index.html" class="logout">Cerrar sesión</a>
-                </div>
-            </div>
+  <div class="container">
+    <!-- Checkbox para menú hamburguesa responsivo -->
+    <input type="checkbox" id="menu-toggle" class="hamburger-menu" />
+
+    <div class="navbar-content">
+      <!-- Logo siempre apunta a dashboard.html -->
+      <a href="../../pages/dashboard/dashboard.html" class="logo">
+        <span class="logo-text">vocatio</span>
+      </a>
+
+      <!-- Icono hamburguesa para móvil -->
+      <label for="menu-toggle" class="hamburger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <!-- Menú de navegación consistente -->
+      <ul class="nav-menu">
+        <li>
+          <a href="../../pages/careers/explore.html">Explorar carreras</a>
+        </li>
+        <li><a href="../../pages/events/events.html">Eventos</a></li>
+        <li>
+          <a href="../../pages/vocational-test/test.html">Test vocacional</a>
+        </li>
+        <li><a href="../../pages/results/results.html">Resultados</a></li>
+        <!-- Reemplazar Materiales por Ruta de aprendizaje -->
+        <li>
+          <a href="../../pages/dashboard/learning-path.html"
+            >Ruta de aprendizaje</a
+          >
+        </li>
+        <li><a href="../../pages/dashboard/progress.html">Progreso</a></li>
+      </ul>
+
+      <!-- Dropdown de perfil con checkbox hack -->
+      <div class="profile-dropdown">
+        <input
+          type="checkbox"
+          id="profile-dropdown-toggle"
+          class="profile-dropdown-checkbox"
+        />
+        <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+          <div class="profile-icon">J</div>
+        </label>
+        <div class="dropdown-menu">
+          <a href="../../pages/profile/profile.html">Mi Perfil</a>
+          <a href="../../pages/notifications/notifications.html"
+            >Notificaciones</a
+          >
+          <a href="../../index.html" class="logout">Cerrar sesión</a>
         </div>
+      </div>
     </div>
+  </div>
 </nav>
