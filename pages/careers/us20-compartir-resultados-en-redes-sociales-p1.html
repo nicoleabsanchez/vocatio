@@ -298,10 +298,26 @@
         top.forEach(cat => { if (map[cat]) carreras = carreras.concat(map[cat].slice(0,3)); });
       }
 
-      if (carreras && carreras.length) {
-        const unique = [...new Set(carreras)];
+      // Asegurar que siempre haya contenido en la lista. Si todo falla, mostrar recomendaciones por defecto
+      const unique = carreras && carreras.length ? [...new Set(carreras)] : [];
+      if (unique.length) {
         const listHTML = unique.map(c => `<li>${c}</li>`).join('');
         document.getElementById('recommended-list').innerHTML = listHTML;
+      } else {
+        // Fallback: usar las dos categorías principales aunque sus porcentajes sean 0
+        const fallbackEntries = Object.entries(normalized).sort((a,b) => b[1] - a[1]);
+        const fallbackTop = fallbackEntries.slice(0,2).map(e => e[0]);
+        const fallbackMap = {
+          'Tecnología': ['Ingeniería de Sistemas','Ciencias de la Computación','Ingeniería Informática'],
+          'Ciencias': ['Biología','Química','Física'],
+          'Arte': ['Diseño Gráfico','Arquitectura','Artes Visuales'],
+          'Negocios': ['Administración de Empresas','Economía','Contabilidad'],
+          'Social': ['Medicina','Enfermería','Psicología']
+        };
+        let fallback = [];
+        fallbackTop.forEach(cat => { if (fallbackMap[cat]) fallback = fallback.concat(fallbackMap[cat].slice(0,3)); });
+        if (!fallback.length) fallback = ['Explorar carreras en Vocatio'];
+        document.getElementById('recommended-list').innerHTML = fallback.map(c => `<li>${c}</li>`).join('');
       }
     }
 
