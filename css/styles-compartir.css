@@ -248,6 +248,12 @@ body {
   margin-right: 10px;
 }
 
+.recommendation-source {
+  font-size: 13px;
+  color: var(--text-gray);
+  margin-bottom: 8px;
+}
+
 /* Share Section */
 .share-section {
   background: linear-gradient(135deg, #d9d4ff 0%, #f8f7ff 100%);
