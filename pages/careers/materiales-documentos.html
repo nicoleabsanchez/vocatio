@@ -708,5 +708,33 @@
     </div>
 
     <script src="js/materiales-documentos.js"></script>
+
+    <script>
+        // Track material page visit for progreso.html
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Increment materials reviewed counter
+                const reviewed = JSON.parse(localStorage.getItem('vocatioMaterialsReviewed') || '[]');
+                if (!Array.isArray(reviewed)) {
+                    reviewed = [];
+                }
+                const visitId = 'materials-doc-' + new Date().getTime();
+                reviewed.push(visitId);
+                localStorage.setItem('vocatioMaterialsReviewed', JSON.stringify(reviewed));
+
+                // Track weekly activity: increment for today
+                const now = new Date();
+                const jsDay = now.getDay();
+                const dayIndex = (jsDay + 6) % 7; // Convert JS day (0=Sun) to our index (0=Mon)
+                const weekActivity = JSON.parse(localStorage.getItem('vocatioWeekActivity') || '[0,0,0,0,0,0,0]');
+                if (Array.isArray(weekActivity)) {
+                    weekActivity[dayIndex] = (weekActivity[dayIndex] || 0) + 1;
+                    localStorage.setItem('vocatioWeekActivity', JSON.stringify(weekActivity));
+                }
+            } catch (e) {
+                console.error('Error tracking material visit:', e);
+            }
+        });
+    </script>
 </body>
 </html>
