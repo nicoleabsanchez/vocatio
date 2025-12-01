@@ -213,40 +213,24 @@
         'social': 'Social', 'salud': 'Social', 'psicologia': 'Social', 'medicina': 'Social', 'enfermeria': 'Social'
       };
 
-      let rawPorcentajes = null;
-      if (data) {
-        if (data.porcentajes) rawPorcentajes = data.porcentajes;
-        else if (data.categorias) rawPorcentajes = data.categorias;
-        else if (data.interests) rawPorcentajes = data.interests;
-        else if (Array.isArray(data)) {
-          // formato [{name, value}, ...]
-          rawPorcentajes = {};
-          data.forEach(i => { if (i && i.name) rawPorcentajes[i.name] = i.value || i.percentage || 0; });
-        } else if (typeof data === 'object') {
-          // intentar detectar campos planos
-          if (data.Tecnología || data.Tecnologia || data.tecnologia) rawPorcentajes = data;
-        }
+      .profile-dropdown {
+        position: relative;
       }
 
       // Inicializar mapa canónico con 0s
       const normalized = { 'Tecnología': 0, 'Ciencias': 0, 'Arte': 0, 'Negocios': 0, 'Social': 0 };
 
-      if (rawPorcentajes) {
-        Object.entries(rawPorcentajes).forEach(([k, v]) => {
-          let key = String(k || '').toLowerCase().trim();
-          // remover acentos para mejor matching
-          const keyNoAcc = key.normalize('NFD').replace(/\p{Diacritic}/gu, '');
-          let canon = canonical[key] || canonical[keyNoAcc];
-          // también intentar sin espacios y sin caracteres especiales
-          if (!canon) {
-            const compact = keyNoAcc.replace(/[^a-z0-9]/g, '');
-            canon = canonical[compact];
-          }
-          if (canon && normalized.hasOwnProperty(canon)) {
-            const num = (typeof v === 'number') ? v : parseInt(String(v).replace(/[^0-9-]/g, '')) || 0;
-            normalized[canon] = num;
-          }
-        });
+      .profile-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1.2rem;
       }
 
       // Escribir en los elementos de UI (los 5 bloques)
@@ -337,7 +321,6 @@
           if (sourceEl) sourceEl.textContent = 'Sin datos del test';
         }
       }
-    }
 
     // Inicializar valores
     document.addEventListener('DOMContentLoaded',function(){
@@ -348,4 +331,143 @@
 </body>
 </html>
 
+        // Inicializar mapa canónico con 0s
+        const normalized = {
+          Tecnología: 0,
+          Ciencias: 0,
+          Arte: 0,
+          Negocios: 0,
+          Social: 0,
+        };
 
+        if (rawPorcentajes) {
+          Object.entries(rawPorcentajes).forEach(([k, v]) => {
+            let key = String(k || "")
+              .toLowerCase()
+              .trim();
+            // remover acentos para mejor matching
+            const keyNoAcc = key
+              .normalize("NFD")
+              .replace(/\p{Diacritic}/gu, "");
+            let canon = canonical[key] || canonical[keyNoAcc];
+            // también intentar sin espacios y sin caracteres especiales
+            if (!canon) {
+              const compact = keyNoAcc.replace(/[^a-z0-9]/g, "");
+              canon = canonical[compact];
+            }
+            if (canon && normalized.hasOwnProperty(canon)) {
+              const num =
+                typeof v === "number"
+                  ? v
+                  : parseInt(String(v).replace(/[^0-9-]/g, "")) || 0;
+              normalized[canon] = num;
+            }
+          });
+        }
+
+        // Escribir en los elementos de UI (los 5 bloques)
+        document.getElementById("affinity-tecnologia").textContent =
+          (normalized["Tecnología"] || 0) + "% de afinidad";
+        document.getElementById("affinity-ciencias").textContent =
+          (normalized["Ciencias"] || 0) + "% de afinidad";
+        document.getElementById("affinity-arte").textContent =
+          (normalized["Arte"] || 0) + "% de afinidad";
+        document.getElementById("affinity-negocios").textContent =
+          (normalized["Negocios"] || 0) + "% de afinidad";
+        document.getElementById("affinity-social").textContent =
+          (normalized["Social"] || 0) + "% de afinidad";
+
+        // Fecha: preferir `vocatioTestDate`, luego `data.fecha` o `data.date`
+        const dateRaw =
+          localStorage.getItem("vocatioTestDate") ||
+          (data && (data.fecha || data.date));
+        if (dateRaw) {
+          try {
+            const fecha = new Date(dateRaw).toLocaleDateString("es-ES", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
+            document.getElementById("dateInfo").textContent =
+              "Realizado el " + fecha;
+          } catch (e) {
+            document.getElementById("dateInfo").textContent =
+              "Realizado el " + dateRaw;
+          }
+        }
+
+        // Carreras recomendadas: preferir campos explícitos, si no inferir según top categorías
+        let carreras = [];
+        if (data) {
+          if (
+            Array.isArray(data.carrerasRecomendadas) &&
+            data.carrerasRecomendadas.length
+          )
+            carreras = data.carrerasRecomendadas;
+          else if (
+            Array.isArray(data.recomendaciones) &&
+            data.recomendaciones.length
+          )
+            carreras = data.recomendaciones;
+          else if (
+            Array.isArray(data.recomendacionesCarreras) &&
+            data.recomendacionesCarreras.length
+          )
+            carreras = data.recomendacionesCarreras;
+          else if (data.categoriaRecomendada) {
+            const map = {
+              Tecnología: [
+                "Ingeniería de Sistemas",
+                "Ciencias de la Computación",
+                "Ingeniería de Software",
+              ],
+              Ciencias: ["Biología", "Química", "Física"],
+              Arte: ["Diseño Gráfico", "Arquitectura", "Comunicación Visual"],
+              Negocios: ["Administración de Empresas", "Economía", "Marketing"],
+              Social: ["Medicina", "Enfermería", "Psicología"],
+            };
+            carreras = map[data.categoriaRecomendada] || [];
+          }
+        }
+
+        // Si no hay carreras explícitas, inferir por las 2 categorías con mayor porcentaje
+        if (!carreras || !carreras.length) {
+          const entries = Object.entries(normalized).sort(
+            (a, b) => b[1] - a[1]
+          );
+          const top = entries.slice(0, 2).map((e) => e[0]);
+          const map = {
+            Tecnología: [
+              "Ingeniería de Sistemas",
+              "Ciencias de la Computación",
+              "Ingeniería Informática",
+            ],
+            Ciencias: ["Biología", "Química", "Física"],
+            Arte: ["Diseño Gráfico", "Arquitectura", "Artes Visuales"],
+            Negocios: [
+              "Administración de Empresas",
+              "Economía",
+              "Contabilidad",
+            ],
+            Social: ["Medicina", "Enfermería", "Psicología"],
+          };
+          top.forEach((cat) => {
+            if (map[cat]) carreras = carreras.concat(map[cat].slice(0, 3));
+          });
+        }
+
+        if (carreras && carreras.length) {
+          const unique = [...new Set(carreras)];
+          const listHTML = unique.map((c) => `<li>${c}</li>`).join("");
+          document.getElementById("recommended-list").innerHTML = listHTML;
+        }
+      }
+
+      // Inicializar valores
+      document.addEventListener("DOMContentLoaded", function () {
+        cargarDatosDelTest();
+        applyTheme(currentTheme);
+      });
+    </script>
+  </body>
+</html>
