@@ -11,6 +11,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const alertBox = document.getElementById("alert-box");
 
+  // --- MODAL ---
+  const openTerms = document.getElementById("open-terms");
+  const modal = document.getElementById("terms-modal");
+  const closeTerms = document.getElementById("close-terms");
+
+  openTerms.addEventListener("click", (e) => {
+      e.preventDefault();
+      modal.style.display = "flex";
+  });
+
+  closeTerms.addEventListener("click", () => {
+      modal.style.display = "none";
+  });
+
+  modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.style.display = "none";
+  });
+
+  const barFill = document.getElementById("password-strength-fill");
+  const strengthText = document.getElementById("password-strength-text");
+
+  passwordInput.addEventListener("input", () => {
+    const pwd = passwordInput.value;
+
+    if (pwd.length === 0) {
+        barFill.style.width = "0%";
+        barFill.style.background = "transparent";
+        strengthText.textContent = "";
+        return;
+    }
+
+    let score = 0;
+    if (pwd.length >= 6) score++;
+    if (pwd.length >= 10) score++;
+    if (/[A-Z]/.test(pwd)) score++;
+    if (/[0-9]/.test(pwd)) score++;
+    if (/[^A-Za-z0-9]/.test(pwd)) score++;
+
+    let width = ["10%", "25%", "50%", "75%", "100%"][score];
+    let colors = ["red", "orange", "#c2b900", "green", "#0abf2a"];
+    let labels = ["Muy débil", "Débil", "Media", "Fuerte", "Muy fuerte"];
+
+    barFill.style.width = width;
+    barFill.style.background = colors[score];
+    strengthText.textContent = "Seguridad: " + labels[score];
+});
+
+
+  // --- VALIDACIÓN ---
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
