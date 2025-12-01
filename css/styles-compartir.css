@@ -248,6 +248,12 @@ body {
   margin-right: 10px;
 }
 
+.recommendation-source {
+  font-size: 13px;
+  color: var(--text-gray);
+  margin-bottom: 8px;
+}
+
 /* Share Section */
 .share-section {
   background: linear-gradient(135deg, #d9d4ff 0%, #f8f7ff 100%);
@@ -882,6 +888,51 @@ body {
 
   .social-buttons {
     grid-template-columns: 1fr;
+  }
+
+  /* Mejoras adicionales para móvil */
+  .result-item {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .careers-list li {
+    padding: 12px 0;
+    font-size: 15px;
+  }
+
+  .recommendations-card {
+    padding: 18px;
+  }
+
+  .preview-modal-content,
+  .modal-content {
+    padding: 18px;
+    max-width: 520px;
+  }
+
+  .preview-title {
+    font-size: 20px;
+  }
+
+  .preview-result-emoji,
+  .result-emoji {
+    font-size: 26px;
+  }
+
+  .result-percentage {
+    font-size: 15px;
+  }
+
+  .preview-download-btn,
+  .preview-btn,
+  .download-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .header-card {
+    padding: 18px;
   }
 }
 
