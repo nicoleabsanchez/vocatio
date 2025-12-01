@@ -585,103 +585,56 @@
 
         <!-- Vista 1: Resumen con gráficas -->
         <div id="vistaResumen">
-          <header>
-            <h1>Mi Progreso</h1>
-            <p>Visualiza tu avance en Vocatio y tus logros alcanzados</p>
-            <div
-              id="mensajeProgresoCero"
-              class="mensaje-cero"
-              style="display: block"
-            >
-              Aún no has completado ninguna actividad. ¡Comienza para ver tu
-              progreso!
-            </div>
-          </header>
-
-          <section class="resumen">
-            <div class="card">
-              <span class="icon">📊</span>
-              <span class="value" id="testsCompletados">0</span>
-              <span class="label">Tests Completados</span>
-            </div>
-            <div class="card">
-              <span class="icon">⭐</span>
-              <span class="value" id="carrerasExploradas">0</span>
-              <span class="label">Carreras Exploradas</span>
-            </div>
-            <div class="card">
-              <span class="icon">📚</span>
-              <span class="value" id="materialesRevisados">0</span>
-              <span class="label">Materiales Revisados</span>
-            </div>
-            <div class="card">
-              <span class="icon">🎯</span>
-              <span class="value" id="progresoTotal">0%</span>
-              <span class="label">Progreso Total</span>
-            </div>
-          </section>
-
-          <section class="intereses">
-            <h2>Intereses Predominantes</h2>
-            <div class="grafica-intereses">
-              <div class="barra" data-cat="Tecnología" style="height: 0%">
-                <span>0%</span>
-                <div>Tecnología</div>
-              </div>
-              <div class="barra" data-cat="Ciencias" style="height: 0%">
-                <span>0%</span>
-                <div>Ciencias</div>
-              </div>
-              <div class="barra" data-cat="Arte" style="height: 0%">
-                <span>0%</span>
-                <div>Arte</div>
-              </div>
-              <div class="barra" data-cat="Negocios" style="height: 0%">
-                <span>0%</span>
-                <div>Negocios</div>
-              </div>
-              <div class="barra" data-cat="Social" style="height: 0%">
-                <span>0%</span>
-                <div>Social</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="actividad-semanal">
-            <h2>Actividad Semanal</h2>
-            <div class="grafica-semanal">
-              <div class="barra-dia" data-fecha="" style="height: 20%">
-                <span>0</span>
-                <div>Lun</div>
-              </div>
-              <div class="barra-dia" data-fecha="" style="height: 20%">
-                <span>0</span>
-                <div>Mar</div>
-              </div>
-              <div class="barra-dia" data-fecha="" style="height: 20%">
-                <span>0</span>
-                <div>Mié</div>
-              </div>
-              <div class="barra-dia" data-fecha="" style="height: 20%">
-                <span>0</span>
-                <div>Jue</div>
-              </div>
-              <div class="barra-dia" data-fecha="" style="height: 20%">
-                <span>0</span>
-                <div>Vie</div>
-              </div>
-              <div class="barra-dia" data-fecha="" style="height: 20%">
-                <span>0</span>
-                <div>Sáb</div>
-              </div>
-              <div class="barra-dia" data-fecha="" style="height: 20%">
-                <span>0</span>
-                <div>Dom</div>
-              </div>
-            </div>
-          </section>
-
-          <button id="btnSiguiente" class="btn-principal">Siguiente</button>
+            <header>
+                <h1>Mi Progreso</h1>
+                <p>Visualiza tu avance en Vocatio y tus logros alcanzados</p>
+                <div id="mensajeProgresoCero" class="mensaje-cero" style="display:block;">Aún no has completado ninguna actividad. ¡Comienza para ver tu progreso!</div>
+            </header>
+            <section class="resumen">
+                <div class="card">
+                    <span class="icon">📊</span>
+                    <span class="value" id="testsCompletados">0</span>
+                    <span class="label">Tests Completados</span>
+                </div>
+                <div class="card">
+                    <span class="icon">⭐</span>
+                    <span class="value" id="carrerasExploradas">0</span>
+                    <span class="label">Carreras Exploradas</span>
+                </div>
+                <div class="card">
+                    <span class="icon">📚</span>
+                    <span class="value" id="materialesRevisados">0</span>
+                    <span class="label">Materiales Revisados</span>
+                </div>
+                <div class="card">
+                    <span class="icon">🎯</span>
+                    <span class="value" id="progresoTotal">0%</span>
+                    <span class="label">Progreso Total</span>
+                </div>
+            </section>
+            <section class="intereses">
+                <h2>Intereses Predominantes</h2>
+                <div class="grafica-intereses">
+                    <div class="barra" data-cat="Tecnología"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Tecnología</div></div>
+                    <div class="barra" data-cat="Ciencias"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Ciencias</div></div>
+                    <div class="barra" data-cat="Arte"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Arte</div></div>
+                    <div class="barra" data-cat="Negocios"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Negocios</div></div>
+                    <div class="barra" data-cat="Social"><div class="percent">0%</div><div class="bar-fill" style="height:0%"></div><div class="label">Social</div></div>
+                </div>
+            </section>
+            <section class="actividad-semanal">
+                <h2>Actividad Semanal</h2>
+                <div class="grafica-semanal">
+                    <div class="barra-dia" data-fecha="" data-day-index="0" style="height:5%"><span>0</span><div>Lun</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="1" style="height:5%"><span>0</span><div>Mar</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="2" style="height:5%"><span>0</span><div>Mié</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="3" style="height:5%"><span>0</span><div>Jue</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="4" style="height:5%"><span>0</span><div>Vie</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="5" style="height:5%"><span>0</span><div>Sáb</div></div>
+                    <div class="barra-dia" data-fecha="" data-day-index="6" style="height:5%"><span>0</span><div>Dom</div></div>
+                </div>
+            </section>
+            <button id="btnSiguiente" class="btn-principal">Siguiente</button>
         </div>
 
         <!-- Vista 2: Detalle de actividades -->
@@ -879,36 +832,172 @@
           }
         }
 
-        // Cargar materiales revisados
-        const materialsReviewed = localStorage.getItem(
-          "vocatioMaterialsReviewed"
-        );
-        if (materialsReviewed) {
-          try {
-            const materials = JSON.parse(materialsReviewed);
-            userData.materialsReviewed = materials.length;
-            userData.totalProgress += Math.min(25, materials.length * 5);
-          } catch (e) {
-            console.error("Error loading materials:", e);
-          }
-        }
+        // Función para actualizar toda la página
+        function actualizarPagina() {
+                // Cargar contadores persistentes
+                // Tests: use 'vocatioTestsTaken' counter (number of times user completed test)
+                const testsTaken = parseInt(localStorage.getItem('vocatioTestsTaken') || '0', 10);
+                // If testsTaken is zero but a result exists, initialize to 1
+                const rawTestResults = localStorage.getItem('vocatioTestResults');
+                const hasTestResults = !!rawTestResults;
+                let testsCount = testsTaken;
+                if (testsCount === 0 && hasTestResults) {
+                    testsCount = 1;
+                    localStorage.setItem('vocatioTestsTaken', '1');
+                }
+                userData.testsCompleted = testsCount;
 
-        // Cargar carrera seleccionada
-        const selectedCareer = localStorage.getItem("vocatioSelectedCareer");
-        if (selectedCareer) {
-          userData.totalProgress += 25;
-        }
+                // Intereses desde el último resultado
+                if (hasTestResults) {
+                    try {
+                        const data = JSON.parse(rawTestResults);
+                        // Usar la estructura de categorías del test (Tecnología, Ciencias, Arte, Negocios, Social)
+                        if (data.categorias) {
+                            // Mapeo de nombres en test a keys en userData.interests
+                            userData.interests = {
+                                technology: data.categorias['Tecnología'] || data.categorias.Tecnologia || 0,
+                                science: data.categorias['Ciencias'] || 0,
+                                art: data.categorias['Arte'] || 0,
+                                business: data.categorias['Negocios'] || 0,
+                                social: data.categorias['Social'] || 0
+                            };
+                        } else if (data.interests) {
+                            // Fallback a estructura antigua si existe
+                            userData.interests = {
+                                technology: data.interests.technology || 0,
+                                science: data.interests.science || 0,
+                                art: data.interests.art || 0,
+                                business: data.interests.business || 0,
+                                social: data.interests.social || 0
+                            };
+                        }
+                    } catch (e) {
+                        console.error('Error loading test results:', e);
+                    }
+                }
 
-        // Limitar progreso a 100%
-        userData.totalProgress = Math.min(100, userData.totalProgress);
+                // Carreras favoritas: prefer 'vocatioFavoriteCareers' else fallback to 'vocatioCareersExplored'
+                try {
+                    const favs = JSON.parse(localStorage.getItem('vocatioFavoriteCareers') || 'null');
+                    if (Array.isArray(favs)) {
+                        userData.careersExplored = favs.length;
+                    } else {
+                        const careersExplored = JSON.parse(localStorage.getItem('vocatioCareersExplored') || '[]');
+                        userData.careersExplored = Array.isArray(careersExplored) ? careersExplored.length : 0;
+                    }
+                } catch (e) {
+                    console.error('Error loading favorite careers:', e);
+                }
 
-        // Intentar cargar datos adicionales de vocatioUserProgress
-        const storedData = localStorage.getItem("vocatioUserProgress");
-        if (storedData) {
-          try {
-            const loaded = JSON.parse(storedData);
-            if (loaded.activities && Array.isArray(loaded.activities)) {
-              userData.activities = loaded.activities;
+                // Materiales revisados: stored as array 'vocatioMaterialsReviewed' OR track by selected career history
+                try {
+                    const materials = JSON.parse(localStorage.getItem('vocatioMaterialsReviewed') || 'null');
+                    if (Array.isArray(materials)) {
+                        userData.materialesRevisados = materials.length;
+                        userData.materialsReviewed = materials.length;
+                    }
+                } catch (e) {
+                    console.error('Error loading materials reviewed:', e);
+                }
+                // If a career was selected, ensure it's counted once in a by-career set
+                try {
+                    const sel = localStorage.getItem('vocatioSelectedCareer');
+                    if (sel) {
+                        const reviewedByCareer = JSON.parse(localStorage.getItem('vocatioMaterialsReviewedByCareer') || '[]');
+                        const careerKey = typeof sel === 'string' ? sel : JSON.stringify(sel);
+                        if (Array.isArray(reviewedByCareer)) {
+                            if (!reviewedByCareer.includes(careerKey)) {
+                                reviewedByCareer.push(careerKey);
+                                localStorage.setItem('vocatioMaterialsReviewedByCareer', JSON.stringify(reviewedByCareer));
+                            }
+                            userData.materialsReviewed = reviewedByCareer.length;
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error handling selected career materials:', e);
+                }
+            
+            // Limitar progreso a 100%
+            userData.totalProgress = Math.min(100, userData.totalProgress);
+            
+            // Intentar cargar datos adicionales de vocatioUserProgress
+            const storedData = localStorage.getItem('vocatioUserProgress');
+            if (storedData) {
+                try {
+                    const loaded = JSON.parse(storedData);
+                    if (loaded.activities && Array.isArray(loaded.activities)) {
+                        userData.activities = loaded.activities;
+                    }
+                        if (Array.isArray(loaded.weekActivity)) {
+                            userData.weekActivity = loaded.weekActivity;
+                        }
+                } catch (e) {
+                    console.log('No se pudo cargar datos guardados');
+                }
+            }
+
+                // Load week activity from dedicated key if present
+                try {
+                    const week = JSON.parse(localStorage.getItem('vocatioWeekActivity') || 'null');
+                    if (Array.isArray(week) && week.length === 7) {
+                        userData.weekActivity = week;
+                    }
+                } catch (e) {
+                    console.error('Error loading week activity:', e);
+                }
+
+            // Actualizar estadísticas
+            document.getElementById('testsCompletados').textContent = userData.testsCompleted;
+            document.getElementById('carrerasExploradas').textContent = userData.careersExplored;
+            document.getElementById('materialesRevisados').textContent = (userData.materialsReviewed || 0);
+            document.getElementById('progresoTotal').textContent = userData.totalProgress + '%';
+            document.getElementById('barraProgreso').style.width = userData.totalProgress + '%';
+
+            // Actualizar gráfica de intereses (usar .bar-fill y .percent)
+            // Las barras corresponden a: Tecnología, Ciencias, Arte, Negocios, Social
+            const barras = document.querySelectorAll('.grafica-intereses .barra');
+            const interestKeys = ['technology', 'science', 'art', 'business', 'social'];
+            const interestLabels = ['Tecnología', 'Ciencias', 'Arte', 'Negocios', 'Social'];
+            
+            barras.forEach((barra, index) => {
+                const key = interestKeys[index];
+                const value = Math.round(userData.interests[key] || 0);
+                const fill = barra.querySelector('.bar-fill');
+                const pct = barra.querySelector('.percent');
+                if (fill) fill.style.height = Math.max(value, 2) + '%';
+                if (pct) pct.textContent = value + '%';
+            });
+
+            // Actualizar gráfica semanal (persistida en userData.weekActivity)
+            // Height escala según hora del día: hora actual / 24h = % de día transcurrido
+            const diasBarras = document.querySelectorAll('.grafica-semanal .barra-dia');
+            const ahora = new Date();
+            const horaActual = ahora.getHours() + (ahora.getMinutes() / 60);
+            const porcentajeDia = (horaActual / 24) * 100; // % del día que ha pasado (0-100%)
+            
+            diasBarras.forEach((barra) => {
+                const index = parseInt(barra.getAttribute('data-day-index') || '0', 10);
+                const value = userData.weekActivity[index] || 0;
+                
+                // Si hay visitas: altura = porcentajeDia (hora actual)
+                // Si no hay visitas: altura = 5% (mínimo)
+                const heightPercent = value > 0 ? porcentajeDia : 5;
+                barra.style.height = Math.max(heightPercent, 5) + '%';
+                const span = barra.querySelector('span');
+                if (span) span.textContent = value;
+            });
+
+            // Generar actividades en vista de detalles
+            renderActivities();
+
+            // Mostrar/ocultar elementos según si hay progreso
+            const hasProgress = userData.totalProgress > 0 || userData.activities.length > 0;
+            if (hasProgress) {
+                document.getElementById('mensajeProgresoCero').style.display = 'none';
+                document.getElementById('mensajeProgresoCeroDetalle').style.display = 'none';
+            } else {
+                document.getElementById('mensajeProgresoCero').style.display = 'block';
+                document.getElementById('mensajeProgresoCeroDetalle').style.display = 'block';
             }
           } catch (e) {
             console.log("No se pudo cargar datos guardados");
@@ -953,101 +1042,126 @@
           barra.querySelector("span").textContent = value;
         });
 
-        // Generar actividades en vista de detalles
-        renderActivities();
+        // Función para agregar actividades (se puede llamar desde otras páginas)
+        window.agregarActividad = function(activityData) {
+            if (!userData.activities) userData.activities = [];
+            
+            // activityData ejemplo: { type: 'test', name: 'Test 1', progress: 100, careerName: 'Ing. Sistemas' }
+            userData.activities.push({
+                ...activityData,
+                timestamp: new Date().toISOString()
+            });
 
-        // Mostrar/ocultar elementos según si hay progreso
-        const hasProgress =
-          userData.totalProgress > 0 || userData.activities.length > 0;
-        if (hasProgress) {
-          document.getElementById("mensajeProgresoCero").style.display = "none";
-          document.getElementById("mensajeProgresoCeroDetalle").style.display =
-            "none";
-        } else {
-          document.getElementById("mensajeProgresoCero").style.display =
-            "block";
-          document.getElementById("mensajeProgresoCeroDetalle").style.display =
-            "block";
-        }
-      }
+            // Actualizar estadísticas según tipo
+            switch(activityData.type) {
+                case 'test':
+                    // increment tests counter (persisted)
+                    const prevCount = parseInt(localStorage.getItem('vocatioTestsTaken') || '0', 10);
+                    const newCount = prevCount + 1;
+                    localStorage.setItem('vocatioTestsTaken', String(newCount));
+                    userData.testsCompleted = newCount;
+                    break;
+                case 'material':
+                    // track reviewed materials; if careerName present, mark by career
+                    if (activityData.careerName) {
+                        try {
+                            const key = activityData.careerName;
+                            const reviewed = JSON.parse(localStorage.getItem('vocatioMaterialsReviewedByCareer') || '[]');
+                            if (!reviewed.includes(key)) {
+                                reviewed.push(key);
+                                localStorage.setItem('vocatioMaterialsReviewedByCareer', JSON.stringify(reviewed));
+                            }
+                            userData.materialsReviewed = reviewed.length;
+                        } catch (e) {
+                            console.error('Error updating materials by career', e);
+                        }
+                    } else {
+                        userData.materialsReviewed++;
+                    }
+                    break;
+                case 'career':
+                    userData.careersExplored++;
+                    break;
+            }
 
-      // Cargar datos al iniciar
-      document.addEventListener("DOMContentLoaded", function () {
-        actualizarPagina();
-      });
+            // Increment weekly activity for today
+            try {
+                const now = new Date();
+                // convert JS getDay (0=Sun) to our index Mon=0..Sun=6
+                const jsDay = now.getDay();
+                const dayIndex = (jsDay + 6) % 7;
+                userData.weekActivity = userData.weekActivity || [0,0,0,0,0,0,0];
+                userData.weekActivity[dayIndex] = (userData.weekActivity[dayIndex] || 0) + 1;
+                localStorage.setItem('vocatioWeekActivity', JSON.stringify(userData.weekActivity));
+            } catch (e) {
+                console.error('Error updating week activity', e);
+            }
 
-      // Cargar datos cada vez que la página se hace visible
-      document.addEventListener("visibilitychange", function () {
-        if (!document.hidden) {
-          actualizarPagina();
-        }
-      });
+            // Recalcular progreso total
+            userData.totalProgress = Math.round(((userData.testsCompleted + userData.careersExplored + (userData.materialsReviewed||0)) / 30) * 100);
 
-      // Función para agregar actividades (se puede llamar desde otras páginas)
-      window.agregarActividad = function (activityData) {
-        if (!userData.activities) userData.activities = [];
+            // Guardar en localStorage
+            localStorage.setItem('vocatioUserProgress', JSON.stringify(userData));
 
-        // activityData ejemplo: { type: 'test', name: 'Test 1', progress: 100, careerName: 'Ing. Sistemas' }
-        userData.activities.push({
-          ...activityData,
-          timestamp: new Date().toISOString(),
-        });
+            // Recargar la página para mostrar cambios
+            location.reload();
+        };
 
-        // Actualizar estadísticas según tipo
-        switch (activityData.type) {
-          case "test":
-            userData.testsCompleted++;
-            break;
-          case "material":
-            userData.materialsReviewed++;
-            break;
-          case "career":
-            userData.careersExplored++;
-            break;
-        }
+        // Función para incrementar progreso (se puede llamar desde otras páginas)
+        window.incrementarProgreso = function(type, amount = 1) {
+            switch(type) {
+                case 'test':
+                    // update persistent tests counter
+                    const prev = parseInt(localStorage.getItem('vocatioTestsTaken') || '0', 10);
+                    const updated = prev + amount;
+                    localStorage.setItem('vocatioTestsTaken', String(updated));
+                    userData.testsCompleted = updated;
+                    break;
+                case 'career':
+                    userData.careersExplored += amount;
+                    break;
+                case 'material':
+                    userData.materialsReviewed += amount;
+                    break;
+            }
+            // Calcular progreso total
+            userData.totalProgress = Math.round(((userData.testsCompleted + userData.careersExplored + userData.materialsReviewed) / 30) * 100);
+            // Guardar en localStorage
+            localStorage.setItem('vocatioUserProgress', JSON.stringify(userData));
+            // Recargar la página para mostrar cambios
+            location.reload();
+        };
 
-        // Recalcular progreso total
-        userData.totalProgress = Math.round(
-          ((userData.testsCompleted +
-            userData.careersExplored +
-            userData.materialsReviewed) /
-            30) *
-            100
-        );
+        // Helper: registrar test completion from test page
+        window.registrarTestCompletion = function(resultData) {
+            // resultData optional, will be stored as last result
+            try {
+                const prev = parseInt(localStorage.getItem('vocatioTestsTaken') || '0', 10);
+                const updated = prev + 1;
+                localStorage.setItem('vocatioTestsTaken', String(updated));
+                if (resultData) localStorage.setItem('vocatioTestResults', JSON.stringify(resultData));
+                // also push activity
+                window.agregarActividad({ type: 'test', name: resultData && resultData.name ? resultData.name : 'Test', progress: 100, careerName: (resultData && resultData.topCareer) || '' });
+            } catch (e) { console.error(e); }
+        };
 
-        // Guardar en localStorage
-        localStorage.setItem("vocatioUserProgress", JSON.stringify(userData));
-
-        // Recargar la página para mostrar cambios
-        location.reload();
-      };
-
-      // Función para incrementar progreso (se puede llamar desde otras páginas)
-      window.incrementarProgreso = function (type, amount = 1) {
-        switch (type) {
-          case "test":
-            userData.testsCompleted += amount;
-            break;
-          case "career":
-            userData.careersExplored += amount;
-            break;
-          case "material":
-            userData.materialsReviewed += amount;
-            break;
-        }
-        // Calcular progreso total
-        userData.totalProgress = Math.round(
-          ((userData.testsCompleted +
-            userData.careersExplored +
-            userData.materialsReviewed) /
-            30) *
-            100
-        );
-        // Guardar en localStorage
-        localStorage.setItem("vocatioUserProgress", JSON.stringify(userData));
-        // Recargar la página para mostrar cambios
-        location.reload();
-      };
+        // Helper: mark a selected career (from explore) so materialsReviewed counts by career
+        window.marcarSeleccionCarrera = function(careerKey) {
+            try {
+                if (!careerKey) return;
+                localStorage.setItem('vocatioSelectedCareer', careerKey);
+                const reviewed = JSON.parse(localStorage.getItem('vocatioMaterialsReviewedByCareer') || '[]');
+                if (!reviewed.includes(careerKey)) {
+                    reviewed.push(careerKey);
+                    localStorage.setItem('vocatioMaterialsReviewedByCareer', JSON.stringify(reviewed));
+                }
+                // update materialsReviewed
+                const materialsArr = JSON.parse(localStorage.getItem('vocatioMaterialsReviewed') || '[]');
+                localStorage.setItem('vocatioMaterialsReviewed', JSON.stringify(materialsArr));
+                // push an activity
+                window.agregarActividad({ type: 'career', name: careerKey, careerName: careerKey });
+            } catch (e) { console.error(e); }
+        };
     </script>
   </body>
 </html>
