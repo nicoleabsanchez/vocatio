@@ -16,11 +16,11 @@
     .subtitle{font-size:18px;color:#8b8a92;text-align:center}
     .main-content{display:flex;flex-direction:column;gap:20px;align-items:center}
     .results-card{background:#fff;border-radius:20px;padding:40px;box-shadow:0 10px 30px rgba(105,62,254,0.1);max-width:800px;width:100%}
-    .results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:30px}
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:30px}
     .result-item{background:#f9f8ff;border:3px solid #d9d4ff;border-radius:15px;padding:25px;text-align:center}
     .result-emoji{font-size:48px;margin-bottom:10px}
-    .result-name{font-size:24px;font-weight:700;color:#693efe;margin-bottom:5px}
-    .result-percentage{font-size:16px;color:#7e7af7}
+    .result-name{font-size:24px;font-weight:700;color:#693efe;margin-top:12px;margin-bottom:5px}
+    .result-percentage{font-size:16px;color:#000;font-weight:700}
     .date-info{text-align:center;color:#b2a6ff;font-size:16px;margin-top:20px;padding-top:20px;border-top:2px solid #e5e0ff}
     .careers-card{background:#fff;border:2px solid #7e7af7;border-radius:20px;padding:40px;max-width:800px;width:100%}
     .careers-title{font-size:24px;font-weight:700;color:#1b1b1b;margin-bottom:20px;text-align:center}
@@ -88,6 +88,11 @@
             <div class="result-emoji">💼</div>
             <div class="result-name">Negocios</div>
             <div class="result-percentage" id="affinity-analisis">—% de afinidad</div>
+          </div>
+          <div class="result-item">
+            <div class="result-emoji">🤝</div>
+            <div class="result-name">Social</div>
+            <div class="result-percentage" id="affinity-social">—% de afinidad</div>
           </div>
         </div>
         <div class="date-info" id="dateInfo">Realizado el —</div>
@@ -246,8 +251,8 @@
         }
       }
 
-      // Inicializar mapa canónico con 0s
-      const normalized = { 'Tecnología': 0, 'Ciencias': 0, 'Arte': 0, 'Negocios': 0 };
+      // Inicializar mapa canónico con 0s (incluye Social)
+      const normalized = { 'Tecnología': 0, 'Ciencias': 0, 'Arte': 0, 'Negocios': 0, 'Social': 0 };
 
       if (rawPorcentajes) {
         Object.entries(rawPorcentajes).forEach(([k, v]) => {
@@ -267,11 +272,26 @@
         });
       }
 
-      // Escribir en los elementos de UI (los 4 bloques)
-      document.getElementById('affinity-tecnologia').textContent = (normalized['Tecnología'] || 0) + '% de afinidad';
-      document.getElementById('affinity-ciencias').textContent = (normalized['Ciencias'] || 0) + '% de afinidad';
-      document.getElementById('affinity-innovacion').textContent = (normalized['Arte'] || 0) + '% de afinidad';
-      document.getElementById('affinity-analisis').textContent = (normalized['Negocios'] || 0) + '% de afinidad';
+      // Animar y escribir en los elementos de UI (ahora 5 bloques)
+      function animatePercentage(elId, targetPercent) {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        // Convert target to integer 0..100
+        const target = Math.max(0, Math.min(100, parseInt(targetPercent, 10) || 0));
+        // Show in 3 steps: 1/3, 2/3, full (visual increment)
+        const step1 = Math.round(target / 3);
+        const step2 = Math.round((2 * target) / 3);
+        el.textContent = '0% de afinidad';
+        setTimeout(() => { el.textContent = step1 + '% de afinidad'; }, 200);
+        setTimeout(() => { el.textContent = step2 + '% de afinidad'; }, 500);
+        setTimeout(() => { el.textContent = target + '% de afinidad'; }, 900);
+      }
+
+      animatePercentage('affinity-tecnologia', normalized['Tecnología'] || 0);
+      animatePercentage('affinity-ciencias', normalized['Ciencias'] || 0);
+      animatePercentage('affinity-innovacion', normalized['Arte'] || 0);
+      animatePercentage('affinity-analisis', normalized['Negocios'] || 0);
+      animatePercentage('affinity-social', normalized['Social'] || 0);
 
       // Fecha: preferir `vocatioTestDate`, luego `data.fecha` o `data.date`
       const dateRaw = localStorage.getItem('vocatioTestDate') || (data && (data.fecha || data.date));
