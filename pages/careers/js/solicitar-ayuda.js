@@ -72,3 +72,4 @@ document.addEventListener('DOMContentLoaded', () => {
   const existing = JSON.parse(localStorage.getItem('helpTickets') || '[]');
   if (existing.length) renderStatus(existing[0]);
 });
+
