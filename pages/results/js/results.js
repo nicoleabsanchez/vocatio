@@ -4,27 +4,122 @@
 const BASE_FILE_SIZE = 0.5; // MB
 const SIZE_PER_SECTION = 0.5; // MB por sección
 
-// Cargar datos del test vocacional
+// Datos aleatorios para resultados
+const PERFILES = [
+  'Analítico-Sistemático',
+  'Creativo-Innovador',
+  'Social-Humanista',
+  'Emprendedor-Dinámico',
+  'Científico-Investigador',
+  'Artístico-Expresivo'
+];
+
+const AREAS_CONOCIMIENTO = [
+  'Ingeniería',
+  'Tecnología',
+  'Negocios',
+  'Arte y Diseño',
+  'Ciencias Sociales',
+  'Ciencias Naturales',
+  'Salud',
+  'Humanidades'
+];
+
+const CARRERAS_POR_AREA = {
+  'Ingeniería': ['Ingeniería de Sistemas', 'Ingeniería Industrial', 'Ingeniería Mecatrónica', 'Ingeniería Civil', 'Ingeniería Electrónica'],
+  'Tecnología': ['Ciencia de Datos', 'Desarrollo de Software', 'Ciberseguridad', 'Inteligencia Artificial', 'Arquitectura de Software'],
+  'Negocios': ['Administración de Empresas', 'Marketing Digital', 'Finanzas', 'Economía', 'Comercio Internacional'],
+  'Arte y Diseño': ['Diseño Gráfico', 'Diseño UX/UI', 'Arquitectura', 'Diseño Industrial', 'Artes Visuales'],
+  'Ciencias Sociales': ['Psicología', 'Sociología', 'Trabajo Social', 'Antropología', 'Comunicación Social'],
+  'Ciencias Naturales': ['Biología', 'Química', 'Física', 'Matemáticas', 'Ciencias Ambientales'],
+  'Salud': ['Medicina', 'Enfermería', 'Nutrición', 'Fisioterapia', 'Odontología'],
+  'Humanidades': ['Derecho', 'Filosofía', 'Historia', 'Lenguas Modernas', 'Educación']
+};
+
+// Variable para almacenar resultados generados
 let testResults = null;
-function loadTestResults() {
-  const stored = localStorage.getItem('vocatioTestResults');
-  if (stored) {
-    testResults = JSON.parse(stored);
-    // Actualizar la página con los datos del test
-    updateResultsDisplay();
+
+// Función para generar resultados aleatorios
+function generateRandomResults() {
+  // Seleccionar perfil aleatorio
+  const perfil = PERFILES[Math.floor(Math.random() * PERFILES.length)];
+  
+  // Generar 3 áreas aleatorias con porcentajes
+  const areasSeleccionadas = [];
+  const areasDisponibles = [...AREAS_CONOCIMIENTO];
+  
+  for (let i = 0; i < 3; i++) {
+    const index = Math.floor(Math.random() * areasDisponibles.length);
+    areasSeleccionadas.push(areasDisponibles.splice(index, 1)[0]);
   }
+  
+  // Generar porcentajes decrecientes (primera área más alta)
+  const porcentajes = {};
+  let porcentajeBase = Math.floor(Math.random() * 21) + 70; // 70-90%
+  
+  areasSeleccionadas.forEach((area, index) => {
+    porcentajes[area] = porcentajeBase;
+    porcentajeBase = Math.max(20, porcentajeBase - Math.floor(Math.random() * 16) - 15); // Decremento de 15-30%
+  });
+  
+  // Generar carreras recomendadas basadas en las áreas
+  const carrerasRecomendadas = [];
+  areasSeleccionadas.forEach(area => {
+    const carrerasArea = CARRERAS_POR_AREA[area] || [];
+    if (carrerasArea.length > 0) {
+      const carrera = carrerasArea[Math.floor(Math.random() * carrerasArea.length)];
+      if (!carrerasRecomendadas.includes(carrera)) {
+        carrerasRecomendadas.push(carrera);
+      }
+    }
+  });
+  
+  // Asegurar que tengamos al menos 3 carreras
+  while (carrerasRecomendadas.length < 3) {
+    const todasCarreras = Object.values(CARRERAS_POR_AREA).flat();
+    const carreraRandom = todasCarreras[Math.floor(Math.random() * todasCarreras.length)];
+    if (!carrerasRecomendadas.includes(carreraRandom)) {
+      carrerasRecomendadas.push(carreraRandom);
+    }
+  }
+  
+  return {
+    perfil: perfil,
+    porcentajes: porcentajes,
+    areas: areasSeleccionadas,
+    recomendaciones: carrerasRecomendadas.slice(0, 5),
+    fecha: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+  };
+}
+
+// Cargar datos del test vocacional
+function loadTestResults() {
+  // Generar resultados aleatorios cada vez que se carga la página
+  testResults = generateRandomResults();
+  
+  // Guardar en localStorage para mantener consistencia durante la sesión
+  sessionStorage.setItem('currentTestResults', JSON.stringify(testResults));
+  
+  // Actualizar la página con los datos generados
+  updateResultsDisplay();
 }
 
 function updateResultsDisplay() {
   if (!testResults) return;
   
-  // Mapeo de categorías del test a labels de UI
-  const categoryLabels = {
-    'Tecnología': 'Tecnología',
-    'Ciencias': 'Ingeniería',  // Ciencias mapeado a Ingeniería en UI
-    'Arte': 'Arte y Diseño',    // Arte mapeado a Arte y Diseño en UI
-    'Negocios': 'Negocios'      // Negocios se mantiene igual
-  };
+  // Actualizar perfil vocacional
+  const perfilElement = document.querySelector('.profile-type');
+  if (perfilElement) {
+    perfilElement.textContent = testResults.perfil;
+  }
+  
+  // Actualizar fecha del test
+  const fechaElements = document.querySelectorAll('h2');
+  fechaElements.forEach(el => {
+    if (el.textContent.includes('Test Vocacional')) {
+      el.textContent = `Test Vocacional - ${testResults.fecha}`;
+    }
+  });
   
   // Obtener porcentajes del test y ordenarlos de mayor a menor
   const affinity = testResults.porcentajes || {};
@@ -37,10 +132,9 @@ function updateResultsDisplay() {
   affinityItems.forEach((item, index) => {
     if (sortedAffinity[index]) {
       const [categoryKey, percentage] = sortedAffinity[index];
-      const displayLabel = categoryLabels[categoryKey] || categoryKey;
       
       const labels = item.querySelectorAll('span');
-      if (labels[0]) labels[0].textContent = displayLabel;
+      if (labels[0]) labels[0].textContent = categoryKey;
       if (labels[1]) labels[1].textContent = percentage + '%';
       
       // Actualizar barra de progreso
@@ -51,12 +145,67 @@ function updateResultsDisplay() {
   
   // Actualizar carreras recomendadas
   if (testResults.recomendaciones && testResults.recomendaciones.length > 0) {
-    const recommendedList = document.querySelector('.recommended-careers');
-    if (recommendedList) {
-      recommendedList.innerHTML = testResults.recomendaciones.map(career => 
-        `<div class="career-item"><strong>${career}</strong></div>`
+    const careerBadges = document.querySelector('.career-badges');
+    if (careerBadges) {
+      careerBadges.innerHTML = testResults.recomendaciones.map(career => 
+        `<span class="career-badge">${career}</span>`
       ).join('');
     }
+  }
+  
+  // Actualizar historial con datos aleatorios anteriores
+  updateHistorySection();
+}
+
+
+// Función para actualizar el historial con datos aleatorios
+function updateHistorySection() {
+  // Generar test anterior aleatorio
+  const perfilAnterior = PERFILES[Math.floor(Math.random() * PERFILES.length)];
+  
+  const areasAnteriores = [];
+  const areasDisponibles = [...AREAS_CONOCIMIENTO];
+  for (let i = 0; i < 3; i++) {
+    const index = Math.floor(Math.random() * areasDisponibles.length);
+    areasAnteriores.push(areasDisponibles.splice(index, 1)[0]);
+  }
+  
+  const porcentajesAnteriores = {};
+  let porcentaje = Math.floor(Math.random() * 21) + 70;
+  areasAnteriores.forEach(area => {
+    porcentajesAnteriores[area] = porcentaje;
+    porcentaje = Math.max(20, porcentaje - Math.floor(Math.random() * 16) - 15);
+  });
+  
+  const carrerasAnteriores = [];
+  areasAnteriores.forEach(area => {
+    const carrerasArea = CARRERAS_POR_AREA[area] || [];
+    if (carrerasArea.length > 0) {
+      const carrera = carrerasArea[Math.floor(Math.random() * carrerasArea.length)];
+      if (!carrerasAnteriores.includes(carrera)) {
+        carrerasAnteriores.push(carrera);
+      }
+    }
+  });
+  
+  // Actualizar el historial en el HTML
+  const historyProfile = document.querySelector('.history-profile');
+  if (historyProfile) {
+    historyProfile.textContent = `Perfil: ${perfilAnterior}`;
+  }
+  
+  const areasList = document.querySelector('.areas-list');
+  if (areasList) {
+    areasList.innerHTML = areasAnteriores.map((area, index) => 
+      `<li><span class="dot"></span> ${area} (${porcentajesAnteriores[area]}%)</li>`
+    ).join('');
+  }
+  
+  const careerTags = document.querySelector('.career-tags');
+  if (careerTags) {
+    careerTags.innerHTML = carrerasAnteriores.slice(0, 3).map(career => 
+      `<span class="career-tag">${career}</span>`
+    ).join('');
   }
 }
 
@@ -147,7 +296,7 @@ function sendReportByEmail() {
     
     localStorage.setItem('emailHistory', JSON.stringify(emailHistory));
   } else {
-    alert('⚠️ Por favor ingresa un correo electrónico válido');
+    alert('⚠ Por favor ingresa un correo electrónico válido');
   }
 }
 
@@ -180,7 +329,7 @@ function validateSections() {
   
   if (checkedBoxes.length === 0) {
     errorMessage.style.display = 'flex';
-    errorMessage.innerHTML = '⚠️ <strong style="margin-left: 0.5rem;">Selecciona al menos una sección para continuar</strong>';
+    errorMessage.innerHTML = '⚠ <strong style="margin-left: 0.5rem;">Selecciona al menos una sección para continuar</strong>';
     downloadBtn.disabled = true;
     downloadBtn.style.opacity = '0.5';
     downloadBtn.style.cursor = 'not-allowed';
@@ -356,6 +505,9 @@ async function generatePDFReport() {
   const currentDate = new Date();
   const fileName = `VOCATIO_Reporte_${currentDate.toISOString().split('T')[0]}.pdf`;
   
+  // Usar los datos aleatorios generados
+  const datos = testResults || generateRandomResults();
+  
   // Configuración de colores
   const primaryColor = [108, 92, 231]; // #6c5ce7
   const textColor = [26, 26, 26];
@@ -381,11 +533,7 @@ async function generatePDFReport() {
   // ========== FECHA ==========
   doc.setFontSize(10);
   doc.setTextColor(...grayColor);
-  doc.text(`Fecha de generación: ${currentDate.toLocaleDateString('es-ES', { 
-    day: 'numeric', 
-    month: 'long', 
-    year: 'numeric' 
-  })}`, 105, yPosition, { align: 'center' });
+  doc.text(`Fecha de generación: ${datos.fecha}`, 105, yPosition, { align: 'center' });
   
   yPosition += 15;
   
@@ -400,63 +548,71 @@ async function generatePDFReport() {
     doc.setFontSize(20);
     doc.setTextColor(...textColor);
     doc.setFont(undefined, 'bold');
-    doc.text('Analítico-Sistemático', 20, yPosition);
+    doc.text(datos.perfil, 20, yPosition);
     yPosition += 8;
     
     doc.setFontSize(10);
     doc.setTextColor(...grayColor);
     doc.setFont(undefined, 'normal');
-    const profileDesc = 'Tienes una capacidad excepcional para el análisis lógico y la resolución de problemas\ncomplejos. Tu pensamiento estructurado te permite abordar desafíos de manera sistemática.';
-    doc.text(profileDesc, 20, yPosition);
-    yPosition += 20;
+    const profileDesc = getProfileDescription(datos.perfil);
+    
+    // Calcular líneas necesarias para la descripción
+    const lines = doc.splitTextToSize(profileDesc, 170);
+    doc.text(lines, 20, yPosition);
+    yPosition += (lines.length * 5) + 10;
   }
   
   // ========== ÁREAS DE AFINIDAD ==========
   if (selectedSections.includes('affinity')) {
-    // Capturar la sección de afinidad si existe
-    const affinitySection = document.querySelector('.affinity-section');
-    
-    if (affinitySection) {
-      try {
-        const canvas = await html2canvas(affinitySection, {
-          scale: 2,
-          logging: false,
-          backgroundColor: '#ffffff'
-        });
-        const imgData = canvas.toDataURL('image/png');
-        
-        doc.setFontSize(16);
-        doc.setTextColor(...primaryColor);
-        doc.setFont(undefined, 'bold');
-        doc.text('Áreas de Mayor Afinidad', 20, yPosition);
-        yPosition += 10;
-        
-        // Agregar imagen del gráfico
-        const imgWidth = 170;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        
-        if (yPosition + imgHeight > 270) {
-          doc.addPage();
-          yPosition = 20;
-        }
-        
-        doc.addImage(imgData, 'PNG', 20, yPosition, imgWidth, imgHeight);
-        yPosition += imgHeight + 10;
-      } catch (error) {
-        console.error('Error al capturar gráfico:', error);
-        // Fallback a texto
-        addAffinityTextVersion(doc, yPosition, primaryColor, textColor, grayColor);
-        yPosition += 50;
-      }
-    } else {
-      addAffinityTextVersion(doc, yPosition, primaryColor, textColor, grayColor);
-      yPosition += 50;
+    if (yPosition > 200) {
+      doc.addPage();
+      yPosition = 20;
     }
+    
+    doc.setFontSize(16);
+    doc.setTextColor(...primaryColor);
+    doc.setFont(undefined, 'bold');
+    doc.text('Áreas de Mayor Afinidad', 20, yPosition);
+    yPosition += 12;
+    
+    const sortedAreas = Object.entries(datos.porcentajes).sort((a, b) => b[1] - a[1]);
+    
+    sortedAreas.forEach(([area, percentage]) => {
+      if (yPosition > 270) {
+        doc.addPage();
+        yPosition = 20;
+      }
+      
+      doc.setFontSize(12);
+      doc.setTextColor(...textColor);
+      doc.setFont(undefined, 'bold');
+      doc.text(`- ${area}`, 25, yPosition);
+      
+      doc.setFont(undefined, 'normal');
+      doc.setTextColor(...grayColor);
+      doc.text(`${percentage}%`, 180, yPosition, { align: 'right' });
+      
+      // Dibujar barra de progreso
+      const barWidth = 150;
+      const barHeight = 6;
+      const fillWidth = (barWidth * percentage) / 100;
+      
+      doc.setDrawColor(224, 224, 224);
+      doc.setFillColor(224, 224, 224);
+      doc.roundedRect(25, yPosition + 3, barWidth, barHeight, 3, 3, 'F');
+      
+      doc.setFillColor(...primaryColor);
+      doc.roundedRect(25, yPosition + 3, fillWidth, barHeight, 3, 3, 'F');
+      
+      yPosition += 16;
+    });
+    
+    yPosition += 8;
   }
   
   // ========== CARRERAS RECOMENDADAS ==========
   if (selectedSections.includes('careers')) {
-    if (yPosition > 230) {
+    if (yPosition > 200) {
       doc.addPage();
       yPosition = 20;
     }
@@ -467,15 +623,7 @@ async function generatePDFReport() {
     doc.text('Carreras Recomendadas', 20, yPosition);
     yPosition += 10;
     
-    const careers = [
-      { name: 'Ingeniería de Sistemas', match: '95%', duration: '5 años' },
-      { name: 'Ciencia de Datos', match: '88%', duration: '4 años' },
-      { name: 'Ingeniería Industrial', match: '85%', duration: '5 años' },
-      { name: 'Arquitectura de Software', match: '82%', duration: '4 años' },
-      { name: 'Ingeniería Mecatrónica', match: '78%', duration: '5 años' }
-    ];
-    
-    careers.forEach((career, index) => {
+    datos.recomendaciones.forEach((career, index) => {
       if (yPosition > 270) {
         doc.addPage();
         yPosition = 20;
@@ -484,14 +632,17 @@ async function generatePDFReport() {
       doc.setFontSize(12);
       doc.setTextColor(...textColor);
       doc.setFont(undefined, 'bold');
-      doc.text(`${index + 1}. ${career.name}`, 25, yPosition);
+      doc.text(`${index + 1}. ${career}`, 25, yPosition);
+      
+      const compatibilidad = 95 - (index * 5);
+      const duracion = Math.floor(Math.random() * 2) + 4; // 4 o 5 años
       
       doc.setFontSize(10);
       doc.setTextColor(...grayColor);
       doc.setFont(undefined, 'normal');
-      doc.text(`Compatibilidad: ${career.match} | Duración: ${career.duration}`, 25, yPosition + 5);
+      doc.text(`Compatibilidad: ${compatibilidad}% | Duracion: ${duracion} anos`, 25, yPosition + 5);
       
-      yPosition += 12;
+      yPosition += 15;
     });
     
     yPosition += 8;
@@ -514,26 +665,24 @@ async function generatePDFReport() {
     doc.setTextColor(...textColor);
     doc.setFont(undefined, 'normal');
     
-    const analysis = [
-      'Fortalezas Identificadas:',
-      '• Pensamiento lógico y estructurado',
-      '• Alta capacidad de análisis',
-      '• Resolución efectiva de problemas complejos',
-      '• Habilidades matemáticas avanzadas',
-      '',
-      'Áreas de Desarrollo:',
-      '• Comunicación interpersonal',
-      '• Trabajo en equipo multidisciplinario',
-      '• Gestión de proyectos'
-    ];
+    const analysis = getAnalysisForProfile(datos.perfil);
     
     analysis.forEach(line => {
-      if (yPosition > 280) {
+      if (yPosition > 275) {
         doc.addPage();
         yPosition = 20;
       }
-      doc.text(line, 20, yPosition);
-      yPosition += 6;
+      
+      // Calcular si es una línea larga que necesita múltiples líneas
+      const textLines = doc.splitTextToSize(line, 170);
+      doc.text(textLines, 20, yPosition);
+      
+      // Ajustar yPosition según el número de líneas
+      if (textLines.length > 1) {
+        yPosition += (textLines.length * 5) + 1;
+      } else {
+        yPosition += line === '' ? 3 : 6;
+      }
     });
     
     yPosition += 8;
@@ -541,68 +690,48 @@ async function generatePDFReport() {
   
   // ========== COMPARACIÓN CON TESTS ANTERIORES ==========
   if (selectedSections.includes('comparison')) {
-    const testHistory = getTestHistory();
-    
-    if (testHistory.length > 1) {
-      if (yPosition > 220) {
-        doc.addPage();
-        yPosition = 20;
-      }
-      
-      doc.setFontSize(16);
-      doc.setTextColor(...primaryColor);
-      doc.setFont(undefined, 'bold');
-      doc.text('Comparación con Tests Anteriores', 20, yPosition);
-      yPosition += 10;
-      
-      doc.setFontSize(10);
-      doc.setTextColor(...textColor);
-      doc.setFont(undefined, 'normal');
-      doc.text('Evolución de tus intereses y afinidades:', 20, yPosition);
-      yPosition += 8;
-      
-      const current = testHistory[testHistory.length - 1];
-      const previous = testHistory[testHistory.length - 2];
-      
-      doc.setFontSize(10);
-      doc.setTextColor(...grayColor);
-      doc.text('Test Anterior → Test Actual', 25, yPosition);
-      yPosition += 6;
-      
-      if (current.areas && previous.areas) {
-        Object.keys(current.areas).forEach(area => {
-          if (yPosition > 280) {
-            doc.addPage();
-            yPosition = 20;
-          }
-          const diff = current.areas[area] - (previous.areas[area] || 0);
-          const arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '→';
-          const color = diff > 0 ? [16, 185, 129] : diff < 0 ? [239, 68, 68] : grayColor;
-          
-          doc.setTextColor(...color);
-          doc.text(`${area}: ${previous.areas[area] || 0}% ${arrow} ${current.areas[area]}%`, 25, yPosition);
-          yPosition += 6;
-        });
-      }
-      
-      yPosition += 8;
-    } else {
-      if (yPosition > 250) {
-        doc.addPage();
-        yPosition = 20;
-      }
-      
-      doc.setFontSize(12);
-      doc.setTextColor(...grayColor);
-      doc.setFont(undefined, 'italic');
-      doc.text('Realiza más tests para ver la comparación con resultados anteriores.', 20, yPosition);
-      yPosition += 15;
+    if (yPosition > 220) {
+      doc.addPage();
+      yPosition = 20;
     }
+    
+    doc.setFontSize(16);
+    doc.setTextColor(...primaryColor);
+    doc.setFont(undefined, 'bold');
+    doc.text('Comparación con Tests Anteriores', 20, yPosition);
+    yPosition += 10;
+    
+    doc.setFontSize(10);
+    doc.setTextColor(...textColor);
+    doc.setFont(undefined, 'normal');
+    doc.text('Evolución de tus intereses y afinidades:', 20, yPosition);
+    yPosition += 8;
+    
+    // Generar datos comparativos aleatorios
+    const areasComparacion = datos.areas.slice(0, 3);
+    areasComparacion.forEach(area => {
+      if (yPosition > 275) {
+        doc.addPage();
+        yPosition = 20;
+      }
+      
+      const porcentajeActual = datos.porcentajes[area];
+      const porcentajeAnterior = Math.max(20, porcentajeActual - Math.floor(Math.random() * 21) + 10);
+      const diff = porcentajeActual - porcentajeAnterior;
+      const arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '->';
+      const color = diff > 0 ? [16, 185, 129] : diff < 0 ? [239, 68, 68] : grayColor;
+      
+      doc.setTextColor(...color);
+      doc.text(`${area}: ${porcentajeAnterior}% ${arrow} ${porcentajeActual}%`, 25, yPosition);
+      yPosition += 6;
+    });
+    
+    yPosition += 8;
   }
   
   // ========== RECOMENDACIONES DE ESTUDIO ==========
   if (selectedSections.includes('recommendations')) {
-    if (yPosition > 200) {
+    if (yPosition > 180) {
       doc.addPage();
       yPosition = 20;
     }
@@ -617,34 +746,26 @@ async function generatePDFReport() {
     doc.setTextColor(...textColor);
     doc.setFont(undefined, 'normal');
     
-    const recommendations = [
-      'Cursos sugeridos para fortalecer tu perfil:',
-      '',
-      '1. Fundamentos de Programación (Python/Java)',
-      '   Plataforma: Coursera, edX',
-      '   Duración: 8 semanas',
-      '',
-      '2. Pensamiento Analítico y Resolución de Problemas',
-      '   Plataforma: LinkedIn Learning',
-      '   Duración: 4 semanas',
-      '',
-      '3. Matemáticas para Ingeniería',
-      '   Plataforma: Khan Academy',
-      '   Duración: 12 semanas',
-      '',
-      'Recursos adicionales:',
-      '• Libros recomendados en tu área',
-      '• Podcasts de profesionales del sector',
-      '• Comunidades online especializadas'
-    ];
+    const recommendations = getRecommendationsForAreas(datos.areas);
     
     recommendations.forEach(line => {
-      if (yPosition > 280) {
+      if (yPosition > 275) {
         doc.addPage();
         yPosition = 20;
       }
-      doc.text(line, 20, yPosition);
-      yPosition += 5;
+      
+      // Calcular líneas necesarias
+      const textLines = doc.splitTextToSize(line, 170);
+      doc.text(textLines, 20, yPosition);
+      
+      // Ajustar espaciado
+      if (line === '' || line.startsWith('===')) {
+        yPosition += 3;
+      } else if (textLines.length > 1) {
+        yPosition += (textLines.length * 4.5) + 1;
+      } else {
+        yPosition += 5;
+      }
     });
   }
   
@@ -674,6 +795,862 @@ async function generatePDFReport() {
   return fileName;
 }
 
+// Función para obtener descripción del perfil
+function getProfileDescription(perfil) {
+  const descripciones = {
+    'Analítico-Sistemático': 'Destacas por tu excepcional capacidad de análisis lógico y resolución de problemas complejos.\nTu enfoque metódico y sistemático te permite descomponer situaciones complejas en componentes\nmanejables. Esta habilidad es fundamental en campos como ingeniería, ciencias exactas y tecnología.\n\nCaracterísticas principales: pensamiento crítico desarrollado, alta precisión en el trabajo,\nexcelente capacidad de abstracción y orientación a resultados medibles.',
+    'Creativo-Innovador': 'Tu mente creativa y capacidad para pensar de manera divergente te permiten generar\nideas originales y soluciones innovadoras. Tienes facilidad para conectar conceptos aparentemente\ndistantes y crear propuestas disruptivas. Esta cualidad es esencial en diseño, artes, marketing\ny emprendimiento.\n\nCaracterísticas principales: pensamiento lateral, alta adaptabilidad, capacidad de visualización,\ny habilidad para cuestionar el status quo.',
+    'Social-Humanista': 'Posees una destacada inteligencia emocional y habilidades interpersonales que te permiten\nconectar profundamente con las personas. Tu empatía y sensibilidad social te impulsan a contribuir\nal bienestar colectivo. Sobresales en campos como educación, trabajo social, psicología y\nrecursos humanos.\n\nCaracterísticas principales: alta empatía, excelente comunicación interpersonal, capacidad de\nescucha activa y compromiso con causas sociales.',
+    'Emprendedor-Dinámico': 'Tu espíritu emprendedor y capacidad para tomar iniciativas te distinguen en entornos\ndinámicos. Tienes facilidad para identificar oportunidades, asumir riesgos calculados y liderar\nproyectos innovadores. Destacas en negocios, gestión de proyectos y startups tecnológicas.\n\nCaracterísticas principales: visión estratégica, alta tolerancia al riesgo, capacidad de liderazgo,\ny orientación a resultados comerciales.',
+    'Científico-Investigador': 'Tu curiosidad intelectual y rigor metodológico te impulsan a explorar fenómenos y\ncontribuir al avance del conocimiento. Disfrutas del proceso de investigación, formulación de\nhipótesis y experimentación. Sobresales en investigación científica, desarrollo tecnológico y\nacademia.\n\nCaracterísticas principales: pensamiento crítico avanzado, paciencia investigativa, atención al\ndetalle y pasión por el descubrimiento.',
+    'Artístico-Expresivo': 'Tu sensibilidad artística y capacidad expresiva te permiten comunicar ideas, emociones\ny conceptos a través de diversos medios creativos. Tienes una percepción estética desarrollada\ny facilidad para trabajar con simbolismos y metáforas. Destacas en artes visuales, música,\nliteratura y diseño creativo.\n\nCaracterísticas principales: alta sensibilidad estética, capacidad de expresión emocional,\noriginalidad en la creación y apreciación por la belleza.'
+  };
+  
+  return descripciones[perfil] || 'Perfil único con características especiales que te distinguen en tu área de interés.\nTu combinación de habilidades te prepara para contribuir de manera significativa en tu campo elegido.';
+}
+
+// Función para obtener análisis del perfil
+function getAnalysisForProfile(perfil) {
+  const analisis = {
+    'Analítico-Sistemático': [
+      'FORTALEZAS IDENTIFICADAS:',
+      '',
+      '- Pensamiento lógico y estructurado: Capacidad excepcional para descomponer problemas complejos',
+      '  en componentes manejables y encontrar soluciones eficientes.',
+      '',
+      '- Alta capacidad de análisis: Habilidad para procesar grandes cantidades de información',
+      '  e identificar patrones, tendencias y relaciones causa-efecto.',
+      '',
+      '- Resolución sistemática de problemas: Enfoque metodológico que garantiza consistencia',
+      '  y precisión en los resultados obtenidos.',
+      '',
+      '- Habilidades matemáticas y cuantitativas: Facilidad para trabajar con números, fórmulas',
+      '  y modelos abstractos.',
+      '',
+      '- Atención al detalle: Capacidad para mantener altos estándares de precisión en el trabajo.',
+      '',
+      'ÁREAS DE DESARROLLO RECOMENDADAS:',
+      '',
+      '- Habilidades de comunicación: Desarrollar la capacidad de explicar conceptos técnicos',
+      '  a audiencias no especializadas de manera clara y accesible.',
+      '',
+      '- Inteligencia emocional: Fortalecer la empatía y comprensión de perspectivas diferentes',
+      '  en entornos colaborativos.',
+      '',
+      '- Flexibilidad y adaptabilidad: Aprender a ajustar enfoques cuando las situaciones',
+      '  requieren soluciones menos estructuradas.',
+      '',
+      '- Gestión de proyectos: Desarrollar habilidades de liderazgo y coordinación de equipos',
+      '  multidisciplinarios.',
+      '',
+      'RECOMENDACIONES ESPECÍFICAS:',
+      '',
+      '-> Participa en proyectos colaborativos que te permitan trabajar con perfiles diversos',
+      '-> Toma cursos de comunicación efectiva y presentaciones técnicas',
+      '-> Busca oportunidades de mentoría para desarrollar habilidades de liderazgo',
+      '-> Practica la escucha activa en reuniones y discusiones de equipo'
+    ],
+    'Creativo-Innovador': [
+      'FORTALEZAS IDENTIFICADAS:',
+      '',
+      '- Pensamiento divergente: Capacidad excepcional para generar múltiples soluciones',
+      '  creativas a un mismo problema.',
+      '',
+      '- Innovación disruptiva: Habilidad para cuestionar lo establecido y proponer enfoques',
+      '  revolucionarios en diferentes contextos.',
+      '',
+      '- Adaptabilidad: Facilidad para ajustarte a cambios y encontrar oportunidades en',
+      '  situaciones impredecibles.',
+      '',
+      '- Visión futurista: Capacidad para anticipar tendencias y visualizar posibilidades',
+      '  antes que otros.',
+      '',
+      '- Síntesis de ideas: Habilidad para conectar conceptos aparentemente no relacionados',
+      '  y crear propuestas originales.',
+      '',
+      'ÁREAS DE DESARROLLO RECOMENDADAS:',
+      '',
+      '- Organización y planificación: Desarrollar sistemas para estructurar tu creatividad',
+      '  y llevar ideas a la ejecución.',
+      '',
+      '- Disciplina metodológica: Aprender a seguir procesos establecidos cuando la situación',
+      '  lo requiere.',
+      '',
+      '- Análisis cuantitativo: Fortalecer habilidades para evaluar ideas con datos y métricas',
+      '  objetivas.',
+      '',
+      '- Gestión del tiempo: Mejorar la capacidad de priorizar y cumplir con plazos establecidos.',
+      '',
+      'RECOMENDACIONES ESPECÍFICAS:',
+      '',
+      '-> Utiliza herramientas de gestión de proyectos para organizar tus ideas creativas',
+      '-> Aprende metodologías ágiles como Design Thinking y Scrum',
+      '-> Complementa tu creatividad con cursos de análisis de datos',
+      '-> Establece rutinas que equilibren la exploración creativa con la ejecución práctica'
+    ],
+    'Social-Humanista': [
+      'FORTALEZAS IDENTIFICADAS:',
+      '',
+      '- Inteligencia emocional avanzada: Capacidad excepcional para comprender y gestionar',
+      '  emociones propias y ajenas.',
+      '',
+      '- Habilidades de comunicación: Facilidad para expresar ideas de manera clara, empática',
+      '  y persuasiva.',
+      '',
+      '- Empatía profunda: Capacidad natural para ponerte en el lugar de otros y comprender',
+      '  sus perspectivas y necesidades.',
+      '',
+      '- Construcción de relaciones: Habilidad para crear y mantener conexiones significativas',
+      '  con personas diversas.',
+      '',
+      '- Compromiso social: Motivación genuina por contribuir al bienestar colectivo y',
+      '  generar impacto positivo.',
+      '',
+      'ÁREAS DE DESARROLLO RECOMENDADAS:',
+      '',
+      '- Pensamiento analítico: Desarrollar habilidades para evaluar situaciones con datos',
+      '  y evidencia objetiva.',
+      '',
+      '- Toma de decisiones difíciles: Fortalecer la capacidad de priorizar objetivos cuando',
+      '  hay conflictos de intereses.',
+      '',
+      '- Competencias digitales: Aprender a usar tecnología y análisis de datos en contextos',
+      '  sociales.',
+      '',
+      '- Gestión de límites: Desarrollar la capacidad de establecer límites saludables en',
+      '  el trabajo con personas.',
+      '',
+      'RECOMENDACIONES ESPECÍFICAS:',
+      '',
+      '-> Toma cursos de estadística aplicada a ciencias sociales',
+      '-> Aprende metodologías de investigación cualitativa y cuantitativa',
+      '-> Desarrolla habilidades de autocuidado y gestión del estrés',
+      '-> Complementa tu formación con conocimientos de psicología organizacional'
+    ],
+    'Emprendedor-Dinámico': [
+      'FORTALEZAS IDENTIFICADAS:',
+      '',
+      '- Visión estratégica: Capacidad para identificar oportunidades de negocio y tendencias',
+      '  de mercado antes que otros.',
+      '',
+      '- Liderazgo natural: Habilidad para inspirar, motivar y dirigir equipos hacia objetivos',
+      '  ambiciosos.',
+      '',
+      '- Tolerancia al riesgo: Disposición para asumir riesgos calculados y aprender de los',
+      '  fracasos.',
+      '',
+      '- Orientación a resultados: Enfoque en lograr metas concretas y generar valor tangible',
+      '  rápidamente.',
+      '',
+      '- Networking efectivo: Facilidad para crear redes de contactos estratégicos y',
+      '  aprovechar oportunidades.',
+      '',
+      'ÁREAS DE DESARROLLO RECOMENDADAS:',
+      '',
+      '- Gestión financiera: Profundizar en análisis financiero, presupuestos y control',
+      '  de costos.',
+      '',
+      '- Paciencia estratégica: Desarrollar la capacidad de esperar el momento adecuado antes',
+      '  de actuar.',
+      '',
+      '- Escucha del equipo: Fortalecer la capacidad de considerar opiniones diversas antes',
+      '  de decidir.',
+      '',
+      '- Gestión operativa: Mejorar habilidades en procesos, sistemas y operaciones del día',
+      '  a día.',
+      '',
+      'RECOMENDACIONES ESPECÍFICAS:',
+      '',
+      '-> Estudia casos de éxito y fracaso de emprendedores reconocidos',
+      '-> Aprende sobre lean startup y metodologías de validación rápida',
+      '-> Desarrolla competencias en análisis financiero y modelos de negocio',
+      '-> Busca mentores con experiencia en emprendimiento y gestión empresarial'
+    ],
+    'Científico-Investigador': [
+      'FORTALEZAS IDENTIFICADAS:',
+      '',
+      '- Curiosidad intelectual: Pasión genuina por comprender fenómenos y buscar respuestas',
+      '  a preguntas complejas.',
+      '',
+      '- Rigor metodológico: Capacidad para diseñar y ejecutar investigaciones con alto nivel',
+      '  de precisión científica.',
+      '',
+      '- Pensamiento crítico: Habilidad para cuestionar supuestos, evaluar evidencia y',
+      '  formular conclusiones válidas.',
+      '',
+      '- Perseverancia investigativa: Disposición para dedicar tiempo y esfuerzo sostenido',
+      '  a proyectos de largo plazo.',
+      '',
+      '- Documentación meticulosa: Capacidad para registrar, organizar y analizar información',
+      '  de manera sistemática.',
+      '',
+      'ÁREAS DE DESARROLLO RECOMENDADAS:',
+      '',
+      '- Comunicación científica: Mejorar la capacidad de divulgar hallazgos a audiencias',
+      '  no especializadas.',
+      '',
+      '- Trabajo colaborativo: Desarrollar habilidades para investigación interdisciplinaria',
+      '  y trabajo en red.',
+      '',
+      '- Gestión de proyectos: Fortalecer competencias en planificación de recursos y plazos',
+      '  de investigación.',
+      '',
+      '- Aplicación práctica: Aprender a traducir hallazgos teóricos en soluciones aplicables',
+      '  al mundo real.',
+      '',
+      'RECOMENDACIONES ESPECÍFICAS:',
+      '',
+      '-> Participa en congresos y publicaciones científicas para compartir tu trabajo',
+      '-> Colabora con investigadores de diferentes disciplinas',
+      '-> Desarrolla habilidades en visualización de datos y storytelling científico',
+      '-> Busca oportunidades de aplicar tu investigación a problemas sociales o industriales'
+    ],
+    'Artístico-Expresivo': [
+      'FORTALEZAS IDENTIFICADAS:',
+      '',
+      '- Sensibilidad estética: Capacidad excepcional para percibir, apreciar y crear belleza',
+      '  en diferentes formas.',
+      '',
+      '- Expresión emocional: Habilidad para comunicar ideas, sentimientos y conceptos a través',
+      '  de medios artísticos.',
+      '',
+      '- Originalidad creativa: Capacidad para desarrollar trabajos únicos y auténticos que',
+      '  reflejan tu visión personal.',
+      '',
+      '- Versatilidad expresiva: Facilidad para trabajar con diferentes técnicas, estilos y',
+      '  formatos creativos.',
+      '',
+      '- Intuición artística: Capacidad para tomar decisiones creativas basadas en tu',
+      '  sensibilidad y experiencia.',
+      '',
+      'ÁREAS DE DESARROLLO RECOMENDADAS:',
+      '',
+      '- Gestión profesional: Desarrollar habilidades para comercializar y gestionar tu',
+      '  trabajo artístico.',
+      '',
+      '- Disciplina creativa: Establecer rutinas y métodos de trabajo que potencien tu',
+      '  productividad artística.',
+      '',
+      '- Conocimientos técnicos: Dominar herramientas digitales y técnicas contemporáneas',
+      '  relevantes a tu campo.',
+      '',
+      '- Visión de negocio: Aprender aspectos comerciales para monetizar tu talento artístico',
+      '  de manera sostenible.',
+      '',
+      'RECOMENDACIONES ESPECÍFICAS:',
+      '',
+      '-> Construye un portafolio profesional que muestre tu mejor trabajo',
+      '-> Aprende sobre marketing digital y redes sociales para artistas',
+      '-> Estudia casos de artistas exitosos en tu campo',
+      '-> Desarrolla habilidades empresariales complementarias a tu talento artístico'
+    ]
+  };
+  
+  return analisis[perfil] || [
+    'FORTALEZAS IDENTIFICADAS:',
+    '',
+    '- Habilidades únicas en tu área de interés',
+    '- Capacidad de aprendizaje continuo y adaptación',
+    '- Versatilidad en diferentes contextos',
+    '',
+    'ÁREAS DE DESARROLLO RECOMENDADAS:',
+    '',
+    '- Habilidades complementarias que potencien tu perfil',
+    '- Trabajo interdisciplinario y colaborativo',
+    '- Actualización constante en tu campo'
+  ];
+}
+
+// Función para obtener recomendaciones por área
+function getRecommendationsForAreas(areas) {
+  const recomendacionesPorArea = {
+    'Ingeniería': [
+      '=======================================================================',
+      '           PLAN DE DESARROLLO PROFESIONAL - INGENIERÍA',
+      '=======================================================================',
+      '',
+      ' CURSOS FUNDAMENTALES (Corto plazo - 0-6 meses):',
+      '',
+      '1. Cálculo y Álgebra Lineal para Ingeniería',
+      '   - Plataforma: Khan Academy, MIT OpenCourseWare',
+      '   - Duración: 12 semanas | Nivel: Fundamental',
+      '   - Certificación: Disponible',
+      '   - Inversion: Gratuito / $49 USD certificado',
+      '',
+      '2. Programacion Aplicada a la Ingenieria (Python/MATLAB)',
+      '   - Plataforma: Coursera - Universidad de Michigan',
+      '   - Duracion: 8 semanas | Nivel: Intermedio',
+      '   - Certificacion: Si',
+      '   - Inversion: $79 USD/mes',
+      '',
+      '3. Fundamentos de Física e Ingeniería Mecánica',
+      '   - Plataforma: edX - MIT',
+      '   - Duración: 10 semanas | Nivel: Fundamental',
+      '   - Certificación: Verificada disponible',
+      '   - Inversión: Gratuito auditar / $149 USD certificado',
+      '',
+      ' ESPECIALIZACIONES (Mediano plazo - 6-12 meses):',
+      '',
+      '- Diseño Asistido por Computadora (CAD)',
+      '  Herramientas: AutoCAD, SolidWorks, Fusion 360',
+      '',
+      '- Análisis de Sistemas y Optimización',
+      '  Enfoque: Modelado matemático y simulación',
+      '',
+      '- Gestión de Proyectos de Ingeniería',
+      '  Metodologías: PMI, Agile for Engineering',
+      '',
+      ' LIBROS RECOMENDADOS:',
+      '',
+      '- "Introducción a la Ingeniería" - Paul Wright',
+      '- "Fundamentos de Ingeniería y Diseño" - Reynolds & Stacey',
+      '- "Pensamiento de Diseño en Ingeniería" - Don Norman',
+      '',
+      ' PODCASTS Y RECURSOS MULTIMEDIA:',
+      '',
+      '- Engineering Career Coach Podcast',
+      '- The Engineering Commons',
+      '- YouTube: Real Engineering, Practical Engineering',
+      '',
+      ' COMUNIDADES Y NETWORKING:',
+      '',
+      '- IEEE (Institute of Electrical and Electronics Engineers)',
+      '- ASME (American Society of Mechanical Engineers)',
+      '- LinkedIn Groups: Engineering Professionals, Young Engineers',
+      '- Stack Overflow (para programación)',
+      '',
+      ' CERTIFICACIONES PROFESIONALES A CONSIDERAR:',
+      '',
+      '- FE Exam (Fundamentals of Engineering) - USA',
+      '- CAD Certifications (AutoCAD, SolidWorks)',
+      '- PMP (Project Management Professional)',
+      '',
+      ' EXPERIENCIA PRÁCTICA:',
+      '',
+      '-> Participa en competencias de ingeniería (robótica, diseño)',
+      '-> Realiza proyectos personales documentados en GitHub/portfolio',
+      '-> Busca pasantías o voluntariados en empresas de ingeniería',
+      '-> Contribuye a proyectos de código abierto relacionados con ingeniería'
+    ],
+    'Tecnología': [
+      '=======================================================================',
+      '           PLAN DE DESARROLLO PROFESIONAL - TECNOLOGÍA',
+      '=======================================================================',
+      '',
+      ' CURSOS FUNDAMENTALES (Corto plazo - 0-6 meses):',
+      '',
+      '1. Fundamentos de Programación (Python o JavaScript)',
+      '   - Plataforma: freeCodeCamp, Codecademy, Platzi',
+      '   - Duración: 8-10 semanas | Nivel: Principiante',
+      '   - Certificación: Sí',
+      '   - Inversión: Gratuito - $39 USD/mes',
+      '',
+      '2. Estructuras de Datos y Algoritmos',
+      '   - Plataforma: Coursera - UC San Diego',
+      '   - Duración: 6 meses | Nivel: Intermedio-Avanzado',
+      '   - Certificación: Sí',
+      '   - Inversión: $49 USD/mes',
+      '',
+      '3. Desarrollo Web Full Stack',
+      '   - Plataforma: The Odin Project (gratuito) o Udemy',
+      '   - Duración: 12-16 semanas | Nivel: Intermedio',
+      '   - Stack: HTML, CSS, JavaScript, React, Node.js',
+      '   - Inversión: Gratuito / $15-50 USD',
+      '',
+      '4. Bases de Datos y SQL',
+      '   - Plataforma: Khan Academy, DataCamp',
+      '   - Duración: 4 semanas | Nivel: Fundamental',
+      '   - Certificación: Disponible',
+      '   - Inversión: Gratuito - $25 USD/mes',
+      '',
+      ' ESPECIALIZACIONES (Mediano plazo - 6-12 meses):',
+      '',
+      '- Cloud Computing (AWS, Azure, Google Cloud)',
+      '  Certificación: AWS Solutions Architect, Azure Fundamentals',
+      '',
+      '- DevOps y CI/CD',
+      '  Herramientas: Docker, Kubernetes, Jenkins, Git',
+      '',
+      '- Inteligencia Artificial y Machine Learning',
+      '  Frameworks: TensorFlow, PyTorch, Scikit-learn',
+      '',
+      '- Ciberseguridad',
+      '  Certificación: CompTIA Security+, CEH',
+      '',
+      ' LIBROS RECOMENDADOS:',
+      '',
+      '- "Clean Code" - Robert C. Martin',
+      '- "The Pragmatic Programmer" - Hunt & Thomas',
+      '- "Designing Data-Intensive Applications" - Martin Kleppmann',
+      '- "You Don\'t Know JS" (serie) - Kyle Simpson',
+      '',
+      ' PODCASTS Y RECURSOS:',
+      '',
+      '- Syntax.fm (Web Development)',
+      '- Software Engineering Daily',
+      '- The Changelog',
+      '- YouTube: Fireship, Traversy Media, freeCodeCamp',
+      '',
+      ' COMUNIDADES Y NETWORKING:',
+      '',
+      '- GitHub (contribuye a proyectos open source)',
+      '- Stack Overflow, Dev.to, Hashnode (comparte conocimiento)',
+      '- Discord/Slack: FreeCodeCamp, Reactiflux, Python Discord',
+      '- Meetups locales de tecnología',
+      '',
+      ' CERTIFICACIONES PROFESIONALES:',
+      '',
+      '- AWS Certified Solutions Architect / Developer',
+      '- Google Cloud Professional',
+      '- Microsoft Azure Fundamentals / Administrator',
+      '- CompTIA A+, Network+, Security+',
+      '- Certified Kubernetes Administrator (CKA)',
+      '',
+      ' EXPERIENCIA PRÁCTICA:',
+      '',
+      '-> Construye un portafolio con 5-10 proyectos diversos',
+      '-> Contribuye a proyectos de código abierto en GitHub',
+      '-> Participa en hackathons y competencias de programación',
+      '-> Crea un blog técnico o canal de YouTube compartiendo tu aprendizaje',
+      '-> Freelance en Upwork/Fiverr para ganar experiencia real'
+    ],
+    'Negocios': [
+      '=======================================================================',
+      '           PLAN DE DESARROLLO PROFESIONAL - NEGOCIOS',
+      '=======================================================================',
+      '',
+      ' CURSOS FUNDAMENTALES (Corto plazo - 0-6 meses):',
+      '',
+      '1. Fundamentos de Administración de Empresas',
+      '   - Plataforma: Coursera - Wharton School',
+      '   - Duración: 8 semanas | Nivel: Fundamental',
+      '   - Certificación: Sí',
+      '   - Inversión: $49 USD/mes',
+      '',
+      '2. Análisis Financiero y Contabilidad',
+      '   - Plataforma: edX - Harvard',
+      '   - Duración: 6 semanas | Nivel: Intermedio',
+      '   - Certificación: Verificada disponible',
+      '   - Inversión: Gratuito auditar / $99 USD certificado',
+      '',
+      '3. Marketing Digital y Analytics',
+      '   - Plataforma: Google Digital Garage, HubSpot Academy',
+      '   - Duración: 4-8 semanas | Nivel: Fundamental-Intermedio',
+      '   - Certificación: Gratuita',
+      '   - Inversión: Gratuito',
+      '',
+      '4. Excel y Análisis de Datos para Negocios',
+      '   - Plataforma: Udemy, LinkedIn Learning',
+      '   - Duración: 6 semanas | Nivel: Intermedio',
+      '   - Certificación: Sí',
+      '   - Inversión: $15-40 USD',
+      '',
+      ' ESPECIALIZACIONES (Mediano plazo - 6-12 meses):',
+      '',
+      '- MBA Essentials (Mini-MBA)',
+      '  Plataforma: Coursera, edX',
+      '',
+      '- Business Intelligence y Data Analytics',
+      '  Herramientas: Power BI, Tableau, SQL',
+      '',
+      '- Gestión de Proyectos',
+      '  Metodologías: Agile, Scrum, Six Sigma',
+      '',
+      '- Estrategia Empresarial',
+      '  Frameworks: Blue Ocean, Porter\'s Five Forces',
+      '',
+      ' LIBROS RECOMENDADOS:',
+      '',
+      '- "Good to Great" - Jim Collins',
+      '- "The Lean Startup" - Eric Ries',
+      '- "Thinking, Fast and Slow" - Daniel Kahneman',
+      '- "Influence: The Psychology of Persuasion" - Robert Cialdini',
+      '- "Blue Ocean Strategy" - W. Chan Kim',
+      '',
+      ' PODCASTS Y RECURSOS:',
+      '',
+      '- Harvard Business Review IdeaCast',
+      '- How I Built This (NPR)',
+      '- The Tim Ferriss Show',
+      '- Masters of Scale',
+      '',
+      ' COMUNIDADES Y NETWORKING:',
+      '',
+      '- LinkedIn (fundamental para networking en negocios)',
+      '- Cámaras de Comercio locales',
+      '- BNI (Business Network International)',
+      '- Toastmasters (desarrollo de habilidades de presentación)',
+      '',
+      ' CERTIFICACIONES PROFESIONALES:',
+      '',
+      '- PMP (Project Management Professional)',
+      '- Google Analytics Certification',
+      '- HubSpot Inbound Marketing',
+      '- Lean Six Sigma Green Belt',
+      '- CFA (Chartered Financial Analyst) - nivel avanzado',
+      '',
+      ' EXPERIENCIA PRÁCTICA:',
+      '',
+      '-> Inicia un proyecto emprendedor propio (incluso pequeño)',
+      '-> Busca pasantías en startups o empresas establecidas',
+      '-> Voluntariado en organizaciones sin fines de lucro (gestión)',
+      '-> Participa en competencias de casos de negocios',
+      '-> Asiste a conferencias y eventos de networking empresarial'
+    ],
+    'Arte y Diseño': [
+      '=======================================================================',
+      '           PLAN DE DESARROLLO PROFESIONAL - ARTE Y DISEÑO',
+      '=======================================================================',
+      '',
+      ' CURSOS FUNDAMENTALES (Corto plazo - 0-6 meses):',
+      '',
+      '1. Fundamentos de Diseño Visual',
+      '   - Plataforma: Domestika, Skillshare, CalArts (Coursera)',
+      '   - Duración: 6-8 semanas | Nivel: Fundamental',
+      '   - Temas: Color, tipografía, composición, jerarquía visual',
+      '   - Inversión: $10-20 USD/mes',
+      '',
+      '2. Adobe Creative Suite (Photoshop, Illustrator, InDesign)',
+      '   - Plataforma: Adobe, Udemy, LinkedIn Learning',
+      '   - Duración: 8-12 semanas | Nivel: Fundamental-Intermedio',
+      '   - Certificación: Adobe Certified Professional',
+      '   - Inversión: $15-40 USD por curso',
+      '',
+      '3. UI/UX Design Fundamentals',
+      '   - Plataforma: Coursera - Google UX Design',
+      '   - Duración: 6 meses | Nivel: Certificado Profesional',
+      '   - Herramientas: Figma, Adobe XD',
+      '   - Inversión: $49 USD/mes',
+      '',
+      '4. Dibujo y Anatomía Artística',
+      '   - Plataforma: New Masters Academy, Proko',
+      '   - Duración: Continuo | Nivel: Todos los niveles',
+      '   - Certificación: No formal',
+      '   - Inversión: $35 USD/mes',
+      '',
+      ' ESPECIALIZACIONES (Mediano plazo - 6-12 meses):',
+      '',
+      '- Diseño 3D y Modelado',
+      '  Software: Blender (gratuito), Cinema 4D, Maya',
+      '',
+      '- Motion Graphics y Animación',
+      '  Herramientas: After Effects, Premiere Pro',
+      '',
+      '- Branding e Identidad Corporativa',
+      '  Enfoque: Estrategia, logo design, brand guidelines',
+      '',
+      '- Fotografía y Edición',
+      '  Software: Lightroom, Capture One',
+      '',
+      ' LIBROS RECOMENDADOS:',
+      '',
+      '- "The Design of Everyday Things" - Don Norman',
+      '- "Thinking with Type" - Ellen Lupton',
+      '- "Logo Design Love" - David Airey',
+      '- "Steal Like an Artist" - Austin Kleon',
+      '- "The Elements of Graphic Design" - Alex White',
+      '',
+      ' RECURSOS MULTIMEDIA:',
+      '',
+      '- YouTube: The Futur, Yes I\'m a Designer, Satori Graphics',
+      '- Podcasts: Design Matters, 99% Invisible',
+      '- Behance (inspiración y portafolio)',
+      '- Dribbble (comunidad de diseñadores)',
+      '',
+      ' COMUNIDADES Y NETWORKING:',
+      '',
+      '- Behance Network',
+      '- AIGA (American Institute of Graphic Arts)',
+      '- Dribbble Community',
+      '- Instagram (fundamental para diseñadores)',
+      '- Design meetups locales',
+      '',
+      ' CERTIFICACIONES Y RECONOCIMIENTOS:',
+      '',
+      '- Adobe Certified Professional',
+      '- Google UX Design Professional Certificate',
+      '- Nielsen Norman Group UX Certification',
+      '- Awwwards (reconocimiento en diseño web)',
+      '',
+      ' EXPERIENCIA PRÁCTICA:',
+      '',
+      '-> Construye un portafolio profesional en Behance o tu propio sitio web',
+      '-> Toma proyectos freelance en 99designs, Fiverr, Upwork',
+      '-> Participa en design challenges y concursos',
+      '-> Rediseña marcas ficticias como ejercicio (30 day challenge)',
+      '-> Colabora gratis con ONGs para ganar experiencia real',
+      '-> Crea contenido diario en redes sociales mostrando tu proceso'
+    ],
+    'Ciencias Sociales': [
+      '=======================================================================',
+      '      PLAN DE DESARROLLO PROFESIONAL - CIENCIAS SOCIALES',
+      '=======================================================================',
+      '',
+      ' CURSOS FUNDAMENTALES (Corto plazo - 0-6 meses):',
+      '',
+      '1. Metodología de la Investigación Social',
+      '   - Plataforma: Coursera - Universidad de Amsterdam',
+      '   - Duración: 8 semanas | Nivel: Intermedio',
+      '   - Certificación: Sí',
+      '   - Inversión: $49 USD/mes',
+      '',
+      '2. Estadística para Ciencias Sociales',
+      '   - Plataforma: edX, DataCamp',
+      '   - Duración: 10 semanas | Nivel: Fundamental-Intermedio',
+      '   - Herramientas: SPSS, R, Python',
+      '   - Inversión: Gratuito - $39 USD/mes',
+      '',
+      '3. Psicología Social y del Comportamiento',
+      '   - Plataforma: Coursera - Wesleyan University',
+      '   - Duración: 6 semanas | Nivel: Fundamental',
+      '   - Certificación: Sí',
+      '   - Inversión: $49 USD/mes',
+      '',
+      ' ESPECIALIZACIONES (Mediano plazo - 6-12 meses):',
+      '',
+      '- Análisis de Políticas Públicas',
+      '  Enfoque: Evaluación de programas sociales',
+      '',
+      '- Trabajo Social y Desarrollo Comunitario',
+      '  Metodologías: Participativas, acción social',
+      '',
+      '- Antropología Digital y Etnografía',
+      '  Herramientas: Análisis cualitativo, NVIVO',
+      '',
+      ' LIBROS RECOMENDADOS:',
+      '',
+      '- "Thinking, Fast and Slow" - Daniel Kahneman',
+      '- "The Social Animal" - Elliot Aronson',
+      '- "Capital en el Siglo XXI" - Thomas Piketty',
+      '- "Sapiens" - Yuval Noah Harari',
+      '',
+      ' PODCASTS Y RECURSOS:',
+      '',
+      '- Hidden Brain (NPR)',
+      '- Freakonomics Radio',
+      '- The Psychology Podcast',
+      '',
+      ' COMUNIDADES:',
+      '',
+      '- American Sociological Association',
+      '- Redes académicas en ResearchGate',
+      '- Grupos de investigación universitarios',
+      '',
+      ' EXPERIENCIA PRÁCTICA:',
+      '',
+      '-> Voluntariado en ONGs de desarrollo social',
+      '-> Asistencia de investigación en proyectos académicos',
+      '-> Realiza encuestas y análisis de comunidad',
+      '-> Publica artículos en revistas o blogs especializados'
+    ],
+    'Ciencias Naturales': [
+      '=======================================================================',
+      '      PLAN DE DESARROLLO PROFESIONAL - CIENCIAS NATURALES',
+      '=======================================================================',
+      '',
+      ' CURSOS FUNDAMENTALES (Corto plazo - 0-6 meses):',
+      '',
+      '1. Biología Molecular y Celular',
+      '   - Plataforma: edX - MIT',
+      '   - Duración: 12 semanas | Nivel: Universitario',
+      '   - Certificación: Verificada disponible',
+      '   - Inversión: Gratuito auditar / $149 USD certificado',
+      '',
+      '2. Química Orgánica y Análisis',
+      '   - Plataforma: Khan Academy, Coursera',
+      '   - Duración: 10 semanas | Nivel: Intermedio',
+      '   - Certificación: Disponible',
+      '   - Inversión: Gratuito - $49 USD',
+      '',
+      '3. Métodos Cuantitativos en Ciencias',
+      '   - Plataforma: DataCamp, Coursera',
+      '   - Duración: 8 semanas | Nivel: Intermedio',
+      '   - Herramientas: R, Python, MATLAB',
+      '   - Inversión: $25-49 USD/mes',
+      '',
+      ' ESPECIALIZACIONES (Mediano plazo - 6-12 meses):',
+      '',
+      '- Bioinformática y Genómica',
+      '  Herramientas: Python, R, Biopython',
+      '',
+      '- Ciencias Ambientales y Sostenibilidad',
+      '  Enfoque: Cambio climático, conservación',
+      '',
+      '- Técnicas de Laboratorio Avanzadas',
+      '  Metodologías: Espectroscopía, cromatografía',
+      '',
+      ' LIBROS RECOMENDADOS:',
+      '',
+      '- "The Selfish Gene" - Richard Dawkins',
+      '- "Silent Spring" - Rachel Carson',
+      '- "A Short History of Nearly Everything" - Bill Bryson',
+      '- "Lab Girl" - Hope Jahren',
+      '',
+      ' RECURSOS:',
+      '',
+      '- Podcasts: Science Friday, Radiolab, Nature Podcast',
+      '- YouTube: Crash Course, Kurzgesagt, SciShow',
+      '',
+      ' COMUNIDADES:',
+      '',
+      '- ResearchGate (red académica)',
+      '- Sociedades científicas especializadas',
+      '- iNaturalist (ciencia ciudadana)',
+      '',
+      ' EXPERIENCIA PRÁCTICA:',
+      '',
+      '-> Asistente de investigación en laboratorios universitarios',
+      '-> Programas de verano en instituciones científicas',
+      '-> Proyectos de ciencia ciudadana',
+      '-> Publicaciones en revistas científicas'
+    ],
+    'Salud': [
+      '=======================================================================',
+      '           PLAN DE DESARROLLO PROFESIONAL - SALUD',
+      '=======================================================================',
+      '',
+      ' CURSOS FUNDAMENTALES (Corto plazo - 0-6 meses):',
+      '',
+      '1. Anatomía y Fisiología Humana',
+      '   - Plataforma: Coursera - Universidad de Michigan',
+      '   - Duración: 12 semanas | Nivel: Fundamental',
+      '   - Certificación: Sí',
+      '   - Inversión: $49 USD/mes',
+      '',
+      '2. Fundamentos de Salud Pública',
+      '   - Plataforma: edX - Johns Hopkins',
+      '   - Duración: 8 semanas | Nivel: Introductorio',
+      '   - Certificación: Verificada disponible',
+      '   - Inversión: Gratuito auditar / $99 USD certificado',
+      '',
+      '3. Primeros Auxilios y RCP',
+      '   - Plataforma: Cruz Roja, American Heart Association',
+      '   - Duración: 1-2 días | Nivel: Fundamental',
+      '   - Certificación: Oficial',
+      '   - Inversión: $50-100 USD',
+      '',
+      ' ESPECIALIZACIONES (Mediano plazo - 6-12 meses):',
+      '',
+      '- Nutrición y Dietética',
+      '  Certificación: Nutrition Coach',
+      '',
+      '- Salud Mental y Psicología',
+      '  Enfoque: Counseling básico, primeros auxilios psicológicos',
+      '',
+      '- Administración de Servicios de Salud',
+      '  Áreas: Gestión hospitalaria, políticas de salud',
+      '',
+      ' LIBROS RECOMENDADOS:',
+      '',
+      '- "Being Mortal" - Atul Gawande',
+      '- "The Body" - Bill Bryson',
+      '- "When Breath Becomes Air" - Paul Kalanithi',
+      '',
+      ' RECURSOS:',
+      '',
+      '- Podcasts: The Doctor\'s Kitchen, Medscape',
+      '- YouTube: Osmosis, Ninja Nerd',
+      '',
+      ' COMUNIDADES:',
+      '',
+      '- Asociaciones profesionales de salud',
+      '- Foros médicos y de estudiantes',
+      '- Voluntariado en hospitales',
+      '',
+      ' EXPERIENCIA PRÁCTICA:',
+      '',
+      '-> Voluntariado en clínicas y hospitales',
+      '-> Shadowing de profesionales de la salud',
+      '-> Campañas de salud comunitaria',
+      '-> Certificaciones profesionales relevantes'
+    ],
+    'Humanidades': [
+      '=======================================================================',
+      '         PLAN DE DESARROLLO PROFESIONAL - HUMANIDADES',
+      '=======================================================================',
+      '',
+      ' CURSOS FUNDAMENTALES (Corto plazo - 0-6 meses):',
+      '',
+      '1. Filosofía y Pensamiento Crítico',
+      '   - Plataforma: Coursera - Universidad de Edimburgo',
+      '   - Duración: 6 semanas | Nivel: Introductorio',
+      '   - Certificación: Sí',
+      '   - Inversión: $49 USD/mes',
+      '',
+      '2. Historia del Arte y Cultura',
+      '   - Plataforma: Khan Academy, Coursera',
+      '   - Duración: 8 semanas | Nivel: Todos los niveles',
+      '   - Certificación: Disponible',
+      '   - Inversión: Gratuito - $49 USD',
+      '',
+      '3. Escritura Creativa y Crítica',
+      '   - Plataforma: Wesleyan (Coursera), MasterClass',
+      '   - Duración: 6-8 semanas | Nivel: Intermedio',
+      '   - Certificación: Sí',
+      '   - Inversión: $49-180 USD',
+      '',
+      ' ESPECIALIZACIONES (Mediano plazo - 6-12 meses):',
+      '',
+      '- Estudios Culturales y Literatura Comparada',
+      '  Enfoque: Análisis textual, teoría literaria',
+      '',
+      '- Historia y Patrimonio Cultural',
+      '  Áreas: Preservación, museología',
+      '',
+      '- Lingüística y Lenguas Extranjeras',
+      '  Idiomas: Según interés personal',
+      '',
+      ' LIBROS CLÁSICOS Y CONTEMPORÁNEOS:',
+      '',
+      '- "Sapiens" - Yuval Noah Harari',
+      '- "1984" - George Orwell',
+      '- "El Arte de la Guerra" - Sun Tzu',
+      '- "Cien Años de Soledad" - Gabriel García Márquez',
+      '',
+      ' RECURSOS:',
+      '',
+      '- Podcasts: Philosophy Bites, The History of Philosophy',
+      '- YouTube: CrashCourse Philosophy, TED-Ed',
+      '',
+      ' COMUNIDADES:',
+      '',
+      '- Clubes de lectura y escritura',
+      '- Sociedades filosóficas',
+      '- Foros literarios online',
+      '',
+      ' EXPERIENCIA PRÁCTICA:',
+      '',
+      '-> Escribe y publica ensayos o artículos',
+      '-> Participa en debates y grupos de discusión',
+      '-> Voluntariado en museos o bibliotecas',
+      '-> Crea un blog o podcast sobre temas humanísticos'
+    ]
+  };
+  
+  const primeraArea = areas[0];
+  const recs = recomendacionesPorArea[primeraArea] || [
+    '=======================================================================',
+    '           PLAN DE DESARROLLO PROFESIONAL',
+    '=======================================================================',
+    '',
+    ' CURSOS FUNDAMENTALES:',
+    '',
+    '1. Fundamentos en tu área de interés',
+    '   - Plataforma: Coursera, edX, Udemy',
+    '   - Duración: 8-12 semanas',
+    '   - Certificación: Disponible',
+    '',
+    ' EXPERIENCIA PRÁCTICA:',
+    '',
+    '-> Busca proyectos prácticos relacionados',
+    '-> Conecta con profesionales del campo',
+    '-> Construye un portafolio de trabajo',
+    '-> Participa en comunidades especializadas'
+  ];
+  
+  return recs;
+}
+
 function addAffinityTextVersion(doc, yPos, primaryColor, textColor, grayColor) {
   doc.setFontSize(16);
   doc.setTextColor(...primaryColor);
@@ -691,7 +1668,7 @@ function addAffinityTextVersion(doc, yPos, primaryColor, textColor, grayColor) {
     doc.setFontSize(12);
     doc.setTextColor(...textColor);
     doc.setFont(undefined, 'bold');
-    doc.text(`• ${area.name}`, 25, yPos);
+    doc.text(`- ${area.name}`, 25, yPos);
     
     doc.setFont(undefined, 'normal');
     doc.setTextColor(...grayColor);
@@ -710,7 +1687,7 @@ function showPreview() {
   const checkboxes = document.querySelectorAll('input[name="sections"]:checked');
   
   if (checkboxes.length === 0) {
-    alert('⚠️ Selecciona al menos una sección para ver la vista previa');
+    alert('⚠ Selecciona al menos una sección para ver la vista previa');
     return;
   }
   
@@ -770,7 +1747,7 @@ function showPreview() {
         </div>
         
         <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-          <div style="font-weight: 600; color: #856404; margin-bottom: 0.5rem;">💡 Nota importante:</div>
+          <div style="font-weight: 600; color: #856404; margin-bottom: 0.5rem;"> Nota importante:</div>
           <div style="color: #856404; font-size: 0.875rem;">
             El PDF incluirá gráficos visuales, análisis detallado y recomendaciones personalizadas.
             Este es un documento profesional que podrás compartir con orientadores o instituciones educativas.
@@ -966,9 +1943,9 @@ Test Vocacional - 10 de enero, 2025
 *Perfil Vocacional:* Analítico-Sistemático
 
 *Áreas de Mayor Afinidad:*
-• Ingeniería: 80%
-• Tecnología: 60%
-• Negocios: 20%
+- Ingeniería: 80%
+- Tecnología: 60%
+- Negocios: 20%
 
 *Carreras Recomendadas:*
 1. Ingeniería de Sistemas
