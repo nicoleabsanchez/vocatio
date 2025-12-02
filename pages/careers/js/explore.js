@@ -1,6 +1,7 @@
 let currentStep = 1;
 let selectedArea = "";
 let selectedFormation = "";
+window.history.scrollRestoration = "manual";
 
 const careersData = {
   tecnologia: {
@@ -280,7 +281,8 @@ function goToStep(step) {
   document.getElementById("progress-step-" + step).classList.add("active");
 
   currentStep = step;
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  const y = window.scrollY;
+  requestAnimationFrame(() => window.scrollTo(0, y));
 }
 
 function toggleFavorite(event, careerName, area, formation) {
