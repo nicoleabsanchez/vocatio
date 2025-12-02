@@ -39,7 +39,7 @@
                     <div class="profile-dropdown">
                         <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox">
                         <label for="profile-dropdown-toggle" class="profile-dropdown-label">
-                            <div class="profile-icon"></div>
+                            <img src="../../assets/images/jose-profile.jpg" alt="José" class="profile-large-pic" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
                         </label>
                         <div class="dropdown-menu">
                             <a href="profile.html" class="active">Mi Perfil</a>
@@ -116,7 +116,7 @@
 
                 </section>
 
-                <section class="profile-security-card">
+                <section>
                     <h3>Seguridad</h3>
                     
                     <div class="security-item">
@@ -126,25 +126,28 @@
                         </div>
                         <button class="btn btn-secondary">Cambiar</button>
                     </div>
+                    
+                    <div id="modalPassword" class="modal-overlay" style="display: none;">
+                        <div class="modal-content">
 
-                    <div class="profile-divider"></div>
+                            <form id="changePasswordForm">
+                                <div class="profile-field">
+                                    <label>Contraseña actual</label>
+                                    <input type="password" id="currentPassword" required>
+                                </div>
 
-                    <div class="security-item">
-                        <div class="security-info">
-                            <h4>Autenticación de Dos Factores</h4>
-                            <p>Añade una capa extra de seguridad a tu cuenta</p>
+                                <div class="profile-field">
+                                    <label>Nueva contraseña</label>
+                                    <input type="password" id="newPassword" required>
+                                </div>
+
+                                <div class="modal-actions">
+                                    <button type="button" class="btn btn-secondary" id="closeModal">Cancelar</button>
+                                        <div class="profile-divider"></div>
+                                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                                </div>
+                            </form>
                         </div>
-                        <button class="btn btn-secondary">Habilitar</button>
-                    </div>
-
-                    <div class="profile-divider"></div>
-
-                    <div class="security-item">
-                        <div class="security-info">
-                            <h4>Sesiones Activas</h4>
-                            <p>Gestiona los dispositivos conectados a tu cuenta</p>
-                        </div>
-                        <button class="btn btn-secondary">Ver</button>
                     </div>
                 </section>
             </div>
@@ -158,5 +161,6 @@
     <script src="../profile/js/profile.js"></script>
 
     <a href="../help/help-center.html" class="help-button" aria-label="Centro de ayuda">?</a>
+
 </body>
 </html>
