@@ -73,7 +73,7 @@ function renderQuestion() {
     questionTitle.textContent = q.question;
     currentQuestionText.textContent = currentIndex + 1;
 
-    const progressPercent = ((currentIndex + 1) / questions.length) * 100;
+    const progressPercent = ((currentIndex) / (questions.length - 1)) * 100;
     progressBar.style.width = progressPercent + "%";
 
     questionOptions.innerHTML = "";

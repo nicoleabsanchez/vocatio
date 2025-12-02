@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <!-- Added notifications.css stylesheet -->
     <link rel="stylesheet" href="../../css/notifications.css">
 </head>
+
 <body>
     <!-- Updated navbar to match all authenticated pages with hamburger menu and checkbox dropdown hack -->
     <header>
@@ -55,8 +57,22 @@
         <div class="container">
             <!-- Header Section -->
             <section class="notifications-header">
-                <h1>Mis Notificaciones</h1>
-                <p>Mantente actualizado con toda la información importante</p>
+                <div class="notifications-header-content">
+                    <div>
+                        <h1>Mis Notificaciones</h1>
+                        <p>Mantente actualizado con toda la información importante</p>
+                    </div>
+                    <button class="btn-settings" id="btn-settings" title="Configurar notificaciones">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path
+                                d="M12 1v6m0 6v6m5.2-13.8l-4.2 4.2m0 6l4.2 4.2M23 12h-6m-6 0H1m18.8 5.2l-4.2-4.2m-6 0l-4.2 4.2">
+                            </path>
+                        </svg>
+                        Configuración
+                    </button>
+                </div>
             </section>
 
             <!-- Notification Filters -->
@@ -75,11 +91,13 @@
                     <div class="notification-icon">📅</div>
                     <div class="notification-content">
                         <h3>Nuevo Evento: Charla de Ingeniería</h3>
-                        <p>Se ha añadido un nuevo evento a tu calendario. Charla: Ingeniería en Sistemas - 14 de enero de 2025 a las 16:00.</p>
+                        <p>Se ha añadido un nuevo evento a tu calendario. Charla: Ingeniería en Sistemas - 14 de enero
+                            de 2025 a las 16:00.</p>
                         <span class="notification-time">Hace 2 horas</span>
                     </div>
                     <div class="notification-actions">
-                        <button class="btn-icon">✓</button>
+                        <button class="btn-icon btn-mark-read" title="Marcar como leída">✓</button>
+                        <button class="btn-icon btn-delete" title="Eliminar notificación">✕</button>
                     </div>
                 </div>
 
@@ -88,11 +106,13 @@
                     <div class="notification-icon">⭐</div>
                     <div class="notification-content">
                         <h3>Carrera Recomendada: Ingeniería de Datos</h3>
-                        <p>Basado en tu perfil vocacional, te recomendamos explorar la carrera de Ingeniería de Datos. Compatibilidad: 85%.</p>
+                        <p>Basado en tu perfil vocacional, te recomendamos explorar la carrera de Ingeniería de Datos.
+                            Compatibilidad: 85%.</p>
                         <span class="notification-time">Hace 5 horas</span>
                     </div>
                     <div class="notification-actions">
-                        <button class="btn-icon">✓</button>
+                        <button class="btn-icon btn-mark-read" title="Marcar como leída">✓</button>
+                        <button class="btn-icon btn-delete" title="Eliminar notificación">✕</button>
                     </div>
                 </div>
 
@@ -101,11 +121,13 @@
                     <div class="notification-icon">📊</div>
                     <div class="notification-content">
                         <h3>Material completado: Introducción a IA</h3>
-                        <p>¡Felicidades! Has completado el material "Introducción a la Inteligencia Artificial". Progreso: 100%.</p>
+                        <p>¡Felicidades! Has completado el material "Introducción a la Inteligencia Artificial".
+                            Progreso: 100%.</p>
                         <span class="notification-time">Hace 1 día</span>
                     </div>
                     <div class="notification-actions">
-                        <button class="btn-icon">✓</button>
+                        <button class="btn-icon btn-mark-read" title="Marcar como leída">✓</button>
+                        <button class="btn-icon btn-delete" title="Eliminar notificación">✕</button>
                     </div>
                 </div>
 
@@ -114,11 +136,13 @@
                     <div class="notification-icon">🎯</div>
                     <div class="notification-content">
                         <h3>Actualización de tu perfil vocacional</h3>
-                        <p>Tu perfil vocacional ha sido actualizado con los resultados del último test. Tu nuevo perfil es Analítico-Sistemático.</p>
+                        <p>Tu perfil vocacional ha sido actualizado con los resultados del último test. Tu nuevo perfil
+                            es Analítico-Sistemático.</p>
                         <span class="notification-time">Hace 2 días</span>
                     </div>
                     <div class="notification-actions">
-                        <button class="btn-icon">✓</button>
+                        <button class="btn-icon btn-mark-read" title="Marcar como leída">✓</button>
+                        <button class="btn-icon btn-delete" title="Eliminar notificación">✕</button>
                     </div>
                 </div>
 
@@ -127,11 +151,13 @@
                     <div class="notification-icon">📚</div>
                     <div class="notification-content">
                         <h3>Nuevo material disponible en tu ruta</h3>
-                        <p>Se ha añadido un nuevo material a tu ruta de aprendizaje: "Fundamentos de Bases de Datos".</p>
+                        <p>Se ha añadido un nuevo material a tu ruta de aprendizaje: "Fundamentos de Bases de Datos".
+                        </p>
                         <span class="notification-time">Hace 3 días</span>
                     </div>
                     <div class="notification-actions">
-                        <button class="btn-icon">✓</button>
+                        <button class="btn-icon btn-mark-read" title="Marcar como leída">✓</button>
+                        <button class="btn-icon btn-delete" title="Eliminar notificación">✕</button>
                     </div>
                 </div>
 
@@ -140,11 +166,13 @@
                     <div class="notification-icon">💬</div>
                     <div class="notification-content">
                         <h3>Respuesta a tu solicitud de soporte</h3>
-                        <p>Nuestro equipo ha respondido a tu solicitud sobre interpretación de resultados. Ticket #VOC-2025-0298.</p>
+                        <p>Nuestro equipo ha respondido a tu solicitud sobre interpretación de resultados. Ticket
+                            #VOC-2025-0298.</p>
                         <span class="notification-time">Hace 5 días</span>
                     </div>
                     <div class="notification-actions">
-                        <button class="btn-icon">✓</button>
+                        <button class="btn-icon btn-mark-read" title="Marcar como leída">✓</button>
+                        <button class="btn-icon btn-delete" title="Eliminar notificación">✕</button>
                     </div>
                 </div>
 
@@ -153,14 +181,83 @@
                     <div class="notification-icon">🔔</div>
                     <div class="notification-content">
                         <h3>Recordatorio: Próximo evento en 24 horas</h3>
-                        <p>Te recordamos que tienes programado el evento "Feria Virtual de Universidades" en 24 horas.</p>
+                        <p>Te recordamos que tienes programado el evento "Feria Virtual de Universidades" en 24 horas.
+                        </p>
                         <span class="notification-time">Hace 1 semana</span>
                     </div>
                     <div class="notification-actions">
-                        <button class="btn-icon">✓</button>
+                        <button class="btn-icon btn-mark-read" title="Marcar como leída">✓</button>
+                        <button class="btn-icon btn-delete" title="Eliminar notificación">✕</button>
                     </div>
                 </div>
             </section>
+        </div>
+
+        <!-- Modal de Configuración de Notificaciones -->
+        <div class="modal" id="config-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Configuración de Notificaciones</h2>
+                    <button class="modal-close" id="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="config-section">
+                        <h3>Estado de Notificaciones</h3>
+                        <p class="config-description">Activa o desactiva todas las notificaciones</p>
+                        <div class="config-options">
+                            <label class="config-checkbox config-toggle">
+                                <input type="checkbox" id="notifications-enabled" checked>
+                                <span class="checkbox-label">🔔 Notificaciones activadas</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="config-section" id="notification-types-section">
+                        <h3>Tipos de Notificaciones</h3>
+                        <p class="config-description">Selecciona qué tipos de notificaciones deseas recibir</p>
+                        <div class="config-options">
+                            <label class="config-checkbox">
+                                <input type="checkbox" name="notif-type" value="eventos" checked>
+                                <span class="checkbox-label">📅 Eventos vocacionales</span>
+                            </label>
+                            <label class="config-checkbox">
+                                <input type="checkbox" name="notif-type" value="resultados" checked>
+                                <span class="checkbox-label">📊 Resultados y recomendaciones</span>
+                            </label>
+                            <label class="config-checkbox">
+                                <input type="checkbox" name="notif-type" value="materiales" checked>
+                                <span class="checkbox-label">📚 Nuevos materiales</span>
+                            </label>
+                            <label class="config-checkbox">
+                                <input type="checkbox" name="notif-type" value="sistema" checked>
+                                <span class="checkbox-label">🔔 Notificaciones del sistema</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="config-section">
+                        <h3>Frecuencia de Notificaciones</h3>
+                        <p class="config-description">¿Con qué frecuencia deseas recibir notificaciones?</p>
+                        <div class="config-options">
+                            <label class="config-radio">
+                                <input type="radio" name="frequency" value="instant" checked>
+                                <span class="radio-label">Instantáneas (en tiempo real)</span>
+                            </label>
+                            <label class="config-radio">
+                                <input type="radio" name="frequency" value="daily">
+                                <span class="radio-label">Resumen diario</span>
+                            </label>
+                            <label class="config-radio">
+                                <input type="radio" name="frequency" value="weekly">
+                                <span class="radio-label">Resumen semanal</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="cancel-config">Cancelar</button>
+                    <button class="btn btn-primary" id="save-config">Guardar Preferencias</button>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -169,4 +266,5 @@
 
     <script src="../../pages/notifications/js/notifications.js"></script>
 </body>
+
 </html>

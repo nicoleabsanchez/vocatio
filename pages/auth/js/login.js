@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (password.length < 6) {
-      showAlert("La contraseña debe tener al menos 6 caracteres", "error");
+      showAlert("Revise su contraseña e intente de nuevo", "error");
       return;
     }
 

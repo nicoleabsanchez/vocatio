@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ profile.js cargado correctamente");
-
     const form = document.getElementById("profileForm");
     const saveBtn = document.querySelector(".profile-edit-btn");
     const alertBox = document.getElementById("alert-box");
@@ -71,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function loadProfileData() {
         const storedData = localStorage.getItem("profileData");
 
-        if (!storedData) return; 
+        if (!storedData) return;
 
         const data = JSON.parse(storedData);
 
@@ -110,4 +109,38 @@ document.addEventListener("DOMContentLoaded", () => {
             alertBox.style.display = "none";
         }, 3000);
     }
+
+    const btnCambiar = document.querySelector(".security-item .btn-secondary");
+    const modal = document.getElementById("modalPassword");
+    const closeModal = document.getElementById("closeModal");
+    const formPassword = document.getElementById("changePasswordForm");
+
+    btnCambiar.addEventListener("click", () => {
+        modal.style.display = "flex";
+    });
+
+    closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
+        formPassword.reset();
+    });
+
+    formPassword.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const currentPass = document.getElementById("currentPassword").value.trim();
+        const newPass = document.getElementById("newPassword").value.trim();
+
+        if (!currentPass || !newPass) {
+            alert("Completa todos los campos.");
+            return;
+        }
+
+        console.log("🔐 Contraseña actual:", currentPass);
+        console.log("🔐 Nueva contraseña:", newPass);
+
+        alert("Contraseña actualizada correctamente ✔️");
+
+        modal.style.display = "none";
+        formPassword.reset();
+    });
 });

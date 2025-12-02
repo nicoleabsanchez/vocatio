@@ -143,6 +143,178 @@
   margin-bottom: var(--spacing-lg);
 }
 
+/* Estilos para header con botón de configuración */
+.notifications-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-2xl);
+}
+
+.btn-settings {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-settings:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-settings svg {
+  flex-shrink: 0;
+}
+
+/* Estilos para botón de eliminar */
+.btn-delete {
+  background: none;
+  border: 2px solid #ef4444;
+  color: #ef4444;
+  margin-left: var(--spacing-sm);
+}
+
+.btn-delete:hover {
+  background: #ef4444;
+  color: var(--white);
+}
+
+/* Estilos para modal de configuración */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-2xl);
+  border-bottom: 1px solid var(--gray-light);
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--dark);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--gray);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background-color: var(--gray-light);
+  color: var(--dark);
+}
+
+.modal-body {
+  padding: var(--spacing-2xl);
+}
+
+.config-section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.config-section:last-child {
+  margin-bottom: 0;
+}
+
+.config-section h3 {
+  color: var(--dark);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.125rem;
+}
+
+.config-description {
+  color: var(--gray);
+  margin-bottom: var(--spacing-lg);
+  font-size: 0.95rem;
+}
+
+.config-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.config-checkbox,
+.config-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border: 2px solid var(--gray-light);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.config-checkbox:hover,
+.config-radio:hover {
+  border-color: var(--primary);
+  background-color: rgba(124, 58, 237, 0.05);
+}
+
+.config-checkbox input,
+.config-radio input {
+  cursor: pointer;
+}
+
+.checkbox-label,
+.radio-label {
+  flex: 1;
+  color: var(--dark);
+  font-weight: 500;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  padding: var(--spacing-2xl);
+  border-top: 1px solid var(--gray-light);
+}
+
 @media (max-width: 768px) {
   .notification-item {
     flex-direction: column;
@@ -157,4 +329,28 @@
     padding: var(--spacing-sm) var(--spacing-lg);
     font-size: 0.875rem;
   }
+
+  .notifications-header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-settings {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
 }
+
