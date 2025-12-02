@@ -121,7 +121,12 @@
       
         
         if (buttonText === "Evento Lleno") {
-          showToast("Este evento está lleno", "error")
+          showToast("Este evento está lleno. No hay cupos disponibles.", "error")
+          return
+        }
+        
+        if (buttonText === "Evento Cancelado") {
+          showToast("Este evento ha sido cancelado. No se puede inscribir.", "error")
           return
         }
         
@@ -137,6 +142,9 @@
           updateButtonToEnrolled(button)
           highlightCalendarDate(event.day)
           updateMyEventsTab()
+          
+          // Ocultar evento de la lista de próximos eventos
+          eventCard.style.display = "none"
           
           showToast("¡Inscripción exitosa!", "success")
         }
@@ -353,6 +361,9 @@
     if (button) {
       updateButtonToNotEnrolled(button)
     }
+
+    // Mostrar evento nuevamente en la lista de próximos eventos
+    sourceCard.style.display = "block"
 
     removeCalendarHighlight(event.day)
     updateMyEventsTab()

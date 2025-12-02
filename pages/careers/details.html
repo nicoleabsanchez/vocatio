@@ -1,689 +1,1092 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Información detallada sobre la carrera de Ingeniería de Sistemas"
-    />
-    <title>Detalles de Carrera - VOCATIO</title>
-    <link rel="stylesheet" href="../../css/styles.css" />
-    <link rel="stylesheet" href="../../css/components.css" />
-    <link rel="stylesheet" href="../../css/responsive.css" />
-    <link rel="stylesheet" href="css/curriculum-comparator.css" />
-    <style>
-      /* Estilos completos para la ficha de carrera según diseño */
-      body {
-        font-family: var(--font-primary);
-      }
 
-      .back-button {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-        padding: var(--spacing-sm) var(--spacing-md);
-        background-color: var(--primary);
-        color: var(--white);
-        border: none;
-        border-radius: var(--radius-md);
-        font-weight: 600;
-        cursor: pointer;
-        margin-bottom: var(--spacing-lg);
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-        font-size: 0.95rem;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Información detallada sobre la carrera de Ingeniería de Sistemas" />
+  <title>Detalles de Carrera - VOCATIO</title>
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../css/components.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+  <link rel="stylesheet" href="css/curriculum-comparator.css" />
+  <style>
+    /* Estilos completos para la ficha de carrera según diseño */
+    body {
+      font-family: var(--font-primary);
+    }
 
-      .back-button:hover {
-        background-color: var(--primary-dark);
-      }
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm) var(--spacing-md);
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: var(--spacing-lg);
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      font-size: 0.95rem;
+    }
 
-      .back-button::before {
-        content: "←";
-        font-size: 1rem;
-      }
+    .back-button:hover {
+      background-color: var(--primary-dark);
+    }
 
-      .career-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: var(--spacing-3xl);
-        padding-bottom: var(--spacing-2xl);
-        border-bottom: 1px solid var(--gray-light);
-      }
+    .back-button::before {
+      content: "←";
+      font-size: 1rem;
+    }
 
-      .career-title-section {
-        flex: 1;
-      }
+    .career-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--spacing-3xl);
+      padding-bottom: var(--spacing-2xl);
+      border-bottom: 1px solid var(--gray-light);
+    }
 
-      .career-title-section h1 {
-        margin-bottom: var(--spacing-md);
-        color: var(--dark);
-        font-size: 2.5rem;
-      }
+    .career-title-section {
+      flex: 1;
+    }
 
-      .career-title-section > p {
-        color: var(--gray);
-        font-size: 1rem;
-        margin-bottom: var(--spacing-lg);
-      }
+    .career-title-section h1 {
+      margin-bottom: var(--spacing-md);
+      color: var(--dark);
+      font-size: 2.5rem;
+    }
 
-      .career-badges {
-        display: flex;
-        gap: var(--spacing-md);
-        flex-wrap: wrap;
-        margin-bottom: var(--spacing-lg);
-      }
+    .career-title-section>p {
+      color: var(--gray);
+      font-size: 1rem;
+      margin-bottom: var(--spacing-lg);
+    }
 
-      .badge {
-        background-color: rgba(124, 58, 237, 0.1);
-        color: var(--primary);
-        padding: var(--spacing-sm) var(--spacing-md);
-        border-radius: var(--radius-md);
-        font-weight: 500;
-        font-size: 0.9rem;
-      }
+    .career-badges {
+      display: flex;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-lg);
+    }
 
-      .info-highlights {
-        display: flex;
-        gap: var(--spacing-md);
-        flex-wrap: wrap;
-      }
+    .badge {
+      background-color: rgba(124, 58, 237, 0.1);
+      color: var(--primary);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
 
-      .highlight-badge {
-        background-color: var(--accent);
-        color: var(--dark);
-        padding: var(--spacing-sm) var(--spacing-md);
-        border-radius: var(--radius-md);
-        font-weight: 600;
-        font-size: 0.9rem;
-      }
+    .info-highlights {
+      display: flex;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+    }
 
-      .favorite-button {
-        background: none;
-        border: none;
-        font-size: 2rem;
-        cursor: pointer;
-        color: var(--gray);
-        transition: color 0.3s ease;
-      }
+    .highlight-badge {
+      background-color: var(--accent);
+      color: var(--dark);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
 
-      .favorite-button:hover,
-      .favorite-button.active {
-        color: var(--primary);
-      }
+    .favorite-button {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--gray);
+      transition: color 0.3s ease;
+    }
 
+    .favorite-button:hover,
+    .favorite-button.active {
+      color: var(--primary);
+    }
+
+    .career-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--spacing-3xl);
+      margin-bottom: var(--spacing-3xl);
+    }
+
+    .career-main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2xl);
+    }
+
+    .info-section {
+      background-color: var(--gray-lighter);
+      padding: var(--spacing-2xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .info-section h3 {
+      margin-bottom: var(--spacing-lg);
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+    }
+
+    .subject-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      background-color: var(--white);
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      color: var(--dark);
+    }
+
+    .subject-item::before {
+      content: "●";
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .work-areas,
+    .employers,
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+    }
+
+    .work-badge,
+    .employer-badge,
+    .skill-badge {
+      background-color: rgba(124, 58, 237, 0.1);
+      color: var(--primary);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .employer-badge,
+    .skill-badge {
+      background-color: var(--accent);
+      color: var(--dark);
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2xl);
+    }
+
+    .sidebar-card {
+      background-color: var(--gray-lighter);
+      padding: var(--spacing-2xl);
+      border-radius: var(--radius-lg);
+    }
+
+    .sidebar-card h4 {
+      margin-bottom: var(--spacing-lg);
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .university-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .university-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-md);
+      background-color: var(--white);
+      border-radius: var(--radius-md);
+    }
+
+    .university-item strong {
+      color: var(--dark);
+    }
+
+    .btn-info {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-info::before {
+      content: "↗";
+    }
+
+    .btn-info:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .materials-section {
+      margin-top: var(--spacing-3xl);
+    }
+
+    .materials-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .materials-header h2 {
+      color: var(--dark);
+      font-size: 1.75rem;
+      margin: 0;
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-2xl);
+    }
+
+    .material-type-card {
+      background: linear-gradient(135deg,
+          var(--primary),
+          var(--primary-light));
+      color: var(--white);
+      padding: var(--spacing-3xl) var(--spacing-2xl);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+    }
+
+    .material-type-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .material-type-icon {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .material-type-card h3 {
+      margin: 0;
+      color: var(--white);
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
       .career-content {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: var(--spacing-3xl);
-        margin-bottom: var(--spacing-3xl);
-      }
-
-      .career-main {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-2xl);
-      }
-
-      .info-section {
-        background-color: var(--gray-lighter);
-        padding: var(--spacing-2xl);
-        border-radius: var(--radius-lg);
-      }
-
-      .info-section h3 {
-        margin-bottom: var(--spacing-lg);
-        color: var(--dark);
-        font-weight: 600;
-        font-size: 1.25rem;
-      }
-
-      .subject-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-md);
-      }
-
-      .subject-item {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-md);
-        padding: var(--spacing-md);
-        background-color: var(--white);
-        border-radius: var(--radius-md);
-        font-size: 0.95rem;
-        color: var(--dark);
-      }
-
-      .subject-item::before {
-        content: "●";
-        color: var(--primary);
-        font-weight: bold;
-      }
-
-      .work-areas,
-      .employers,
-      .skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--spacing-md);
-      }
-
-      .work-badge,
-      .employer-badge,
-      .skill-badge {
-        background-color: rgba(124, 58, 237, 0.1);
-        color: var(--primary);
-        padding: var(--spacing-sm) var(--spacing-md);
-        border-radius: var(--radius-md);
-        font-weight: 500;
-        font-size: 0.9rem;
-      }
-
-      .employer-badge,
-      .skill-badge {
-        background-color: var(--accent);
-        color: var(--dark);
-      }
-
-      .sidebar {
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-2xl);
-      }
-
-      .sidebar-card {
-        background-color: var(--gray-lighter);
-        padding: var(--spacing-2xl);
-        border-radius: var(--radius-lg);
-      }
-
-      .sidebar-card h4 {
-        margin-bottom: var(--spacing-lg);
-        color: var(--dark);
-        font-weight: 600;
-      }
-
-      .university-list {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: var(--spacing-md);
-      }
-
-      .university-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: var(--spacing-md);
-        background-color: var(--white);
-        border-radius: var(--radius-md);
-      }
-
-      .university-item strong {
-        color: var(--dark);
-      }
-
-      .btn-info {
-        background-color: var(--primary);
-        color: var(--white);
-        padding: var(--spacing-sm) var(--spacing-lg);
-        border: none;
-        border-radius: var(--radius-md);
-        cursor: pointer;
-        font-weight: 500;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-        transition: background-color 0.3s ease;
-      }
-
-      .btn-info::before {
-        content: "↗";
-      }
-
-      .btn-info:hover {
-        background-color: var(--primary-dark);
-      }
-
-      .materials-section {
-        margin-top: var(--spacing-3xl);
-      }
-
-      .materials-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: var(--spacing-2xl);
-      }
-
-      .materials-header h2 {
-        color: var(--dark);
-        font-size: 1.75rem;
-        margin: 0;
+        grid-template-columns: 1fr;
       }
 
       .materials-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--spacing-2xl);
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .material-type-card {
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-light)
-        );
-        color: var(--white);
-        padding: var(--spacing-3xl) var(--spacing-2xl);
-        border-radius: var(--radius-lg);
-        text-align: center;
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        text-decoration: none;
-        display: flex;
+      .subject-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .career-header {
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 200px;
+        gap: var(--spacing-lg);
       }
 
-      .material-type-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-lg);
+      .career-title-section h1 {
+        font-size: 1.75rem;
       }
 
-      .material-type-icon {
-        font-size: 3rem;
-        margin-bottom: var(--spacing-lg);
+      .materials-grid {
+        grid-template-columns: 1fr;
       }
+    }
 
-      .material-type-card h3 {
-        margin: 0;
-        color: var(--white);
-        font-size: 1.5rem;
-      }
+    /* Estilos para el modal de confirmación */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
 
-      @media (max-width: 1024px) {
-        .career-content {
-          grid-template-columns: 1fr;
-        }
+    .modal-content {
+      background-color: var(--white);
+      margin: 15% auto;
+      padding: var(--spacing-2xl);
+      border-radius: var(--radius-lg);
+      max-width: 400px;
+      text-align: center;
+    }
 
-        .materials-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
+    .modal-buttons {
+      display: flex;
+      gap: var(--spacing-md);
+      justify-content: center;
+      margin-top: var(--spacing-lg);
+    }
 
-        .subject-grid {
-          grid-template-columns: 1fr;
-        }
-      }
+    .modal-buttons button {
+      padding: var(--spacing-md) var(--spacing-xl);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-      @media (max-width: 768px) {
-        .career-header {
-          flex-direction: column;
-          gap: var(--spacing-lg);
-        }
+    .btn-confirm {
+      background-color: var(--primary);
+      color: var(--white);
+    }
 
-        .career-title-section h1 {
-          font-size: 1.75rem;
-        }
+    .btn-cancel {
+      background-color: var(--gray-light);
+      color: var(--dark);
+    }
 
-        .materials-grid {
-          grid-template-columns: 1fr;
-        }
-      }
+    /* Estilos para el sistema de rating */
+    .rating-section {
+      background-color: var(--gray-lighter);
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-lg);
+      margin-top: var(--spacing-3xl);
+      margin-bottom: var(--spacing-xl);
+      text-align: center;
+    }
 
-      /* Estilos para el modal de confirmación */
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-      }
+    .rating-section h3 {
+      font-size: 1rem;
+      margin-bottom: var(--spacing-sm);
+    }
 
-      .modal-content {
-        background-color: var(--white);
-        margin: 15% auto;
-        padding: var(--spacing-2xl);
-        border-radius: var(--radius-lg);
-        max-width: 400px;
-        text-align: center;
-      }
+    .rating-container {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-xs);
+      margin-top: var(--spacing-sm);
+    }
 
-      .modal-buttons {
-        display: flex;
-        gap: var(--spacing-md);
-        justify-content: center;
-        margin-top: var(--spacing-lg);
-      }
+    .star {
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--gray-light);
+      transition: color 0.2s ease;
+    }
 
-      .modal-buttons button {
-        padding: var(--spacing-md) var(--spacing-xl);
-        border: none;
-        border-radius: var(--radius-md);
-        cursor: pointer;
-        font-weight: 600;
-      }
+    .star.active {
+      color: #ffd700;
+    }
 
-      .btn-confirm {
-        background-color: var(--primary);
-        color: var(--white);
-      }
+    .star:hover {
+      color: #ffc700;
+    }
 
-      .btn-cancel {
-        background-color: var(--gray-light);
-        color: var(--dark);
-      }
+    #ratingMessage {
+      font-size: 0.9rem;
+      margin-top: var(--spacing-sm);
+    }
 
-      /* Estilos para el sistema de rating */
-      .rating-section {
-        background-color: var(--gray-lighter);
-        padding: var(--spacing-lg);
-        border-radius: var(--radius-lg);
-        margin-top: var(--spacing-3xl);
-        margin-bottom: var(--spacing-xl);
-        text-align: center;
-      }
+    /* Estilos para botones de compartir */
+    .share-section {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-lg);
+    }
 
-      .rating-section h3 {
-        font-size: 1rem;
-        margin-bottom: var(--spacing-sm);
-      }
+    .share-button {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-weight: 500;
+      transition: opacity 0.3s ease;
+    }
 
-      .rating-container {
-        display: flex;
-        justify-content: center;
-        gap: var(--spacing-xs);
-        margin-top: var(--spacing-sm);
-      }
+    .share-button:hover {
+      opacity: 0.8;
+    }
 
-      .star {
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: var(--gray-light);
-        transition: color 0.2s ease;
-      }
+    .share-facebook {
+      background-color: #1877f2;
+      color: white;
+    }
 
-      .star.active {
-        color: #ffd700;
-      }
+    .share-twitter {
+      background-color: #1da1f2;
+      color: white;
+    }
 
-      .star:hover {
-        color: #ffc700;
-      }
+    .share-whatsapp {
+      background-color: #25d366;
+      color: white;
+    }
 
-      #ratingMessage {
-        font-size: 0.9rem;
-        margin-top: var(--spacing-sm);
-      }
+    /* Estilos para sección de materiales inline */
+    .materials-section-inline {
+      margin-top: var(--spacing-3xl);
+      padding: var(--spacing-3xl);
+      background-color: var(--gray-lighter);
+      border-radius: var(--radius-lg);
+    }
 
-      /* Estilos para botones de compartir */
-      .share-section {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-md);
-        margin-top: var(--spacing-lg);
-      }
+    .materials-subtitle {
+      color: var(--gray);
+      margin-top: var(--spacing-sm);
+      font-size: 1rem;
+    }
 
-      .share-button {
-        display: flex;
-        align-items: center;
+    .materials-tabs input[type="radio"] {
+      display: none;
+    }
+
+    .tab-labels {
+      display: flex;
+      gap: var(--spacing-md);
+      border-bottom: 2px solid var(--gray-light);
+      margin-bottom: var(--spacing-2xl);
+      margin-top: var(--spacing-xl);
+    }
+
+    .tab-label {
+      padding: var(--spacing-md) var(--spacing-lg);
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gray);
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+      user-select: none;
+      margin-bottom: -2px;
+    }
+
+    .tab-label:hover {
+      color: var(--primary);
+    }
+
+    #tab-all:checked~.tab-labels label[for="tab-all"],
+    #tab-docs:checked~.tab-labels label[for="tab-docs"],
+    #tab-links:checked~.tab-labels label[for="tab-links"],
+    #tab-videos:checked~.tab-labels label[for="tab-videos"] {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .materials-grid-inline {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-2xl);
+    }
+
+    .material-card-inline {
+      background-color: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .material-card-inline:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+
+    .material-card-inline[data-type="documento"] {
+      border-top: 4px solid #3b82f6;
+    }
+
+    .material-card-inline[data-type="enlace"] {
+      border-top: 4px solid #10b981;
+    }
+
+    .material-card-inline[data-type="video"] {
+      border-top: 4px solid #ef4444;
+    }
+
+    .material-icon-inline {
+      font-size: 3rem;
+      padding: var(--spacing-xl);
+      text-align: center;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(191, 219, 254, 0.1));
+    }
+
+    .material-body-inline {
+      padding: var(--spacing-lg);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .material-body-inline h3 {
+      color: var(--dark);
+      font-size: 1.125rem;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .material-body-inline p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: var(--spacing-lg);
+      flex: 1;
+    }
+
+    .material-meta-inline {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .material-actions-inline {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+
+    .btn-save-material,
+    .btn-view-material {
+      flex: 1;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+    }
+
+    .btn-save-material {
+      background-color: var(--white);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-save-material:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-save-material.saved {
+      background-color: var(--success);
+      color: var(--white);
+      border-color: var(--success);
+    }
+
+    .btn-view-material {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-view-material:hover {
+      background-color: var(--primary-dark);
+    }
+
+    @media (max-width: 768px) {
+      .tab-labels {
+        flex-wrap: wrap;
         gap: var(--spacing-sm);
+      }
+
+      .tab-label {
         padding: var(--spacing-sm) var(--spacing-md);
-        border: none;
-        border-radius: var(--radius-md);
-        cursor: pointer;
-        font-weight: 500;
-        transition: opacity 0.3s ease;
+        font-size: 0.875rem;
       }
 
-      .share-button:hover {
-        opacity: 0.8;
+      .materials-grid-inline {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Estilos para modales de materiales */
+    .material-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .material-modal-content {
+      background-color: var(--white);
+      border-radius: var(--radius-lg);
+      max-width: 900px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .material-modal-video {
+      max-width: 1200px;
+    }
+
+    .material-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-full);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .material-modal-close:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .material-modal-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-2xl);
+      padding: var(--spacing-3xl);
+    }
+
+    .material-modal-left h2 {
+      color: var(--dark);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .material-modal-left p {
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .material-modal-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      color: var(--gray);
+    }
+
+    .material-modal-info strong {
+      color: var(--dark);
+    }
+
+    .material-modal-right {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+
+    .material-modal-preview {
+      background-color: var(--gray-lighter);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-3xl);
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-download-material {
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: var(--spacing-lg) var(--spacing-2xl);
+      border-radius: var(--radius-md);
+      font-size: 1.125rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-download-material:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .material-modal-body-video {
+      padding: var(--spacing-3xl);
+    }
+
+    .material-modal-body-video h2 {
+      color: var(--dark);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      /* 16:9 aspect ratio */
+      margin-bottom: var(--spacing-lg);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-info {
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* Estilos para controles de materiales */
+    .materials-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .materials-search {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: var(--spacing-md) var(--spacing-lg);
+      border: 2px solid var(--gray-light);
+      border-radius: var(--radius-md);
+      background-color: var(--white);
+    }
+
+    .materials-search input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      margin-left: var(--spacing-sm);
+    }
+
+    .materials-view-toggle {
+      display: flex;
+      gap: var(--spacing-sm);
+      background-color: var(--gray-light);
+      padding: 4px;
+      border-radius: var(--radius-md);
+    }
+
+    .btn-view-toggle {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border: none;
+      background-color: transparent;
+      color: var(--gray);
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
+    }
+
+    .btn-view-toggle.active {
+      background-color: var(--white);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
       }
 
-      .share-facebook {
-        background-color: #1877f2;
-        color: white;
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .material-modal-body {
+        grid-template-columns: 1fr;
       }
 
-      .share-twitter {
-        background-color: #1da1f2;
-        color: white;
+      .materials-controls {
+        flex-direction: column;
+        align-items: stretch;
       }
 
-      .share-whatsapp {
-        background-color: #25d366;
-        color: white;
+      .materials-view-toggle {
+        width: 100%;
       }
-    </style>
-  </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-dashboard">
-        <div class="container">
-          <input type="checkbox" id="menu-toggle" class="hamburger-menu" />
-          <div class="navbar-content">
-            <a href="../dashboard/dashboard.html" class="logo">
-              <span class="logo-text">vocatio</span>
-            </a>
-            <label for="menu-toggle" class="hamburger-icon">
-              <span></span>
-              <span></span>
-              <span></span>
-            </label>
-            <ul class="nav-menu">
-              <li>
-                <a href="explore.html" class="active">Explorar carreras</a>
-              </li>
-              <li><a href="../events/events.html">Eventos</a></li>
-              <li>
-                <a href="../vocational-test/test.html">Test vocacional</a>
-              </li>
-              <li><a href="../vocational-test/results.html">Resultados</a></li>
-              <li>
-                <a href="../dashboard/learning-path.html"
-                  >Ruta de aprendizaje</a
-                >
-              </li>
-              <li><a href="./progreso.complete.html">Progreso</a></li>
-            </ul>
-            <div class="profile-dropdown">
-              <input
-                type="checkbox"
-                id="profile-dropdown-toggle"
-                class="profile-dropdown-checkbox"
-              />
-              <label
-                for="profile-dropdown-toggle"
-                class="profile-dropdown-label"
-              >
-                <div class="profile-icon">J</div>
-              </label>
-              <div class="dropdown-menu">
-                <a href="../profile/profile.html">Mi Perfil</a>
-                <a href="../notifications/notifications.html">Notificaciones</a>
-                <a href="../../index.html" class="logout">Cerrar sesión</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
 
-    <main>
+      .btn-view-toggle {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-dashboard">
       <div class="container">
-        <a href="explore.html" class="back-button">Volver a Carrera</a>
-
-        <div class="career-header">
-          <div class="career-title-section">
-            <h1>Ingeniería de Sistemas</h1>
-            <p>
-              Diseña y desarrolla sistemas de software y tecnología para
-              resolver problemas complejos
-            </p>
-            <div class="career-badges">
-              <span class="badge">Tecnología</span>
-              <span class="badge">Programación</span>
-              <span class="badge">Innovación</span>
-            </div>
-            <div class="info-highlights">
-              <span class="highlight-badge">Duración: 5 años</span>
-              <span class="highlight-badge">Modalidad: Presencial</span>
-              <span class="highlight-badge">Rango salarial: $2500 - $8000</span>
-              <span class="highlight-badge">Empleabilidad: 95%</span>
-            </div>
-            <!-- Botones para compartir -->
-            <div class="share-section">
-              <span style="font-weight: 600; color: var(--dark)"
-                >Compartir:</span
-              >
-              <button
-                class="share-button share-facebook"
-                onclick="compartirFacebook()"
-              >
-                <span>Facebook</span>
-              </button>
-              <button
-                class="share-button share-twitter"
-                onclick="compartirTwitter()"
-              >
-                <span>Twitter</span>
-              </button>
-              <button
-                class="share-button share-whatsapp"
-                onclick="compartirWhatsApp()"
-              >
-                <span>WhatsApp</span>
-              </button>
+        <input type="checkbox" id="menu-toggle" class="hamburger-menu" />
+        <div class="navbar-content">
+          <a href="../dashboard/dashboard.html" class="logo">
+            <span class="logo-text">vocatio</span>
+          </a>
+          <label for="menu-toggle" class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+          <ul class="nav-menu">
+            <li>
+              <a href="explore.html" class="active">Explorar carreras</a>
+            </li>
+            <li><a href="../events/events.html">Eventos</a></li>
+            <li>
+              <a href="../vocational-test/test.html">Test vocacional</a>
+            </li>
+            <li><a href="../vocational-test/results.html">Resultados</a></li>
+            <li>
+              <a href="../dashboard/learning-path.html">Ruta de aprendizaje</a>
+            </li>
+            <li><a href="./progreso.complete.html">Progreso</a></li>
+          </ul>
+          <div class="profile-dropdown">
+            <input type="checkbox" id="profile-dropdown-toggle" class="profile-dropdown-checkbox" />
+            <label for="profile-dropdown-toggle" class="profile-dropdown-label">
+              <div class="profile-icon">J</div>
+            </label>
+            <div class="dropdown-menu">
+              <a href="../profile/profile.html">Mi Perfil</a>
+              <a href="../notifications/notifications.html">Notificaciones</a>
+              <a href="../../index.html" class="logout">Cerrar sesión</a>
             </div>
           </div>
-          <button class="favorite-button" onclick="mostrarModalFavorito(this)">
-            ☆
-          </button>
         </div>
+      </div>
+    </nav>
+  </header>
 
-        <div class="career-content">
-          <div class="career-main">
-            <div class="info-section">
-              <h3>Materias principales</h3>
-              <div class="subject-grid">
-                <div class="subject-item">Programación I, II, III</div>
-                <div class="subject-item">Estructuras de Datos</div>
-                <div class="subject-item">Bases de Datos</div>
-                <div class="subject-item">Ingeniería de Software</div>
-                <div class="subject-item">Redes de Computadores</div>
-                <div class="subject-item">Inteligencia Artificial</div>
-                <div class="subject-item">Seguridad Informática</div>
-                <div class="subject-item">Gestión de Proyectos</div>
-              </div>
-            </div>
+  <main>
+    <div class="container">
+      <a href="explore.html" class="back-button">Volver a Carrera</a>
 
-            <div class="info-section">
-              <h3>Áreas de trabajo</h3>
-              <div class="work-areas">
-                <span class="work-badge">Desarrollo de Software</span>
-                <span class="work-badge">Arquitectura de Sistemas</span>
-                <span class="work-badge">Consultoría Tecnológica</span>
-                <span class="work-badge">Gestión de Proyectos TI</span>
-                <span class="work-badge">Investigación y Desarrollo</span>
-                <span class="work-badge">Emprendimiento Tecnológico</span>
-              </div>
-            </div>
-
-            <div class="info-section">
-              <h3>Principales empleadores</h3>
-              <div class="employers">
-                <span class="employer-badge">Google</span>
-                <span class="employer-badge">Microsoft</span>
-                <span class="employer-badge">Amazon</span>
-                <span class="employer-badge">Mercado Libre</span>
-              </div>
-            </div>
-
-            <div class="info-section">
-              <h3>Habilidades clave</h3>
-              <div class="skills">
-                <span class="skill-badge">Programación</span>
-                <span class="skill-badge">Análisis de Sistemas</span>
-                <span class="skill-badge">Base de Datos</span>
-              </div>
-            </div>
+      <div class="career-header">
+        <div class="career-title-section">
+          <h1>Ingeniería de Sistemas</h1>
+          <p>
+            Diseña y desarrolla sistemas de software y tecnología para
+            resolver problemas complejos
+          </p>
+          <div class="career-badges">
+            <span class="badge">Tecnología</span>
+            <span class="badge">Programación</span>
+            <span class="badge">Innovación</span>
           </div>
-
-          <aside class="sidebar">
-            <div class="sidebar-card">
-              <h4>Universidades</h4>
-              <ul class="university-list">
-                <li class="university-item">
-                  <strong>UPC</strong>
-                  <a href="#" class="btn-info">Más información</a>
-                </li>
-                <li class="university-item">
-                  <strong>UTEC</strong>
-                  <a href="#" class="btn-info">Más información</a>
-                </li>
-                <li class="university-item">
-                  <strong>UNI</strong>
-                  <a href="#" class="btn-info">Más información</a>
-                </li>
-              </ul>
-            </div>
-          </aside>
+          <div class="info-highlights">
+            <span class="highlight-badge">Duración: 5 años</span>
+            <span class="highlight-badge">Modalidad: Presencial</span>
+            <span class="highlight-badge">Rango salarial: $2500 - $8000</span>
+            <span class="highlight-badge">Empleabilidad: 95%</span>
+          </div>
+          <!-- Botones para compartir -->
+          <div class="share-section">
+            <span style="font-weight: 600; color: var(--dark)">Compartir:</span>
+            <button class="share-button share-facebook" onclick="compartirFacebook()">
+              <span>Facebook</span>
+            </button>
+            <button class="share-button share-twitter" onclick="compartirTwitter()">
+              <span>Twitter</span>
+            </button>
+            <button class="share-button share-whatsapp" onclick="compartirWhatsApp()">
+              <span>WhatsApp</span>
+            </button>
+          </div>
         </div>
+        <button class="favorite-button" onclick="mostrarModalFavorito(this)">
+          ☆
+        </button>
+      </div>
 
-        <div class="materials-section">
-          <div class="materials-header">
-            <h2>Ver materiales sugeridos</h2>
+      <div class="career-content">
+        <div class="career-main">
+          <div class="info-section">
+            <h3>Materias principales</h3>
+            <div class="subject-grid">
+              <div class="subject-item">Programación I, II, III</div>
+              <div class="subject-item">Estructuras de Datos</div>
+              <div class="subject-item">Bases de Datos</div>
+              <div class="subject-item">Ingeniería de Software</div>
+              <div class="subject-item">Redes de Computadores</div>
+              <div class="subject-item">Inteligencia Artificial</div>
+              <div class="subject-item">Seguridad Informática</div>
+              <div class="subject-item">Gestión de Proyectos</div>
+            </div>
           </div>
-          <div class="materials-grid">
-            <a href="materiales-documentos.html" class="material-type-card">
-              <div class="material-type-icon">📄</div>
-              <h3>Documentos</h3>
-            </a>
-            <a href="materiales-enlaces.html" class="material-type-card">
-              <div class="material-type-icon">🔗</div>
-              <h3>Enlaces</h3>
-            </a>
-            <a href="materiales-videos.html" class="material-type-card">
-              <div class="material-type-icon">🎬</div>
-              <h3>Videos</h3>
-            </a>
+
+          <div class="info-section">
+            <h3>Áreas de trabajo</h3>
+            <div class="work-areas">
+              <span class="work-badge">Desarrollo de Software</span>
+              <span class="work-badge">Arquitectura de Sistemas</span>
+              <span class="work-badge">Consultoría Tecnológica</span>
+              <span class="work-badge">Gestión de Proyectos TI</span>
+              <span class="work-badge">Investigación y Desarrollo</span>
+              <span class="work-badge">Emprendimiento Tecnológico</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h3>Principales empleadores</h3>
+            <div class="employers">
+              <span class="employer-badge">Google</span>
+              <span class="employer-badge">Microsoft</span>
+              <span class="employer-badge">Amazon</span>
+              <span class="employer-badge">Mercado Libre</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h3>Habilidades clave</h3>
+            <div class="skills">
+              <span class="skill-badge">Programación</span>
+              <span class="skill-badge">Análisis de Sistemas</span>
+              <span class="skill-badge">Base de Datos</span>
+            </div>
           </div>
         </div>
 
-        <!-- Comparador de mallas curriculares -->
-        <div
-          class="curriculum-comparison-section"
-          style="
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h4>Universidades</h4>
+            <ul class="university-list">
+              <li class="university-item">
+                <strong>UPC</strong>
+                <a href="#" class="btn-info">Más información</a>
+              </li>
+              <li class="university-item">
+                <strong>UTEC</strong>
+                <a href="#" class="btn-info">Más información</a>
+              </li>
+              <li class="university-item">
+                <strong>UNI</strong>
+                <a href="#" class="btn-info">Más información</a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Sección de Materiales Sugeridos Inline -->
+      <div class="materials-section-inline">
+        <div class="materials-header">
+          <h2>Materiales Sugeridos</h2>
+          <p class="materials-subtitle">Recursos educativos para profundizar en esta carrera</p>
+        </div>
+
+        <!-- Barra de búsqueda y toggle de vista -->
+        <div class="materials-controls">
+          <div class="materials-search">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="search-materials" placeholder="Buscar materiales...">
+          </div>
+          <div class="materials-view-toggle">
+            <button class="btn-view-toggle active" id="btn-show-suggested">Sugeridos</button>
+            <button class="btn-view-toggle" id="btn-show-saved">Guardados</button>
+          </div>
+        </div>
+
+        <!-- Tabs para filtrar por tipo de material -->
+        <div class="materials-tabs">
+          <input type="radio" name="material-tab" id="tab-all" checked>
+          <input type="radio" name="material-tab" id="tab-docs">
+          <input type="radio" name="material-tab" id="tab-links">
+          <input type="radio" name="material-tab" id="tab-videos">
+
+          <div class="tab-labels">
+            <label for="tab-all" class="tab-label">Todos</label>
+            <label for="tab-docs" class="tab-label">📄 Documentos</label>
+            <label for="tab-links" class="tab-label">🔗 Enlaces</label>
+            <label for="tab-videos" class="tab-label">🎬 Videos</label>
+          </div>
+
+          <!-- Contenido de materiales -->
+          <div class="materials-content">
+            <div class="materials-grid-inline" id="materials-grid-inline">
+              <!-- Los materiales se cargarán dinámicamente con JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparador de mallas curriculares -->
+      <div class="curriculum-comparison-section" style="
             margin-top: 3rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 16px;
             padding: 2.5rem;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-          "
-        >
-          <div style="text-align: center; color: white">
-            <div style="font-size: 3rem; margin-bottom: 1rem">🎓</div>
-            <h2
-              style="
+          ">
+        <div style="text-align: center; color: white">
+          <div style="font-size: 3rem; margin-bottom: 1rem">🎓</div>
+          <h2 style="
                 color: white;
                 font-size: 1.75rem;
                 margin-bottom: 1rem;
                 font-weight: 700;
-              "
-            >
-              Compara Mallas Curriculares
-            </h2>
-            <p
-              style="
+              ">
+            Compara Mallas Curriculares
+          </h2>
+          <p style="
                 color: rgba(255, 255, 255, 0.95);
                 margin-bottom: 2rem;
                 line-height: 1.7;
@@ -691,59 +1094,47 @@
                 max-width: 600px;
                 margin-left: auto;
                 margin-right: auto;
-              "
-            >
-              Visualiza y compara los planes de estudio de
-              <strong>Ingeniería de Sistemas</strong> en las principales
-              universidades peruanas: UPC, UNI y Universidad de Lima
-            </p>
+              ">
+            Visualiza y compara los planes de estudio de
+            <strong>Ingeniería de Sistemas</strong> en las principales
+            universidades peruanas: UPC, UNI y Universidad de Lima
+          </p>
 
-            <div
-              style="
+          <div style="
                 display: flex;
                 gap: 1rem;
                 justify-content: center;
                 flex-wrap: wrap;
                 margin-bottom: 2rem;
                 font-size: 0.9rem;
-              "
-            >
-              <div
-                style="
+              ">
+            <div style="
                   background: rgba(255, 255, 255, 0.2);
                   padding: 0.5rem 1rem;
                   border-radius: 20px;
                   backdrop-filter: blur(10px);
-                "
-              >
-                ✓ Vista lado a lado
-              </div>
-              <div
-                style="
-                  background: rgba(255, 255, 255, 0.2);
-                  padding: 0.5rem 1rem;
-                  border-radius: 20px;
-                  backdrop-filter: blur(10px);
-                "
-              >
-                ✓ Filtrado por ciclos
-              </div>
-              <div
-                style="
-                  background: rgba(255, 255, 255, 0.2);
-                  padding: 0.5rem 1rem;
-                  border-radius: 20px;
-                  backdrop-filter: blur(10px);
-                "
-              >
-                ✓ Análisis de créditos
-              </div>
+                ">
+              ✓ Vista lado a lado
             </div>
+            <div style="
+                  background: rgba(255, 255, 255, 0.2);
+                  padding: 0.5rem 1rem;
+                  border-radius: 20px;
+                  backdrop-filter: blur(10px);
+                ">
+              ✓ Filtrado por ciclos
+            </div>
+            <div style="
+                  background: rgba(255, 255, 255, 0.2);
+                  padding: 0.5rem 1rem;
+                  border-radius: 20px;
+                  backdrop-filter: blur(10px);
+                ">
+              ✓ Análisis de créditos
+            </div>
+          </div>
 
-            <button
-              class="btn-primary btn-large"
-              onclick="openCurriculumComparator('ingenieria-sistemas')"
-              style="
+          <button class="btn-primary btn-large" onclick="openCurriculumComparator('ingenieria-sistemas')" style="
                 background: white;
                 color: #667eea;
                 border: none;
@@ -759,75 +1150,66 @@
                 transition: all 0.3s ease;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
               "
-              onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'"
-              onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-              </svg>
-              Comparar Ahora
-            </button>
-          </div>
-        </div>
-
-        <!-- Sistema de rating -->
-        <div class="rating-section">
-          <h3>Califica esta carrera</h3>
-          <div class="rating-container" id="ratingContainer">
-            <span class="star" onclick="calificar(1)">★</span>
-            <span class="star" onclick="calificar(2)">★</span>
-            <span class="star" onclick="calificar(3)">★</span>
-            <span class="star" onclick="calificar(4)">★</span>
-            <span class="star" onclick="calificar(5)">★</span>
-          </div>
-          <p
-            id="ratingMessage"
-            style="margin-top: var(--spacing-md); color: var(--gray)"
-          ></p>
-        </div>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-bottom">
-          <p>
-            &copy; 2025 VOCATIO by DecideClaro. Todos los derechos reservados.
-          </p>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Librería jsPDF para exportar a PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <!-- Scripts del comparador de mallas -->
-    <script src="js/curriculum-comparator.js"></script>
-
-    <!-- Modal de confirmación para favoritos -->
-    <div id="modalFavorito" class="modal">
-      <div class="modal-content">
-        <h3>¿Agregar a favoritos?</h3>
-        <p>Esta carrera será guardada en tu lista de favoritos</p>
-        <div class="modal-buttons">
-          <button class="btn-confirm" onclick="confirmarFavorito()">
-            Confirmar
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)'"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+            </svg>
+            Comparar Ahora
           </button>
-          <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
         </div>
+      </div>
+
+      <!-- Sistema de rating -->
+      <div class="rating-section">
+        <h3>Califica esta carrera</h3>
+        <div class="rating-container" id="ratingContainer">
+          <span class="star" onclick="calificar(1)">★</span>
+          <span class="star" onclick="calificar(2)">★</span>
+          <span class="star" onclick="calificar(3)">★</span>
+          <span class="star" onclick="calificar(4)">★</span>
+          <span class="star" onclick="calificar(5)">★</span>
+        </div>
+        <p id="ratingMessage" style="margin-top: var(--spacing-md); color: var(--gray)"></p>
       </div>
     </div>
+  </main>
 
-    <script src="js/details.js"></script>
-  </body>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>
+          &copy; 2025 VOCATIO by DecideClaro. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Librería jsPDF para exportar a PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Scripts del comparador de mallas -->
+  <script src="js/curriculum-comparator.js"></script>
+
+  <!-- Modal de confirmación para favoritos -->
+  <div id="modalFavorito" class="modal">
+    <div class="modal-content">
+      <h3>¿Agregar a favoritos?</h3>
+      <p>Esta carrera será guardada en tu lista de favoritos</p>
+      <div class="modal-buttons">
+        <button class="btn-confirm" onclick="confirmarFavorito()">
+          Confirmar
+        </button>
+        <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/details.js"></script>
+  <script src="js/details-materials.js"></script>
+</body>
+
 </html>
